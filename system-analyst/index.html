@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>系分学习站 · 系统分析师</title>
+<meta name="description" content="软考高级·系统分析师备考站:计算机/数据库/网络安全、软件工程、需求工程、结构化与面向对象分析设计、系统架构、系统规划与可行性、可靠性、信息系统综合、数学与运筹,加案例分析与论文。大白话讲透,真题练习+错题本+系分计算器,纯静态离线可用。">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-3px;margin-right:6px"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14.5 14.5"/></svg>
+    系分学习站 <span class="accent">/</span> SAN
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/mistakes">错题</a>
+    <a class="nav-link" href="#/calc">计算器</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons -->
+<!-- guide -->
+<script src="content/guide/01-exam-intro.js"></script>
+<script src="content/guide/02-learning-path.js"></script>
+<script src="content/guide/03-strategy.js"></script>
+<script src="content/guide/04-features.js"></script>
+<!-- comp -->
+<script src="content/comp/01-architecture.js"></script>
+<script src="content/comp/02-storage.js"></script>
+<script src="content/comp/03-checkcode.js"></script>
+<script src="content/comp/04-io.js"></script>
+<script src="content/comp/05-performance.js"></script>
+<script src="content/comp/06-embedded.js"></script>
+<!-- os -->
+<script src="content/os/01-overview.js"></script>
+<script src="content/os/02-process-thread.js"></script>
+<script src="content/os/03-scheduling.js"></script>
+<script src="content/os/04-deadlock.js"></script>
+<script src="content/os/05-memory.js"></script>
+<!-- db -->
+<script src="content/db/01-model.js"></script>
+<script src="content/db/02-er.js"></script>
+<script src="content/db/03-relational.js"></script>
+<script src="content/db/04-normalization.js"></script>
+<script src="content/db/05-transaction.js"></script>
+<script src="content/db/06-distributed.js"></script>
+<script src="content/db/07-warehouse.js"></script>
+<!-- net -->
+<script src="content/net/01-model.js"></script>
+<script src="content/net/02-protocol.js"></script>
+<script src="content/net/03-addressing.js"></script>
+<script src="content/net/04-security-crypto.js"></script>
+<script src="content/net/05-security-defense.js"></script>
+<script src="content/net/06-storage.js"></script>
+<!-- se -->
+<script src="content/se/01-process.js"></script>
+<script src="content/se/02-cmmi.js"></script>
+<script src="content/se/03-quality.js"></script>
+<script src="content/se/04-testing.js"></script>
+<script src="content/se/05-maintenance.js"></script>
+<script src="content/se/06-pm-schedule.js"></script>
+<script src="content/se/07-pm-cost.js"></script>
+<script src="content/se/08-pm-risk.js"></script>
+<!-- req -->
+<script src="content/req/01-overview.js"></script>
+<script src="content/req/02-elicitation.js"></script>
+<script src="content/req/03-analysis.js"></script>
+<script src="content/req/04-definition.js"></script>
+<script src="content/req/05-validation.js"></script>
+<script src="content/req/06-management.js"></script>
+<script src="content/req/07-usecase.js"></script>
+<script src="content/req/08-prototype.js"></script>
+<!-- analysis -->
+<script src="content/analysis/01-structured-dfd.js"></script>
+<script src="content/analysis/02-data-dictionary.js"></script>
+<script src="content/analysis/03-decision-table.js"></script>
+<script src="content/analysis/04-oo-concept.js"></script>
+<script src="content/analysis/05-uml-static.js"></script>
+<script src="content/analysis/06-uml-dynamic.js"></script>
+<script src="content/analysis/07-design-principle.js"></script>
+<script src="content/analysis/08-pattern.js"></script>
+<script src="content/analysis/09-sd-detail.js"></script>
+<!-- arch -->
+<script src="content/arch/01-concept.js"></script>
+<script src="content/arch/02-views.js"></script>
+<script src="content/arch/03-style.js"></script>
+<script src="content/arch/04-quality.js"></script>
+<script src="content/arch/05-evaluation.js"></script>
+<script src="content/arch/06-middleware.js"></script>
+<script src="content/arch/07-soa-microservice.js"></script>
+<script src="content/arch/08-doc.js"></script>
+<!-- plan -->
+<script src="content/plan/01-planning.js"></script>
+<script src="content/plan/02-feasibility.js"></script>
+<script src="content/plan/03-cost-benefit.js"></script>
+<script src="content/plan/04-scheme.js"></script>
+<script src="content/plan/05-legacy.js"></script>
+<script src="content/plan/06-bpr.js"></script>
+<!-- rel -->
+<script src="content/rel/01-concept.js"></script>
+<script src="content/rel/02-metrics.js"></script>
+<script src="content/rel/03-series-parallel.js"></script>
+<script src="content/rel/04-design.js"></script>
+<script src="content/rel/05-security.js"></script>
+<script src="content/rel/06-test.js"></script>
+<!-- test -->
+<script src="content/test/01-strategy.js"></script>
+<script src="content/test/02-methods.js"></script>
+<script src="content/test/03-levels.js"></script>
+<script src="content/test/04-conversion.js"></script>
+<script src="content/test/05-maintenance.js"></script>
+<!-- mis -->
+<script src="content/mis/01-informatization.js"></script>
+<script src="content/mis/02-erp.js"></script>
+<script src="content/mis/03-crm-scm.js"></script>
+<script src="content/mis/04-bi-dw.js"></script>
+<script src="content/mis/05-egov.js"></script>
+<script src="content/mis/06-data-governance.js"></script>
+<script src="content/mis/07-ec.js"></script>
+<!-- emerging -->
+<script src="content/emerging/01-cloud.js"></script>
+<script src="content/emerging/02-bigdata.js"></script>
+<script src="content/emerging/03-ai.js"></script>
+<script src="content/emerging/04-iot.js"></script>
+<script src="content/emerging/05-blockchain.js"></script>
+<script src="content/emerging/06-zhongtai.js"></script>
+<!-- math -->
+<script src="content/math/01-graph.js"></script>
+<script src="content/math/02-linear-programming.js"></script>
+<script src="content/math/03-decision.js"></script>
+<script src="content/math/04-queuing.js"></script>
+<script src="content/math/05-network-plan.js"></script>
+<script src="content/math/06-forecast.js"></script>
+<script src="content/math/07-prob-stat.js"></script>
+<!-- standard -->
+<script src="content/standard/01-ip.js"></script>
+<script src="content/standard/02-standardization.js"></script>
+<script src="content/standard/03-classification.js"></script>
+<script src="content/standard/04-doc.js"></script>
+<!-- case -->
+<script src="content/case/01-overview.js"></script>
+<script src="content/case/02-dfd-case.js"></script>
+<script src="content/case/03-er-case.js"></script>
+<script src="content/case/04-uml-case.js"></script>
+<script src="content/case/05-req-case.js"></script>
+<script src="content/case/06-math-calc.js"></script>
+<script src="content/case/07-reliability-calc.js"></script>
+<script src="content/case/08-arch-case.js"></script>
+<script src="content/case/09-data-case.js"></script>
+<script src="content/case/10-answer-template.js"></script>
+<!-- essay -->
+<script src="content/essay/01-overview.js"></script>
+<script src="content/essay/02-structure.js"></script>
+<script src="content/essay/03-opening.js"></script>
+<script src="content/essay/04-body.js"></script>
+<script src="content/essay/05-closing.js"></script>
+<script src="content/essay/06-material.js"></script>
+<script src="content/essay/07-topic-req.js"></script>
+<script src="content/essay/08-topic-design.js"></script>
+<script src="content/essay/09-topic-pm.js"></script>
+<script src="content/essay/10-scoring.js"></script>
+</body>
+</html>
