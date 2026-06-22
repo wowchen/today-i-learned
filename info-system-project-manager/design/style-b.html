@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>风格 B · 沉浸阅读型 — 高项学习站</title>
+<style>
+/*
+  B · 沉浸阅读型
+  设计理念：像 iA Writer / Substack —— 极致留白、大字体、单栏居中
+  布局：窄单栏（580px），超大行间距
+  字体：衬线为主体，无衬线做辅助标注
+  特征：几乎无边框，靠间距和字重建立层次，呼吸感极强
+*/
+:root {
+  --bg: #141414;
+  --card: #1a1a1a;
+  --ink: #e8e8e8;
+  --ink2: #666;
+  --ink3: #444;
+  --accent: #e8a838;
+  --ok: #5cb270;
+  --bad: #d35d6e;
+  --border: #2a2a2a;
+  --serif: "Source Han Serif SC","Noto Serif CJK SC","Georgia","STSong",serif;
+  --sans: -apple-system,"Inter","PingFang SC",system-ui,sans-serif;
+  --mono: "JetBrains Mono",monospace;
+}
+[data-theme="light"] {
+  --bg: #faf9f7;
+  --card: #fff;
+  --ink: #1a1a1a;
+  --ink2: #777;
+  --ink3: #bbb;
+  --accent: #b8860b;
+  --border: #eee;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font:18px/2 var(--serif); background:var(--bg); color:var(--ink); min-height:100vh; }
+
+/* Header — barely there */
+header {
+  max-width:580px;
+  margin:0 auto;
+  padding:40px 24px 0;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+}
+header h1 { font-size:14px; font-family:var(--sans); font-weight:400; color:var(--ink2); letter-spacing:2px; }
+header .actions { display:flex; gap:12px; }
+header a, header button { font-size:12px; font-family:var(--sans); color:var(--ink2); background:none; border:none; cursor:pointer; }
+header a:hover, header button:hover { color:var(--ink); }
+
+/* Container */
+.container { max-width:580px; margin:0 auto; padding:48px 24px 80px; }
+
+/* Hero — just text */
+.hero { margin-bottom:56px; border-bottom:1px solid var(--border); padding-bottom:40px; }
+.hero .step { font-family:var(--sans); font-size:12px; color:var(--accent); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+.hero h2 { font-size:32px; font-weight:700; line-height:1.3; margin-bottom:12px; }
+.hero .meta { font-family:var(--sans); font-size:13px; color:var(--ink2); }
+.hero .meta span { margin-right:16px; }
+.progress-thin { margin-top:20px; height:2px; background:var(--border); }
+.progress-thin .fill { height:100%; width:12%; background:var(--accent); }
+
+/* Lesson */
+article { }
+article h1 { font-size:28px; font-weight:700; line-height:1.3; margin-bottom:8px; }
+.article-meta { font-family:var(--sans); font-size:12px; color:var(--ink2); margin-bottom:36px; }
+.article-meta a { color:var(--accent); }
+
+.sec { margin-bottom:40px; }
+.sec-num { font-family:var(--mono); font-size:11px; color:var(--accent); margin-bottom:8px; display:block; }
+.sec p { margin-bottom:16px; }
+.sec ul { padding-left:20px; margin-bottom:16px; }
+.sec ul li { margin-bottom:8px; }
+
+/* Term */
+.term { color:var(--accent); text-decoration-line:underline; text-decoration-style:wavy; text-underline-offset:4px; text-decoration-color:rgba(232,168,56,.4); cursor:pointer; }
+
+/* Pitfall — indented block quote style */
+.pit { margin:24px 0; padding:20px 24px; border-left:3px solid var(--bad); color:var(--ink); font-size:16px; line-height:1.8; }
+.pit strong { color:var(--bad); font-family:var(--sans); font-size:12px; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:4px; }
+
+/* Quiz — card with subtle bg */
+.quiz { margin:32px 0; padding:28px; background:var(--card); border:1px solid var(--border); }
+.quiz .label { font-family:var(--sans); font-size:11px; color:var(--ink2); letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+.quiz .q { font-size:17px; margin-bottom:16px; }
+.quiz .opts { display:grid; gap:8px; }
+.quiz .opt {
+  background:none;
+  border:1px solid var(--border);
+  padding:12px 16px;
+  font:15px/1.5 var(--serif);
+  text-align:left;
+  color:var(--ink);
+  cursor:pointer;
+  transition:border-color .15s;
+}
+.quiz .opt:hover { border-color:var(--accent); }
+.quiz .opt.right { border-color:var(--ok); background:rgba(92,178,112,.06); }
+.quiz .opt.wrong { border-color:var(--bad); background:rgba(211,93,110,.06); }
+.quiz .explain { font-family:var(--sans); font-size:13px; color:var(--ink2); margin-top:14px; padding-top:14px; border-top:1px solid var(--border); display:none; line-height:1.7; }
+.quiz .explain.show { display:block; }
+
+/* Figure */
+figure { margin:28px 0; text-align:center; }
+figcaption { font-family:var(--sans); font-size:11px; color:var(--ink2); margin-top:8px; letter-spacing:.5px; }
+
+/* Nav links at bottom */
+.lesson-nav { display:flex; justify-content:space-between; margin-top:48px; padding-top:24px; border-top:1px solid var(--border); font-family:var(--sans); font-size:13px; }
+.lesson-nav a { color:var(--accent); }
+
+/* TOC overview */
+.toc { margin-bottom:48px; }
+.toc h3 { font-family:var(--sans); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); margin-bottom:12px; }
+.toc ol { list-style:none; counter-reset:toc; }
+.toc ol li { counter-increment:toc; padding:8px 0; border-bottom:1px solid var(--border); font-size:15px; display:flex; align-items:center; gap:12px; }
+.toc ol li::before { content:counter(toc,decimal-leading-zero); font-family:var(--mono); font-size:11px; color:var(--ink3); min-width:20px; }
+.toc .current { color:var(--accent); font-weight:600; }
+.toc .done { color:var(--ink2); }
+
+@media(max-width:640px) {
+  body { font-size:16px; }
+  .container { padding:32px 20px 60px; }
+  article h1 { font-size:24px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>高项学习站</h1>
+  <div class="actions">
+    <a href="#">术语</a>
+    <a href="#">错题</a>
+    <button onclick="toggleTheme()">切换主题</button>
+  </div>
+</header>
+<div class="container">
+  <div class="hero">
+    <div class="step">Step 18 of 156</div>
+    <h2>WBS 工作分解结构</h2>
+    <div class="meta"><span>范围管理 · 第 5 课</span><span>约 5 分钟</span><span>核心考点</span></div>
+    <div class="progress-thin"><div class="fill"></div></div>
+  </div>
+
+  <div class="toc">
+    <h3>本章</h3>
+    <ol>
+      <li class="done">范围管理概述</li>
+      <li class="done">需求收集</li>
+      <li>需求跟踪矩阵</li>
+      <li>定义范围</li>
+      <li class="current">WBS 工作分解结构</li>
+      <li>WBS 词典</li>
+      <li>范围确认</li>
+      <li>范围控制</li>
+    </ol>
+  </div>
+
+  <article>
+    <div class="sec">
+      <span class="sec-num">01 · 概念</span>
+      <p>想象你要搬家——不会直接喊"搬！"，而是拆成：找搬家公司、打包厨房、打包卧室、搬运、验收。<span class="term">WBS</span> 就是把项目大目标逐层拆解成可管理、可交付的小工作包的过程。</p>
+      <p>WBS 是<span class="term">范围基准</span>的核心组成部分，它与 WBS 词典和范围说明书共同构成范围基准。分解遵循"100% 规则"——所有子元素之和必须等于父元素的全部范围。</p>
+    </div>
+
+    <div class="sec">
+      <span class="sec-num">02 · 考纲定位</span>
+      <p>综合知识每年必考 1-2 题。案例分析高频考点，常考 WBS 编制错误分析。分值约占 2-5 分。</p>
+    </div>
+
+    <figure>
+      <svg width="380" height="160" viewBox="0 0 380 160">
+        <rect x="140" y="8" width="100" height="32" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+        <text x="190" y="28" text-anchor="middle" fill="var(--ink)" font-size="12">项目目标</text>
+        <line x1="160" y1="40" x2="80" y2="68" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="190" y1="40" x2="190" y2="68" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="220" y1="40" x2="300" y2="68" stroke="var(--ink2)" stroke-width="1"/>
+        <rect x="35" y="68" width="90" height="28" fill="none" stroke="var(--ok)" stroke-width="1"/>
+        <text x="80" y="86" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 A</text>
+        <rect x="145" y="68" width="90" height="28" fill="none" stroke="var(--ok)" stroke-width="1"/>
+        <text x="190" y="86" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 B</text>
+        <rect x="255" y="68" width="90" height="28" fill="none" stroke="var(--ok)" stroke-width="1"/>
+        <text x="300" y="86" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 C</text>
+        <line x1="55" y1="96" x2="55" y2="118" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="105" y1="96" x2="105" y2="118" stroke="var(--ink2)" stroke-width="1"/>
+        <rect x="30" y="118" width="50" height="24" fill="rgba(232,168,56,.08)" stroke="var(--accent)" stroke-width="1"/>
+        <text x="55" y="134" text-anchor="middle" fill="var(--ink)" font-size="10">工作包</text>
+        <rect x="80" y="118" width="50" height="24" fill="rgba(232,168,56,.08)" stroke="var(--accent)" stroke-width="1"/>
+        <text x="105" y="134" text-anchor="middle" fill="var(--ink)" font-size="10">工作包</text>
+      </svg>
+      <figcaption>WBS 树形分解结构</figcaption>
+    </figure>
+
+    <div class="sec">
+      <span class="sec-num">03 · 易混辨析</span>
+      <div class="pit">
+        <strong>误解 1</strong>
+        WBS 是任务清单。——实际上 WBS 分解的是可交付成果（名词），不是活动（动词）。"写代码"是活动，"登录模块"才是 WBS 工作包。
+      </div>
+      <div class="pit">
+        <strong>误解 2</strong>
+        WBS 要分解到最细。——最底层是工作包，粒度遵循 8-80 小时规则。再往下分解为"活动"，那属于进度管理。
+      </div>
+    </div>
+
+    <div class="sec">
+      <span class="sec-num">04 · 真题练习</span>
+      <div class="quiz">
+        <div class="label">2022 上半年 · 选择题</div>
+        <div class="q">WBS 的最底层元素称为：</div>
+        <div class="opts">
+          <button class="opt" onclick="settle(this,false)">A. 活动</button>
+          <button class="opt" onclick="settle(this,true)">B. 工作包</button>
+          <button class="opt" onclick="settle(this,false)">C. 里程碑</button>
+          <button class="opt" onclick="settle(this,false)">D. 控制账户</button>
+        </div>
+        <div class="explain">WBS 最小可交付单元是工作包（Work Package）。活动是对工作包的进一步分解，属于进度管理的"定义活动"过程。</div>
+      </div>
+    </div>
+  </article>
+
+  <div class="lesson-nav">
+    <a href="#">← 定义范围</a>
+    <a href="#">WBS 词典 →</a>
+  </div>
+</div>
+<script>
+function settle(el, correct) {
+  const quiz = el.closest('.quiz');
+  quiz.querySelectorAll('.opt').forEach(o => {
+    o.disabled = true;
+    if (o.textContent.startsWith('B')) o.classList.add('right');
+  });
+  if (!correct) el.classList.add('wrong');
+  quiz.querySelector('.explain').classList.add('show');
+}
+function toggleTheme() {
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+</script>
+</body>
+</html>

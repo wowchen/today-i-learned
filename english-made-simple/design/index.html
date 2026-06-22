@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>选风格 — English Made Simple 风格稿</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#EFEFEF;color:#222;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7;padding:48px 20px}
+  .wrap{max-width:1060px;margin:0 auto}
+  h1{font-size:24px;margin-bottom:6px}
+  .sub{color:#777;font-size:14px;margin-bottom:34px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+  a.card{display:block;background:#fff;border-radius:10px;overflow:hidden;color:#222;text-decoration:none;
+    box-shadow:0 1px 4px rgba(0,0,0,.08);transition:.15s}
+  a.card:hover{transform:translateY(-4px);box-shadow:0 8px 22px rgba(0,0,0,.12)}
+  .swatch{height:120px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700}
+  .sw-a{background:#FBFAF6;color:#25303E;font-family:Georgia,serif}
+  .sw-a em{font-style:normal;background:linear-gradient(transparent 52%,#FFE873 52%)}
+  .sw-b{background:#F2F4FC;color:#5A5BD8;font-family:ui-rounded,-apple-system,sans-serif;font-weight:900}
+  .sw-b i{font-style:normal;background:#5A5BD8;color:#fff;border-radius:12px;padding:4px 14px;box-shadow:0 4px 0 #4344B2}
+  .sw-c{background:#FFFDF8;color:#1E1B16;font-family:Palatino,Georgia,serif;border-bottom:3px double #1E1B16}
+  .sw-c b{color:#A6242A;font-weight:700}
+  .sw-d{background:#FBFAF6;color:#25303E;font-family:Georgia,serif;position:relative}
+  .sw-d em{font-style:normal;background:linear-gradient(transparent 52%,#FFE873 52%)}
+  .sw-d .tabs{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:3px}
+  .sw-d .tabs i{font-style:normal;writing-mode:vertical-rl;font-family:-apple-system,sans-serif;font-size:9px;letter-spacing:2px;
+    background:#fff;border:1px solid #E5E1D8;border-right:none;border-radius:5px 0 0 5px;padding:6px 3px;color:#25303E}
+  .sw-d .tabs i.on{background:#FFE873;border-color:#EAD34F;font-weight:700}
+  .body{padding:18px 22px 22px}
+  .body h2{font-size:17px;margin-bottom:4px}
+  .body p{font-size:13.5px;color:#666}
+  .tags{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+  .tags span{font-size:11.5px;background:#F0F0F0;border-radius:99px;padding:2px 10px;color:#555}
+  .note{margin-top:30px;font-size:13px;color:#888}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>English Made Simple · 三套风格稿</h1>
+  <p class="sub">点开任意一套即是可交互的首页实样 —— 里面的英文单词、句子、音标都<b>真的能点出美音</b>(请在浏览器中打开)。</p>
+  <div class="cards">
+    <a class="card" href="style-a.html">
+      <div class="swatch sw-a">为什么<em>"晨读课本"</em>?</div>
+      <div class="body">
+        <h2>A · 晨读课本</h2>
+        <p>一本被认真用过的现代课本:荧光笔划重点、页边批注、目录点线。明亮留白,适合长时间阅读。</p>
+        <div class="tags"><span>清爽教科书进化版</span><span>衬线大标题</span><span>荧光笔签名元素</span></div>
+      </div>
+    </a>
+    <a class="card" href="style-b.html">
+      <div class="swatch sw-b"><i>▶ 继续闯关</i></div>
+      <div class="body">
+        <h2>B · 闯关学伴</h2>
+        <p>把"路线图优先"做成字面意义的闯关地图:S 形关卡路径、进度环、按下去会陷下去的大按钮。最有"快乐层"。</p>
+        <div class="tags"><span>活泼 App 风进化版</span><span>游戏路径签名元素</span><span>圆角高彩</span></div>
+      </div>
+    </a>
+    <a class="card" href="style-c.html">
+      <div class="swatch sw-c">link<b>·</b>ing /ˈlɪŋ.kɪŋ/</div>
+      <div class="body">
+        <h2>C · 韦氏书房</h2>
+        <p>向美国人查发音的圣经——韦氏词典致敬:词条式排版、音节分点、侧边拇指索引、双线扉页。沉稳但有腔调。</p>
+        <div class="tags"><span>沉稳学术进化版</span><span>词典词条签名元素</span><span>全衬线</span></div>
+      </div>
+    </a>
+    <a class="card" href="style-d.html">
+      <div class="swatch sw-d">为什么<em>"晨读课本"</em>?<span class="tabs"><i class="on">发音</i><i>词汇</i><i>语法</i></span></div>
+      <div class="body">
+        <h2>D · 晨读课本 + 侧边索引 ★ 混搭版</h2>
+        <p>A 的版式不动,引入 C 的右侧固定导航——课本化成"便利贴索引标签",当前模块那张是荧光黄。任何页面一眼跳转任何模块。</p>
+        <div class="tags"><span>A 版式</span><span>C 侧边导航</span><span>便利贴标签签名元素</span></div>
+      </div>
+    </a>
+  </div>
+  <p class="note">三套共用同一套信息结构(继续学习 / 闯关路线 / 点读演示 / 九大模块 / 快速复习 / streak),只换气质——选定后整站按该气质延展。也可以混搭:比如 A 的版式 + B 的闯关地图。</p>
+</div>
+</body>
+</html>

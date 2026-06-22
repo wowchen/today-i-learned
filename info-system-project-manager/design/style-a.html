@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>风格 A · 数据密度型 — 高项学习站</title>
+<style>
+/*
+  A · 数据密度型
+  设计理念：像 Linear / Raycast —— 紧凑、高信息密度、键盘优先感
+  布局：侧栏 + 主区，卡片紧密排列
+  字体：系统 sans，小号，紧凑行高
+  特征：无圆角、1px 线分割、hover 高亮行、单色点缀
+*/
+:root {
+  --bg: #111113;
+  --bg2: #18181b;
+  --card: #1e1e22;
+  --ink: #e4e4e7;
+  --ink2: #71717a;
+  --accent: #a78bfa;
+  --ok: #34d399;
+  --bad: #fb7185;
+  --border: #27272a;
+  --font: -apple-system,"Inter","PingFang SC",system-ui,sans-serif;
+  --mono: "JetBrains Mono","Fira Code",monospace;
+}
+[data-theme="light"] {
+  --bg: #fafafa;
+  --bg2: #ffffff;
+  --card: #ffffff;
+  --ink: #18181b;
+  --ink2: #71717a;
+  --accent: #7c3aed;
+  --border: #e4e4e7;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font:13px/1.5 var(--font); background:var(--bg); color:var(--ink); min-height:100vh; display:grid; grid-template-columns:220px 1fr; grid-template-rows:44px 1fr; }
+
+/* Top bar — ultra thin */
+.top { grid-column:1/-1; background:var(--bg2); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 16px; gap:16px; }
+.top .logo { font-weight:600; font-size:13px; letter-spacing:-.3px; }
+.top .logo span { color:var(--accent); }
+.top .search { margin-left:auto; background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:4px 10px; font-size:12px; color:var(--ink2); width:200px; }
+.top .kbd { font-size:10px; color:var(--ink2); background:var(--bg); border:1px solid var(--border); padding:1px 4px; border-radius:2px; margin-left:8px; font-family:var(--mono); }
+.top .theme-btn { background:none; border:1px solid var(--border); color:var(--ink2); padding:3px 8px; font-size:11px; cursor:pointer; border-radius:3px; }
+
+/* Sidebar */
+.side { background:var(--bg2); border-right:1px solid var(--border); padding:12px 0; overflow-y:auto; }
+.side-section { padding:0 12px; margin-bottom:16px; }
+.side-section h3 { font-size:10px; text-transform:uppercase; letter-spacing:1.2px; color:var(--ink2); margin-bottom:6px; padding:0 4px; }
+.side-item { display:flex; align-items:center; gap:8px; padding:5px 8px; font-size:12px; color:var(--ink2); cursor:pointer; border-radius:3px; transition:background .1s; }
+.side-item:hover { background:var(--card); color:var(--ink); }
+.side-item.active { background:rgba(167,139,250,.1); color:var(--accent); }
+.side-item .dot { width:6px; height:6px; border-radius:1px; }
+.dot-core { background:var(--accent); }
+.dot-base { background:var(--ok); }
+.dot-adv { background:var(--bad); }
+.side-item .count { margin-left:auto; font-size:10px; font-family:var(--mono); color:var(--ink2); }
+
+/* Main */
+.main { padding:20px 24px; overflow-y:auto; }
+.main h2 { font-size:16px; font-weight:600; margin-bottom:12px; letter-spacing:-.3px; }
+
+/* Stats row — compact pills */
+.stats-row { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.stat-pill { background:var(--card); border:1px solid var(--border); padding:6px 12px; font-size:11px; display:flex; align-items:center; gap:6px; }
+.stat-pill .val { font-family:var(--mono); font-size:14px; font-weight:600; color:var(--accent); }
+
+/* Progress — thin line */
+.progress-row { display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+.progress-bar { flex:1; height:3px; background:var(--border); overflow:hidden; }
+.progress-bar .fill { height:100%; background:var(--accent); width:12%; }
+.progress-label { font-size:11px; color:var(--ink2); font-family:var(--mono); }
+
+/* Table-style lesson list */
+.lesson-table { width:100%; border-collapse:collapse; margin-bottom:24px; }
+.lesson-table th { text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--ink2); padding:6px 8px; border-bottom:1px solid var(--border); font-weight:500; }
+.lesson-table td { padding:8px; font-size:12px; border-bottom:1px solid var(--border); }
+.lesson-table tr:hover td { background:var(--card); }
+.lesson-table .title-cell { font-weight:500; }
+.lesson-table .tag { font-size:10px; padding:1px 5px; border-radius:2px; }
+.tag-key { background:rgba(167,139,250,.15); color:var(--accent); }
+.tag-done { background:rgba(52,211,153,.15); color:var(--ok); }
+.lesson-table .time { font-family:var(--mono); font-size:11px; color:var(--ink2); }
+
+/* Lesson content */
+.lesson-content { max-width:640px; }
+.lesson-content h1 { font-size:18px; font-weight:600; margin-bottom:4px; letter-spacing:-.3px; }
+.breadcrumb { font-size:11px; color:var(--ink2); margin-bottom:16px; }
+.breadcrumb a { color:var(--accent); }
+.sec { margin-bottom:20px; }
+.sec-label { font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--accent); margin-bottom:6px; font-weight:600; }
+.sec p { font-size:13px; margin-bottom:8px; }
+.sec ul { font-size:13px; padding-left:16px; margin-bottom:8px; }
+.sec ul li { margin-bottom:4px; }
+
+/* Term inline */
+.term { color:var(--accent); cursor:pointer; border-bottom:1px dotted var(--accent); }
+
+/* Pitfall */
+.pit { border-left:2px solid var(--bad); padding:8px 12px; margin:8px 0; font-size:12px; background:rgba(251,113,133,.04); }
+.pit b { color:var(--bad); font-size:11px; text-transform:uppercase; letter-spacing:.5px; }
+
+/* Quiz — minimal */
+.quiz-item { border:1px solid var(--border); padding:12px; margin:8px 0; }
+.q-head { font-size:10px; color:var(--ink2); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.q-text { font-size:13px; margin-bottom:10px; }
+.opts { display:grid; gap:4px; }
+.opt { background:none; border:1px solid var(--border); padding:6px 10px; font-size:12px; text-align:left; color:var(--ink); cursor:pointer; transition:all .1s; }
+.opt:hover { border-color:var(--accent); }
+.opt.right { border-color:var(--ok); background:rgba(52,211,153,.08); }
+.opt.wrong { border-color:var(--bad); background:rgba(251,113,133,.08); }
+.explain { border-top:1px solid var(--border); padding-top:8px; margin-top:8px; font-size:11px; color:var(--ink2); display:none; }
+.explain.show { display:block; }
+
+/* SVG */
+figure { margin:12px 0; }
+figcaption { font-size:10px; color:var(--ink2); text-transform:uppercase; letter-spacing:.5px; margin-top:4px; }
+
+@media(max-width:768px) {
+  body { grid-template-columns:1fr; grid-template-rows:44px auto 1fr; }
+  .side { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="logo"><span>ISPM</span> 高项</div>
+  <input class="search" placeholder="搜索课时、术语..." readonly>
+  <span class="kbd">⌘K</span>
+  <button class="theme-btn" onclick="toggleTheme()">主题</button>
+</div>
+<aside class="side">
+  <div class="side-section">
+    <h3>进度</h3>
+    <div class="side-item active"><span class="dot dot-core"></span>继续学习 #18<span class="count">12%</span></div>
+  </div>
+  <div class="side-section">
+    <h3>核心模块</h3>
+    <div class="side-item"><span class="dot dot-core"></span>项目管理框架<span class="count">6</span></div>
+    <div class="side-item"><span class="dot dot-core"></span>范围管理<span class="count">8</span></div>
+    <div class="side-item"><span class="dot dot-core"></span>进度管理<span class="count">8</span></div>
+    <div class="side-item"><span class="dot dot-core"></span>成本管理<span class="count">8</span></div>
+    <div class="side-item"><span class="dot dot-core"></span>质量管理<span class="count">6</span></div>
+    <div class="side-item"><span class="dot dot-core"></span>风险管理<span class="count">8</span></div>
+    <div class="side-item"><span class="dot dot-core"></span>资源与沟通<span class="count">8</span></div>
+    <div class="side-item"><span class="dot dot-core"></span>采购合同<span class="count">6</span></div>
+    <div class="side-item"><span class="dot dot-core"></span>整合与变更<span class="count">8</span></div>
+  </div>
+  <div class="side-section">
+    <h3>基础</h3>
+    <div class="side-item"><span class="dot dot-base"></span>信息化<span class="count">8</span></div>
+    <div class="side-item"><span class="dot dot-base"></span>系统工程<span class="count">6</span></div>
+    <div class="side-item"><span class="dot dot-base"></span>软件工程<span class="count">10</span></div>
+    <div class="side-item"><span class="dot dot-base"></span>IT基础设施<span class="count">8</span></div>
+  </div>
+  <div class="side-section">
+    <h3>实战</h3>
+    <div class="side-item"><span class="dot dot-adv"></span>案例分析<span class="count">10</span></div>
+    <div class="side-item"><span class="dot dot-adv"></span>论文写作<span class="count">8</span></div>
+  </div>
+</aside>
+<main class="main">
+  <div class="stats-row">
+    <div class="stat-pill"><span class="val">18</span> 已学</div>
+    <div class="stat-pill"><span class="val">156</span> 总计</div>
+    <div class="stat-pill"><span class="val">7d</span> 连续</div>
+    <div class="stat-pill"><span class="val">42</span> 术语</div>
+  </div>
+  <div class="progress-row">
+    <div class="progress-bar"><div class="fill"></div></div>
+    <span class="progress-label">18/156</span>
+  </div>
+
+  <h2>范围管理</h2>
+  <table class="lesson-table">
+    <thead><tr><th>#</th><th>课时</th><th>标签</th><th>时间</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="title-cell">范围管理概述</td><td></td><td class="time">4min</td><td><span class="tag tag-done">done</span></td></tr>
+      <tr><td>2</td><td class="title-cell">需求收集与需求文件</td><td></td><td class="time">5min</td><td><span class="tag tag-done">done</span></td></tr>
+      <tr><td>3</td><td class="title-cell">需求跟踪矩阵</td><td></td><td class="time">4min</td><td></td></tr>
+      <tr><td>4</td><td class="title-cell">定义范围</td><td></td><td class="time">4min</td><td></td></tr>
+      <tr style="background:rgba(167,139,250,.04)"><td>5</td><td class="title-cell" style="color:var(--accent)">WBS 工作分解结构</td><td><span class="tag tag-key">核心</span></td><td class="time">5min</td><td>→</td></tr>
+      <tr><td>6</td><td class="title-cell">WBS 词典</td><td></td><td class="time">3min</td><td></td></tr>
+      <tr><td>7</td><td class="title-cell">范围确认</td><td></td><td class="time">4min</td><td></td></tr>
+      <tr><td>8</td><td class="title-cell">范围控制</td><td></td><td class="time">5min</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="lesson-content">
+    <div class="breadcrumb"><a href="#">范围管理</a> / 第 5 课</div>
+    <h1>WBS 工作分解结构</h1>
+    <div class="sec">
+      <div class="sec-label">概念</div>
+      <p>想象你要搬家——不会直接喊"搬！"，而是拆成：找搬家公司、打包厨房、打包卧室、搬运、验收。<span class="term">WBS</span> 就是把项目大目标逐层拆解成可管理、可交付的小工作包的过程。</p>
+    </div>
+    <div class="sec">
+      <div class="sec-label">易混辨析</div>
+      <div class="pit"><b>误解 1</b><br>WBS 是任务清单。实际上 WBS 分解的是<em>可交付成果</em>，不是活动。</div>
+      <div class="pit"><b>误解 2</b><br>WBS 要分解到最细。最底层是工作包（8-80小时），再往下是活动，属于进度管理。</div>
+    </div>
+    <div class="sec">
+      <div class="sec-label">真题练习</div>
+      <div class="quiz-item">
+        <div class="q-head">Q1 · Choice · 2022H1</div>
+        <div class="q-text">WBS 的最底层元素称为：</div>
+        <div class="opts">
+          <button class="opt" onclick="settle(this,false)">A. 活动</button>
+          <button class="opt" onclick="settle(this,true)">B. 工作包</button>
+          <button class="opt" onclick="settle(this,false)">C. 里程碑</button>
+          <button class="opt" onclick="settle(this,false)">D. 控制账户</button>
+        </div>
+        <div class="explain">WBS 最小可交付单元是工作包。活动是工作包的进一步分解，属于进度管理。</div>
+      </div>
+    </div>
+    <figure>
+      <svg width="320" height="140" viewBox="0 0 320 140">
+        <rect x="120" y="5" width="80" height="28" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+        <text x="160" y="23" text-anchor="middle" fill="var(--ink)" font-size="11" font-family="var(--font)">项目</text>
+        <line x1="135" y1="33" x2="70" y2="55" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="160" y1="33" x2="160" y2="55" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="185" y1="33" x2="250" y2="55" stroke="var(--ink2)" stroke-width="1"/>
+        <rect x="30" y="55" width="80" height="24" fill="none" stroke="var(--ok)" stroke-width="1"/>
+        <text x="70" y="71" text-anchor="middle" fill="var(--ink)" font-size="10" font-family="var(--font)">交付物 A</text>
+        <rect x="120" y="55" width="80" height="24" fill="none" stroke="var(--ok)" stroke-width="1"/>
+        <text x="160" y="71" text-anchor="middle" fill="var(--ink)" font-size="10" font-family="var(--font)">交付物 B</text>
+        <rect x="210" y="55" width="80" height="24" fill="none" stroke="var(--ok)" stroke-width="1"/>
+        <text x="250" y="71" text-anchor="middle" fill="var(--ink)" font-size="10" font-family="var(--font)">交付物 C</text>
+        <line x1="50" y1="79" x2="50" y2="100" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="90" y1="79" x2="90" y2="100" stroke="var(--ink2)" stroke-width="1"/>
+        <rect x="25" y="100" width="50" height="22" fill="rgba(167,139,250,.08)" stroke="var(--accent)" stroke-width="1"/>
+        <text x="50" y="115" text-anchor="middle" fill="var(--ink)" font-size="9" font-family="var(--font)">WP-1</text>
+        <rect x="65" y="100" width="50" height="22" fill="rgba(167,139,250,.08)" stroke="var(--accent)" stroke-width="1"/>
+        <text x="90" y="115" text-anchor="middle" fill="var(--ink)" font-size="9" font-family="var(--font)">WP-2</text>
+      </svg>
+      <figcaption>Fig · WBS hierarchy</figcaption>
+    </figure>
+  </div>
+</main>
+<script>
+function settle(el, correct) {
+  const parent = el.closest('.quiz-item');
+  parent.querySelectorAll('.opt').forEach((o,i) => {
+    o.disabled = true;
+    if (o === el && !correct) o.classList.add('wrong');
+    if (o.textContent.startsWith('B')) o.classList.add('right');
+  });
+  parent.querySelector('.explain').classList.add('show');
+}
+function toggleTheme() {
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+</script>
+</body>
+</html>

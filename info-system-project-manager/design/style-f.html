@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>风格 F · 原生 App 型 — 高项学习站</title>
+<style>
+/*
+  F · 原生 App 型 (Mobile-first native app)
+  设计理念：像 iOS 原生 App / Duolingo / 多邻国 —— 移动优先，底部 Tab 栏，大圆角卡片
+  布局：移动优先，固定顶栏 + 内容滚动区 + 底部 Tab；桌面端居中为手机宽度画布
+  字体：圆润系统字体，友好亲和
+  特征：分段控件、进度环、底部导航、卡片阴影、绿色激励感
+  移动端：这就是它的主场，桌面端模拟手机框
+*/
+:root {
+  --bg: #f2f5f3;
+  --card: #ffffff;
+  --ink: #1c2620;
+  --ink2: #8a958f;
+  --accent: #16a34a;
+  --accent-soft: #dcfce7;
+  --accent2: #f59e0b;
+  --ok: #16a34a;
+  --bad: #ef4444;
+  --shadow: 0 2px 12px rgba(0,0,0,.05);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,.08);
+  --radius: 20px;
+  --radius-sm: 14px;
+  --font: "SF Pro Rounded","SF Pro Display","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #0d1410;
+  --card: #18211b;
+  --ink: #e8f0ea;
+  --ink2: #6b7770;
+  --accent-soft: #14331f;
+  --shadow: 0 2px 12px rgba(0,0,0,.3);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,.4);
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { font:15px/1.6 var(--font); background:#c8cfca; color:var(--ink); min-height:100vh; display:flex; align-items:center; justify-content:center; }
+[data-theme="dark"] body { background:#05080680; }
+
+/* Phone frame (desktop only) */
+.phone {
+  width:100%;
+  max-width:430px;
+  height:100vh;
+  max-height:920px;
+  background:var(--bg);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+@media(min-width:480px) { .phone { border-radius:44px; height:calc(100vh - 40px); } }
+
+/* Status / top bar */
+.appbar {
+  padding:14px 20px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--card);
+  border-bottom:1px solid rgba(0,0,0,.04);
+  flex-shrink:0;
+}
+[data-theme="dark"] .appbar { border-bottom-color:rgba(255,255,255,.04); }
+.appbar .back { width:36px; height:36px; border-radius:50%; background:var(--bg); border:none; font-size:18px; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.appbar .title { font-size:16px; font-weight:600; }
+.appbar .theme-btn { width:36px; height:36px; border-radius:50%; background:var(--bg); border:none; cursor:pointer; font-size:15px; }
+
+/* Scroll area */
+.scroll { flex:1; overflow-y:auto; padding:16px; -webkit-overflow-scrolling:touch; }
+
+/* Progress ring header */
+.prog-header { background:var(--card); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); margin-bottom:16px; display:flex; align-items:center; gap:18px; }
+.ring { position:relative; width:64px; height:64px; flex-shrink:0; }
+.ring svg { transform:rotate(-90deg); }
+.ring .pct { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; color:var(--accent); }
+.prog-header .info .step { font-size:12px; color:var(--ink2); margin-bottom:2px; }
+.prog-header .info h2 { font-size:18px; font-weight:700; }
+.prog-header .info .sub { font-size:12px; color:var(--ink2); margin-top:2px; }
+
+/* Streak chips */
+.chips { display:flex; gap:8px; margin-bottom:18px; }
+.chip { flex:1; background:var(--card); border-radius:var(--radius-sm); padding:12px; text-align:center; box-shadow:var(--shadow); }
+.chip .v { font-size:20px; font-weight:800; color:var(--accent); }
+.chip .l { font-size:10px; color:var(--ink2); margin-top:2px; }
+
+/* Segmented section label */
+.seg-label { display:flex; align-items:center; gap:8px; margin:18px 4px 10px; }
+.seg-label .badge { width:24px; height:24px; border-radius:8px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; }
+.seg-label .txt { font-size:13px; font-weight:700; }
+
+/* Content card */
+.card { background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); margin-bottom:12px; }
+.card p { font-size:15px; color:var(--ink); margin-bottom:10px; }
+.card p:last-child { margin-bottom:0; }
+.card ul { list-style:none; }
+.card ul li { font-size:14px; padding:10px 0; border-bottom:1px solid rgba(0,0,0,.04); display:flex; gap:10px; }
+[data-theme="dark"] .card ul li { border-bottom-color:rgba(255,255,255,.04); }
+.card ul li:last-child { border-bottom:none; }
+.card ul li::before { content:"✓"; color:var(--accent); font-weight:700; }
+
+/* Term */
+.term { color:var(--accent); font-weight:600; background:var(--accent-soft); padding:1px 7px; border-radius:8px; cursor:pointer; }
+
+/* Pitfall */
+.pit { background:var(--card); border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:10px; box-shadow:var(--shadow); border-left:4px solid var(--bad); }
+.pit .tag { font-size:11px; font-weight:700; color:var(--bad); margin-bottom:4px; }
+.pit p { font-size:13px; color:var(--ink2); margin:0; }
+
+/* Quiz */
+.quiz { background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); margin-bottom:12px; }
+.quiz .src { font-size:11px; color:var(--ink2); margin-bottom:6px; }
+.quiz .q { font-size:15px; font-weight:600; margin-bottom:14px; }
+.quiz .opts { display:grid; gap:10px; }
+.quiz .opt {
+  background:var(--bg);
+  border:2px solid transparent;
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  font:14px var(--font);
+  font-weight:500;
+  text-align:left;
+  color:var(--ink);
+  cursor:pointer;
+  transition:all .15s;
+}
+.quiz .opt:active { transform:scale(.98); }
+.quiz .opt.right { border-color:var(--ok); background:var(--accent-soft); color:var(--ok); font-weight:700; }
+.quiz .opt.wrong { border-color:var(--bad); background:rgba(239,68,68,.08); color:var(--bad); }
+.quiz .explain { margin-top:14px; padding:14px; background:var(--bg); border-radius:var(--radius-sm); font-size:13px; color:var(--ink2); display:none; }
+.quiz .explain.show { display:block; }
+
+/* Big CTA button */
+.cta { width:100%; background:var(--accent); color:#fff; border:none; border-radius:var(--radius-sm); padding:16px; font:16px var(--font); font-weight:700; cursor:pointer; margin:8px 0 4px; box-shadow:0 4px 16px rgba(22,163,74,.3); }
+.cta:active { transform:scale(.98); }
+
+/* Figure */
+figure { background:var(--card); border-radius:var(--radius-sm); padding:16px; text-align:center; box-shadow:var(--shadow); margin-bottom:12px; }
+figcaption { font-size:11px; color:var(--ink2); margin-top:8px; }
+
+/* Bottom tab bar */
+.tabbar {
+  flex-shrink:0;
+  background:var(--card);
+  border-top:1px solid rgba(0,0,0,.05);
+  display:flex;
+  padding:8px 8px 20px;
+  justify-content:space-around;
+}
+[data-theme="dark"] .tabbar { border-top-color:rgba(255,255,255,.05); }
+.tab { flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px; cursor:pointer; color:var(--ink2); }
+.tab.active { color:var(--accent); }
+.tab .icon { width:24px; height:24px; }
+.tab .lbl { font-size:10px; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="appbar">
+    <button class="back">‹</button>
+    <div class="title">WBS 工作分解结构</div>
+    <button class="theme-btn" onclick="toggleTheme()">◐</button>
+  </div>
+
+  <div class="scroll">
+    <div class="prog-header">
+      <div class="ring">
+        <svg width="64" height="64">
+          <circle cx="32" cy="32" r="28" fill="none" stroke="var(--bg)" stroke-width="6"/>
+          <circle cx="32" cy="32" r="28" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="176" stroke-dashoffset="155"/>
+        </svg>
+        <div class="pct">12%</div>
+      </div>
+      <div class="info">
+        <div class="step">第 18 步 / 共 156 步</div>
+        <h2>范围管理</h2>
+        <div class="sub">第 5 课 · 约 5 分钟 · 核心考点</div>
+      </div>
+    </div>
+
+    <div class="chips">
+      <div class="chip"><div class="v">18</div><div class="l">已学</div></div>
+      <div class="chip"><div class="v">7</div><div class="l">连续天</div></div>
+      <div class="chip"><div class="v">42</div><div class="l">术语</div></div>
+    </div>
+
+    <div class="seg-label"><span class="badge">1</span><span class="txt">概念</span></div>
+    <div class="card">
+      <p>想象你要搬家——不会直接喊"搬！"，而是拆成：找搬家公司、打包厨房、打包卧室、搬运、验收。</p>
+      <p><span class="term">WBS</span> 就是把项目大目标逐层拆解成可管理、可交付的小工作包的过程。</p>
+    </div>
+
+    <div class="seg-label"><span class="badge">3</span><span class="txt">核心要点</span></div>
+    <div class="card">
+      <ul>
+        <li>100% 规则：子元素之和 = 父元素全部范围</li>
+        <li>面向可交付成果，分解"东西"不是"动作"</li>
+        <li>最底层是工作包（8-80 小时）</li>
+        <li>每个元素只出现一次</li>
+      </ul>
+    </div>
+
+    <figure>
+      <svg width="280" height="130" viewBox="0 0 280 130">
+        <rect x="100" y="6" width="80" height="26" rx="8" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <text x="140" y="23" text-anchor="middle" fill="var(--ink)" font-size="11">项目</text>
+        <line x1="120" y1="32" x2="60" y2="52" stroke="var(--ink2)" stroke-width="1.5"/>
+        <line x1="140" y1="32" x2="140" y2="52" stroke="var(--ink2)" stroke-width="1.5"/>
+        <line x1="160" y1="32" x2="220" y2="52" stroke="var(--ink2)" stroke-width="1.5"/>
+        <rect x="25" y="52" width="70" height="22" rx="6" fill="none" stroke="var(--accent2)" stroke-width="1.5"/>
+        <text x="60" y="67" text-anchor="middle" fill="var(--ink)" font-size="10">交付A</text>
+        <rect x="105" y="52" width="70" height="22" rx="6" fill="none" stroke="var(--accent2)" stroke-width="1.5"/>
+        <text x="140" y="67" text-anchor="middle" fill="var(--ink)" font-size="10">交付B</text>
+        <rect x="185" y="52" width="70" height="22" rx="6" fill="none" stroke="var(--accent2)" stroke-width="1.5"/>
+        <text x="220" y="67" text-anchor="middle" fill="var(--ink)" font-size="10">交付C</text>
+        <line x1="45" y1="74" x2="45" y2="94" stroke="var(--ink2)" stroke-width="1.5"/>
+        <line x1="80" y1="74" x2="80" y2="94" stroke="var(--ink2)" stroke-width="1.5"/>
+        <rect x="22" y="94" width="44" height="20" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text x="44" y="108" text-anchor="middle" fill="var(--accent)" font-size="9" font-weight="700">WP1</text>
+        <rect x="70" y="94" width="44" height="20" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text x="92" y="108" text-anchor="middle" fill="var(--accent)" font-size="9" font-weight="700">WP2</text>
+      </svg>
+      <figcaption>WBS 树形分解结构</figcaption>
+    </figure>
+
+    <div class="seg-label"><span class="badge">4</span><span class="txt">易混辨析</span></div>
+    <div class="pit">
+      <div class="tag">误解 1</div>
+      <p>WBS 是任务清单。实际分解的是可交付成果（名词），不是活动。"写代码"是活动，"登录模块"才是工作包。</p>
+    </div>
+    <div class="pit">
+      <div class="tag">误解 2</div>
+      <p>WBS 要分解到最细。最底层是工作包（8-80h），再往下是活动，属于进度管理。</p>
+    </div>
+
+    <div class="seg-label"><span class="badge">5</span><span class="txt">真题练习</span></div>
+    <div class="quiz">
+      <div class="src">2022 上半年 · 选择题</div>
+      <div class="q">WBS 的最底层元素称为：</div>
+      <div class="opts">
+        <button class="opt" onclick="settle(this,false)">A. 活动</button>
+        <button class="opt" onclick="settle(this,true)">B. 工作包</button>
+        <button class="opt" onclick="settle(this,false)">C. 里程碑</button>
+        <button class="opt" onclick="settle(this,false)">D. 控制账户</button>
+      </div>
+      <div class="explain">WBS 最小可交付单元是工作包。活动是工作包的进一步分解，属于进度管理。</div>
+    </div>
+
+    <button class="cta">标记已学 · 下一课 →</button>
+  </div>
+
+  <nav class="tabbar">
+    <button class="tab active">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+      <span class="lbl">学习</span>
+    </button>
+    <button class="tab">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12a2 2 0 012 2v14H6a2 2 0 01-2-2z"/></svg>
+      <span class="lbl">术语</span>
+    </button>
+    <button class="tab">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 8l9 5 9-5"/></svg>
+      <span class="lbl">错题</span>
+    </button>
+    <button class="tab">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>
+      <span class="lbl">搜索</span>
+    </button>
+    <button class="tab">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
+      <span class="lbl">我的</span>
+    </button>
+  </nav>
+</div>
+<script>
+function settle(el, correct) {
+  const quiz = el.closest('.quiz');
+  quiz.querySelectorAll('.opt').forEach(o => {
+    o.disabled = true;
+    if (o.textContent.includes('工作包')) o.classList.add('right');
+  });
+  if (!correct) el.classList.add('wrong');
+  quiz.querySelector('.explain').classList.add('show');
+}
+function toggleTheme() {
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+</script>
+</body>
+</html>

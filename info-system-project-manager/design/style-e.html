@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>风格 E · 瑞士编辑型 — 高项学习站</title>
+<style>
+/*
+  E · 瑞士编辑型 (Swiss / Editorial)
+  设计理念：像 杂志排版 / Kvell / 国际主义平面设计 —— 强网格、巨大字号、黑白+单一强调色
+  布局：非对称网格，粗分割线，大留白
+  字体：超大无衬线标题 + 紧凑正文，字重对比强烈
+  特征：方正、高对比、编号系统、横向分割线、强调色块
+  移动端：网格塌缩为单列，标题缩放
+*/
+:root {
+  --bg: #f4f3ee;
+  --ink: #1a1a1a;
+  --ink2: #6b6b6b;
+  --accent: #ff4d00;
+  --ok: #1a7a4a;
+  --bad: #d32020;
+  --line: #1a1a1a;
+  --line2: #d6d4cc;
+  --paper: #fbfaf6;
+  --font: "Helvetica Neue","Arial","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono: "Courier New",monospace;
+}
+[data-theme="dark"] {
+  --bg: #15140f;
+  --ink: #f4f3ee;
+  --ink2: #9a988e;
+  --accent: #ff5e1a;
+  --line: #f4f3ee;
+  --line2: #33312a;
+  --paper: #1c1b15;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font:16px/1.6 var(--font); background:var(--bg); color:var(--ink); min-height:100vh; -webkit-font-smoothing:antialiased; }
+
+/* Masthead */
+.masthead { border-bottom:3px solid var(--line); padding:16px 32px; display:flex; align-items:flex-end; justify-content:space-between; }
+.masthead .title { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:4px; }
+.masthead .title em { color:var(--accent); font-style:normal; }
+.masthead .nav { display:flex; gap:24px; }
+.masthead .nav a { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--ink); text-decoration:none; }
+.masthead .nav a:hover { color:var(--accent); }
+.masthead .theme-btn { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; background:none; border:1.5px solid var(--line); padding:4px 10px; cursor:pointer; color:var(--ink); }
+
+/* Hero band */
+.hero { padding:48px 32px; border-bottom:1px solid var(--line2); display:grid; grid-template-columns:1fr 240px; gap:32px; align-items:end; }
+.hero .meta-num { font-family:var(--mono); font-size:13px; color:var(--accent); font-weight:700; margin-bottom:8px; }
+.hero h1 { font-size:64px; line-height:.95; font-weight:800; letter-spacing:-2px; }
+.hero .sidebar-meta { border-left:1px solid var(--line2); padding-left:24px; }
+.hero .sidebar-meta dt { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--ink2); margin-bottom:2px; }
+.hero .sidebar-meta dd { font-size:14px; font-weight:700; margin-bottom:14px; }
+.hero .progress { margin-top:8px; height:6px; background:var(--line2); }
+.hero .progress .fill { height:100%; width:12%; background:var(--accent); }
+
+/* Grid layout */
+.grid { display:grid; grid-template-columns:200px 1fr; }
+
+/* Index column */
+.index { border-right:1px solid var(--line2); padding:32px; }
+.index h3 { font-size:10px; text-transform:uppercase; letter-spacing:2px; color:var(--ink2); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--line2); }
+.index ol { list-style:none; counter-reset:idx; }
+.index ol li { counter-increment:idx; padding:8px 0; font-size:13px; display:flex; gap:10px; border-bottom:1px solid var(--line2); cursor:pointer; }
+.index ol li::before { content:counter(idx,decimal-leading-zero); font-family:var(--mono); font-size:11px; color:var(--ink2); }
+.index ol li:hover { color:var(--accent); }
+.index ol li.current { font-weight:700; color:var(--accent); }
+.index ol li.done { color:var(--ink2); text-decoration:line-through; text-decoration-thickness:1px; }
+
+/* Article */
+.article { padding:40px 48px; max-width:760px; }
+.section { margin-bottom:44px; }
+.section-head { display:flex; align-items:baseline; gap:16px; margin-bottom:16px; }
+.section-head .n { font-family:var(--mono); font-size:32px; font-weight:700; color:var(--accent); line-height:1; }
+.section-head h2 { font-size:13px; text-transform:uppercase; letter-spacing:2px; font-weight:700; }
+.section p { font-size:17px; line-height:1.7; margin-bottom:14px; }
+.section ul { padding-left:0; list-style:none; margin-bottom:14px; }
+.section ul li { font-size:16px; padding:8px 0 8px 28px; position:relative; border-bottom:1px solid var(--line2); }
+.section ul li::before { content:"→"; position:absolute; left:0; color:var(--accent); font-weight:700; }
+
+/* Term */
+.term { font-weight:700; color:var(--accent); cursor:pointer; box-shadow:inset 0 -6px 0 rgba(255,77,0,.12); }
+
+/* Pitfall — big numbered block */
+.pit { border-top:2px solid var(--bad); padding:14px 0; margin:16px 0; }
+.pit .pit-tag { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--bad); margin-bottom:6px; }
+.pit p { font-size:15px; margin:0; }
+
+/* Quiz */
+.quiz { background:var(--paper); border:2px solid var(--line); padding:24px; margin:16px 0; }
+.quiz .q-tag { font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
+.quiz .q-text { font-size:18px; font-weight:700; margin-bottom:16px; }
+.quiz .opts { display:grid; gap:0; border:1px solid var(--line2); }
+.quiz .opt { background:none; border:none; border-bottom:1px solid var(--line2); padding:14px 16px; font:16px var(--font); text-align:left; color:var(--ink); cursor:pointer; transition:background .1s; }
+.quiz .opt:last-child { border-bottom:none; }
+.quiz .opt:hover { background:var(--bg); }
+.quiz .opt.right { background:rgba(26,122,74,.08); color:var(--ok); font-weight:700; box-shadow:inset 4px 0 0 var(--ok); }
+.quiz .opt.wrong { background:rgba(211,32,32,.08); color:var(--bad); box-shadow:inset 4px 0 0 var(--bad); }
+.quiz .explain { margin-top:16px; padding-top:16px; border-top:2px solid var(--line); font-size:14px; color:var(--ink2); display:none; }
+.quiz .explain.show { display:block; }
+
+/* Figure */
+figure { margin:24px 0; border:1px solid var(--line2); padding:20px; text-align:center; }
+figure svg { max-width:100%; height:auto; }
+figcaption { font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--ink2); margin-top:10px; }
+
+@media(max-width:860px) {
+  .masthead { padding:12px 16px; flex-wrap:wrap; gap:8px; }
+  .masthead .nav { gap:14px; }
+  .hero { grid-template-columns:1fr; padding:28px 16px; gap:20px; }
+  .hero h1 { font-size:40px; letter-spacing:-1px; }
+  .hero .sidebar-meta { border-left:none; border-top:1px solid var(--line2); padding-left:0; padding-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; }
+  .grid { grid-template-columns:1fr; }
+  .grid > * { min-width:0; }
+  .index { border-right:none; border-bottom:1px solid var(--line2); padding:20px 16px; }
+  .article { padding:24px 16px; }
+  .section-head .n { font-size:24px; }
+  .section p { font-size:16px; }
+  .quiz .q-text { font-size:16px; }
+}
+</style>
+</head>
+<body>
+<div class="masthead">
+  <div class="title">高项学习站 <em>/</em> ISPM</div>
+  <div class="nav">
+    <a href="#">课时</a><a href="#">术语</a><a href="#">错题</a><a href="#">搜索</a>
+    <button class="theme-btn" onclick="toggleTheme()">深/浅</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div>
+    <div class="meta-num">№ 18 / 156 — 范围管理</div>
+    <h1>WBS 工作<br>分解结构</h1>
+  </div>
+  <dl class="sidebar-meta">
+    <dt>章节</dt><dd>范围管理 · 第 5 课</dd>
+    <dt>时长</dt><dd>约 5 分钟</dd>
+    <dt>考点</dt><dd>核心 · 高频</dd>
+    <dt>进度</dt><dd>12%<div class="progress"><div class="fill"></div></div></dd>
+  </dl>
+</div>
+
+<div class="grid">
+  <aside class="index">
+    <h3>范围管理</h3>
+    <ol>
+      <li class="done">范围管理概述</li>
+      <li class="done">需求收集</li>
+      <li>需求跟踪矩阵</li>
+      <li>定义范围</li>
+      <li class="current">WBS 分解结构</li>
+      <li>WBS 词典</li>
+      <li>范围确认</li>
+      <li>范围控制</li>
+    </ol>
+  </aside>
+
+  <main class="article">
+    <div class="section">
+      <div class="section-head"><span class="n">01</span><h2>概念</h2></div>
+      <p>想象你要搬家——不会直接喊"搬！"，而是拆成：找搬家公司、打包厨房、打包卧室、搬运、验收。<span class="term">WBS</span> 就是把项目大目标逐层拆解成可管理、可交付的小工作包的过程。</p>
+      <p>它是<span class="term">范围基准</span>的核心组成部分，与 WBS 词典和范围说明书共同构成范围基准。</p>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="n">03</span><h2>核心要点</h2></div>
+      <ul>
+        <li><strong>100% 规则</strong>：子元素之和 = 父元素全部范围</li>
+        <li><strong>面向可交付成果</strong>：分解"东西"而非"动作"</li>
+        <li><strong>最底层是工作包</strong>：8-80 小时可估算</li>
+        <li><strong>不重复</strong>：每个元素只出现一次</li>
+      </ul>
+      <figure>
+        <svg width="360" height="140" viewBox="0 0 360 140">
+          <rect x="130" y="8" width="100" height="30" fill="none" stroke="var(--accent)" stroke-width="2"/>
+          <text x="180" y="27" text-anchor="middle" fill="var(--ink)" font-size="12">项目目标</text>
+          <line x1="155" y1="38" x2="80" y2="60" stroke="var(--ink2)" stroke-width="1.5"/>
+          <line x1="180" y1="38" x2="180" y2="60" stroke="var(--ink2)" stroke-width="1.5"/>
+          <line x1="205" y1="38" x2="280" y2="60" stroke="var(--ink2)" stroke-width="1.5"/>
+          <rect x="35" y="60" width="90" height="26" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
+          <text x="80" y="77" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 A</text>
+          <rect x="135" y="60" width="90" height="26" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
+          <text x="180" y="77" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 B</text>
+          <rect x="235" y="60" width="90" height="26" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
+          <text x="280" y="77" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 C</text>
+          <line x1="55" y1="86" x2="55" y2="105" stroke="var(--ink2)" stroke-width="1.5"/>
+          <line x1="105" y1="86" x2="105" y2="105" stroke="var(--ink2)" stroke-width="1.5"/>
+          <rect x="30" y="105" width="50" height="22" fill="var(--accent)" stroke="none"/>
+          <text x="55" y="120" text-anchor="middle" fill="var(--bg)" font-size="10" font-weight="700">WP-1</text>
+          <rect x="80" y="105" width="50" height="22" fill="var(--accent)" stroke="none"/>
+          <text x="105" y="120" text-anchor="middle" fill="var(--bg)" font-size="10" font-weight="700">WP-2</text>
+        </svg>
+        <figcaption>Fig 01 — WBS Hierarchy</figcaption>
+      </figure>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="n">04</span><h2>易混辨析</h2></div>
+      <div class="pit">
+        <div class="pit-tag">误解 01</div>
+        <p>WBS 是任务清单。—— 实际上分解的是可交付成果（名词），不是活动。"写代码"是活动，"登录模块"才是工作包。</p>
+      </div>
+      <div class="pit">
+        <div class="pit-tag">误解 02</div>
+        <p>WBS 要分解到最细。—— 最底层是工作包（8-80h），再往下是活动，属于进度管理。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="n">05</span><h2>真题练习</h2></div>
+      <div class="quiz">
+        <div class="q-tag">2022H1 · 选择题</div>
+        <div class="q-text">WBS 的最底层元素称为：</div>
+        <div class="opts">
+          <button class="opt" onclick="settle(this,false)">A — 活动</button>
+          <button class="opt" onclick="settle(this,true)">B — 工作包</button>
+          <button class="opt" onclick="settle(this,false)">C — 里程碑</button>
+          <button class="opt" onclick="settle(this,false)">D — 控制账户</button>
+        </div>
+        <div class="explain">WBS 最小可交付单元是工作包。活动是工作包的进一步分解，属于进度管理的"定义活动"过程。</div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+function settle(el, correct) {
+  const quiz = el.closest('.quiz');
+  quiz.querySelectorAll('.opt').forEach(o => {
+    o.disabled = true;
+    if (o.textContent.includes('工作包')) o.classList.add('right');
+  });
+  if (!correct) el.classList.add('wrong');
+  quiz.querySelector('.explain').classList.add('show');
+}
+function toggleTheme() {
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+</script>
+</body>
+</html>

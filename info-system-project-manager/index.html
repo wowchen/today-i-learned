@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>高项学习站 · 信息系统项目管理师</title>
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<div class="top-bar">
+  <h1>高项学习站 <span class="accent">/</span> ISPM</h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/mistakes">错题</a>
+    <a class="nav-link" href="#/calc">计算器</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (add as they are written) -->
+<!-- guide -->
+<script src="content/guide/01-exam-intro.js"></script>
+<script src="content/guide/02-learning-path.js"></script>
+<script src="content/guide/03-strategy.js"></script>
+<script src="content/guide/04-term-system.js"></script>
+<!-- pm-framework -->
+<script src="content/pm-framework/01-what-is-pm.js"></script>
+<script src="content/pm-framework/02-five-process-groups.js"></script>
+<script src="content/pm-framework/03-ten-knowledge-areas.js"></script>
+<script src="content/pm-framework/04-project-lifecycle.js"></script>
+<script src="content/pm-framework/05-tailoring.js"></script>
+<script src="content/pm-framework/06-role-of-pm.js"></script>
+<!-- pm-scope -->
+<script src="content/pm-scope/01-scope-overview.js"></script>
+<script src="content/pm-scope/02-requirements-collection.js"></script>
+<script src="content/pm-scope/03-requirements-doc.js"></script>
+<script src="content/pm-scope/04-define-scope.js"></script>
+<script src="content/pm-scope/05-wbs.js"></script>
+<script src="content/pm-scope/06-wbs-dictionary.js"></script>
+<script src="content/pm-scope/07-scope-validation.js"></script>
+<script src="content/pm-scope/08-scope-control.js"></script>
+<!-- pm-schedule -->
+<script src="content/pm-schedule/01-schedule-overview.js"></script>
+<script src="content/pm-schedule/02-activity-definition.js"></script>
+<script src="content/pm-schedule/03-activity-sequencing.js"></script>
+<script src="content/pm-schedule/04-duration-estimation.js"></script>
+<script src="content/pm-schedule/05-critical-path.js"></script>
+<script src="content/pm-schedule/06-gantt-chart.js"></script>
+<script src="content/pm-schedule/07-resource-leveling.js"></script>
+<script src="content/pm-schedule/08-schedule-compression.js"></script>
+<!-- pm-cost -->
+<script src="content/pm-cost/01-cost-overview.js"></script>
+<script src="content/pm-cost/02-estimation-methods.js"></script>
+<script src="content/pm-cost/03-budget-determination.js"></script>
+<script src="content/pm-cost/04-evm-basics.js"></script>
+<script src="content/pm-cost/05-evm-indicators.js"></script>
+<script src="content/pm-cost/06-evm-forecasting.js"></script>
+<script src="content/pm-cost/07-s-curve.js"></script>
+<script src="content/pm-cost/08-cost-control.js"></script>
+<!-- pm-quality -->
+<script src="content/pm-quality/01-quality-overview.js"></script>
+<script src="content/pm-quality/02-quality-planning.js"></script>
+<script src="content/pm-quality/03-quality-assurance.js"></script>
+<script src="content/pm-quality/04-quality-control.js"></script>
+<script src="content/pm-quality/05-seven-tools.js"></script>
+<script src="content/pm-quality/06-six-sigma.js"></script>
+<!-- pm-risk -->
+<script src="content/pm-risk/01-risk-overview.js"></script>
+<script src="content/pm-risk/02-risk-identification.js"></script>
+<script src="content/pm-risk/03-qualitative-analysis.js"></script>
+<script src="content/pm-risk/04-quantitative-analysis.js"></script>
+<script src="content/pm-risk/05-risk-response.js"></script>
+<script src="content/pm-risk/06-risk-monitoring.js"></script>
+<script src="content/pm-risk/07-probability-impact-matrix.js"></script>
+<script src="content/pm-risk/08-risk-register.js"></script>
+<!-- pm-hr -->
+<script src="content/pm-hr/01-resource-overview.js"></script>
+<script src="content/pm-hr/02-team-building.js"></script>
+<script src="content/pm-hr/03-conflict-management.js"></script>
+<script src="content/pm-hr/04-motivation-theory.js"></script>
+<script src="content/pm-hr/05-communication-model.js"></script>
+<script src="content/pm-hr/06-communication-methods.js"></script>
+<script src="content/pm-hr/07-stakeholder-management.js"></script>
+<script src="content/pm-hr/08-raci-matrix.js"></script>
+<!-- pm-proc -->
+<script src="content/pm-proc/01-procurement-overview.js"></script>
+<script src="content/pm-proc/02-contract-types.js"></script>
+<script src="content/pm-proc/03-bidding-process.js"></script>
+<script src="content/pm-proc/04-source-selection.js"></script>
+<script src="content/pm-proc/05-contract-admin.js"></script>
+<script src="content/pm-proc/06-claims-management.js"></script>
+<!-- pm-integ -->
+<script src="content/pm-integ/01-integration-overview.js"></script>
+<script src="content/pm-integ/02-project-charter.js"></script>
+<script src="content/pm-integ/03-project-plan.js"></script>
+<script src="content/pm-integ/04-direct-manage.js"></script>
+<script src="content/pm-integ/05-monitor-control.js"></script>
+<script src="content/pm-integ/06-change-control.js"></script>
+<script src="content/pm-integ/07-configuration-management.js"></script>
+<script src="content/pm-integ/08-close-project.js"></script>
+<!-- overview -->
+<script src="content/overview/01-informatization.js"></script>
+<script src="content/overview/02-national-info-system.js"></script>
+<script src="content/overview/03-e-government.js"></script>
+<script src="content/overview/04-enterprise-info.js"></script>
+<script src="content/overview/05-new-it-tech.js"></script>
+<script src="content/overview/06-cloud-computing.js"></script>
+<script src="content/overview/07-big-data-ai.js"></script>
+<script src="content/overview/08-iot-blockchain.js"></script>
+<!-- syseng -->
+<script src="content/syseng/01-system-concept.js"></script>
+<script src="content/syseng/02-system-engineering-method.js"></script>
+<script src="content/syseng/03-hall-three-dimensional.js"></script>
+<script src="content/syseng/04-lifecycle-methodology.js"></script>
+<script src="content/syseng/05-system-analysis.js"></script>
+<script src="content/syseng/06-system-design.js"></script>
+<!-- se -->
+<script src="content/se/01-software-lifecycle.js"></script>
+<script src="content/se/02-requirements-engineering.js"></script>
+<script src="content/se/03-software-design.js"></script>
+<script src="content/se/04-coding-standards.js"></script>
+<script src="content/se/05-testing-methods.js"></script>
+<script src="content/se/06-testing-levels.js"></script>
+<script src="content/se/07-cmmi.js"></script>
+<script src="content/se/08-agile-methods.js"></script>
+<script src="content/se/09-devops.js"></script>
+<script src="content/se/10-software-maintenance.js"></script>
+<!-- infra -->
+<script src="content/infra/01-network-basics.js"></script>
+<script src="content/infra/02-network-architecture.js"></script>
+<script src="content/infra/03-storage-tech.js"></script>
+<script src="content/infra/04-cloud-service-models.js"></script>
+<script src="content/infra/05-virtualization.js"></script>
+<script src="content/infra/06-iot-architecture.js"></script>
+<script src="content/infra/07-big-data-platform.js"></script>
+<script src="content/infra/08-ai-applications.js"></script>
+<!-- program -->
+<script src="content/program/01-program-management.js"></script>
+<script src="content/program/02-portfolio-management.js"></script>
+<script src="content/program/03-opm3.js"></script>
+<script src="content/program/04-strategic-alignment.js"></script>
+<script src="content/program/05-benefits-management.js"></script>
+<script src="content/program/06-governance.js"></script>
+<!-- standard -->
+<script src="content/standard/01-ip-law.js"></script>
+<script src="content/standard/02-bidding-law.js"></script>
+<script src="content/standard/03-government-procurement.js"></script>
+<script src="content/standard/04-contract-law.js"></script>
+<script src="content/standard/05-cybersecurity-law.js"></script>
+<script src="content/standard/06-standardization.js"></script>
+<script src="content/standard/07-project-standards.js"></script>
+<script src="content/standard/08-quality-standards.js"></script>
+<!-- case -->
+<script src="content/case/01-case-overview.js"></script>
+<script src="content/case/02-calculation-evm.js"></script>
+<script src="content/case/03-calculation-cpm.js"></script>
+<script src="content/case/04-analysis-framework.js"></script>
+<script src="content/case/05-scope-cases.js"></script>
+<script src="content/case/06-schedule-cases.js"></script>
+<script src="content/case/07-risk-cases.js"></script>
+<script src="content/case/08-change-cases.js"></script>
+<script src="content/case/09-answer-template.js"></script>
+<script src="content/case/10-scoring-rules.js"></script>
+<!-- essay -->
+<script src="content/essay/01-essay-overview.js"></script>
+<script src="content/essay/02-essay-structure.js"></script>
+<script src="content/essay/03-opening-template.js"></script>
+<script src="content/essay/04-body-framework.js"></script>
+<script src="content/essay/05-closing-template.js"></script>
+<script src="content/essay/06-project-material.js"></script>
+<script src="content/essay/07-sub-topics.js"></script>
+<script src="content/essay/08-scoring-analysis.js"></script>
+</body>
+</html>

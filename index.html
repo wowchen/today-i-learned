@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日得到 · Today I Learned</title>
+<meta name="description" content="今日得到 · 个人学习站合集:美语、电网通识、信息系统项目管理师、十五五规划。纯静态、零依赖、点开即学。">
+<style>
+  :root{
+    --paper:#FBFAF6; --card:#FFFFFF; --ink:#25303E; --body:#4A5260;
+    --note:#8B919B; --rule:#E5E1D8;
+    --serif:Charter,"Bitstream Charter",Georgia,"Times New Roman","Songti SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--sans);
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+    min-height:100vh; display:flex; flex-direction:column;
+  }
+  .wrap{width:100%; max-width:1040px; margin:0 auto; padding:0 24px}
+
+  header{padding:64px 0 8px}
+  .brand{font-family:var(--serif); font-size:2.6rem; font-weight:700; letter-spacing:.5px; margin:0}
+  .brand small{display:block; font-family:var(--sans); font-size:.95rem; font-weight:600;
+    letter-spacing:3px; color:var(--note); text-transform:uppercase; margin-top:8px}
+  .tagline{color:var(--body); font-size:1.05rem; margin:18px 0 0; max-width:60ch}
+  .date{color:var(--note); font-size:.85rem; margin-top:6px; letter-spacing:1px}
+
+  main{flex:1; padding:36px 0 56px}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin-top:8px}
+
+  .card{
+    position:relative; display:flex; flex-direction:column;
+    background:var(--card); border:1px solid var(--rule); border-radius:14px;
+    padding:26px 26px 24px; text-decoration:none; color:inherit;
+    box-shadow:0 1px 2px rgba(37,48,62,.04);
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    overflow:hidden;
+  }
+  .card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--accent)}
+  a.card:hover{transform:translateY(-4px); box-shadow:0 12px 28px rgba(37,48,62,.12); border-color:var(--accent)}
+  .card .kicker{font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    color:var(--accent); margin-bottom:10px}
+  .card h2{font-family:var(--serif); font-size:1.5rem; margin:0 0 4px; line-height:1.25}
+  .card .zh{font-size:.95rem; color:var(--body); font-weight:600; margin-bottom:12px}
+  .card .desc{font-size:.9rem; color:var(--note); margin:0; flex:1}
+  .card .enter{margin-top:18px; font-size:.9rem; font-weight:700; color:var(--accent)}
+  .card .enter::after{content:" \2192"; transition:margin-left .16s ease}
+  a.card:hover .enter::after{margin-left:5px}
+
+  .card.soon{opacity:.85; cursor:default}
+  .card.soon .badge{position:absolute; top:18px; right:18px; font-size:.7rem; font-weight:700;
+    letter-spacing:1px; color:var(--note); background:var(--paper); border:1px solid var(--rule);
+    padding:3px 10px; border-radius:999px}
+
+  footer{border-top:1px solid var(--rule); padding:22px 0; color:var(--note); font-size:.82rem}
+  .wrap.foot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+
+  @media (max-width:680px){
+    header{padding:44px 0 4px}
+    .brand{font-size:2.1rem}
+    .grid{grid-template-columns:1fr; gap:16px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1 class="brand">今日得到<small>Today I Learned</small></h1>
+    <p class="tagline">个人学习站合集 —— 用大白话把一门门硬知识讲透。纯静态、零依赖、离线可用，点开任意一张卡片即可开始。</p>
+    <p class="date">2026 · 持续更新</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="grid">
+
+      <a class="card" href="english-made-simple/" style="--accent:#2F4E9E">
+        <div class="kicker">English</div>
+        <h2>English Made Simple</h2>
+        <div class="zh">美语,一看就懂</div>
+        <p class="desc">用大白话中文讲透美式英语:发音、词汇、语法、听说读写、文化与旅行。零基础一看就懂,点哪里听哪里。</p>
+        <div class="enter">进入学习</div>
+      </a>
+
+      <a class="card" href="power-grid-fundamentals/" style="--accent:#1F8A8C">
+        <div class="kicker">Power Grid</div>
+        <h2>电网通识 · Power Grid 101</h2>
+        <div class="zh">中国电力 / 电网行业入门</div>
+        <p class="desc">发输变配用、调度运行、电力市场、新能源、储能、双碳。零基础一看就懂,术语点哪查哪。</p>
+        <div class="enter">进入学习</div>
+      </a>
+
+      <a class="card" href="info-system-project-manager/" style="--accent:#FF4D00">
+        <div class="kicker">ISPM</div>
+        <h2>高项学习站</h2>
+        <div class="zh">信息系统项目管理师</div>
+        <p class="desc">五大过程组、十大知识域、计算与案例分析、论文模板。课时 + 术语 + 错题 + 计算器,备考一站搞定。</p>
+        <div class="enter">进入学习</div>
+      </a>
+
+      <div class="card soon" style="--accent:#B9B5AA">
+        <span class="badge">即将上线</span>
+        <div class="kicker">Plan</div>
+        <h2>十五五规划</h2>
+        <div class="zh">十五五规划学习站</div>
+        <p class="desc">建设中 —— 解读"十五五"国家发展规划的脉络与重点,敬请期待。</p>
+        <div class="enter" style="color:var(--note)">建设中</div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>今日得到 · Today I Learned · 纯静态 · 零依赖 · 离线可用</span>
+    <span>4 个学习站 · 3 个已上线</span>
+  </div>
+</footer>
+
+</body>
+</html>

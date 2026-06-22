@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格 B · 调度大屏 — 电网通识</title>
+<style>
+  /* ============ 风格 B · 调度大屏 ============
+     深色控制室 + 荧光数据高亮 + 等宽数字 + 状态灯 */
+  :root{
+    --bg:#0b0f14;
+    --panel:#11161d;
+    --panel2:#161d26;
+    --edge:#1f2a36;
+    --ink:#d5dee8;
+    --ink-dim:#7d8da0;
+    --cyan:#22d3ee;
+    --green:#34d399;
+    --amber:#fbbf24;
+    --red:#fb7185;
+    --term:#22d3ee;
+    --mono:"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font:16px/1.9 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:radial-gradient(1200px 500px at 50% -200px,#13202e 0%,var(--bg) 60%);
+    color:var(--ink);min-height:100vh;
+  }
+  header{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    padding:12px 22px;background:rgba(17,22,29,.92);border-bottom:1px solid var(--edge);
+    position:sticky;top:0;backdrop-filter:blur(6px);z-index:5;
+  }
+  .logo{font-weight:800;font-size:19px;color:#fff;letter-spacing:1px}
+  .logo i{font-style:normal;color:var(--cyan)}
+  .hud{display:flex;gap:14px;font-family:var(--mono);font-size:12px;color:var(--ink-dim);align-items:center}
+  .hud b{color:var(--green);font-weight:600}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;
+    box-shadow:0 0 8px var(--green);margin-right:5px;animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  nav{display:flex;gap:2px;margin-left:auto}
+  nav a{color:var(--ink-dim);text-decoration:none;padding:6px 13px;font-size:14px;border-radius:6px}
+  nav a.on,nav a:hover{color:var(--cyan);background:rgba(34,211,238,.08)}
+  .wrap{max-width:880px;margin:0 auto;padding:26px 20px 80px}
+  .crumb{font-family:var(--mono);font-size:12px;color:var(--ink-dim);margin-bottom:12px;letter-spacing:1px}
+  .crumb b{color:var(--cyan)}
+  h1{font-size:27px;color:#fff;margin-bottom:6px;line-height:1.45}
+  .meta{display:flex;gap:14px;font-family:var(--mono);font-size:12px;color:var(--ink-dim);margin-bottom:24px}
+  .meta .key{color:var(--amber)}
+  section.blk{
+    background:var(--panel);border:1px solid var(--edge);border-radius:10px;
+    margin-bottom:18px;overflow:hidden;
+  }
+  section.blk>h2{
+    font-size:13.5px;font-weight:700;letter-spacing:2px;color:var(--cyan);
+    padding:10px 16px;border-bottom:1px solid var(--edge);background:var(--panel2);
+    display:flex;align-items:center;gap:9px;
+  }
+  section.blk>h2 .no{
+    font-family:var(--mono);font-size:11px;color:var(--bg);background:var(--cyan);
+    border-radius:4px;padding:1px 6px;
+  }
+  section.blk>.bd{padding:16px 18px}
+  .blk p{margin-bottom:10px}
+  .blk p:last-child{margin-bottom:0}
+  gd{color:var(--term);border-bottom:1px dashed rgba(34,211,238,.6);cursor:pointer;font-style:normal}
+  .ex{border-left:3px solid var(--green);background:rgba(52,211,153,.07);
+    border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0;font-size:15px}
+  .pit{border-left:3px solid var(--red);background:rgba(251,113,133,.07);
+    border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0;font-size:15px}
+  .pit b{color:var(--red)}
+  .num{font-family:var(--mono);color:var(--amber);font-weight:600}
+  figure.fig{margin:16px 0;background:#0d1319;border:1px solid var(--edge);border-radius:8px;
+    padding:18px 10px 8px;text-align:center}
+  figure.fig figcaption{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-top:8px;letter-spacing:1px}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px}
+  th,td{border:1px solid var(--edge);padding:7px 10px;text-align:left}
+  th{background:var(--panel2);color:#fff}
+  .termcard{
+    position:fixed;right:22px;bottom:22px;width:285px;background:var(--panel2);
+    border:1px solid var(--cyan);border-radius:10px;padding:14px 16px;font-size:14px;
+    box-shadow:0 0 24px rgba(34,211,238,.18),0 12px 30px rgba(0,0,0,.5);
+  }
+  .termcard .t{color:var(--cyan);font-weight:700;margin-bottom:6px;font-size:15px}
+  .termcard .a{color:var(--ink-dim);font-size:13px;margin-top:6px}
+  .termcard .ops{margin-top:10px;display:flex;gap:8px}
+  .termcard .ops span{border:1px solid var(--edge);border-radius:6px;padding:2px 10px;font-size:12px;cursor:pointer}
+  .termcard .ops span:first-child{border-color:var(--cyan);color:var(--cyan)}
+  .next{display:flex;justify-content:space-between;margin-top:28px;gap:12px;flex-wrap:wrap}
+  .next a{color:var(--ink);text-decoration:none;border:1px solid var(--edge);border-radius:8px;
+    padding:9px 18px;font-size:14px;background:var(--panel)}
+  .next a:hover{border-color:var(--cyan);color:var(--cyan)}
+  @media (max-width:640px){h1{font-size:22px}.termcard{display:none}.hud{display:none}nav{width:100%;overflow-x:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">⚡ 电网<i>通识</i></div>
+  <div class="hud"><span><span class="dot"></span>GRID ONLINE</span><span>f = <b>50.02 Hz</b></span><span>负荷 <b>1187 GW</b></span></div>
+  <nav><a href="#">路线</a><a href="#" class="on">模块</a><a href="#">术语表</a><a href="#">复习</a><a href="#">搜索</a></nav>
+</header>
+
+<div class="wrap">
+  <div class="crumb">M02 · 电的物理通识 / LESSON <b>05</b> / 08</div>
+  <h1>电为什么不能大规模储存？</h1>
+  <div class="meta"><span>⏱ 约 4 分钟</span><span class="key">★ 全站总钥匙</span><span>READ POS: 0%</span></div>
+
+  <section class="blk">
+    <h2><span class="no">01</span>一句话是什么</h2>
+    <div class="bd">
+      <p>电是一种<strong>当场生产、当场消费</strong>的商品——你家开灯的那一瞬间，某个电厂正好多发了这一点电。电网不是"水库"，而是一张<strong>实时传送带</strong>：传送带上不能堆货，发多少就得用多少。</p>
+      <p class="ex">类比：自来水可以先存水塔里慢慢用，电却像<strong>演唱会的现场直播</strong>——演员（电厂）唱多少，观众（用户）就听多少，没法"先录下来攒着播"。</p>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span class="no">02</span>为什么重要</h2>
+    <div class="bd">
+      <p>这是理解整个电力行业的<strong>总钥匙</strong>。<gd>调度</gd>为什么 24 小时盯着屏幕、<gd>电力现货市场</gd>为什么每 <span class="num">15</span> 分钟一个价、<gd>储能</gd>为什么突然成了风口、新能源为什么会"弃风弃光"——根子全在这一条：<strong>电不能大规模储存，发电与用电必须每一秒都相等</strong>。</p>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span class="no">03</span>怎么运作</h2>
+    <div class="bd">
+      <p>电从电厂到你家插座，走的是一条一气呵成的"高速公路"，全程以光速的量级传递，<strong>中途没有仓库</strong>：</p>
+      <figure class="fig">
+        <svg viewBox="0 0 640 110" width="100%" style="max-width:620px">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#22d3ee"/></marker></defs>
+          <g font-size="13" font-family="-apple-system,PingFang SC,sans-serif" text-anchor="middle">
+            <rect x="8"   y="30" width="92" height="44" rx="7" fill="#161d26" stroke="#2b3947"/>
+            <rect x="138" y="30" width="92" height="44" rx="7" fill="#161d26" stroke="#2b3947"/>
+            <rect x="268" y="30" width="92" height="44" rx="7" fill="#161d26" stroke="#2b3947"/>
+            <rect x="398" y="30" width="92" height="44" rx="7" fill="#161d26" stroke="#2b3947"/>
+            <rect x="528" y="30" width="92" height="44" rx="7" fill="#161d26" stroke="#34d399"/>
+            <text x="54"  y="56" fill="#d5dee8">发电</text>
+            <text x="184" y="56" fill="#d5dee8">输电</text>
+            <text x="314" y="56" fill="#d5dee8">变电</text>
+            <text x="444" y="56" fill="#d5dee8">配电</text>
+            <text x="574" y="56" fill="#34d399">用电</text>
+            <line x1="100" y1="52" x2="134" y2="52" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#ar)"/>
+            <line x1="230" y1="52" x2="264" y2="52" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#ar)"/>
+            <line x1="360" y1="52" x2="394" y2="52" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#ar)"/>
+            <line x1="490" y1="52" x2="524" y2="52" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#ar)"/>
+            <text x="54"  y="20" fill="#7d8da0" font-size="11">电厂</text>
+            <text x="314" y="20" fill="#7d8da0" font-size="11">↑ 全程无仓库 ↑</text>
+            <text x="574" y="20" fill="#7d8da0" font-size="11">你家</text>
+            <text x="320" y="98" fill="#fbbf24" font-size="11" font-family="Menlo,monospace">REAL-TIME BALANCE: 发电 = 用电 (every second)</text>
+          </g>
+        </svg>
+        <figcaption>FIG.05-1 · 电力系统五环节——一条没有仓库的传送带</figcaption>
+      </figure>
+      <p>一旦"发"和"用"不相等，电网的<gd>频率</gd>就会偏离 <span class="num">50Hz</span>：用电多了频率往下掉，发电多了频率往上飘。偏差大了，发电机会被迫脱网，可能引发连锁停电。所以电网有一个角色专门负责让两边时刻相等——<gd>调度</gd>。</p>
+      <p class="ex">关键数字：中国电网频率 = <span class="num">50Hz</span>，正常波动只允许 <span class="num">±0.2Hz</span>——相当于在高速上开车，车速只许差千分之四。</p>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span class="no">04</span>常见误解与易混</h2>
+    <div class="bd">
+      <div class="pit"><b>误解 1："电存在电网里，我随用随取。"</b> 电网里一度电都没存。你能"随用随取"，是因为调度让发电厂时刻跟着全国的用电量增减出力。</div>
+      <div class="pit"><b>误解 2："不是有充电宝、电池吗？"</b> 能存，但<strong>太贵、太小</strong>。全国一天用电约 <span class="num">270 亿度</span>，目前所有储能加起来也只够全国用几十分钟——所以是"不能<strong>大规模</strong>储存"。</div>
+      <div class="pit"><b>误解 3："发电厂可以先发好电等着用。"</b> 发出来的电没人用，发电机转速会飙升被迫停机。电厂"待命"待的是产能，不是攒好的电。</div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span class="no">05</span>关联与延伸</h2>
+    <div class="bd">
+      <p>· 下一课《50Hz：电网的心跳》会讲频率如何反映供需平衡。<br>
+         · 模块 6《调度运行》整个模块都建立在这一课之上。<br>
+         · 模块 11《储能》讲人类如何花大价钱给电网"修仓库"。</p>
+    </div>
+  </section>
+
+  <div class="next">
+    <a href="#">← 上一课 · 三相电</a>
+    <a href="#">标记已读 ✓</a>
+    <a href="#">下一课 · 50Hz 心跳 →</a>
+  </div>
+</div>
+
+<div class="termcard">
+  <div class="t">调度</div>
+  <div>电网的"大脑"：实时指挥所有电厂发多少电，保证发电=用电、电网安全、成本最低。</div>
+  <div class="a">类比：整个电网的空中交通管制塔台。</div>
+  <div class="ops"><span>☆ 收藏</span><span>去那一课 →</span></div>
+</div>
+</body>
+</html>

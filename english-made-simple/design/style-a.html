@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格 A · 晨读课本 — English Made Simple</title>
+<style>
+  :root{
+    --paper:#FBFAF6;
+    --ink:#25303E;
+    --indigo:#2F4E9E;
+    --marker:#FFE873;
+    --note:#8B919B;
+    --rule:#E5E1D8;
+    --serif:Charter,"Bitstream Charter",Georgia,"Times New Roman","Songti SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.8;font-size:16px}
+  a{color:var(--indigo);text-decoration:none}
+  a:hover{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+
+  /* ── 页眉:像课本扉页 ── */
+  header{border-bottom:1px solid var(--rule)}
+  .masthead{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:22px 0 18px}
+  .brand{font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:.2px}
+  .brand small{font-family:var(--sans);font-weight:400;font-size:13px;color:var(--note);margin-left:10px}
+  nav{display:flex;gap:22px;font-size:14px}
+  nav a{color:var(--ink)}
+  nav a.now{border-bottom:3px solid var(--marker)}
+
+  /* ── Hero:今天这一课 ── */
+  .lesson{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:48px;padding:64px 0 56px}
+  .eyebrow{font-size:13px;letter-spacing:2px;color:var(--indigo);font-weight:600;margin-bottom:14px}
+  .eyebrow b{background:var(--indigo);color:#fff;border-radius:3px;padding:2px 8px;margin-right:10px;font-weight:600}
+  h1{font-family:var(--serif);font-size:clamp(28px,4.4vw,42px);line-height:1.45;font-weight:700;letter-spacing:.3px}
+  h1 .en{font-style:italic}
+  mark{background:linear-gradient(transparent 52%,var(--marker) 52%);padding:0 2px;color:inherit;
+       background-repeat:no-repeat;background-size:0% 100%;animation:sweep .9s .3s ease-out forwards}
+  @keyframes sweep{to{background-size:100% 100%}}
+  .lesson p.intro{margin-top:18px;color:#4A5260;max-width:34em}
+  .cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:11px 26px;border-radius:4px;font-size:15px;border:1px solid var(--indigo)}
+  .btn.solid{background:var(--indigo);color:#fff}
+  .btn.solid:hover{background:#26407F;text-decoration:none}
+  .btn.ghost{color:var(--indigo)}
+  /* 页边批注 */
+  .sidenote{border-left:2px solid var(--marker);padding-left:18px;font-size:13.5px;color:var(--note);align-self:center}
+  .sidenote p{margin-bottom:14px}
+  .sidenote b{display:block;font-size:22px;color:var(--ink);font-family:var(--serif)}
+
+  /* ── 章节标题 ── */
+  .chapter{display:flex;align-items:center;gap:14px;margin:54px 0 6px}
+  .chapter span{font-family:var(--serif);font-size:13px;color:var(--note);letter-spacing:3px}
+  .chapter h2{font-family:var(--serif);font-size:24px;font-weight:700}
+  .chapter::after{content:"";flex:1;border-top:1px solid var(--rule)}
+  .chapter+p.sub{color:var(--note);font-size:14px;margin-bottom:22px}
+
+  /* ── 点读演示 ── */
+  .readcard{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:30px 34px;box-shadow:0 1px 0 var(--rule)}
+  .sentence{font-family:var(--serif);font-size:clamp(20px,3vw,28px);line-height:2;font-style:italic}
+  .w{cursor:pointer;border-bottom:2px dotted #B9C4DC;padding:0 1px;transition:background .15s}
+  .w:hover{background:var(--marker);border-bottom-color:transparent}
+  .sentence .all{cursor:pointer;font-family:var(--sans);font-style:normal;font-size:13px;color:var(--indigo);
+    border:1px solid var(--indigo);border-radius:99px;padding:3px 14px;margin-left:14px;vertical-align:middle;white-space:nowrap}
+  .sentence .all:hover{background:var(--indigo);color:#fff}
+  .trans{color:var(--note);font-size:14px;margin-top:10px}
+  .chips{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;padding-top:22px;border-top:1px dashed var(--rule)}
+  .chip{cursor:pointer;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:8px 16px;text-align:center;transition:.15s}
+  .chip:hover{border-color:var(--indigo);transform:translateY(-2px)}
+  .chip i{font-style:normal;font-family:var(--serif);font-size:19px;display:block;color:var(--indigo)}
+  .chip s{text-decoration:none;font-size:12px;color:var(--note)}
+  .hint{font-size:12.5px;color:var(--note);margin-top:16px}
+
+  /* ── 目录(点线引导) ── */
+  .toc{list-style:none}
+  .toc li{display:flex;align-items:baseline;padding:13px 2px;border-bottom:1px solid transparent}
+  .toc li:hover{background:#fff}
+  .toc .no{font-family:var(--serif);width:36px;color:var(--note);font-size:14px}
+  .toc a.t{color:var(--ink);font-size:16.5px;font-weight:600}
+  .toc a.t small{font-weight:400;color:var(--note);margin-left:10px;font-size:13px}
+  .toc .lead{flex:1;border-bottom:2px dotted #CFCABD;margin:0 12px;transform:translateY(-5px)}
+  .toc .pg{font-size:13.5px;color:var(--note);font-variant-numeric:tabular-nums}
+  .toc .pg.live{color:var(--indigo);font-weight:600;background:var(--marker);border-radius:3px;padding:1px 8px}
+
+  /* ── 快速复习条 ── */
+  .review{margin:56px 0 0;background:var(--ink);color:#EDEAE2;border-radius:6px;padding:26px 34px;
+    display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:space-between}
+  .review p{font-size:15px}
+  .review p b{color:var(--marker)}
+  .review .btn{border-color:var(--marker);color:var(--marker)}
+  .review .btn:hover{background:var(--marker);color:var(--ink);text-decoration:none}
+
+  footer{margin-top:70px;border-top:1px solid var(--rule);padding:26px 0 50px;font-size:13px;color:var(--note);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  @media (max-width:760px){
+    .lesson{grid-template-columns:1fr;gap:30px;padding:44px 0 40px}
+    .sidenote{border-left:none;border-top:2px solid var(--marker);padding:16px 0 0;display:flex;gap:28px}
+    .sidenote p{margin:0}
+    nav{gap:14px}
+    .readcard{padding:22px}
+    .review{padding:22px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    mark{animation:none;background-size:100% 100%}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap masthead">
+    <div class="brand">English Made Simple<small>美语,一看就懂</small></div>
+    <nav>
+      <a class="now" href="#">学习路线</a>
+      <a href="#toc">九大模块</a>
+      <a href="#">生词本 <b>23</b></a>
+      <a href="#">设置</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 今天这一课:路线图优先 -->
+  <section class="lesson">
+    <div>
+      <p class="eyebrow"><b>第 12 步</b>发音 · 连读 LINKING</p>
+      <h1>为什么 <span class="en">not at all</span> 听起来像 <mark>"no-da-dall"</mark>?</h1>
+      <p class="intro">美国人不是一个词一个词地说话——上个词的尾巴会"粘"住下个词的脑袋。今天 5 分钟,学会听出这条粘合规律。</p>
+      <div class="cta">
+        <a class="btn solid" href="#">继续学习 第 12 步 →</a>
+        <a class="btn ghost" href="#">查看完整路线</a>
+      </div>
+    </div>
+    <aside class="sidenote">
+      <p><b>🔥 6 天</b>连续学习</p>
+      <p><b>12 / 64</b>路线进度</p>
+      <p><b>23 词</b>生词本待复习</p>
+    </aside>
+  </section>
+
+  <!-- 点读演示 -->
+  <div class="chapter"><span>特色</span><h2>点哪里,就听哪里</h2></div>
+  <p class="sub">全站任何英文都可以点——用你浏览器自带的美音引擎,离线也能发声。试试👇</p>
+  <div class="readcard">
+    <p class="sentence">
+      <span class="w" data-say="Could">Could</span>
+      <span class="w" data-say="I">I</span>
+      <span class="w" data-say="get">get</span>
+      <span class="w" data-say="a">a</span>
+      <span class="w" data-say="coffee">coffee</span>,
+      <span class="w" data-say="please">please</span>?
+      <span class="all" data-say="Could I get a coffee, please?">▶ 听整句</span>
+    </p>
+    <p class="trans">我能来杯咖啡吗?——美国咖啡店里最常用的点单句。</p>
+    <div class="chips">
+      <span class="chip" data-say="cat"><i>/æ/</i><s>如 cat</s></span>
+      <span class="chip" data-say="think"><i>/θ/</i><s>如 think</s></span>
+      <span class="chip" data-say="sit"><i>/ɪ/</i><s>如 sit</s></span>
+      <span class="chip" data-say="water"><i>/t̬/</i><s>如 water</s></span>
+      <span class="chip" data-say="bird"><i>/ɝ/</i><s>如 bird</s></span>
+    </div>
+    <p class="hint">提示:音标点击后朗读例词;48 个音标的完整口型讲解在「发音」模块。</p>
+  </div>
+
+  <!-- 模块目录 -->
+  <div class="chapter" id="toc"><span>目录</span><h2>九大模块</h2></div>
+  <p class="sub">想跳着查也可以——但零基础建议跟着上面的路线走,不迷路。</p>
+  <ul class="toc">
+    <li><span class="no">0</span><a class="t" href="#">学习导览<small>怎么学 · 工具 · 路线图</small></a><span class="lead"></span><span class="pg">4 / 6</span></li>
+    <li><span class="no">1</span><a class="t" href="#">发音<small>字母 · 拼读 · 音标 · 连读</small></a><span class="lead"></span><span class="pg live">学到 12 / 40</span></li>
+    <li><span class="no">2</span><a class="t" href="#">词汇<small>词根词缀 · 场景词包</small></a><span class="lead"></span><span class="pg">未开始</span></li>
+    <li><span class="no">3</span><a class="t" href="#">语法<small>句型 · 时态 · 从句</small></a><span class="lead"></span><span class="pg">未开始</span></li>
+    <li><span class="no">4</span><a class="t" href="#">听力<small>精听 · 泛听 · 方法</small></a><span class="lead"></span><span class="pg">未开始</span></li>
+    <li><span class="no">5</span><a class="t" href="#">口语表达<small>高频句型 · 场景对话</small></a><span class="lead"></span><span class="pg">未开始</span></li>
+    <li><span class="no">6</span><a class="t" href="#">阅读<small>长难句 · 阅读策略</small></a><span class="lead"></span><span class="pg">未开始</span></li>
+    <li><span class="no">7</span><a class="t" href="#">写作<small>句段篇 · 避坑 · 邮件</small></a><span class="lead"></span><span class="pg">未开始</span></li>
+    <li><span class="no">8</span><a class="t" href="#">文化与语用<small>美英差异 · small talk</small></a><span class="lead"></span><span class="pg">未开始</span></li>
+  </ul>
+
+  <!-- 快速复习 -->
+  <section class="review">
+    <p>📒 生词本 <b>23</b> 词 · 错题本 <b>4</b> 道——随机抽 5 个,一分钟过一遍?</p>
+    <a class="btn" href="#">开始快速复习</a>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>English Made Simple · 纯静态 · 零依赖 · 离线可用</span>
+  <span>进度经 GitHub 自动同步 ✓</span>
+</footer>
+
+<script>
+  function speak(t){
+    try{
+      const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.92;
+      const vs=speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.indexOf('en-US')===0);
+      u.voice=vs.find(v=>v.localService)||vs[0]||null;
+      speechSynthesis.cancel();speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  document.addEventListener('click',e=>{
+    const el=e.target.closest('[data-say]');
+    if(el)speak(el.dataset.say);
+  });
+  if('speechSynthesis' in window)speechSynthesis.getVoices();
+</script>
+</body>
+</html>

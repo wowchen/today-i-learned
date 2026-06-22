@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>风格 G · 终端考场型 — 高项学习站</title>
+<style>
+/*
+  G · 终端考场型 (Terminal / Console)
+  设计理念：像 终端 / 代码编辑器 / 复古 CRT —— 等宽字体、命令行美学、专注感
+  布局：单栏 + 行号栏，模拟编辑器/终端
+  字体：全等宽，营造"刷题机"的硬核专注气质
+  特征：行号、光标、提示符 >、命令风格的标签、磷光绿/琥珀双色
+  移动端：行号栏隐藏，字号自适应
+*/
+:root {
+  --bg: #0a0e0a;
+  --bg2: #0e140e;
+  --panel: #121a12;
+  --ink: #c5e8c5;
+  --ink2: #5a7a5a;
+  --accent: #4ade80;
+  --accent-dim: #1a3a1f;
+  --amber: #fbbf24;
+  --ok: #4ade80;
+  --bad: #f87171;
+  --line: #1a261a;
+  --mono: "JetBrains Mono","SF Mono","Fira Code","Cascadia Code",monospace;
+}
+[data-theme="amber"] {
+  --bg: #0e0a04;
+  --bg2: #140e06;
+  --panel: #1a1208;
+  --ink: #e8d4a0;
+  --ink2: #7a6840;
+  --accent: #fbbf24;
+  --accent-dim: #3a2e10;
+  --line: #261c0a;
+}
+[data-theme="light"] {
+  --bg: #f6f8f4;
+  --bg2: #eef2ea;
+  --panel: #ffffff;
+  --ink: #1a2a1a;
+  --ink2: #6a8a6a;
+  --accent: #16a34a;
+  --accent-dim: #dcfce7;
+  --line: #dde6dd;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font:14px/1.7 var(--mono); background:var(--bg); color:var(--ink); min-height:100vh; }
+
+/* CRT scanline overlay */
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(0deg, rgba(0,0,0,.04) 0px, rgba(0,0,0,.04) 1px, transparent 1px, transparent 3px);
+  pointer-events:none;
+  z-index:9999;
+  opacity:.5;
+}
+[data-theme="light"] body::before { display:none; }
+
+/* Terminal header */
+.term-head { background:var(--bg2); border-bottom:1px solid var(--line); padding:8px 16px; display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:100; }
+.term-head .dots { display:flex; gap:6px; }
+.term-head .dots span { width:11px; height:11px; border-radius:50%; }
+.term-head .dots .r { background:#f87171; }
+.term-head .dots .y { background:#fbbf24; }
+.term-head .dots .g { background:#4ade80; }
+.term-head .path { font-size:12px; color:var(--ink2); }
+.term-head .path .accent { color:var(--accent); }
+.term-head .actions { margin-left:auto; display:flex; gap:8px; }
+.term-head .actions button { background:none; border:1px solid var(--line); color:var(--ink2); padding:2px 8px; font:11px var(--mono); cursor:pointer; }
+.term-head .actions button:hover { border-color:var(--accent); color:var(--accent); }
+
+/* Command bar */
+.cmdbar { background:var(--bg2); border-bottom:1px solid var(--line); padding:6px 16px; font-size:12px; color:var(--ink2); display:flex; gap:16px; flex-wrap:wrap; }
+.cmdbar span.accent { color:var(--accent); }
+.cmdbar .blink { animation:blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity:0; } }
+
+/* Layout with line numbers */
+.editor { display:flex; max-width:900px; margin:0 auto; }
+.gutter { flex-shrink:0; width:48px; text-align:right; padding:24px 12px 24px 0; color:var(--ink2); font-size:12px; user-select:none; border-right:1px solid var(--line); }
+.gutter div { line-height:1.7; }
+.body { flex:1; padding:24px 24px 80px; min-width:0; }
+
+/* Prompt-style section headers */
+.prompt { margin:24px 0 12px; font-size:13px; }
+.prompt::before { content:"$ "; color:var(--accent); }
+.prompt .cmd { color:var(--amber); }
+.prompt .arg { color:var(--ink2); }
+.prompt:first-child { margin-top:0; }
+
+/* Output block */
+.output { padding-left:16px; border-left:1px solid var(--line); margin-bottom:8px; }
+.output p { font-size:14px; margin-bottom:10px; color:var(--ink); }
+.output .comment { color:var(--ink2); }
+.output .comment::before { content:"// "; }
+
+/* Term */
+.term { color:var(--accent); cursor:pointer; }
+.term::before { content:"<"; color:var(--ink2); }
+.term::after { content:">"; color:var(--ink2); }
+
+/* List */
+.output ul { list-style:none; margin-bottom:10px; }
+.output ul li { font-size:13px; padding:3px 0 3px 20px; position:relative; }
+.output ul li::before { content:"▸"; position:absolute; left:0; color:var(--accent); }
+
+/* Pitfall — error/warning log */
+.log { margin:8px 0; padding:10px 14px; font-size:13px; background:var(--panel); border-left:3px solid var(--bad); }
+.log .level { color:var(--bad); font-weight:700; }
+.log .level::before { content:"[WARN] "; }
+
+/* Quiz — interactive prompt */
+.quiz { margin:12px 0; background:var(--panel); border:1px solid var(--line); }
+.quiz .q-bar { background:var(--bg2); padding:8px 14px; font-size:12px; color:var(--ink2); border-bottom:1px solid var(--line); }
+.quiz .q-bar::before { content:"? "; color:var(--amber); }
+.quiz .q-body { padding:14px; }
+.quiz .q-text { font-size:14px; margin-bottom:14px; }
+.quiz .opts { display:grid; gap:4px; }
+.quiz .opt {
+  background:var(--bg2);
+  border:1px solid var(--line);
+  padding:9px 14px;
+  font:13px var(--mono);
+  text-align:left;
+  color:var(--ink);
+  cursor:pointer;
+  transition:all .1s;
+}
+.quiz .opt::before { content:"[ ] "; color:var(--ink2); }
+.quiz .opt:hover { border-color:var(--accent); color:var(--accent); }
+.quiz .opt.right { border-color:var(--ok); color:var(--ok); }
+.quiz .opt.right::before { content:"[✓] "; color:var(--ok); }
+.quiz .opt.wrong { border-color:var(--bad); color:var(--bad); }
+.quiz .opt.wrong::before { content:"[✗] "; color:var(--bad); }
+.quiz .explain { padding:12px 14px; border-top:1px solid var(--line); font-size:12px; color:var(--ink2); display:none; background:var(--bg2); }
+.quiz .explain::before { content:"→ OUTPUT: "; color:var(--accent); }
+.quiz .explain.show { display:block; }
+
+/* Figure */
+figure { margin:14px 0; padding:14px; border:1px solid var(--line); background:var(--panel); text-align:center; }
+figcaption { font-size:11px; color:var(--ink2); margin-top:8px; }
+figcaption::before { content:"# "; }
+
+/* Status footer */
+.statusbar { position:fixed; bottom:0; left:0; right:0; background:var(--accent); color:var(--bg); font-size:11px; padding:3px 16px; display:flex; gap:16px; z-index:100; }
+.statusbar .right { margin-left:auto; }
+
+@media(max-width:640px) {
+  .gutter { display:none; }
+  .body { padding:16px 16px 60px; }
+  .cmdbar { font-size:10px; gap:8px; }
+  .term-head .path { font-size:10px; }
+}
+</style>
+</head>
+<body>
+<div class="term-head">
+  <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+  <div class="path"><span class="accent">ispm</span>@learn:~/<span class="accent">pm-scope</span>/05-wbs.md</div>
+  <div class="actions">
+    <button onclick="cycleTheme()">theme</button>
+    <button>⌘K</button>
+  </div>
+</div>
+<div class="cmdbar">
+  <span>STEP <span class="accent">18</span>/156</span>
+  <span>MODULE <span class="accent">范围管理</span></span>
+  <span>WEIGHT <span class="accent">高频</span></span>
+  <span>PROGRESS <span class="accent">12%</span></span>
+  <span class="blink accent">█</span>
+</div>
+
+<div class="editor">
+  <div class="gutter">
+    <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
+    <div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div>
+    <div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div>
+    <div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div>
+  </div>
+  <div class="body">
+    <h1 style="font-size:20px;margin-bottom:4px;color:var(--accent)"># WBS 工作分解结构</h1>
+    <p style="color:var(--ink2);font-size:12px;margin-bottom:20px">// pm-scope/05 · 核心课时 · ~5min</p>
+
+    <div class="prompt"><span class="cmd">cat</span> <span class="arg">concept.md</span></div>
+    <div class="output">
+      <p>想象你要搬家——不会直接喊"搬！"，而是拆成：找搬家公司、打包厨房、打包卧室、搬运、验收。<span class="term">WBS</span> 就是把项目大目标逐层拆解成可管理、可交付的小工作包的过程。</p>
+      <p>它是<span class="term">范围基准</span>的核心组成部分，与 WBS 词典和范围说明书共同构成范围基准。</p>
+    </div>
+
+    <div class="prompt"><span class="cmd">cat</span> <span class="arg">core.md</span></div>
+    <div class="output">
+      <p class="comment">分解四原则</p>
+      <ul>
+        <li>100% 规则：子元素之和 = 父元素全部范围</li>
+        <li>面向可交付成果：分解"东西"而非"动作"</li>
+        <li>最底层是工作包：8-80 小时可估算</li>
+        <li>每个元素只出现一次</li>
+      </ul>
+    </div>
+
+    <figure>
+      <svg width="340" height="130" viewBox="0 0 340 130">
+        <rect x="125" y="6" width="90" height="26" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+        <text x="170" y="22" text-anchor="middle" fill="var(--ink)" font-size="11" font-family="var(--mono)">PROJECT</text>
+        <line x1="145" y1="32" x2="75" y2="52" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="170" y1="32" x2="170" y2="52" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="195" y1="32" x2="265" y2="52" stroke="var(--ink2)" stroke-width="1"/>
+        <rect x="35" y="52" width="80" height="22" fill="none" stroke="var(--amber)" stroke-width="1"/>
+        <text x="75" y="67" text-anchor="middle" fill="var(--ink)" font-size="10" font-family="var(--mono)">DELIV_A</text>
+        <rect x="130" y="52" width="80" height="22" fill="none" stroke="var(--amber)" stroke-width="1"/>
+        <text x="170" y="67" text-anchor="middle" fill="var(--ink)" font-size="10" font-family="var(--mono)">DELIV_B</text>
+        <rect x="225" y="52" width="80" height="22" fill="none" stroke="var(--amber)" stroke-width="1"/>
+        <text x="265" y="67" text-anchor="middle" fill="var(--ink)" font-size="10" font-family="var(--mono)">DELIV_C</text>
+        <line x1="55" y1="74" x2="55" y2="94" stroke="var(--ink2)" stroke-width="1"/>
+        <line x1="95" y1="74" x2="95" y2="94" stroke="var(--ink2)" stroke-width="1"/>
+        <rect x="32" y="94" width="46" height="20" fill="var(--accent-dim)" stroke="var(--accent)" stroke-width="1"/>
+        <text x="55" y="108" text-anchor="middle" fill="var(--accent)" font-size="9" font-family="var(--mono)">WP_1</text>
+        <rect x="82" y="94" width="46" height="20" fill="var(--accent-dim)" stroke="var(--accent)" stroke-width="1"/>
+        <text x="105" y="108" text-anchor="middle" fill="var(--accent)" font-size="9" font-family="var(--mono)">WP_2</text>
+      </svg>
+      <figcaption>wbs_hierarchy.svg</figcaption>
+    </figure>
+
+    <div class="prompt"><span class="cmd">grep</span> <span class="arg">-i "误解" pitfalls.md</span></div>
+    <div class="log"><span class="level"></span>WBS 是任务清单 → 错。分解的是可交付成果（名词），不是活动。"写代码"是活动，"登录模块"才是工作包。</div>
+    <div class="log"><span class="level"></span>WBS 要分解到最细 → 错。最底层是工作包（8-80h），再往下是活动，属于进度管理。</div>
+
+    <div class="prompt"><span class="cmd">run</span> <span class="arg">quiz --year=2022H1</span></div>
+    <div class="quiz">
+      <div class="q-bar">Q1 / CHOICE / 2022 上半年</div>
+      <div class="q-body">
+        <div class="q-text">WBS 的最底层元素称为：</div>
+        <div class="opts">
+          <button class="opt" onclick="settle(this,false)">A. 活动</button>
+          <button class="opt" onclick="settle(this,true)">B. 工作包</button>
+          <button class="opt" onclick="settle(this,false)">C. 里程碑</button>
+          <button class="opt" onclick="settle(this,false)">D. 控制账户</button>
+        </div>
+      </div>
+      <div class="explain">WBS 最小可交付单元是工作包。活动是工作包的进一步分解，属于进度管理的"定义活动"过程。</div>
+    </div>
+  </div>
+</div>
+
+<div class="statusbar">
+  <span>NORMAL</span>
+  <span>utf-8</span>
+  <span>markdown</span>
+  <span class="right">Ln 18, Col 1 · 18/156 学完</span>
+</div>
+<script>
+function settle(el, correct) {
+  const quiz = el.closest('.quiz');
+  quiz.querySelectorAll('.opt').forEach(o => {
+    o.disabled = true;
+    if (o.textContent.includes('工作包')) o.classList.add('right');
+  });
+  if (!correct) el.classList.add('wrong');
+  quiz.querySelector('.explain').classList.add('show');
+}
+const themes = ['dark','amber','light'];
+function cycleTheme() {
+  const h = document.documentElement;
+  let i = themes.indexOf(h.dataset.theme);
+  h.dataset.theme = themes[(i+1) % themes.length];
+}
+</script>
+</body>
+</html>

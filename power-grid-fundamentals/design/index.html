@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电网通识 · 风格选型</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:16px/1.8 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:#f2f4f7;color:#222;padding:40px 20px}
+  .wrap{max-width:900px;margin:0 auto}
+  h1{font-size:26px;margin-bottom:6px}
+  p.sub{color:#777;margin-bottom:30px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  a.card{display:block;background:#fff;border:1px solid #e3e6eb;border-radius:14px;
+    padding:22px;text-decoration:none;color:#222;transition:.15s;
+    box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  a.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.1)}
+  .tag{display:inline-block;font-size:13px;font-weight:700;border-radius:6px;
+    padding:2px 10px;margin-bottom:10px;color:#fff}
+  h2{font-size:19px;margin-bottom:8px}
+  .desc{font-size:14px;color:#666}
+  .swatch{display:flex;gap:6px;margin-top:14px}
+  .swatch i{width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,0,0,.08)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>电网通识 · 视觉风格选型</h1>
+  <p class="sub">同一节样例课（模块 2 第 5 课「电为什么不能大规模储存？」）用四种风格各渲染一遍。点开预览，电脑/手机都看看，选一个定稿。</p>
+  <div class="grid">
+    <a class="card" href="style-a.html">
+      <span class="tag" style="background:#0e2a47">A</span>
+      <h2>工程蓝图</h2>
+      <div class="desc">蓝晒图纸底 + 白色线框 + 网格背景 + 工程标注气质。像在读一张电网设计图。</div>
+      <div class="swatch"><i style="background:#0e2a47"></i><i style="background:#7fb3d9"></i><i style="background:#ffd166"></i><i style="background:#6ee7b7"></i></div>
+    </a>
+    <a class="card" href="style-b.html">
+      <span class="tag" style="background:#0b0f14">B</span>
+      <h2>调度大屏</h2>
+      <div class="desc">深色控制室 + 荧光数据高亮 + 顶栏实时频率/负荷 HUD。像坐进调度中心值班台。</div>
+      <div class="swatch"><i style="background:#0b0f14"></i><i style="background:#22d3ee"></i><i style="background:#34d399"></i><i style="background:#fbbf24"></i></div>
+    </a>
+    <a class="card" href="style-c.html">
+      <span class="tag" style="background:#0e7490">C</span>
+      <h2>清爽科普</h2>
+      <div class="desc">明亮留白 + 柔和蓝绿 + 圆角卡片。最耐看的长时阅读底子，参考站血统。</div>
+      <div class="swatch"><i style="background:#f7fafc"></i><i style="background:#0e7490"></i><i style="background:#16a34a"></i><i style="background:#d97706"></i></div>
+    </a>
+    <a class="card" href="style-d.html">
+      <span class="tag" style="background:#9a3412">D</span>
+      <h2>杂志深读</h2>
+      <div class="desc">暖纸底 + 衬线大标题 + 导语排版。像读一本行业特稿杂志。</div>
+      <div class="swatch"><i style="background:#faf6ef"></i><i style="background:#9a3412"></i><i style="background:#3f6212"></i><i style="background:#2b2622"></i></div>
+    </a>
+  </div>
+</div>
+</body>
+</html>

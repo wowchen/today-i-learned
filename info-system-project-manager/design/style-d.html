@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>风格 D · 卡片流型 — 高项学习站</title>
+<style>
+/*
+  D · 卡片流型
+  设计理念：像 Arc Browser / Apple Notes —— 圆润卡片、毛玻璃、层叠空间感
+  布局：全宽卡片流，视觉主导（大圆角、半透明、渐变点缀）
+  字体：几何无衬线（圆润感）
+  特征：大圆角、玻璃质感、浮动卡片、色彩渐变标签、温暖色调
+*/
+:root {
+  --bg: #0f0f12;
+  --glass: rgba(255,255,255,.03);
+  --glass-border: rgba(255,255,255,.06);
+  --card: rgba(255,255,255,.04);
+  --card-hover: rgba(255,255,255,.07);
+  --ink: #f0f0f5;
+  --ink2: #7a7a8c;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --gradient: linear-gradient(135deg, #6366f1, #a78bfa);
+  --ok: #34d399;
+  --bad: #f87171;
+  --warn: #fbbf24;
+  --border: rgba(255,255,255,.08);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font: "SF Pro Display","PingFang SC",system-ui,sans-serif;
+  --mono: "SF Mono","JetBrains Mono",monospace;
+}
+[data-theme="light"] {
+  --bg: #f5f5f7;
+  --glass: rgba(255,255,255,.7);
+  --glass-border: rgba(0,0,0,.06);
+  --card: rgba(255,255,255,.8);
+  --card-hover: rgba(255,255,255,.95);
+  --ink: #1d1d1f;
+  --ink2: #6e6e73;
+  --accent: #5856d6;
+  --accent2: #7c7aed;
+  --gradient: linear-gradient(135deg, #5856d6, #af52de);
+  --border: rgba(0,0,0,.06);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font:15px/1.7 var(--font); background:var(--bg); color:var(--ink); min-height:100vh; }
+
+/* Ambient background blobs */
+body::before, body::after {
+  content:"";
+  position:fixed;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.15;
+  pointer-events:none;
+  z-index:0;
+}
+body::before { width:400px; height:400px; background:#6366f1; top:-100px; right:-100px; }
+body::after { width:300px; height:300px; background:#a78bfa; bottom:-50px; left:-50px; }
+
+/* Header */
+.header {
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(20px) saturate(1.2);
+  -webkit-backdrop-filter:blur(20px) saturate(1.2);
+  background:var(--glass);
+  border-bottom:1px solid var(--glass-border);
+  padding:12px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.header .logo { font-size:16px; font-weight:700; background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.header nav { display:flex; gap:6px; }
+.header nav a {
+  font-size:13px;
+  color:var(--ink2);
+  text-decoration:none;
+  padding:6px 14px;
+  border-radius:20px;
+  transition:all .2s;
+}
+.header nav a:hover { background:var(--card); color:var(--ink); }
+.header nav a.active { background:var(--accent); color:#fff; }
+.header .theme-btn { background:var(--card); border:1px solid var(--border); color:var(--ink2); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; }
+
+/* Content */
+.page { position:relative; z-index:1; max-width:720px; margin:0 auto; padding:32px 20px 80px; }
+
+/* Hero card */
+.hero-card {
+  background:var(--gradient);
+  border-radius:var(--radius);
+  padding:28px;
+  color:#fff;
+  margin-bottom:24px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-card::after { content:""; position:absolute; top:0; right:0; width:200px; height:200px; background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%); }
+.hero-card .step { font-size:12px; opacity:.8; font-weight:500; margin-bottom:4px; }
+.hero-card h2 { font-size:22px; font-weight:700; margin-bottom:4px; }
+.hero-card .sub { font-size:13px; opacity:.8; }
+.hero-card .bar { margin-top:16px; height:4px; background:rgba(255,255,255,.2); border-radius:4px; overflow:hidden; }
+.hero-card .bar .fill { height:100%; width:12%; background:rgba(255,255,255,.8); border-radius:4px; }
+
+/* Stats */
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:24px; }
+.stat-card {
+  background:var(--card);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:14px;
+  text-align:center;
+}
+.stat-card .val { font-size:24px; font-weight:700; font-family:var(--mono); background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.stat-card .lbl { font-size:11px; color:var(--ink2); margin-top:2px; }
+
+/* Section labels */
+.sec-label {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--accent2);
+  margin-bottom:10px;
+  padding:4px 10px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+}
+
+/* Content cards */
+.c-card {
+  background:var(--card);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+  margin-bottom:16px;
+  transition:background .2s;
+}
+.c-card:hover { background:var(--card-hover); }
+.c-card h3 { font-size:16px; font-weight:600; margin-bottom:8px; }
+.c-card p { font-size:14px; color:var(--ink2); margin-bottom:8px; line-height:1.8; }
+.c-card ul { font-size:14px; padding-left:18px; color:var(--ink2); }
+.c-card ul li { margin-bottom:6px; }
+
+/* Term */
+.term {
+  display:inline-flex;
+  align-items:center;
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:1px 8px;
+  border-radius:12px;
+  font-size:13px;
+  color:var(--accent2);
+  cursor:pointer;
+  font-weight:500;
+}
+
+/* Pitfall */
+.pit-card {
+  background:rgba(248,113,113,.04);
+  border:1px solid rgba(248,113,113,.15);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  margin:10px 0;
+}
+.pit-card .pit-label { font-size:11px; font-weight:600; color:var(--bad); margin-bottom:4px; }
+.pit-card p { font-size:13px; color:var(--ink2); }
+
+/* Quiz */
+.quiz-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  margin:10px 0;
+}
+.quiz-card .q-source { font-size:11px; color:var(--ink2); margin-bottom:6px; }
+.quiz-card .q-text { font-size:14px; margin-bottom:14px; }
+.quiz-card .opts { display:grid; gap:8px; }
+.quiz-card .opt {
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;
+  font-size:13px;
+  text-align:left;
+  color:var(--ink);
+  cursor:pointer;
+  font-family:var(--font);
+  transition:all .2s;
+}
+.quiz-card .opt:hover { background:var(--card-hover); border-color:var(--accent); }
+.quiz-card .opt.right { border-color:var(--ok); background:rgba(52,211,153,.08); }
+.quiz-card .opt.wrong { border-color:var(--bad); background:rgba(248,113,113,.08); }
+.quiz-card .explain {
+  margin-top:12px;
+  padding:12px;
+  background:var(--glass);
+  border-radius:var(--radius-sm);
+  font-size:12px;
+  color:var(--ink2);
+  display:none;
+}
+.quiz-card .explain.show { display:block; }
+
+/* Figure */
+figure { margin:16px 0; text-align:center; background:var(--card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; }
+figcaption { font-size:11px; color:var(--ink2); margin-top:8px; }
+
+/* Nav */
+.lesson-nav { display:flex; justify-content:space-between; margin-top:28px; }
+.lesson-nav a { font-size:13px; color:var(--accent2); text-decoration:none; padding:8px 16px; border-radius:20px; background:var(--card); border:1px solid var(--border); }
+.lesson-nav a:hover { background:var(--card-hover); }
+
+@media(max-width:640px) {
+  .stats { grid-template-columns:repeat(2,1fr); }
+  .header nav a span { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">高项学习站</div>
+  <nav>
+    <a class="active" href="#">学习</a>
+    <a href="#">术语</a>
+    <a href="#">错题</a>
+    <a href="#">搜索</a>
+  </nav>
+  <button class="theme-btn" onclick="toggleTheme()">切换主题</button>
+</div>
+<div class="page">
+  <div class="hero-card">
+    <div class="step">Step 18 / 156</div>
+    <h2>WBS 工作分解结构</h2>
+    <div class="sub">范围管理 · 第 5 课 · 约 5 分钟</div>
+    <div class="bar"><div class="fill"></div></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="val">18</div><div class="lbl">已学</div></div>
+    <div class="stat-card"><div class="val">156</div><div class="lbl">总计</div></div>
+    <div class="stat-card"><div class="val">7</div><div class="lbl">连续</div></div>
+    <div class="stat-card"><div class="val">42</div><div class="lbl">术语</div></div>
+  </div>
+
+  <div class="sec-label">① 概念</div>
+  <div class="c-card">
+    <p>想象你要搬家——不会直接喊"搬！"，而是拆成：找搬家公司、打包厨房、打包卧室、搬运、验收。</p>
+    <p><span class="term">WBS</span> 就是把项目大目标逐层拆解成可管理、可交付的小工作包的过程。它是<span class="term">范围基准</span>的核心组成部分。</p>
+  </div>
+
+  <div class="sec-label">③ 核心要点</div>
+  <div class="c-card">
+    <h3>分解原则</h3>
+    <ul>
+      <li><b>100% 规则</b> — 子元素之和 = 父元素全部范围</li>
+      <li><b>面向可交付成果</b> — 分解"东西"不是"动作"</li>
+      <li><b>最底层 = 工作包</b> — 8-80 小时可估算</li>
+      <li><b>不重复</b> — 每个元素只出现一次</li>
+    </ul>
+  </div>
+
+  <figure>
+    <svg width="360" height="140" viewBox="0 0 360 140">
+      <rect x="130" y="8" width="100" height="30" rx="8" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="180" y="27" text-anchor="middle" fill="var(--ink)" font-size="12">项目目标</text>
+      <line x1="155" y1="38" x2="80" y2="60" stroke="var(--ink2)" stroke-width="1"/>
+      <line x1="180" y1="38" x2="180" y2="60" stroke="var(--ink2)" stroke-width="1"/>
+      <line x1="205" y1="38" x2="280" y2="60" stroke="var(--ink2)" stroke-width="1"/>
+      <rect x="35" y="60" width="90" height="26" rx="6" fill="none" stroke="var(--ok)" stroke-width="1"/>
+      <text x="80" y="77" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 A</text>
+      <rect x="135" y="60" width="90" height="26" rx="6" fill="none" stroke="var(--ok)" stroke-width="1"/>
+      <text x="180" y="77" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 B</text>
+      <rect x="235" y="60" width="90" height="26" rx="6" fill="none" stroke="var(--ok)" stroke-width="1"/>
+      <text x="280" y="77" text-anchor="middle" fill="var(--ink)" font-size="11">交付物 C</text>
+      <line x1="55" y1="86" x2="55" y2="105" stroke="var(--ink2)" stroke-width="1"/>
+      <line x1="105" y1="86" x2="105" y2="105" stroke="var(--ink2)" stroke-width="1"/>
+      <rect x="30" y="105" width="50" height="22" rx="5" fill="rgba(99,102,241,.1)" stroke="var(--accent)" stroke-width="1"/>
+      <text x="55" y="120" text-anchor="middle" fill="var(--ink)" font-size="10">WP-1</text>
+      <rect x="80" y="105" width="50" height="22" rx="5" fill="rgba(99,102,241,.1)" stroke="var(--accent)" stroke-width="1"/>
+      <text x="105" y="120" text-anchor="middle" fill="var(--ink)" font-size="10">WP-2</text>
+    </svg>
+    <figcaption>WBS 树形分解结构</figcaption>
+  </figure>
+
+  <div class="sec-label">④ 易混辨析</div>
+  <div class="pit-card">
+    <div class="pit-label">误解 1</div>
+    <p>WBS 是任务清单。—— 实际上分解的是可交付成果（名词），不是活动。"写代码"是活动，"登录模块"才是工作包。</p>
+  </div>
+  <div class="pit-card">
+    <div class="pit-label">误解 2</div>
+    <p>WBS 要分解到最细。—— 最底层是工作包（8-80h），再往下是"活动"，属于进度管理范畴。</p>
+  </div>
+
+  <div class="sec-label">⑤ 真题练习</div>
+  <div class="quiz-card">
+    <div class="q-source">2022 上半年 · 选择题</div>
+    <div class="q-text">WBS 的最底层元素称为：</div>
+    <div class="opts">
+      <button class="opt" onclick="settle(this,false)">A. 活动</button>
+      <button class="opt" onclick="settle(this,true)">B. 工作包</button>
+      <button class="opt" onclick="settle(this,false)">C. 里程碑</button>
+      <button class="opt" onclick="settle(this,false)">D. 控制账户</button>
+    </div>
+    <div class="explain">WBS 最小可交付单元是工作包（Work Package）。活动是对工作包的进一步分解，属于进度管理。</div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="#">← 定义范围</a>
+    <a href="#">WBS 词典 →</a>
+  </div>
+</div>
+<script>
+function settle(el, correct) {
+  const card = el.closest('.quiz-card');
+  card.querySelectorAll('.opt').forEach(o => {
+    o.disabled = true;
+    if (o.textContent.startsWith('B')) o.classList.add('right');
+  });
+  if (!correct) el.classList.add('wrong');
+  card.querySelector('.explain').classList.add('show');
+}
+function toggleTheme() {
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+</script>
+</body>
+</html>

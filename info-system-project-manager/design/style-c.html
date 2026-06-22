@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>风格 C · 技术手册型 — 高项学习站</title>
+<style>
+/*
+  C · 技术手册型
+  设计理念：像 Stripe Docs / Tailwind Docs —— 左导航+右正文+右侧注释区
+  布局：三栏（nav 200 + main 600 + aside 200）
+  字体：等宽标题+无衬线正文
+  特征：精确的网格感、代号编号、侧边标注、彩色高亮块
+*/
+:root {
+  --bg: #0c0c0f;
+  --bg2: #111114;
+  --card: #16161a;
+  --ink: #ebebf0;
+  --ink2: #6e6e80;
+  --accent: #00d4aa;
+  --accent-dim: rgba(0,212,170,.1);
+  --ok: #00d4aa;
+  --bad: #ff6b6b;
+  --warn: #ffcb47;
+  --border: #222228;
+  --font: -apple-system,"Inter","PingFang SC",system-ui,sans-serif;
+  --mono: "JetBrains Mono","Fira Code",monospace;
+}
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg2: #f8f9fa;
+  --card: #f3f4f6;
+  --ink: #111;
+  --ink2: #666;
+  --accent: #059669;
+  --accent-dim: rgba(5,150,105,.08);
+  --border: #e5e7eb;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font:14px/1.7 var(--font); background:var(--bg); color:var(--ink); min-height:100vh; }
+
+/* Top strip */
+.topstrip { background:var(--bg2); border-bottom:1px solid var(--border); height:40px; display:flex; align-items:center; padding:0 20px; position:sticky; top:0; z-index:100; }
+.topstrip .brand { font-family:var(--mono); font-size:13px; font-weight:600; }
+.topstrip .brand span { color:var(--accent); }
+.topstrip nav { margin-left:32px; display:flex; gap:20px; }
+.topstrip nav a { font-size:12px; color:var(--ink2); text-decoration:none; }
+.topstrip nav a:hover { color:var(--ink); }
+.topstrip nav a.active { color:var(--accent); }
+.topstrip .right { margin-left:auto; display:flex; align-items:center; gap:12px; }
+.topstrip .right button { background:none; border:1px solid var(--border); color:var(--ink2); padding:3px 8px; font-size:11px; cursor:pointer; border-radius:3px; }
+
+/* Layout */
+.layout { display:grid; grid-template-columns:200px 1fr 200px; min-height:calc(100vh - 40px); }
+
+/* Left nav */
+.leftnav { border-right:1px solid var(--border); padding:20px 0; overflow-y:auto; position:sticky; top:40px; height:calc(100vh - 40px); }
+.leftnav .group { margin-bottom:20px; padding:0 16px; }
+.leftnav .group-title { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--ink2); margin-bottom:8px; }
+.leftnav .item { display:block; padding:4px 8px; margin:0 -8px; font-size:12px; color:var(--ink2); text-decoration:none; border-radius:3px; border-left:2px solid transparent; }
+.leftnav .item:hover { color:var(--ink); background:var(--card); }
+.leftnav .item.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-dim); }
+.leftnav .item .code { font-family:var(--mono); font-size:10px; color:var(--ink2); margin-right:4px; }
+
+/* Main content */
+.content { padding:32px 40px; max-width:700px; }
+.content .badge { display:inline-block; font-family:var(--mono); font-size:10px; padding:2px 6px; border-radius:3px; margin-bottom:8px; }
+.badge-core { background:var(--accent-dim); color:var(--accent); }
+.badge-freq { background:rgba(255,203,71,.1); color:var(--warn); }
+
+.content h1 { font-family:var(--mono); font-size:22px; font-weight:700; margin-bottom:4px; letter-spacing:-.5px; }
+.content .subtitle { font-size:12px; color:var(--ink2); margin-bottom:28px; }
+
+/* Section with anchor ID */
+.section { margin-bottom:32px; scroll-margin-top:60px; }
+.section-head { display:flex; align-items:baseline; gap:8px; margin-bottom:10px; border-bottom:1px solid var(--border); padding-bottom:6px; }
+.section-head .num { font-family:var(--mono); font-size:11px; color:var(--accent); }
+.section-head .title { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+.section p { margin-bottom:10px; font-size:14px; }
+.section ul { padding-left:18px; margin-bottom:10px; font-size:14px; }
+.section ul li { margin-bottom:6px; }
+
+/* Callout box */
+.callout { background:var(--card); border:1px solid var(--border); border-left:3px solid var(--accent); padding:12px 16px; margin:12px 0; font-size:13px; }
+.callout.warn { border-left-color:var(--warn); }
+.callout.danger { border-left-color:var(--bad); }
+.callout .callout-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+.callout.danger .callout-label { color:var(--bad); }
+.callout.warn .callout-label { color:var(--warn); }
+
+/* Term */
+.term { color:var(--accent); font-weight:500; cursor:pointer; }
+.term::before { content:"["; opacity:.4; }
+.term::after { content:"]"; opacity:.4; }
+
+/* Quiz */
+.quiz-block { background:var(--bg2); border:1px solid var(--border); padding:16px; margin:12px 0; }
+.quiz-block .q-label { font-family:var(--mono); font-size:10px; color:var(--ink2); margin-bottom:8px; }
+.quiz-block .q-text { font-size:14px; margin-bottom:12px; }
+.quiz-block .opts { display:grid; gap:6px; }
+.quiz-block .opt { background:var(--bg); border:1px solid var(--border); padding:8px 12px; font-size:13px; text-align:left; color:var(--ink); cursor:pointer; font-family:var(--font); transition:all .1s; }
+.quiz-block .opt:hover { border-color:var(--accent); }
+.quiz-block .opt.right { border-color:var(--ok); background:rgba(0,212,170,.06); }
+.quiz-block .opt.wrong { border-color:var(--bad); background:rgba(255,107,107,.06); }
+.quiz-block .explain { font-size:12px; color:var(--ink2); margin-top:10px; padding-top:10px; border-top:1px dashed var(--border); display:none; }
+.quiz-block .explain.show { display:block; }
+
+/* Figure */
+figure { margin:16px 0; text-align:center; }
+figcaption { font-family:var(--mono); font-size:10px; color:var(--ink2); margin-top:6px; }
+
+/* Right aside — annotations */
+.aside { border-left:1px solid var(--border); padding:32px 16px; position:sticky; top:40px; height:calc(100vh - 40px); overflow-y:auto; }
+.aside-note { margin-bottom:20px; padding:10px; background:var(--card); border-radius:4px; font-size:11px; color:var(--ink2); line-height:1.6; }
+.aside-note .note-title { font-weight:600; color:var(--ink); margin-bottom:4px; font-size:10px; text-transform:uppercase; letter-spacing:1px; }
+.aside-note .highlight { color:var(--accent); font-family:var(--mono); }
+
+@media(max-width:900px) {
+  .layout { grid-template-columns:1fr; }
+  .leftnav, .aside { display:none; }
+  .content { padding:24px 20px; max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="topstrip">
+  <div class="brand"><span>ISPM</span>.learn</div>
+  <nav>
+    <a class="active" href="#">课时</a>
+    <a href="#">术语表</a>
+    <a href="#">错题本</a>
+    <a href="#">工具</a>
+  </nav>
+  <div class="right">
+    <button onclick="toggleTheme()">Theme</button>
+    <span style="font-family:var(--mono);font-size:11px;color:var(--ink2)">18/156</span>
+  </div>
+</div>
+<div class="layout">
+  <aside class="leftnav">
+    <div class="group">
+      <div class="group-title">范围管理</div>
+      <a class="item" href="#"><span class="code">01</span>概述</a>
+      <a class="item" href="#"><span class="code">02</span>需求收集</a>
+      <a class="item" href="#"><span class="code">03</span>需求跟踪矩阵</a>
+      <a class="item" href="#"><span class="code">04</span>定义范围</a>
+      <a class="item active" href="#"><span class="code">05</span>WBS 分解结构</a>
+      <a class="item" href="#"><span class="code">06</span>WBS 词典</a>
+      <a class="item" href="#"><span class="code">07</span>范围确认</a>
+      <a class="item" href="#"><span class="code">08</span>范围控制</a>
+    </div>
+    <div class="group">
+      <div class="group-title">进度管理</div>
+      <a class="item" href="#"><span class="code">01</span>概述</a>
+      <a class="item" href="#"><span class="code">02</span>活动定义</a>
+      <a class="item" href="#"><span class="code">03</span>活动排序</a>
+      <a class="item" href="#"><span class="code">04</span>历时估算</a>
+      <a class="item" href="#"><span class="code">05</span>关键路径</a>
+    </div>
+    <div class="group">
+      <div class="group-title">成本管理</div>
+      <a class="item" href="#"><span class="code">01</span>概述</a>
+      <a class="item" href="#"><span class="code">02</span>估算方法</a>
+      <a class="item" href="#"><span class="code">03</span>挣值管理</a>
+    </div>
+  </aside>
+  <main class="content">
+    <span class="badge badge-core">CORE</span>
+    <span class="badge badge-freq">HIGH-FREQ</span>
+    <h1>WBS 工作分解结构</h1>
+    <p class="subtitle">pm-scope/05 · 范围管理 · ~5 min · Step #18</p>
+
+    <div class="section" id="concept">
+      <div class="section-head"><span class="num">01</span><span class="title">概念</span></div>
+      <p>想象你要搬家——不会直接喊"搬！"，而是拆成：找搬家公司、打包厨房、打包卧室、搬运、验收。<span class="term">WBS</span> 就是把项目大目标逐层拆解成可管理、可交付的小工作包的过程。</p>
+      <p>WBS 是<span class="term">范围基准</span>的核心组成部分，它与 WBS 词典和范围说明书共同构成范围基准。</p>
+    </div>
+
+    <div class="section" id="core">
+      <div class="section-head"><span class="num">02</span><span class="title">核心要点</span></div>
+      <div class="callout">
+        <div class="callout-label">规则</div>
+        <b>100% 规则</b>：所有子元素之和 = 父元素的全部范围。不遗漏、不重复。
+      </div>
+      <ul>
+        <li><b>面向可交付成果</b> — 分解的是"东西"（名词），不是"动作"（动词）</li>
+        <li><b>最底层是工作包</b> — 能被可靠估算（8-80 小时规则）</li>
+        <li><b>每个元素只出现一次</b> — 避免重复计算</li>
+      </ul>
+      <figure>
+        <svg width="350" height="130" viewBox="0 0 350 130">
+          <rect x="130" y="5" width="90" height="26" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+          <text x="175" y="22" text-anchor="middle" fill="var(--ink)" font-size="11">项目</text>
+          <line x1="150" y1="31" x2="80" y2="52" stroke="var(--ink2)" stroke-width="1"/>
+          <line x1="175" y1="31" x2="175" y2="52" stroke="var(--ink2)" stroke-width="1"/>
+          <line x1="200" y1="31" x2="270" y2="52" stroke="var(--ink2)" stroke-width="1"/>
+          <rect x="40" y="52" width="80" height="22" fill="none" stroke="var(--ok)" stroke-width="1"/>
+          <text x="80" y="67" text-anchor="middle" fill="var(--ink)" font-size="10">交付物 A</text>
+          <rect x="135" y="52" width="80" height="22" fill="none" stroke="var(--ok)" stroke-width="1"/>
+          <text x="175" y="67" text-anchor="middle" fill="var(--ink)" font-size="10">交付物 B</text>
+          <rect x="230" y="52" width="80" height="22" fill="none" stroke="var(--ok)" stroke-width="1"/>
+          <text x="270" y="67" text-anchor="middle" fill="var(--ink)" font-size="10">交付物 C</text>
+          <line x1="60" y1="74" x2="60" y2="92" stroke="var(--ink2)" stroke-width="1"/>
+          <line x1="100" y1="74" x2="100" y2="92" stroke="var(--ink2)" stroke-width="1"/>
+          <rect x="35" y="92" width="50" height="20" fill="var(--accent-dim)" stroke="var(--accent)" stroke-width="1"/>
+          <text x="60" y="106" text-anchor="middle" fill="var(--ink)" font-size="9" font-family="var(--mono)">WP-1</text>
+          <rect x="75" y="92" width="50" height="20" fill="var(--accent-dim)" stroke="var(--accent)" stroke-width="1"/>
+          <text x="100" y="106" text-anchor="middle" fill="var(--ink)" font-size="9" font-family="var(--mono)">WP-2</text>
+        </svg>
+        <figcaption>fig.01 — WBS hierarchy</figcaption>
+      </figure>
+    </div>
+
+    <div class="section" id="pitfalls">
+      <div class="section-head"><span class="num">03</span><span class="title">易混辨析</span></div>
+      <div class="callout danger">
+        <div class="callout-label">误解 1</div>
+        WBS 是任务清单。—— WBS 分解的是<em>可交付成果</em>，不是活动。"写代码"是活动，"登录模块"才是工作包。
+      </div>
+      <div class="callout danger">
+        <div class="callout-label">误解 2</div>
+        WBS 要分解到最细。—— 最底层是工作包（8-80h）。再细分为活动，那属于进度管理。
+      </div>
+      <div class="callout warn">
+        <div class="callout-label">注意</div>
+        控制账户 ≠ 工作包。控制账户是管理控制点（用于挣值测量），一个控制账户下可含多个工作包。
+      </div>
+    </div>
+
+    <div class="section" id="quiz">
+      <div class="section-head"><span class="num">04</span><span class="title">真题练习</span></div>
+      <div class="quiz-block">
+        <div class="q-label">2022H1 · CHOICE</div>
+        <div class="q-text">WBS 的最底层元素称为：</div>
+        <div class="opts">
+          <button class="opt" onclick="settle(this,false)">A. 活动</button>
+          <button class="opt" onclick="settle(this,true)">B. 工作包</button>
+          <button class="opt" onclick="settle(this,false)">C. 里程碑</button>
+          <button class="opt" onclick="settle(this,false)">D. 控制账户</button>
+        </div>
+        <div class="explain">WBS 最小可交付单元是工作包。活动是工作包的进一步分解，属于进度管理。</div>
+      </div>
+    </div>
+  </main>
+  <aside class="aside">
+    <div class="aside-note">
+      <div class="note-title">考纲权重</div>
+      综合知识：<span class="highlight">1-2 题/年</span><br>
+      案例分析：<span class="highlight">高频</span><br>
+      常见场景：WBS编制错误分析
+    </div>
+    <div class="aside-note">
+      <div class="note-title">关键公式</div>
+      100% 规则：<br>
+      <span class="highlight">Σ children = parent scope</span>
+    </div>
+    <div class="aside-note">
+      <div class="note-title">关联课时</div>
+      → pm-scope/06 WBS词典<br>
+      → pm-schedule/02 活动定义<br>
+      → pm-cost/04 挣值管理<br>
+      → case/05 范围案例
+    </div>
+    <div class="aside-note">
+      <div class="note-title">术语</div>
+      <span class="highlight">WBS</span> · <span class="highlight">工作包</span> · <span class="highlight">范围基准</span> · <span class="highlight">控制账户</span>
+    </div>
+  </aside>
+</div>
+<script>
+function settle(el, correct) {
+  const block = el.closest('.quiz-block');
+  block.querySelectorAll('.opt').forEach(o => {
+    o.disabled = true;
+    if (o.textContent.startsWith('B')) o.classList.add('right');
+  });
+  if (!correct) el.classList.add('wrong');
+  block.querySelector('.explain').classList.add('show');
+}
+function toggleTheme() {
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+</script>
+</body>
+</html>

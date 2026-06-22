@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格 C · 清爽科普 — 电网通识</title>
+<style>
+  /* ============ 风格 C · 清爽科普教科书 ============
+     明亮留白 + 柔和蓝绿 + 圆角卡片 + 左侧模块色条 */
+  :root{
+    --bg:#f7fafc;
+    --paper:#ffffff;
+    --ink:#273444;
+    --ink-dim:#7a8699;
+    --brand:#0e7490;       /* 电网青 */
+    --brand-soft:#e0f2f7;
+    --green:#16a34a;
+    --green-soft:#f0fdf4;
+    --red:#dc2626;
+    --red-soft:#fef2f2;
+    --amber:#d97706;
+    --edge:#e5eaf0;
+    --term:#0e7490;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:16px/1.95 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}
+  header{
+    background:var(--paper);border-bottom:1px solid var(--edge);
+    padding:14px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    position:sticky;top:0;z-index:5;
+  }
+  .logo{font-weight:800;font-size:20px;color:var(--brand)}
+  .logo small{display:block;font-size:11px;color:var(--ink-dim);font-weight:400;letter-spacing:2px}
+  nav{display:flex;gap:4px;margin-left:auto}
+  nav a{color:var(--ink-dim);text-decoration:none;padding:7px 14px;font-size:14px;border-radius:99px}
+  nav a.on,nav a:hover{color:var(--brand);background:var(--brand-soft)}
+  .wrap{max-width:840px;margin:0 auto;padding:30px 20px 80px}
+  .crumb{font-size:13px;color:var(--ink-dim);margin-bottom:10px}
+  .crumb b{color:var(--brand)}
+  h1{font-size:28px;font-weight:800;line-height:1.45;margin-bottom:8px}
+  .meta{display:flex;gap:10px;font-size:13px;color:var(--ink-dim);margin-bottom:26px;align-items:center}
+  .meta .pill{background:#fff7ed;color:var(--amber);border-radius:99px;padding:1px 11px;font-weight:600}
+  section.blk{
+    background:var(--paper);border:1px solid var(--edge);border-radius:var(--radius);
+    padding:20px 22px;margin-bottom:18px;box-shadow:0 1px 3px rgba(30,55,90,.04);
+  }
+  section.blk>h2{
+    font-size:16px;font-weight:700;color:var(--brand);margin-bottom:12px;
+    display:flex;align-items:center;gap:10px;
+  }
+  section.blk>h2 .no{
+    width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;
+    font-size:14px;display:inline-flex;align-items:center;justify-content:center;flex:none;
+  }
+  .blk p{margin-bottom:10px}
+  .blk p:last-child{margin-bottom:0}
+  gd{color:var(--term);border-bottom:2px dotted #67b3c6;cursor:pointer;font-style:normal;font-weight:500}
+  .ex{border-left:4px solid var(--green);background:var(--green-soft);
+    border-radius:0 10px 10px 0;padding:11px 15px;margin:12px 0;font-size:15px}
+  .pit{border-left:4px solid var(--red);background:var(--red-soft);
+    border-radius:0 10px 10px 0;padding:11px 15px;margin:12px 0;font-size:15px}
+  .pit b{color:var(--red)}
+  figure.fig{margin:16px 0;background:#fbfdfe;border:1px solid var(--edge);border-radius:12px;
+    padding:18px 10px 10px;text-align:center}
+  figure.fig figcaption{font-size:12.5px;color:var(--ink-dim);margin-top:8px}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px}
+  th,td{border:1px solid var(--edge);padding:8px 11px;text-align:left}
+  th{background:var(--brand-soft);color:var(--brand)}
+  .termcard{
+    position:fixed;right:22px;bottom:22px;width:285px;background:var(--paper);
+    border:1px solid var(--edge);border-radius:14px;padding:15px 17px;font-size:14px;
+    box-shadow:0 12px 36px rgba(30,55,90,.16);
+  }
+  .termcard .t{color:var(--brand);font-weight:800;margin-bottom:6px;font-size:15px}
+  .termcard .a{color:var(--ink-dim);font-size:13px;margin-top:6px}
+  .termcard .ops{margin-top:10px;display:flex;gap:8px}
+  .termcard .ops span{border:1px solid var(--edge);border-radius:99px;padding:3px 12px;font-size:12.5px;cursor:pointer;color:var(--ink-dim)}
+  .termcard .ops span:first-child{background:var(--brand);border-color:var(--brand);color:#fff}
+  .next{display:flex;justify-content:space-between;margin-top:28px;gap:12px;flex-wrap:wrap}
+  .next a{color:var(--brand);text-decoration:none;border:1px solid var(--edge);border-radius:99px;
+    padding:9px 20px;font-size:14px;background:var(--paper)}
+  .next a:hover{border-color:var(--brand);background:var(--brand-soft)}
+  @media (max-width:640px){h1{font-size:23px}.termcard{display:none}nav{width:100%;overflow-x:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">⚡ 电网通识<small>POWER GRID 101</small></div>
+  <nav><a href="#">学习路线</a><a href="#" class="on">模块</a><a href="#">术语表</a><a href="#">复习</a><a href="#">搜索</a></nav>
+</header>
+
+<div class="wrap">
+  <div class="crumb">模块 2 · 电的物理通识 <b>· 第 5 / 8 课</b></div>
+  <h1>电为什么不能大规模储存？</h1>
+  <div class="meta"><span>⏱ 约 4 分钟</span><span class="pill">★ 全站总钥匙</span></div>
+
+  <section class="blk">
+    <h2><span class="no">①</span>一句话是什么</h2>
+    <p>电是一种<strong>当场生产、当场消费</strong>的商品——你家开灯的那一瞬间，某个电厂正好多发了这一点电。电网不是"水库"，而是一张<strong>实时传送带</strong>：传送带上不能堆货，发多少就得用多少。</p>
+    <p class="ex">类比：自来水可以先存水塔里慢慢用，电却像<strong>演唱会的现场直播</strong>——演员（电厂）唱多少，观众（用户）就听多少，没法"先录下来攒着播"。</p>
+  </section>
+
+  <section class="blk">
+    <h2><span class="no">②</span>为什么重要</h2>
+    <p>这是理解整个电力行业的<strong>总钥匙</strong>。<gd>调度</gd>为什么 24 小时盯着屏幕、<gd>电力现货市场</gd>为什么每 15 分钟一个价、<gd>储能</gd>为什么突然成了风口、新能源为什么会"弃风弃光"——根子全在这一条：<strong>电不能大规模储存，发电与用电必须每一秒都相等</strong>。</p>
+  </section>
+
+  <section class="blk">
+    <h2><span class="no">③</span>怎么运作</h2>
+    <p>电从电厂到你家插座，走的是一条一气呵成的"高速公路"，全程以光速的量级传递，<strong>中途没有仓库</strong>：</p>
+    <figure class="fig">
+      <svg viewBox="0 0 640 110" width="100%" style="max-width:620px">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0e7490"/></marker></defs>
+        <g font-size="13" font-family="-apple-system,PingFang SC,sans-serif" text-anchor="middle">
+          <rect x="8"   y="30" width="92" height="44" rx="10" fill="#e0f2f7" stroke="#9bcfdd"/>
+          <rect x="138" y="30" width="92" height="44" rx="10" fill="#e0f2f7" stroke="#9bcfdd"/>
+          <rect x="268" y="30" width="92" height="44" rx="10" fill="#e0f2f7" stroke="#9bcfdd"/>
+          <rect x="398" y="30" width="92" height="44" rx="10" fill="#e0f2f7" stroke="#9bcfdd"/>
+          <rect x="528" y="30" width="92" height="44" rx="10" fill="#f0fdf4" stroke="#86d3a3"/>
+          <text x="54"  y="56" fill="#273444">发电</text>
+          <text x="184" y="56" fill="#273444">输电</text>
+          <text x="314" y="56" fill="#273444">变电</text>
+          <text x="444" y="56" fill="#273444">配电</text>
+          <text x="574" y="56" fill="#15803d">用电</text>
+          <line x1="100" y1="52" x2="134" y2="52" stroke="#0e7490" stroke-width="2" marker-end="url(#ar)"/>
+          <line x1="230" y1="52" x2="264" y2="52" stroke="#0e7490" stroke-width="2" marker-end="url(#ar)"/>
+          <line x1="360" y1="52" x2="394" y2="52" stroke="#0e7490" stroke-width="2" marker-end="url(#ar)"/>
+          <line x1="490" y1="52" x2="524" y2="52" stroke="#0e7490" stroke-width="2" marker-end="url(#ar)"/>
+          <text x="54"  y="20" fill="#7a8699" font-size="11">电厂</text>
+          <text x="314" y="20" fill="#7a8699" font-size="11">↑ 全程无仓库 ↑</text>
+          <text x="574" y="20" fill="#7a8699" font-size="11">你家</text>
+          <text x="320" y="98" fill="#d97706" font-size="11.5">实时平衡：发电量 = 用电量（每一秒）</text>
+        </g>
+      </svg>
+      <figcaption>图 5-1 · 电力系统五环节——一条没有仓库的传送带</figcaption>
+    </figure>
+    <p>一旦"发"和"用"不相等，电网的<gd>频率</gd>就会偏离 50Hz：用电多了频率往下掉，发电多了频率往上飘。偏差大了，发电机会被迫脱网，可能引发连锁停电。所以电网有一个角色专门负责让两边时刻相等——<gd>调度</gd>。</p>
+    <p class="ex">关键数字：中国电网频率 = <strong>50Hz</strong>，正常波动范围只允许 ±0.2Hz——相当于在高速上开车，车速只许差千分之四。</p>
+  </section>
+
+  <section class="blk">
+    <h2><span class="no">④</span>常见误解与易混</h2>
+    <div class="pit"><b>误解 1："电存在电网里，我随用随取。"</b> 电网里一度电都没存。你能"随用随取"，是因为调度让发电厂时刻跟着全国的用电量增减出力。</div>
+    <div class="pit"><b>误解 2："不是有充电宝、电池吗？怎么能说不能储存？"</b> 能存，但<strong>太贵、太小</strong>。全国一天用电约 270 亿度，目前所有储能加起来也只够全国用几十分钟——所以是"不能<strong>大规模</strong>储存"。</div>
+    <div class="pit"><b>误解 3："发电厂可以先发好电等着用。"</b> 发出来的电如果没人用，发电机转速会飙升被迫停机。电厂"待命"待的是产能，不是攒好的电。</div>
+  </section>
+
+  <section class="blk">
+    <h2><span class="no">⑤</span>关联与延伸</h2>
+    <p>· 下一课《50Hz：电网的心跳》会讲频率如何反映供需平衡。<br>
+       · 模块 6《调度运行》整个模块都建立在这一课之上。<br>
+       · 模块 11《储能》讲人类如何花大价钱给电网"修仓库"。</p>
+  </section>
+
+  <div class="next">
+    <a href="#">← 上一课 · 三相电</a>
+    <a href="#">标记已读 ✓</a>
+    <a href="#">下一课 · 50Hz 心跳 →</a>
+  </div>
+</div>
+
+<div class="termcard">
+  <div class="t">调度</div>
+  <div>电网的"大脑"：实时指挥所有电厂发多少电，保证发电=用电、电网安全、成本最低。</div>
+  <div class="a">类比：整个电网的空中交通管制塔台。</div>
+  <div class="ops"><span>☆ 收藏</span><span>去那一课 →</span></div>
+</div>
+</body>
+</html>

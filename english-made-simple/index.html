@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Made Simple · 美语,一看就懂</title>
+<meta name="description" content="用大白话中文讲透美式英语:发音、词汇、语法、听说读写、文化。零基础一看就懂,点哪里听哪里。">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<!-- 侧边便利贴索引(引擎渲染) -->
+<nav class="thumb" id="thumbNav" aria-label="模块索引"></nav>
+
+<header>
+  <div class="wrap masthead">
+    <a class="brand" href="#/">English Made Simple<small>美语,一看就懂</small></a>
+    <nav class="top" id="topNav">
+      <a href="#/" data-nav="home">首页</a>
+      <a href="#/path" data-nav="path">学习路线</a>
+      <a href="#/book" data-nav="book">生词本 <b id="navVocabCount"></b></a>
+      <a href="#/search" data-nav="search">搜索</a>
+      <a href="#/settings" data-nav="settings">设置</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <noscript><p style="padding:40px 0">本站需要启用 JavaScript 才能运行。</p></noscript>
+</main>
+
+<footer class="wrap">
+  <span>English Made Simple · 纯静态 · 零依赖 · 离线可用</span>
+  <span id="syncStatus">进度:仅本机</span>
+</footer>
+
+<!-- 引擎 -->
+<script src="assets/js/tts.js"></script>
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+
+<!-- 内容(新增课程文件后,在下方按模块追加 script 标签) -->
+<script src="content/modules.js"></script>
+<script src="content/guide/01-howto.js"></script>
+<script src="content/guide/02-roadmap.js"></script>
+<script src="content/guide/03-myths.js"></script>
+<script src="content/guide/04-tools.js"></script>
+<script src="content/guide/05-plan.js"></script>
+<script src="content/guide/06-persist.js"></script>
+<script src="content/pronunciation/01-alphabet.js"></script>
+<script src="content/pronunciation/02-phonics-intro.js"></script>
+<script src="content/pronunciation/03-short-vowels.js"></script>
+<script src="content/pronunciation/04-long-vowels.js"></script>
+<script src="content/pronunciation/05-consonants-1.js"></script>
+<script src="content/pronunciation/06-consonants-2.js"></script>
+<script src="content/pronunciation/07-th.js"></script>
+<script src="content/pronunciation/08-stress.js"></script>
+<script src="content/pronunciation/09-schwa.js"></script>
+<script src="content/pronunciation/10-flap-t.js"></script>
+<script src="content/pronunciation/11-stop-t.js"></script>
+<script src="content/pronunciation/12-linking.js"></script>
+<script src="content/pronunciation/13-vowel-teams.js"></script>
+<script src="content/pronunciation/14-r-vowels.js"></script>
+<script src="content/pronunciation/15-diphthongs.js"></script>
+<script src="content/pronunciation/16-contractions.js"></script>
+<script src="content/pronunciation/17-intonation.js"></script>
+<script src="content/pronunciation/18-ipa-overview.js"></script>
+<script src="content/vocabulary/01-method.js"></script>
+<script src="content/vocabulary/02-roots.js"></script>
+<script src="content/vocabulary/03-prefixes.js"></script>
+<script src="content/vocabulary/04-suffixes.js"></script>
+<script src="content/vocabulary/05-wordbuild.js"></script>
+<script src="content/vocabulary/06-highfreq.js"></script>
+<script src="content/vocabulary/07-collocation.js"></script>
+<script src="content/vocabulary/08-polysemy.js"></script>
+<script src="content/vocabulary/09-numbers.js"></script>
+<script src="content/vocabulary/10-time.js"></script>
+<script src="content/vocabulary/11-restaurant.js"></script>
+<script src="content/vocabulary/12-shopping.js"></script>
+<script src="content/grammar/01-pos.js"></script>
+<script src="content/grammar/02-patterns.js"></script>
+<script src="content/grammar/03-present.js"></script>
+<script src="content/grammar/04-past.js"></script>
+<script src="content/grammar/05-future.js"></script>
+<script src="content/grammar/06-perfect.js"></script>
+<script src="content/grammar/07-tenses.js"></script>
+<script src="content/grammar/08-passive.js"></script>
+<script src="content/grammar/09-articles.js"></script>
+<script src="content/grammar/10-prep.js"></script>
+<script src="content/grammar/11-relative.js"></script>
+<script src="content/grammar/12-clauses.js"></script>
+<script src="content/grammar/13-nonfinite.js"></script>
+<script src="content/grammar/14-subjunctive.js"></script>
+<script src="content/listening/01-why.js"></script>
+<script src="content/listening/02-intensive.js"></script>
+<script src="content/listening/03-extensive.js"></script>
+<script src="content/listening/04-shadowing.js"></script>
+<script src="content/listening/05-numbers.js"></script>
+<script src="content/listening/06-resources.js"></script>
+<script src="content/listening/07-tvshows.js"></script>
+<script src="content/listening/08-routine.js"></script>
+<script src="content/speaking/01-mindset.js"></script>
+<script src="content/speaking/02-patterns.js"></script>
+<script src="content/speaking/03-smalltalk.js"></script>
+<script src="content/speaking/04-natural.js"></script>
+<script src="content/speaking/05-agree.js"></script>
+<script src="content/speaking/06-polite.js"></script>
+<script src="content/speaking/07-idioms.js"></script>
+<script src="content/speaking/08-fillers.js"></script>
+<script src="content/speaking/09-social.js"></script>
+<script src="content/speaking/10-phone.js"></script>
+<script src="content/speaking/11-work.js"></script>
+<script src="content/speaking/12-rescue.js"></script>
+<script src="content/reading/01-modes.js"></script>
+<script src="content/reading/02-skimming.js"></script>
+<script src="content/reading/03-scanning.js"></script>
+<script src="content/reading/04-mainclause.js"></script>
+<script src="content/reading/05-modifiers.js"></script>
+<script src="content/reading/06-guessing.js"></script>
+<script src="content/reading/07-materials.js"></script>
+<script src="content/reading/08-habit.js"></script>
+<script src="content/writing/01-sentence.js"></script>
+<script src="content/writing/02-punctuation.js"></script>
+<script src="content/writing/03-spelling.js"></script>
+<script src="content/writing/04-paragraph.js"></script>
+<script src="content/writing/05-essay.js"></script>
+<script src="content/writing/06-connectors.js"></script>
+<script src="content/writing/07-chinglish.js"></script>
+<script src="content/writing/08-email.js"></script>
+<script src="content/writing/09-resume.js"></script>
+<script src="content/writing/10-polish.js"></script>
+<script src="content/culture/01-us-uk.js"></script>
+<script src="content/culture/02-tipping.js"></script>
+<script src="content/culture/03-privacy.js"></script>
+<script src="content/culture/04-holidays.js"></script>
+<script src="content/culture/05-textspeak.js"></script>
+<script src="content/culture/06-humor.js"></script>
+<script src="content/culture/07-manners.js"></script>
+<script src="content/culture/08-taboo.js"></script>
+<script src="content/culture/09-memes.js"></script>
+<script src="content/travel/01-survival.js"></script>
+<script src="content/travel/02-patterns.js"></script>
+<script src="content/travel/03-numbers.js"></script>
+<script src="content/travel/04-time.js"></script>
+<script src="content/travel/05-polite.js"></script>
+<script src="content/travel/06-checkin.js"></script>
+<script src="content/travel/07-security.js"></script>
+<script src="content/travel/08-boarding.js"></script>
+<script src="content/travel/09-onplane.js"></script>
+<script src="content/travel/10-baggage.js"></script>
+<script src="content/travel/11-immigration.js"></script>
+<script src="content/travel/12-customs.js"></script>
+<script src="content/travel/13-rideshare.js"></script>
+<script src="content/travel/14-transit.js"></script>
+<script src="content/travel/15-carrental.js"></script>
+<script src="content/travel/16-directions.js"></script>
+<script src="content/travel/17-hotel-checkin.js"></script>
+<script src="content/travel/18-hotel-issues.js"></script>
+<script src="content/travel/19-hotel-checkout.js"></script>
+<script src="content/travel/20-dining-order.js"></script>
+<script src="content/travel/21-dining-dietary.js"></script>
+<script src="content/travel/22-dining-pay.js"></script>
+<script src="content/travel/23-shopping.js"></script>
+<script src="content/travel/24-sightseeing.js"></script>
+<script src="content/travel/25-medical.js"></script>
+<script src="content/travel/26-emergency.js"></script>
+<script src="content/travel/27-money-comms.js"></script>
+<script src="content/travel/28-smalltalk.js"></script>
+<script src="content/travel/29-appendix.js"></script>
+
+<!-- 启动 -->
+<script src="assets/js/engine.js"></script>
+</body>
+</html>

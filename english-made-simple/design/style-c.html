@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格 C · 韦氏书房 — English Made Simple</title>
+<style>
+  :root{
+    --page:#FFFDF8;
+    --ink:#1E1B16;
+    --red:#A6242A;
+    --gold:#A8842C;
+    --rule:#DCD7CB;
+    --mute:#7C766B;
+    --serif:Palatino,"Palatino Linotype","Book Antiqua",Georgia,"Songti SC","SimSun",serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--page);color:var(--ink);font-family:var(--serif);line-height:1.85;font-size:16.5px}
+  a{color:var(--red);text-decoration:none}
+  a:hover{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 26px}
+  .sc{font-variant:small-caps;letter-spacing:2.5px}
+
+  /* ── 词典扉页 masthead ── */
+  .masthead{text-align:center;padding:46px 0 0}
+  .masthead .row{border-top:3px double var(--ink);border-bottom:3px double var(--ink);padding:26px 0 22px;margin-top:14px}
+  .masthead h1{font-size:clamp(30px,5.2vw,46px);font-weight:700;letter-spacing:1px;line-height:1.25}
+  .masthead h1 i{color:var(--red);font-style:normal}
+  .masthead .tag{font-size:13px;color:var(--mute);margin-top:10px}
+  .masthead .tag b{color:var(--red);font-weight:400}
+  .edition{font-size:12px;color:var(--mute);padding:10px 0;display:flex;justify-content:space-between}
+
+  /* ── 拇指索引(词典侧边) ── */
+  .thumb{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:9;display:flex;flex-direction:column;gap:3px}
+  .thumb a{writing-mode:vertical-rl;background:#EFEAE0;color:var(--ink);font-size:12px;letter-spacing:3px;
+    padding:12px 7px;border-radius:8px 0 0 8px;border:1px solid var(--rule);border-right:none;transition:.15s}
+  .thumb a:hover{background:var(--red);color:#fff;text-decoration:none;padding-right:13px}
+  .thumb a.now{background:var(--red);color:#fff}
+
+  /* ── 今日词条(hero) ── */
+  .today{padding:40px 0 8px}
+  .label{font-size:12px;color:var(--mute);margin-bottom:16px}
+  .label b{color:var(--red);font-weight:400}
+  .entry-hero .hw{font-size:clamp(34px,6vw,54px);font-weight:700;letter-spacing:.5px;line-height:1.2}
+  .entry-hero .hw .dot{color:var(--gold)}
+  .pron{font-size:19px;color:var(--mute);margin:6px 0 2px}
+  .pron .ipa{color:var(--ink)}
+  .pron .pos{font-style:italic;margin-left:10px}
+  .speakbtn{cursor:pointer;display:inline-block;border:1px solid var(--red);color:var(--red);border-radius:3px;
+    font-size:13px;padding:2px 12px;margin-left:12px;vertical-align:middle;font-family:var(--serif)}
+  .speakbtn:hover{background:var(--red);color:#fff}
+  .def{margin-top:14px;max-width:36em}
+  .def b{color:var(--red);font-weight:400}
+  .def .num{color:var(--gold);font-weight:700;margin-right:6px}
+  .cta{margin:26px 0 8px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .btn{display:inline-block;background:var(--red);color:#fff;padding:10px 30px;font-size:15px;letter-spacing:1px;border-radius:2px}
+  .btn:hover{background:#811B20;text-decoration:none}
+  .cta .meta{font-size:13px;color:var(--mute)}
+  .cta .meta b{color:var(--ink);font-weight:700}
+
+  /* ── 分节 ── */
+  .sect{margin-top:46px;border-top:1px solid var(--rule);padding-top:8px}
+  .sect-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--rule);padding:6px 0 10px;margin-bottom:8px}
+  .sect-head h2{font-size:14px;font-weight:700}
+  .sect-head span{font-size:12px;color:var(--mute);font-style:italic}
+
+  /* ── 点读演示:发音栏 ── */
+  .prondemo{padding:18px 0 6px}
+  .sentence{font-size:clamp(20px,3vw,26px);font-style:italic;line-height:2}
+  .w{cursor:pointer;border-bottom:1px dotted var(--gold)}
+  .w:hover{color:var(--red);border-bottom:1px solid var(--red)}
+  .trans{font-size:14px;color:var(--mute);font-style:normal;margin-top:6px}
+  .phonrow{display:flex;gap:0;flex-wrap:wrap;margin-top:20px;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  .phon{cursor:pointer;flex:1;min-width:96px;text-align:center;padding:13px 8px;border-right:1px solid var(--rule);transition:.12s}
+  .phon:last-child{border-right:none}
+  .phon:hover{background:#F4EFE3}
+  .phon i{font-style:normal;font-size:21px;display:block;color:var(--red)}
+  .phon s{text-decoration:none;font-size:12px;color:var(--mute)}
+  .footnote{font-size:12.5px;color:var(--mute);margin-top:12px}
+  .footnote::before{content:"※ ";color:var(--gold)}
+
+  /* ── 模块 = 词条列表 ── */
+  .entries{padding:6px 0}
+  .entry{padding:15px 2px;border-bottom:1px dotted var(--rule);display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+  .entry .hw2{font-weight:700;font-size:18.5px}
+  .entry .hw2 a{color:var(--ink)}
+  .entry .ipa2{font-size:14px;color:var(--mute)}
+  .entry .pos2{font-style:italic;font-size:14px;color:var(--mute)}
+  .entry .gloss{font-size:14.5px;color:#4A443B;flex:1;min-width:200px}
+  .entry .stat{font-size:12px;color:var(--mute);white-space:nowrap}
+  .entry .stat.live{color:#fff;background:var(--red);padding:1px 9px;border-radius:2px}
+
+  /* ── 复习卡 ── */
+  .review{margin-top:46px;border:1px solid var(--ink);padding:24px 30px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;background:#FBF7EC}
+  .review p{font-size:15px}
+  .review p b{color:var(--red)}
+  .review .btn{background:var(--ink)}
+  .review .btn:hover{background:#000}
+
+  footer{margin-top:60px;border-top:3px double var(--ink);padding:18px 0 54px;font-size:12.5px;color:var(--mute);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  @media (max-width:900px){
+    .thumb{display:none}
+  }
+  @media (max-width:640px){
+    .masthead{padding-top:30px}
+    .review{padding:20px}
+    .phon{min-width:80px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- 词典拇指索引 -->
+<nav class="thumb" aria-label="模块索引">
+  <a href="#" class="now">发音</a>
+  <a href="#">词汇</a>
+  <a href="#">语法</a>
+  <a href="#">听力</a>
+  <a href="#">口语</a>
+  <a href="#">阅读</a>
+  <a href="#">写作</a>
+  <a href="#">文化</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- 扉页 -->
+  <header class="masthead">
+    <div class="edition"><span class="sc">Vol. I · Pronunciation</span><span>第 12 步 / 共 64 步</span></div>
+    <div class="row">
+      <h1>English <i>Made</i> Simple</h1>
+      <p class="tag"><span class="sc">American English · Plainly Explained</span><br>美语简明讲义 —— 中文白话讲透,零基础<b>一看就懂</b></p>
+    </div>
+  </header>
+
+  <!-- 今日词条 -->
+  <section class="today">
+    <p class="label"><b>今日研读 ·</b> 2026 年 6 月 10 日 · 连续第 6 天</p>
+    <div class="entry-hero">
+      <p class="hw">link<span class="dot">·</span>ing</p>
+      <p class="pron"><span class="ipa">/ˈlɪŋ.kɪŋ/</span><span class="pos">n.</span> 连读
+        <span class="speakbtn" data-say="linking">◂ 发音</span>
+      </p>
+      <p class="def"><span class="num">1.</span> 美国人说话时,前一个词的尾音"粘"住后一个词的头音,致使 <i class="w" data-say="not at all">not at all</i> 听起来像 <b>"no-da-dall"</b>。<br>
+      <span class="num">2.</span> 听不懂美剧的第一元凶;今天 5 分钟,学会听出它。</p>
+      <div class="cta">
+        <a class="btn" href="#">继续研读 第 12 步</a>
+        <span class="meta">生词本 <b>23</b> 词 · 错题 <b>4</b> 道 · 路线 <b>12/64</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 发音栏:点读演示 -->
+  <section class="sect">
+    <div class="sect-head"><h2 class="sc">Pronunciation · 点读</h2><span>点任何英文即可听美音,离线可用</span></div>
+    <div class="prondemo">
+      <p class="sentence">
+        “<span class="w" data-say="Could">Could</span>
+        <span class="w" data-say="I">I</span>
+        <span class="w" data-say="get">get</span>
+        <span class="w" data-say="a">a</span>
+        <span class="w" data-say="coffee">coffee</span>,
+        <span class="w" data-say="please">please</span>?”
+        <span class="speakbtn" data-say="Could I get a coffee, please?">◂ 整句</span>
+      </p>
+      <p class="trans">我能来杯咖啡吗?——美国咖啡店最常用点单句。</p>
+      <div class="phonrow">
+        <span class="phon" data-say="cat"><i>/æ/</i><s>cat · 咧嘴 a</s></span>
+        <span class="phon" data-say="think"><i>/θ/</i><s>think · 咬舌</s></span>
+        <span class="phon" data-say="water"><i>/t̬/</i><s>water · 浊化</s></span>
+        <span class="phon" data-say="bird"><i>/ɝ/</i><s>bird · 卷舌</s></span>
+        <span class="phon" data-say="sit"><i>/ɪ/</i><s>sit · 短 i</s></span>
+        <span class="phon" data-say="go"><i>/oʊ/</i><s>go · 双元音</s></span>
+      </div>
+      <p class="footnote">音标点击朗读例词;48 音标之口型、舌位详解,见「发音」卷。</p>
+    </div>
+  </section>
+
+  <!-- 九卷目录:词条式 -->
+  <section class="sect">
+    <div class="sect-head"><h2 class="sc">Contents · 九卷</h2><span>零基础宜循序;熟手可任意检索</span></div>
+    <div class="entries">
+      <div class="entry"><span class="hw2"><a href="#">guide</a></span><span class="ipa2">/ɡaɪd/</span><span class="pos2">卷〇 · 学习导览</span><span class="gloss">怎么学 · 词典与工具 · 跟读法</span><span class="stat">4 / 6</span></div>
+      <div class="entry"><span class="hw2"><a href="#">pro·nun·ci·a·tion</a></span><span class="ipa2">/prəˌnʌn.siˈeɪ.ʃən/</span><span class="pos2">卷一 · 发音</span><span class="gloss">字母 · 拼读 · 48 音标 · 连读 · 缩读</span><span class="stat live">研读中 12/40</span></div>
+      <div class="entry"><span class="hw2"><a href="#">vo·cab·u·lar·y</a></span><span class="ipa2">/voʊˈkæb.jəˌler.i/</span><span class="pos2">卷二 · 词汇</span><span class="gloss">词根词缀 · 场景词包 · 功能基础词</span><span class="stat">未启</span></div>
+      <div class="entry"><span class="hw2"><a href="#">gram·mar</a></span><span class="ipa2">/ˈɡræm.ɚ/</span><span class="pos2">卷三 · 语法</span><span class="gloss">五大句型 · 12 时态 · 三大从句</span><span class="stat">未启</span></div>
+      <div class="entry"><span class="hw2"><a href="#">lis·ten·ing</a></span><span class="ipa2">/ˈlɪs.ən.ɪŋ/</span><span class="pos2">卷四 · 听力</span><span class="gloss">为什么听不懂 · 精听与泛听</span><span class="stat">未启</span></div>
+      <div class="entry"><span class="hw2"><a href="#">speak·ing</a></span><span class="ipa2">/ˈspiː.kɪŋ/</span><span class="pos2">卷五 · 口语</span><span class="gloss">高频句型 · 俚语 · 场景对话</span><span class="stat">未启</span></div>
+      <div class="entry"><span class="hw2"><a href="#">read·ing</a></span><span class="ipa2">/ˈriː.dɪŋ/</span><span class="pos2">卷六 · 阅读</span><span class="gloss">长难句拆解 · 阅读策略</span><span class="stat">未启</span></div>
+      <div class="entry"><span class="hw2"><a href="#">writ·ing</a></span><span class="ipa2">/ˈraɪ.t̬ɪŋ/</span><span class="pos2">卷七 · 写作</span><span class="gloss">句段篇 · 拼写 · 中式英语避坑</span><span class="stat">未启</span></div>
+      <div class="entry"><span class="hw2"><a href="#">cul·ture</a></span><span class="ipa2">/ˈkʌl.tʃɚ/</span><span class="pos2">卷八 · 文化语用</span><span class="gloss">美英差异 · small talk · 网络缩略语</span><span class="stat">未启</span></div>
+    </div>
+  </section>
+
+  <!-- 复习 -->
+  <section class="review">
+    <p><span class="sc">Review</span> —— 生词本 <b>23</b> 词、错题 <b>4</b> 道在等你。随机抽 5 个,一分钟温故。</p>
+    <a class="btn" href="#">开始快速复习</a>
+  </section>
+
+  <footer>
+    <span class="sc">English Made Simple · Est. 2026</span>
+    <span>纯静态 · 零依赖 · 进度经 GitHub 同步 ✓</span>
+  </footer>
+
+</div>
+
+<script>
+  function speak(t){
+    try{
+      const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.92;
+      const vs=speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.indexOf('en-US')===0);
+      u.voice=vs.find(v=>v.localService)||vs[0]||null;
+      speechSynthesis.cancel();speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  document.addEventListener('click',e=>{
+    const el=e.target.closest('[data-say]');
+    if(el)speak(el.dataset.say);
+  });
+  if('speechSynthesis' in window)speechSynthesis.getVoices();
+</script>
+</body>
+</html>

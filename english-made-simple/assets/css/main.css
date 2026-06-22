@@ -1,0 +1,246 @@
+/* English Made Simple · 风格 D「晨读课本 + 侧边索引」
+   设计令牌与版式来自 design/style-d.html(定稿)。 */
+
+:root{
+  --paper:#FBFAF6;
+  --card:#FFFFFF;
+  --ink:#25303E;
+  --body:#4A5260;
+  --indigo:#2F4E9E;
+  --indigo-d:#26407F;
+  --marker:#FFE873;
+  --marker-d:#EAD34F;
+  --note:#8B919B;
+  --rule:#E5E1D8;
+  --ok:#2E8B57;
+  --bad:#B0413E;
+  --serif:Charter,"Bitstream Charter",Georgia,"Times New Roman","Songti SC",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+}
+[data-theme="dark"]{
+  --paper:#22262E;
+  --card:#2B303A;
+  --ink:#E8E6E1;
+  --body:#C2C6CE;
+  --indigo:#8FA9E8;
+  --indigo-d:#A9BEF0;
+  --marker:#C9A82E;
+  --marker-d:#A98C1F;
+  --note:#8B919B;
+  --rule:#3A404C;
+}
+html[data-fs="s"]{font-size:15px}
+html[data-fs="m"]{font-size:16px}
+html[data-fs="l"]{font-size:18px}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.85;font-size:1rem}
+a{color:var(--indigo);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius:2px}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+button{font:inherit;cursor:pointer}
+
+/* ───────── 侧边便利贴索引 ───────── */
+.thumb{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:9;display:flex;flex-direction:column;gap:4px}
+.thumb a{writing-mode:vertical-rl;background:var(--card);color:var(--ink);font-size:12px;letter-spacing:3px;
+  padding:13px 7px;border-radius:7px 0 0 7px;border:1px solid var(--rule);border-right:none;
+  box-shadow:-1px 1px 2px rgba(37,48,62,.06);transition:.15s}
+.thumb a:hover{color:var(--indigo);padding-right:14px;text-decoration:none}
+.thumb a.now{background:var(--marker);border-color:var(--marker-d);color:#25303E;font-weight:700;padding-right:14px}
+.thumb a.now:hover{color:#25303E}
+
+/* ───────── 页眉 ───────── */
+header{border-bottom:1px solid var(--rule)}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:22px 0 18px}
+.brand{font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:.2px;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand small{font-family:var(--sans);font-weight:400;font-size:13px;color:var(--note);margin-left:10px}
+nav.top{display:flex;gap:22px;font-size:14px;flex-wrap:wrap}
+nav.top a{color:var(--ink)}
+nav.top a.now{border-bottom:3px solid var(--marker)}
+
+/* ───────── 通用元素 ───────── */
+.eyebrow{font-size:13px;letter-spacing:2px;color:var(--indigo);font-weight:600;margin-bottom:14px}
+.eyebrow b{background:var(--indigo);color:var(--paper);border-radius:3px;padding:2px 8px;margin-right:10px;font-weight:600}
+h1{font-family:var(--serif);font-size:clamp(26px,4.2vw,40px);line-height:1.45;font-weight:700;letter-spacing:.3px}
+h1 .en,.en{font-style:italic}
+mark{background:linear-gradient(transparent 52%,var(--marker) 52%);padding:0 2px;color:inherit;
+  background-repeat:no-repeat;background-size:0% 100%;animation:sweep .9s .3s ease-out forwards}
+@keyframes sweep{to{background-size:100% 100%}}
+.btn{display:inline-block;padding:11px 26px;border-radius:4px;font-size:15px;border:1px solid var(--indigo);
+  background:transparent;color:var(--indigo);line-height:1.6}
+.btn.solid{background:var(--indigo);color:var(--paper)}
+.btn.solid:hover{background:var(--indigo-d);text-decoration:none}
+.btn.ghost:hover{text-decoration:none;background:rgba(47,78,158,.06)}
+.btn.small{padding:5px 16px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+.chapter{display:flex;align-items:center;gap:14px;margin:54px 0 6px}
+.chapter span{font-family:var(--serif);font-size:13px;color:var(--note);letter-spacing:3px}
+.chapter h2{font-family:var(--serif);font-size:24px;font-weight:700}
+.chapter::after{content:"";flex:1;border-top:1px solid var(--rule)}
+p.sub{color:var(--note);font-size:14px;margin-bottom:22px}
+
+.card{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:30px 34px;box-shadow:0 1px 0 var(--rule)}
+
+/* ───────── 首页 hero ───────── */
+.lesson-hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:48px;padding:58px 0 50px}
+.lesson-hero p.intro{margin-top:18px;color:var(--body);max-width:34em}
+.cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.sidenote{border-left:2px solid var(--marker);padding-left:18px;font-size:13.5px;color:var(--note);align-self:center}
+.sidenote p{margin-bottom:14px}
+.sidenote b{display:block;font-size:22px;color:var(--ink);font-family:var(--serif)}
+
+/* ───────── 点读 ───────── */
+.w{cursor:pointer;border-bottom:2px dotted #B9C4DC;padding:0 1px;transition:background .15s;font-style:italic;font-family:var(--serif)}
+.w:hover{background:var(--marker);border-bottom-color:transparent}
+[data-theme="dark"] .w:hover{color:#25303E}
+.sentence{font-family:var(--serif);font-size:clamp(19px,2.8vw,26px);line-height:2;font-style:italic}
+.say-all{cursor:pointer;font-family:var(--sans);font-style:normal;font-size:13px;color:var(--indigo);background:transparent;
+  border:1px solid var(--indigo);border-radius:99px;padding:3px 14px;margin-left:10px;vertical-align:middle;white-space:nowrap}
+.say-all:hover{background:var(--indigo);color:var(--paper)}
+.trans{color:var(--note);font-size:14px;margin-top:10px;font-style:normal;font-family:var(--sans)}
+.chips{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;padding-top:22px;border-top:1px dashed var(--rule)}
+.chip{cursor:pointer;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:8px 16px;text-align:center;transition:.15s}
+.chip:hover{border-color:var(--indigo);transform:translateY(-2px)}
+.chip i{font-style:normal;font-family:var(--serif);font-size:19px;display:block;color:var(--indigo)}
+.chip s{text-decoration:none;font-size:12px;color:var(--note)}
+.hint{font-size:12.5px;color:var(--note);margin-top:16px}
+
+/* 收藏浮条 */
+#wordPop{position:absolute;z-index:20;background:var(--ink);color:var(--paper);border-radius:6px;
+  font-size:13px;padding:6px 12px;display:flex;gap:10px;align-items:center;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+#wordPop button{background:none;border:none;color:var(--marker);font-size:13px;padding:0}
+#wordPop button:hover{text-decoration:underline}
+
+/* ───────── 目录(点线) ───────── */
+.toc{list-style:none}
+.toc li{display:flex;align-items:baseline;padding:13px 2px}
+.toc li:hover{background:var(--card)}
+.toc .no{font-family:var(--serif);width:36px;color:var(--note);font-size:14px;flex:none}
+.toc a.t{color:var(--ink);font-size:16.5px;font-weight:600}
+.toc a.t small{font-weight:400;color:var(--note);margin-left:10px;font-size:13px}
+.toc .lead{flex:1;border-bottom:2px dotted #CFCABD;margin:0 12px;transform:translateY(-5px);min-width:30px}
+[data-theme="dark"] .toc .lead{border-color:#4A5260}
+.toc .pg{font-size:13.5px;color:var(--note);font-variant-numeric:tabular-nums;flex:none}
+.toc .pg.live{color:var(--indigo);font-weight:600;background:var(--marker);border-radius:3px;padding:1px 8px}
+[data-theme="dark"] .toc .pg.live{color:#25303E}
+
+/* ───────── 深色复习条 ───────── */
+.review-strip{margin:56px 0 0;background:var(--ink);color:#EDEAE2;border-radius:6px;padding:26px 34px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:space-between}
+[data-theme="dark"] .review-strip{background:#171A20}
+.review-strip p{font-size:15px}
+.review-strip p b{color:var(--marker)}
+.review-strip .btn{border-color:var(--marker);color:var(--marker)}
+.review-strip .btn:hover{background:var(--marker);color:#25303E;text-decoration:none}
+
+/* ───────── 课程页(五段模板) ───────── */
+.lesson-head{padding:44px 0 8px}
+.lesson-head .meta{font-size:13px;color:var(--note);margin-top:8px}
+.sect{margin-top:38px}
+.sect-tag{display:inline-block;font-size:12.5px;letter-spacing:2px;font-weight:700;color:var(--indigo);
+  border:1px solid var(--rule);border-radius:99px;padding:2px 14px;margin-bottom:12px;background:var(--card)}
+.sect .body-rich{color:var(--body)}
+.body-rich p{margin-bottom:14px}
+.body-rich strong{color:var(--ink)}
+.body-rich table{border-collapse:collapse;margin:14px 0;width:100%;font-size:14.5px}
+.body-rich th,.body-rich td{border:1px solid var(--rule);padding:8px 12px;text-align:left}
+.body-rich th{background:var(--card);font-weight:600}
+.body-rich ul,.body-rich ol{padding-left:1.6em;margin-bottom:14px}
+.body-rich .ex{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--marker);
+  border-radius:4px;padding:14px 18px;margin:14px 0}
+.body-rich .pit{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--bad);
+  border-radius:4px;padding:14px 18px;margin:14px 0}
+.body-rich .pit b:first-child{color:var(--bad)}
+.lesson-foot{margin:48px 0 0;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  border-top:1px solid var(--rule);padding-top:24px}
+.lesson-foot .navlinks{display:flex;gap:18px;font-size:14px}
+.readmark.done{border-color:var(--ok);color:var(--ok)}
+
+/* ───────── 小测 ───────── */
+.quiz-item{margin-bottom:26px}
+.quiz-item .q{font-weight:600;margin-bottom:10px}
+.quiz-item .q .qno{color:var(--indigo);font-family:var(--serif);margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{display:block;text-align:left;background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:9px 16px;transition:.12s}
+.opt:hover{border-color:var(--indigo)}
+.opt.sel{border-color:var(--indigo);box-shadow:inset 0 0 0 1px var(--indigo)}
+.opt.right{border-color:var(--ok);background:rgba(46,139,87,.08)}
+.opt.wrong{border-color:var(--bad);background:rgba(176,65,62,.07)}
+.fill input{font:inherit;padding:8px 14px;border:1px solid var(--rule);border-radius:5px;background:var(--card);color:var(--ink);width:min(280px,100%)}
+.explain{display:none;font-size:14px;color:var(--body);margin-top:10px;border-left:3px solid var(--marker);padding-left:12px}
+.explain.show{display:block}
+.quiz-result{font-family:var(--serif);font-size:20px;margin-top:6px}
+.quiz-result.party::after{content:" 🎉";animation:pop .5s ease-out}
+@keyframes pop{0%{font-size:0}70%{font-size:30px}100%{font-size:20px}}
+
+/* ───────── 复习翻牌 ───────── */
+.flash{max-width:560px;margin:30px auto;perspective:900px}
+.flash .face{background:var(--card);border:1px solid var(--rule);border-radius:8px;min-height:200px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:30px;text-align:center;cursor:pointer}
+.flash .face .big{font-family:var(--serif);font-size:30px;font-style:italic}
+.flash .face .small{color:var(--note);font-size:14px}
+.flash-ctl{display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.flash-meta{text-align:center;color:var(--note);font-size:13px;margin-top:12px}
+
+/* ───────── 生词本/错题本 ───────── */
+.tabs2{display:flex;gap:0;margin:34px 0 20px;border-bottom:1px solid var(--rule)}
+.tabs2 button{background:none;border:none;font-size:15px;padding:8px 20px;color:var(--note);border-bottom:3px solid transparent}
+.tabs2 button.on{color:var(--ink);font-weight:600;border-bottom-color:var(--marker)}
+.booklist{list-style:none}
+.booklist li{display:flex;align-items:baseline;gap:14px;padding:12px 2px;border-bottom:1px dotted var(--rule);flex-wrap:wrap}
+.booklist .term{font-family:var(--serif);font-style:italic;font-size:18px;cursor:pointer}
+.booklist .term:hover{background:var(--marker)}
+.booklist .note2{color:var(--body);font-size:14px;flex:1;min-width:160px}
+.booklist .src{font-size:12px;color:var(--note)}
+.booklist .del{background:none;border:none;color:var(--note);font-size:12px}
+.booklist .del:hover{color:var(--bad)}
+.empty{color:var(--note);padding:34px 0;text-align:center}
+
+/* ───────── 搜索 ───────── */
+.searchbox{display:flex;gap:10px;margin:34px 0 10px}
+.searchbox input{flex:1;font:inherit;padding:11px 16px;border:1px solid var(--rule);border-radius:5px;background:var(--card);color:var(--ink)}
+.result{padding:14px 2px;border-bottom:1px dotted var(--rule)}
+.result a{font-weight:600;font-size:16.5px}
+.result p{font-size:14px;color:var(--body)}
+.result .crumb{font-size:12px;color:var(--note)}
+
+/* ───────── 设置 ───────── */
+.set-group{margin:30px 0;padding:24px 28px}
+.set-group h3{font-family:var(--serif);font-size:18px;margin-bottom:6px}
+.set-group p.d{font-size:13.5px;color:var(--note);margin-bottom:14px}
+.set-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.set-row label{font-size:14px;min-width:88px;color:var(--body)}
+.set-row input,.set-row select{font:inherit;padding:7px 12px;border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink);min-width:min(300px,60vw)}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:5px;overflow:hidden}
+.seg button{background:var(--card);border:none;padding:7px 18px;font-size:14px;color:var(--body)}
+.seg button.on{background:var(--marker);color:#25303E;font-weight:600}
+.sync-msg{font-size:13px;margin-top:10px;color:var(--note)}
+.sync-msg.ok{color:var(--ok)}
+.sync-msg.bad{color:var(--bad)}
+
+footer{margin-top:70px;border-top:1px solid var(--rule);padding:26px 0 50px;font-size:13px;color:var(--note);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ───────── 响应式 ───────── */
+@media (min-width:1180px){
+  .wrap{transform:translateX(-14px)}
+}
+@media (max-width:900px){
+  .thumb{display:none}
+}
+@media (max-width:760px){
+  .lesson-hero{grid-template-columns:1fr;gap:30px;padding:40px 0 36px}
+  .sidenote{border-left:none;border-top:2px solid var(--marker);padding:16px 0 0;display:flex;gap:28px;flex-wrap:wrap}
+  .sidenote p{margin:0}
+  nav.top{gap:14px}
+  .card{padding:22px}
+  .review-strip{padding:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  mark{animation:none;background-size:100% 100%}
+  *{transition:none!important;animation:none!important}
+}

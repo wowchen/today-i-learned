@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电网通识 · Power Grid 101</title>
+<meta name="description" content="用大白话中文讲透中国电力/电网行业:发输变配用、调度、电力市场、新能源、储能、双碳。零基础一看就懂,术语点哪查哪。">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<!-- 侧边图签索引(引擎渲染) -->
+<nav class="thumb" id="thumbNav" aria-label="模块索引"></nav>
+
+<header class="site">
+  <div class="masthead">
+    <a class="brand" href="#/">电网通识<small>POWER GRID 101</small></a>
+    <nav class="top" id="topNav">
+      <a href="#/" data-nav="home">首页</a>
+      <a href="#/path" data-nav="path">学习路线</a>
+      <a href="#/terms" data-nav="terms">术语表</a>
+      <a href="#/book" data-nav="book">术语本 <b id="navTermCount"></b></a>
+      <a href="#/search" data-nav="search">搜索</a>
+      <a href="#/settings" data-nav="settings">设置</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <noscript><p style="padding:40px 0">本站需要启用 JavaScript 才能运行。</p></noscript>
+</main>
+
+<footer class="site">
+  <span>电网通识 · 纯静态 · 零依赖 · 离线可用</span>
+  <span id="syncStatus">进度:仅本机</span>
+</footer>
+
+<!-- 引擎(不要在内容工作中改动 assets/ 下任何文件) -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/terms.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+
+<!-- 元数据:模块 + 学习路线 + 术语库 -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- 课程内容(新增课程文件后,在下方按模块分组、按 order 顺序追加 script 标签) -->
+<!-- 模块 0 · 学习导览 -->
+<script src="content/guide/01-howto.js"></script>
+<script src="content/guide/02-bigmap.js"></script>
+<script src="content/guide/03-route.js"></script>
+<script src="content/guide/04-terms.js"></script>
+
+<!-- 模块 1 · 能源全景 -->
+<script src="content/energy/01-chain.js"></script>
+<script src="content/energy/02-secondary.js"></script>
+<script src="content/energy/03-utility.js"></script>
+<script src="content/energy/04-endowment.js"></script>
+<script src="content/energy/05-mix.js"></script>
+<script src="content/energy/06-transition.js"></script>
+
+<!-- 模块 3 · 发电 -->
+<script src="content/gen/01-overview.js"></script>
+<script src="content/gen/02-coal.js"></script>
+<script src="content/gen/03-hydro.js"></script>
+<script src="content/gen/04-nuclear.js"></script>
+<script src="content/gen/05-wind.js"></script>
+<script src="content/gen/06-solar.js"></script>
+<script src="content/gen/07-gas.js"></script>
+<script src="content/gen/08-baseload.js"></script>
+<script src="content/gen/09-hours.js"></script>
+<script src="content/gen/10-mix.js"></script>
+
+<!-- 模块 4 · 输电与变电 -->
+<script src="content/trans/01-voltage.js"></script>
+<script src="content/trans/02-stepup.js"></script>
+<script src="content/trans/03-substation.js"></script>
+<script src="content/trans/04-acdc-line.js"></script>
+<script src="content/trans/05-uhv.js"></script>
+<script src="content/trans/06-westeast.js"></script>
+<script src="content/trans/07-n1.js"></script>
+<script src="content/trans/08-corridor.js"></script>
+
+<!-- 模块 5 · 配电与用电 -->
+<script src="content/dist/01-vs.js"></script>
+<script src="content/dist/02-layers.js"></script>
+<script src="content/dist/03-taiqu.js"></script>
+<script src="content/dist/04-topology.js"></script>
+<script src="content/dist/05-reliability.js"></script>
+<script src="content/dist/06-da.js"></script>
+<script src="content/dist/07-active.js"></script>
+<script src="content/dist/08-load.js"></script>
+
+<!-- 模块 6 · 调度运行 -->
+<script src="content/dispatch/01-what.js"></script>
+<script src="content/dispatch/02-levels.js"></script>
+<script src="content/dispatch/03-freq.js"></script>
+<script src="content/dispatch/04-goals.js"></script>
+<script src="content/dispatch/05-agc.js"></script>
+<script src="content/dispatch/06-forecast.js"></script>
+<script src="content/dispatch/07-plan.js"></script>
+<script src="content/dispatch/08-reserve.js"></script>
+<script src="content/dispatch/09-accident.js"></script>
+<script src="content/dispatch/10-new.js"></script>
+
+<!-- 模块 7 · 中国电网格局与电改 -->
+<script src="content/china/01-pattern.js"></script>
+<script src="content/china/02-separation.js"></script>
+<script src="content/china/03-reform.js"></script>
+<script src="content/china/04-price.js"></script>
+<script src="content/china/05-profit.js"></script>
+<script src="content/china/06-tariff.js"></script>
+<script src="content/china/07-invest.js"></script>
+<script src="content/china/08-global.js"></script>
+
+<!-- 模块 8 · 监管体制与国网组织 -->
+<script src="content/org/01-system.js"></script>
+<script src="content/org/02-ndrc.js"></script>
+<script src="content/org/03-nea.js"></script>
+<script src="content/org/04-local.js"></script>
+<script src="content/org/05-regulate.js"></script>
+<script src="content/org/06-sgcc.js"></script>
+<script src="content/org/07-hq1.js"></script>
+<script src="content/org/08-hq2.js"></script>
+<script src="content/org/09-province.js"></script>
+<script src="content/org/10-section.js"></script>
+
+<!-- 模块 2 · 电的物理通识 -->
+<script src="content/basics/01-kwh.js"></script>
+<script src="content/basics/02-via.js"></script>
+<script src="content/basics/03-acdc.js"></script>
+<script src="content/basics/04-threephase.js"></script>
+<script src="content/basics/05-no-storage.js"></script>
+<script src="content/basics/06-50hz.js"></script>
+<script src="content/basics/07-journey.js"></script>
+<script src="content/basics/08-loss.js"></script>
+
+<!-- 模块 9 · 电力市场 -->
+<script src="content/market/01-why.js"></script>
+<script src="content/market/02-special.js"></script>
+<script src="content/market/03-medium.js"></script>
+<script src="content/market/04-spot.js"></script>
+<script src="content/market/05-link.js"></script>
+<script src="content/market/06-price.js"></script>
+<script src="content/market/07-ancillary.js"></script>
+<script src="content/market/08-players.js"></script>
+<script src="content/market/09-retailer.js"></script>
+<script src="content/market/10-loop.js"></script>
+
+<!-- 模块 10 · 新能源与新型电力系统 -->
+<script src="content/newenergy/01-nature.js"></script>
+<script src="content/newenergy/02-duck.js"></script>
+<script src="content/newenergy/03-curtail.js"></script>
+<script src="content/newenergy/04-system.js"></script>
+<script src="content/newenergy/05-sghc.js"></script>
+<script src="content/newenergy/06-vpp.js"></script>
+<script src="content/newenergy/07-inertia.js"></script>
+<script src="content/newenergy/08-gfm.js"></script>
+
+<!-- 模块 11 · 储能 -->
+<script src="content/storage/01-why.js"></script>
+<script src="content/storage/02-type.js"></script>
+<script src="content/storage/03-tech.js"></script>
+<script src="content/storage/04-pumped.js"></script>
+<script src="content/storage/05-biz.js"></script>
+<script src="content/storage/06-policy.js"></script>
+<script src="content/storage/07-dual.js"></script>
+<script src="content/storage/08-bottleneck.js"></script>
+
+<!-- 模块 12 · 电力营销 -->
+<script src="content/retail/01-what.js"></script>
+<script src="content/retail/02-journey.js"></script>
+<script src="content/retail/03-meter.js"></script>
+<script src="content/retail/04-ladder.js"></script>
+<script src="content/retail/05-tou.js"></script>
+<script src="content/retail/06-twopart.js"></script>
+<script src="content/retail/07-dsm.js"></script>
+<script src="content/retail/08-bigdata.js"></script>
+
+<!-- 模块 13 · 双碳与碳市场 -->
+<script src="content/carbon/01-3060.js"></script>
+<script src="content/carbon/02-power.js"></script>
+<script src="content/carbon/03-price.js"></script>
+<script src="content/carbon/04-ets.js"></script>
+<script src="content/carbon/05-quota.js"></script>
+<script src="content/carbon/06-national.js"></script>
+<script src="content/carbon/07-ccer.js"></script>
+<script src="content/carbon/08-green.js"></script>
+
+<!-- 模块 14 · 能源数字化 -->
+<script src="content/digital/01-why.js"></script>
+<script src="content/digital/02-arch.js"></script>
+<script src="content/digital/03-scada.js"></script>
+<script src="content/digital/04-dms.js"></script>
+<script src="content/digital/05-ami.js"></script>
+<script src="content/digital/06-platform.js"></script>
+<script src="content/digital/07-ai.js"></script>
+<script src="content/digital/08-twin.js"></script>
+
+<!-- 模块 15 · 能源金融 -->
+<script src="content/finance/01-model.js"></script>
+<script src="content/finance/02-bond.js"></script>
+<script src="content/finance/03-dcf.js"></script>
+<script src="content/finance/04-vars.js"></script>
+<script src="content/finance/05-ppa.js"></script>
+<script src="content/finance/06-reits.js"></script>
+<script src="content/finance/07-logic.js"></script>
+<script src="content/finance/08-sectors.js"></script>
+
+<!-- 模块 16 · 气·水·氢 -->
+<script src="content/multi/01-gas.js"></script>
+<script src="content/multi/02-lng.js"></script>
+<script src="content/multi/03-gaspower.js"></script>
+<script src="content/multi/04-water.js"></script>
+<script src="content/multi/05-waterprice.js"></script>
+<script src="content/multi/06-h2color.js"></script>
+<script src="content/multi/07-h2tech.js"></script>
+<script src="content/multi/08-compare.js"></script>
+
+<!-- 引擎启动(必须在所有内容之后) -->
+<script src="assets/js/engine.js"></script>
+</body>
+</html>
