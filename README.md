@@ -12,6 +12,8 @@
 | 电网通识 · Power Grid 101 | [`power-grid-fundamentals/`](power-grid-fundamentals/) | 中国电力/电网:发输变配用/调度/电力市场/新能源/储能/双碳 | ✅ 已上线 |
 | 高项学习站 · ISPM | [`info-system-project-manager/`](info-system-project-manager/) | 信息系统项目管理师备考:过程组/知识域/案例/论文 | ✅ 已上线 |
 | 十五五规划学习站 | [`fifteenth-five-year-plan/`](fifteenth-five-year-plan/) | 《十五五规划纲要》大白话精讲:十八篇全景/目标指标/产业科技数字/民生绿色安全 | ✅ 已上线 |
+| 音乐学习站 · Music | [`music-learning/`](music-learning/) | 大白话讲透音乐:乐理/乐器/音乐史/赏析/流行演唱 | ✅ 已上线 |
+| 架构学习站 · SAD | [`system-architecture-designer/`](system-architecture-designer/) | 系统架构设计师(软考高级)备考:计算机/数据库/网络/安全/软工/架构风格/质量评估/可靠性/中间件微服务,含案例与论文专题 | ✅ 已上线 |
 
 ## 本地预览
 
@@ -25,11 +27,13 @@ python3 -m http.server 8000
 
 ```
 .
-├── index.html                      # 引导页(4 张卡片)
+├── index.html                      # 引导页(6 张卡片 Bento 布局)
 ├── english-made-simple/            # 子站
 ├── power-grid-fundamentals/        # 子站
 ├── info-system-project-manager/    # 子站
-└── fifteenth-five-year-plan/       # 子站(占位)
+├── fifteenth-five-year-plan/       # 子站
+├── music-learning/                 # 子站
+└── system-architecture-designer/   # 子站
 ```
 
 各子站使用相对路径,可独立运行,也可整体部署。
