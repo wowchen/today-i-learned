@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>网规学习站 · 网络规划设计师</title>
+<meta name="description" content="软考高级·网络规划设计师备考站:数据通信、网络体系结构(OSI/TCP-IP)、物理链路、网络层与IP子网、路由协议、传输应用层、局域网广域网、互连设备、网络安全、无线移动、网络存储、SDN/NFV、网络规划设计、运维管理,加案例分析与论文。大白话讲透,真题练习+错题本+网规计算器,纯静态离线可用。">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" style="vertical-align:-3px;margin-right:6px"><path d="M4 4.5L12 5M4 4.5L8.5 12M12 5L8.5 12"/><circle cx="4" cy="4.5" r="1.6" fill="var(--accent)" stroke="none"/><circle cx="12" cy="5" r="1.6" fill="var(--accent)" stroke="none"/><circle cx="8.5" cy="12" r="1.6" fill="var(--accent)" stroke="none"/></svg>
+    网规学习站 <span class="accent">/</span> NPD
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/mistakes">错题</a>
+    <a class="nav-link" href="#/calc">计算器</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 NPD.path 生成) -->
+<!-- guide -->
+<script src="content/guide/01-exam-intro.js"></script>
+<script src="content/guide/02-learning-path.js"></script>
+<script src="content/guide/03-strategy.js"></script>
+<script src="content/guide/04-features.js"></script>
+<!-- comm -->
+<script src="content/comm/01-signal.js"></script>
+<script src="content/comm/02-encoding-modulation.js"></script>
+<script src="content/comm/03-multiplexing.js"></script>
+<script src="content/comm/04-nyquist-shannon.js"></script>
+<script src="content/comm/05-transmission-media.js"></script>
+<!-- arch -->
+<script src="content/arch/01-osi.js"></script>
+<script src="content/arch/02-tcpip.js"></script>
+<script src="content/arch/03-layering-encap.js"></script>
+<script src="content/arch/04-compare.js"></script>
+<!-- phy -->
+<script src="content/phy/01-medium-copper.js"></script>
+<script src="content/phy/02-medium-fiber.js"></script>
+<script src="content/phy/03-coding.js"></script>
+<script src="content/phy/04-cabling.js"></script>
+<!-- link -->
+<script src="content/link/01-framing.js"></script>
+<script src="content/link/02-error-control.js"></script>
+<script src="content/link/03-flow-control.js"></script>
+<script src="content/link/04-mac.js"></script>
+<script src="content/link/05-ppp.js"></script>
+<!-- net -->
+<script src="content/net/01-ipv4.js"></script>
+<script src="content/net/02-subnet.js"></script>
+<script src="content/net/03-ipv6.js"></script>
+<script src="content/net/04-arp-icmp.js"></script>
+<script src="content/net/05-nat.js"></script>
+<script src="content/net/06-fragment-forward.js"></script>
+<!-- routing -->
+<script src="content/routing/01-static.js"></script>
+<script src="content/routing/02-rip.js"></script>
+<script src="content/routing/03-ospf.js"></script>
+<script src="content/routing/04-bgp.js"></script>
+<script src="content/routing/05-isis.js"></script>
+<script src="content/routing/06-selection.js"></script>
+<!-- transport -->
+<script src="content/transport/01-tcp-udp.js"></script>
+<script src="content/transport/02-handshake.js"></script>
+<script src="content/transport/03-flow-congestion.js"></script>
+<script src="content/transport/04-port-socket.js"></script>
+<!-- app -->
+<script src="content/app/01-dns.js"></script>
+<script src="content/app/02-dhcp.js"></script>
+<script src="content/app/03-http.js"></script>
+<script src="content/app/04-email.js"></script>
+<script src="content/app/05-other.js"></script>
+<!-- lan -->
+<script src="content/lan/01-ethernet.js"></script>
+<script src="content/lan/02-vlan.js"></script>
+<script src="content/lan/03-stp.js"></script>
+<script src="content/lan/04-aggregation.js"></script>
+<script src="content/lan/05-l3-switch.js"></script>
+<!-- wan -->
+<script src="content/wan/01-pstn-isdn.js"></script>
+<script src="content/wan/02-fr-atm.js"></script>
+<script src="content/wan/03-mpls.js"></script>
+<script src="content/wan/04-sdh.js"></script>
+<!-- device -->
+<script src="content/device/01-overview.js"></script>
+<script src="content/device/02-switch.js"></script>
+<script src="content/device/03-router.js"></script>
+<script src="content/device/04-gateway-firewall.js"></script>
+<!-- security -->
+<script src="content/security/01-crypto.js"></script>
+<script src="content/security/02-pki.js"></script>
+<script src="content/security/03-firewall.js"></script>
+<script src="content/security/04-vpn.js"></script>
+<script src="content/security/05-ids-ips.js"></script>
+<script src="content/security/06-aaa.js"></script>
+<!-- wireless -->
+<script src="content/wireless/01-wlan.js"></script>
+<script src="content/wireless/02-wifi-secure.js"></script>
+<script src="content/wireless/03-cellular.js"></script>
+<script src="content/wireless/04-iot.js"></script>
+<!-- storage -->
+<script src="content/storage/01-das-nas.js"></script>
+<script src="content/storage/02-san.js"></script>
+<script src="content/storage/03-iscsi.js"></script>
+<!-- emerging -->
+<script src="content/emerging/01-sdn.js"></script>
+<script src="content/emerging/02-nfv.js"></script>
+<script src="content/emerging/03-sdwan.js"></script>
+<script src="content/emerging/04-cloud-network.js"></script>
+<!-- planning -->
+<script src="content/planning/01-requirement.js"></script>
+<script src="content/planning/02-logical.js"></script>
+<script src="content/planning/03-physical.js"></script>
+<script src="content/planning/04-device-selection.js"></script>
+<script src="content/planning/05-cabling.js"></script>
+<script src="content/planning/06-room.js"></script>
+<!-- ops -->
+<script src="content/ops/01-snmp.js"></script>
+<script src="content/ops/02-nms.js"></script>
+<script src="content/ops/03-performance.js"></script>
+<script src="content/ops/04-fault.js"></script>
+<!-- standard -->
+<script src="content/standard/01-ip.js"></script>
+<script src="content/standard/02-standardization.js"></script>
+<script src="content/standard/03-english.js"></script>
+<!-- case -->
+<script src="content/case/01-overview.js"></script>
+<script src="content/case/02-subnet.js"></script>
+<script src="content/case/03-routing-switch.js"></script>
+<script src="content/case/04-security.js"></script>
+<script src="content/case/05-planning.js"></script>
+<script src="content/case/06-real.js"></script>
+<!-- essay -->
+<script src="content/essay/01-overview.js"></script>
+<script src="content/essay/02-structure.js"></script>
+<script src="content/essay/03-topic-planning.js"></script>
+<script src="content/essay/04-topic-design.js"></script>
+<script src="content/essay/05-topic-ops.js"></script>
+<script src="content/essay/06-material.js"></script>
+</body>
+</html>
