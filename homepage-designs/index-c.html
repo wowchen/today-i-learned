@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日得到 · Today I Learned</title>
+<meta name="description" content="今日得到 · 个人学习站合集:美语、电网通识、信息系统项目管理师、十五五规划。纯静态、零依赖、点开即学。">
+<style>
+  :root{
+    --bg:#0B0C0E; --ink:#ECE9E2; --body:#A7A59E; --note:#6F6E68; --line:#23252A;
+    --serif:Charter,"Bitstream Charter",Georgia,"Songti SC","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono",ui-monospace,Menlo,"Cascadia Code",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:var(--serif);
+    -webkit-font-smoothing:antialiased; line-height:1.6; position:relative; overflow-x:hidden}
+  body::before{content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(60% 50% at 18% -8%,rgba(47,78,158,.20),transparent 60%),
+      radial-gradient(55% 45% at 100% 14%,rgba(31,138,140,.14),transparent 60%),
+      radial-gradient(50% 50% at 90% 100%,rgba(255,77,0,.08),transparent 60%);}
+  body::after{content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px); background-size:3px 3px}
+  .wrap{width:100%; max-width:880px; margin:0 auto; padding:0 30px; position:relative; z-index:1}
+
+  /* ---- Header ---- */
+  header{padding:84px 0 30px}
+  .kbd{font-family:var(--mono); font-size:.74rem; letter-spacing:.04em; color:var(--note); margin:0 0 26px}
+  .kbd .dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:#3FB67E;
+    margin-right:9px; vertical-align:middle; box-shadow:0 0 10px #3FB67E}
+  .kbd b{color:var(--body); font-weight:400}
+  h1.title{font-size:clamp(3rem,9vw,5rem); font-weight:700; letter-spacing:.02em;
+    line-height:1.02; margin:0; background:linear-gradient(180deg,#fff,#BFC6D4);
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  .latin{font-family:var(--mono); font-size:.74rem; letter-spacing:.34em; text-transform:uppercase;
+    color:var(--note); margin:18px 0 0}
+  .tagline{font-family:var(--sans); font-size:1.06rem; color:var(--body); max-width:48ch;
+    margin:28px 0 0; line-height:1.7}
+
+  /* ---- Station rows ---- */
+  main{padding:30px 0 40px}
+  .label{font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--note); padding:0 0 18px; border-bottom:1px solid var(--line); margin:0 0 4px;
+    display:flex; justify-content:space-between}
+  .station{display:grid; grid-template-columns:auto 1fr auto; align-items:center; column-gap:24px;
+    padding:30px 6px; text-decoration:none; color:inherit; position:relative;
+    border-bottom:1px solid var(--line)}
+  .station .no{font-family:var(--mono); font-size:.82rem; color:var(--note);
+    align-self:start; padding-top:9px; transition:color .3s ease}
+  .station .body{min-width:0}
+  .station .tag{font-family:var(--mono); font-size:.66rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:8px; display:inline-block}
+  .station h2{font-size:1.74rem; font-weight:700; letter-spacing:.01em; margin:0; line-height:1.16;
+    width:max-content; max-width:100%; position:relative}
+  .station h2::after{content:""; position:absolute; left:0; right:0; bottom:-5px; height:2px;
+    background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+  .station .zh{font-family:var(--sans); font-size:.88rem; font-weight:600; color:var(--body); margin:10px 0 7px}
+  .station .desc{font-family:var(--sans); font-size:.86rem; color:var(--note); margin:0; max-width:56ch; line-height:1.6}
+  .station .arrow{width:42px; height:42px; border-radius:50%; border:1px solid var(--line);
+    display:grid; place-items:center; color:var(--body); flex-shrink:0;
+    transition:border-color .3s ease, background .3s ease, color .3s ease, transform .3s ease}
+  .station .arrow svg{transition:transform .3s ease}
+  .station:hover .no{color:var(--accent)}
+  .station:hover h2::after{transform:scaleX(1)}
+  .station:hover .arrow{border-color:var(--accent); background:var(--accent); color:#fff; transform:rotate(-45deg)}
+  .station:hover .arrow svg{transform:none}
+  .station::before{content:""; position:absolute; left:-30px; right:-30px; top:0; bottom:0;
+    background:radial-gradient(60% 100% at 0% 50%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 70%);
+    opacity:0; transition:opacity .3s ease; pointer-events:none; border-radius:14px}
+  .station:hover::before{opacity:1}
+
+  .station.soon{cursor:default}
+  .station.soon h2{color:var(--body)}
+  .station.soon .arrow{border-style:dashed}
+  .station.soon:hover .no{color:var(--note)}
+  .station.soon:hover h2::after{transform:scaleX(0)}
+  .station.soon:hover .arrow{border-color:var(--line); background:none; color:var(--body); transform:none}
+  .station.soon:hover::before{opacity:0}
+  .station .pill{font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; color:var(--note);
+    border:1px solid var(--line); border-radius:999px; padding:3px 9px; margin-left:10px; vertical-align:middle}
+
+  footer{padding:30px 0 56px}
+  .foot{font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; color:var(--note);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    border-top:1px solid var(--line); padding-top:24px}
+
+  @media (max-width:600px){
+    header{padding:56px 0 20px}
+    .station{grid-template-columns:auto 1fr; column-gap:16px}
+    .station .arrow{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="kbd"><span class="dot"></span><b>~/today-i-learned</b> · 静态托管 · 已就绪</p>
+    <h1 class="title">今日得到</h1>
+    <p class="latin">Today · I · Learned</p>
+    <p class="tagline">用大白话把一门门硬知识讲透。纯静态、零依赖、离线可用 —— 选一站，开读。</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="label"><span>学习站索引</span><span>03 / 04 已上线</span></div>
+
+    <a class="station" href="english-made-simple/" style="--accent:#5B86E5">
+      <span class="no">01</span>
+      <span class="body">
+        <span class="tag">English</span>
+        <h2>English Made Simple</h2>
+        <div class="zh">美语，一看就懂</div>
+        <p class="desc">用大白话中文讲透美式英语：发音、词汇、语法、听说读写、文化与旅行。零基础一看就懂，点哪里听哪里。</p>
+      </span>
+      <span class="arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+
+    <a class="station" href="power-grid-fundamentals/" style="--accent:#2EC6C8">
+      <span class="no">02</span>
+      <span class="body">
+        <span class="tag">Power Grid</span>
+        <h2>电网通识 · Power Grid 101</h2>
+        <div class="zh">中国电力 / 电网行业入门</div>
+        <p class="desc">发输变配用、调度运行、电力市场、新能源、储能、双碳。零基础一看就懂，术语点哪查哪。</p>
+      </span>
+      <span class="arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+
+    <a class="station" href="info-system-project-manager/" style="--accent:#FF6A33">
+      <span class="no">03</span>
+      <span class="body">
+        <span class="tag">ISPM</span>
+        <h2>高项学习站</h2>
+        <div class="zh">信息系统项目管理师</div>
+        <p class="desc">五大过程组、十大知识域、计算与案例分析、论文模板。课时 + 术语 + 错题 + 计算器，备考一站搞定。</p>
+      </span>
+      <span class="arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+
+    <a class="station soon" href="fifteenth-five-year-plan/" style="--accent:#C8A24A">
+      <span class="no">04</span>
+      <span class="body">
+        <span class="tag">Plan</span>
+        <h2>十五五规划<span class="pill">即将上线</span></h2>
+        <div class="zh">十五五规划学习站</div>
+        <p class="desc">解读「十五五」国家发展规划的脉络与重点 —— 建设中，敬请期待。</p>
+      </span>
+      <span class="arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>今日得到 · Today I Learned</span>
+    <span>纯静态 · 零依赖 · 离线可用</span>
+  </div>
+</footer>
+
+</body>
+</html>
