@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格 B · 智库白皮书 — 十五五规划</title>
+<style>
+  /* ============ 风格 B · 智库白皮书 · 数据留白 ============
+     纯白大留白 + 理性蓝 + 青绿 + 无衬线 + 大号 stat 数字块 */
+  :root{
+    --bg:#FFFFFF; --soft:#F5F7FA; --card:#FFFFFF;
+    --blue:#1B4F8A; --blue-deep:#13365E; --teal:#0E9594; --teal-soft:#E0F2F1;
+    --ink:#15223A; --body:#43505F; --note:#8893A2; --rule:#E7ECF2;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:16px/1.85 var(--sans); background:var(--bg); color:var(--ink)}
+  .col{max-width:780px;margin:0 auto;padding:0 24px}
+
+  header{border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:20;
+    background:rgba(255,255,255,.88);backdrop-filter:saturate(160%) blur(10px)}
+  .bar{display:flex;align-items:center;gap:14px;padding:14px 0}
+  .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--blue),var(--teal));
+    display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;letter-spacing:1px;flex-shrink:0}
+  .logo{font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--blue-deep);text-decoration:none}
+  .logo .en{display:block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:2px;
+    color:var(--note);text-transform:uppercase;margin-top:2px}
+  /* 顶部导航 */
+  nav.top{margin-left:auto;display:flex;align-items:center;gap:4px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  nav.top::-webkit-scrollbar{display:none}
+  nav.top a{font-size:14px;font-weight:600;color:var(--body);text-decoration:none;
+    padding:7px 12px;border-radius:8px;white-space:nowrap;transition:.15s;position:relative}
+  nav.top a:hover{color:var(--blue);background:var(--soft)}
+  nav.top a.on{color:var(--blue)}
+  nav.top a.on::after{content:"";position:absolute;left:12px;right:12px;bottom:1px;height:2px;
+    border-radius:2px;background:var(--teal)}
+  nav.top a b{display:inline-block;min-width:16px;font-size:11px;font-weight:700;color:#fff;
+    background:var(--teal);border-radius:999px;padding:0 5px;margin-left:5px;line-height:16px;text-align:center}
+
+  main{padding:48px 0 80px}
+  .tag{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:2px;color:var(--teal);
+    text-transform:uppercase;margin-bottom:16px}
+  h1{font-size:38px;line-height:1.22;letter-spacing:-.5px;font-weight:800;margin-bottom:20px;color:var(--ink)}
+  .lead{font-size:19px;line-height:1.75;color:var(--body);max-width:60ch;margin-bottom:14px}
+  .lead b{color:var(--blue);font-weight:700}
+  h2{font-size:15px;font-weight:700;letter-spacing:1px;color:var(--blue);margin:46px 0 14px;
+    display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:22px;height:3px;border-radius:2px;background:var(--teal)}
+  p{margin:0 0 18px;color:var(--body)}
+  gd{color:var(--blue);border-bottom:1px dashed var(--teal);cursor:help;font-weight:600}
+
+  /* 时间轴 */
+  .axis{margin:30px 0}
+  .axis svg{width:100%;height:auto;display:block}
+  .axis .cap{font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--note);
+    text-transform:uppercase;margin-bottom:14px}
+
+  /* 大号 stat */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
+    border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin:28px 0}
+  .stat{background:var(--card);padding:22px 18px}
+  .stat .v{font-size:34px;font-weight:800;letter-spacing:-1px;color:var(--blue-deep);line-height:1}
+  .stat .v small{font-size:15px;color:var(--teal);font-weight:700;margin-left:2px}
+  .stat .k{font-size:13px;color:var(--body);font-weight:600;margin-top:10px}
+  .stat .n{font-family:var(--mono);font-size:10px;color:var(--note);margin-top:5px;text-transform:uppercase;letter-spacing:.5px}
+
+  .take{background:var(--soft);border-radius:14px;padding:24px;margin:36px 0 0;
+    border-left:4px solid var(--teal)}
+  .take .lbl{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--teal);
+    text-transform:uppercase;margin-bottom:10px}
+  .take p{margin:0;font-size:16px;color:var(--ink)}
+  .take b{color:var(--blue)}
+
+  footer{border-top:1px solid var(--rule);padding:22px 0;margin-top:54px}
+  footer .col{font-family:var(--mono);font-size:11px;color:var(--note);display:flex;
+    justify-content:space-between;flex-wrap:wrap;gap:8px;letter-spacing:.5px}
+
+  @media(max-width:620px){
+    .bar{flex-wrap:wrap;gap:10px}
+    nav.top{margin-left:0;width:100%;order:3;border-top:1px solid var(--rule);padding-top:8px}
+    .logo .en{display:none}
+  }
+  @media(max-width:560px){ h1{font-size:29px} .stats{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="col bar">
+    <div class="mark">15</div>
+    <a class="logo" href="#/">十五五规划学习站<span class="en">Fifteenth Five-Year Plan</span></a>
+    <nav class="top">
+      <a href="#/" class="on">首页</a>
+      <a href="#/path">学习路线</a>
+      <a href="#/terms">术语表</a>
+      <a href="#/book">术语本 <b>0</b></a>
+      <a href="#/search">搜索</a>
+      <a href="#/settings">设置</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="col">
+    <div class="tag">Lesson 01 · Overview</div>
+    <h1>「十五五」是什么？<br>五年规划的逻辑与看点</h1>
+    <p class="lead">一句话:「十五五」就是国家对 <b>2026—2030 这五年</b>怎么发展的总安排——往哪走、干什么、要达成什么,都写在里面。</p>
+
+    <h2>五年规划是怎么回事</h2>
+    <p>国家每隔五年定一版"发展计划书"。它先由中央提出建议,再编成正式的<gd>规划纲要</gd>,经全国人大审议通过后,各部门、各地方再拆成自己的施工图去落地。流程很清楚:<strong>定方向 → 出纲要 → 分头落地</strong>。</p>
+    <p>纲要里既有"鼓励去做"的<gd>预期性指标</gd>,也有"必须做到"的<gd>约束性指标</gd>(环保、耕地这类红线)。分清这两类,就抓住了一版规划的硬约束。</p>
+
+    <h2>这一版的时间坐标</h2>
+    <div class="axis">
+      <div class="cap">Five-Year Plans · 编年坐标</div>
+      <svg viewBox="0 0 720 96" role="img" aria-label="五年规划时间轴">
+        <line x1="24" y1="58" x2="696" y2="58" stroke="#E7ECF2" stroke-width="2"/>
+        <g font-family="-apple-system,sans-serif" text-anchor="middle">
+          <circle cx="96"  cy="58" r="6" fill="#C5D2E0"/><text x="96"  y="40" font-size="14" font-weight="700" fill="#8893A2">十一五</text><text x="96"  y="80" font-size="11" fill="#8893A2">06–10</text>
+          <circle cx="240" cy="58" r="6" fill="#C5D2E0"/><text x="240" y="40" font-size="14" font-weight="700" fill="#8893A2">十二五</text><text x="240" y="80" font-size="11" fill="#8893A2">11–15</text>
+          <circle cx="384" cy="58" r="6" fill="#C5D2E0"/><text x="384" y="40" font-size="14" font-weight="700" fill="#8893A2">十三五</text><text x="384" y="80" font-size="11" fill="#8893A2">16–20</text>
+          <circle cx="528" cy="58" r="6" fill="#8DA9C4"/><text x="528" y="40" font-size="14" font-weight="700" fill="#43505F">十四五</text><text x="528" y="80" font-size="11" fill="#8893A2">21–25</text>
+          <circle cx="672" cy="58" r="9" fill="#0E9594"/><text x="672" y="38" font-size="15" font-weight="800" fill="#1B4F8A">十五五</text><text x="672" y="80" font-size="11" font-weight="700" fill="#0E9594">26–30</text>
+        </g>
+      </svg>
+    </div>
+    <p>它紧接"十四五"收官,又是迈向 <strong>2035 年基本实现现代化</strong>的关键一程——所以这一版被格外看重。</p>
+
+    <div class="stats">
+      <div class="stat"><div class="v">5<small>年</small></div><div class="k">规划周期</div><div class="n">2026 – 2030</div></div>
+      <div class="stat"><div class="v">↑<small>%</small></div><div class="k">研发投入强度</div><div class="n">demo · 占位</div></div>
+      <div class="stat"><div class="v">↑<small>%</small></div><div class="k">城镇化率</div><div class="n">demo · 占位</div></div>
+    </div>
+
+    <div class="take">
+      <div class="lbl">▸ 决策落点 / Takeaway</div>
+      <p>规划是一份<b>国家级行业地图</b>:它提示未来五年哪些赛道拿到政策"绿灯"、资金往哪流、风口在哪。对从业者和投资者,读懂它就是读懂下一程的确定性。</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="col">
+    <span>十五五规划学习站 · 风格 B 智库白皮书（选型稿）</span>
+    <span>STATIC · ZERO-DEP · OFFLINE</span>
+  </div>
+</footer>
+
+</body>
+</html>

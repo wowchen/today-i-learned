@@ -1,23 +1,157 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light" data-fs="m">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>十五五规划 · 建设中</title>
-<style>
-  body{margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-    background:#FBFAF6; color:#25303E; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; text-align:center; padding:24px}
-  .box{max-width:30ch}
-  h1{font-family:Charter,Georgia,"Songti SC",serif; font-size:2rem; margin:0 0 12px}
-  p{color:#8B919B; margin:0 0 24px}
-  a{color:#2F4E9E; text-decoration:none; font-weight:600}
-</style>
+<title>十五五规划学习站 · 大白话精讲</title>
+<meta name="description" content="用大白话讲透《国民经济和社会发展第十五个五年规划纲要》:十八篇全景、主要目标与指标、产业科技数字、民生绿色安全。零基础一看就懂,术语点哪查哪。">
+<link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <div class="box">
-    <h1>十五五规划</h1>
-    <p>学习站建设中,敬请期待。</p>
-    <a href="../">← 返回今日得到</a>
+
+<!-- 侧边图签索引(引擎渲染) -->
+<nav class="thumb" id="thumbNav" aria-label="模块索引"></nav>
+
+<header class="site">
+  <div class="masthead">
+    <a class="brand" href="#/">十五五规划学习站<small>FIFTEENTH FIVE-YEAR PLAN</small></a>
+    <nav class="top" id="topNav">
+      <a href="#/" data-nav="home">首页</a>
+      <a href="#/path" data-nav="path">学习路线</a>
+      <a href="#/terms" data-nav="terms">术语表</a>
+      <a href="#/book" data-nav="book">术语本 <b id="navTermCount"></b></a>
+      <a href="#/search" data-nav="search">搜索</a>
+      <a href="#/settings" data-nav="settings">设置</a>
+    </nav>
   </div>
+</header>
+
+<main class="wrap" id="app">
+  <noscript><p style="padding:40px 0">本站需要启用 JavaScript 才能运行。</p></noscript>
+</main>
+
+<footer class="site">
+  <span>十五五规划学习站 · 纯静态 · 零依赖 · 离线可用</span>
+  <span id="syncStatus">进度:仅本机</span>
+</footer>
+
+<!-- 引擎(不要在内容工作中改动 assets/ 下任何文件) -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/terms.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+
+<!-- 元数据:模块 + 学习路线 + 术语库 -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- 课程内容(新增课程文件后,在下方按模块分组追加 script 标签) -->
+<!-- 模块 0 · 学习导览 -->
+<script src="content/guide/01-howto.js"></script>
+<script src="content/guide/02-what.js"></script>
+<script src="content/guide/03-map.js"></script>
+<script src="content/guide/04-terms.js"></script>
+
+<!-- 第一篇 · 总览 -->
+<script src="content/overview/01-env.js"></script>
+<script src="content/overview/02-guide.js"></script>
+<script src="content/overview/03-goals.js"></script>
+<script src="content/overview/04-index.js"></script>
+<script src="content/overview/05-2035.js"></script>
+
+<!-- 第二篇 · 现代化产业体系 -->
+<script src="content/industry/01-system.js"></script>
+<script src="content/industry/02-tradition.js"></script>
+<script src="content/industry/03-emerging.js"></script>
+<script src="content/industry/04-infra.js"></script>
+
+<!-- 第三篇 · 科技自立自强 -->
+<script src="content/tech/01-selfreliance.js"></script>
+<script src="content/tech/02-original.js"></script>
+<script src="content/tech/03-firm.js"></script>
+<script src="content/tech/04-edu.js"></script>
+
+<!-- 第四篇 · 数字中国 -->
+<script src="content/digital/01-china.js"></script>
+<script src="content/digital/02-compute.js"></script>
+<script src="content/digital/03-ai.js"></script>
+
+<!-- 第五篇 · 强大国内市场 -->
+<script src="content/market/01-pattern.js"></script>
+<script src="content/market/02-consume.js"></script>
+<script src="content/market/03-unified.js"></script>
+
+<!-- 第六篇 · 经济体制改革 -->
+<script src="content/econ/01-system.js"></script>
+<script src="content/econ/02-subject.js"></script>
+<script src="content/econ/03-factor.js"></script>
+
+<!-- 第七篇 · 高水平对外开放 -->
+<script src="content/open/01-auto.js"></script>
+<script src="content/open/02-trade.js"></script>
+<script src="content/open/03-community.js"></script>
+
+<!-- 第八篇 · 农业农村现代化 -->
+<script src="content/rural/01-food.js"></script>
+<script src="content/rural/02-village.js"></script>
+<script src="content/rural/03-policy.js"></script>
+
+<!-- 第九篇 · 区域协调发展 -->
+<script src="content/region/01-coord.js"></script>
+<script src="content/region/02-link.js"></script>
+<script src="content/region/03-urban.js"></script>
+<script src="content/region/04-ocean.js"></script>
+
+<!-- 第十篇 · 繁荣文化 -->
+<script src="content/culture/01-value.js"></script>
+<script src="content/culture/02-industry.js"></script>
+<script src="content/culture/03-civil.js"></script>
+
+<!-- 第十一篇 · 人口高质量发展 -->
+<script src="content/pop/01-birth.js"></script>
+<script src="content/pop/02-edu.js"></script>
+<script src="content/pop/03-health.js"></script>
+<script src="content/pop/04-aging.js"></script>
+
+<!-- 第十二篇 · 保障改善民生 -->
+<script src="content/life/01-job.js"></script>
+<script src="content/life/02-income.js"></script>
+<script src="content/life/03-security.js"></script>
+<script src="content/life/04-house.js"></script>
+
+<!-- 第十三篇 · 绿色转型 美丽中国 -->
+<script src="content/green/01-transition.js"></script>
+<script src="content/green/02-carbon.js"></script>
+<script src="content/green/03-env.js"></script>
+<script src="content/green/04-eco.js"></script>
+
+<!-- 第十四篇 · 国家安全 平安中国 -->
+<script src="content/safety/01-system.js"></script>
+<script src="content/safety/02-econ.js"></script>
+<script src="content/safety/03-public.js"></script>
+
+<!-- 第十五篇 · 国防和军队现代化 -->
+<script src="content/defense/01-army.js"></script>
+<script src="content/defense/02-integrate.js"></script>
+
+<!-- 第十六篇 · 民主与法治 -->
+<script src="content/law/01-democracy.js"></script>
+<script src="content/law/02-law.js"></script>
+
+<!-- 第十七篇 · 一国两制 祖国统一 -->
+<script src="content/hk/01-hkmacao.js"></script>
+<script src="content/hk/02-taiwan.js"></script>
+
+<!-- 第十八篇 · 规划实施保障 -->
+<script src="content/impl/01-party.js"></script>
+<script src="content/impl/02-mechanism.js"></script>
+<script src="content/impl/03-action.js"></script>
+
+<!-- 引擎启动(必须在所有内容之后) -->
+<script src="assets/js/engine.js"></script>
 </body>
 </html>

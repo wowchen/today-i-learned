@@ -11,7 +11,7 @@
 | English Made Simple · 美语,一看就懂 | [`english-made-simple/`](english-made-simple/) | 美式英语:发音/词汇/语法/听说读写/文化/旅行 | ✅ 已上线 |
 | 电网通识 · Power Grid 101 | [`power-grid-fundamentals/`](power-grid-fundamentals/) | 中国电力/电网:发输变配用/调度/电力市场/新能源/储能/双碳 | ✅ 已上线 |
 | 高项学习站 · ISPM | [`info-system-project-manager/`](info-system-project-manager/) | 信息系统项目管理师备考:过程组/知识域/案例/论文 | ✅ 已上线 |
-| 十五五规划 | [`fifteenth-five-year-plan/`](fifteenth-five-year-plan/) | 十五五规划学习站 | 🚧 建设中 |
+| 十五五规划学习站 | [`fifteenth-five-year-plan/`](fifteenth-five-year-plan/) | 《十五五规划纲要》大白话精讲:十八篇全景/目标指标/产业科技数字/民生绿色安全 | ✅ 已上线 |
 
 ## 本地预览
 

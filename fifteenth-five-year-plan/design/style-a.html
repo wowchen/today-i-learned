@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格 A · 党政红金 — 十五五规划</title>
+<style>
+  /* ============ 风格 A · 党政红金 · 政策读本 ============
+     暖白纸底 + 党政红 + 描金 + 宋体大标题 + 红头横线/印章气质 */
+  :root{
+    --paper:#FBF8F2; --paper-deep:#F4EEE2; --card:#FFFFFF;
+    --red:#B11E2F; --red-deep:#8E1624; --gold:#C2992E; --gold-soft:#E8D7A8;
+    --ink:#26211C; --body:#4A433B; --note:#8A7F70; --rule:#E3D9C6;
+    --serif:"Songti SC","STSong",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:16px/1.95 var(--sans); background:var(--paper); color:var(--ink)}
+  .col{max-width:760px;margin:0 auto;padding:0 22px}
+
+  /* 顶栏:红头横线 + 印章 */
+  header{background:var(--paper-deep);border-bottom:3px double var(--red)}
+  .hbar{display:flex;align-items:center;gap:16px;padding:16px 0}
+  .seal{width:48px;height:48px;border:2px solid var(--red);border-radius:8px;color:var(--red);
+    display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:13px;
+    line-height:1.1;text-align:center;transform:rotate(-4deg);flex-shrink:0}
+  .logo{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:2px;color:var(--red-deep)}
+  .logo .en{display:block;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:3px;
+    color:var(--gold);text-transform:uppercase;margin-top:3px}
+  .ribbon{margin-left:auto;font-family:var(--serif);font-size:13px;color:var(--note);letter-spacing:1px}
+
+  main{padding:36px 0 70px}
+  .kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:3px;color:#fff;
+    background:var(--red);padding:4px 14px;border-radius:2px;margin-bottom:18px}
+  h1{font-family:var(--serif);font-size:33px;line-height:1.3;color:var(--ink);font-weight:700;
+    margin-bottom:14px;letter-spacing:1px}
+  h1 .u{background:linear-gradient(transparent 68%,var(--gold-soft) 0)}
+  .lead{font-family:var(--serif);font-size:18px;line-height:1.9;color:var(--body);
+    border-left:4px solid var(--gold);padding:4px 0 4px 18px;margin:6px 0 30px}
+  h2{font-family:var(--serif);font-size:22px;color:var(--red-deep);margin:34px 0 12px;
+    padding-bottom:8px;border-bottom:1px solid var(--rule);position:relative}
+  h2::before{content:"";position:absolute;left:0;bottom:-1px;width:54px;height:3px;background:var(--red)}
+  p{margin:0 0 16px;color:var(--body)}
+  gd{color:var(--red-deep);border-bottom:1px dashed var(--gold);cursor:help;font-weight:600}
+
+  /* 时间轴 */
+  .axis{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:22px 20px;margin:24px 0}
+  .axis .cap{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--note);margin-bottom:16px}
+  .years{display:flex;align-items:flex-end;gap:6px}
+  .yr{flex:1;text-align:center;position:relative}
+  .yr .bar{height:8px;background:var(--gold-soft);border-radius:2px}
+  .yr.now .bar{height:8px;background:var(--red)}
+  .yr .t{font-family:var(--serif);font-size:13px;margin-top:8px;color:var(--note);line-height:1.4}
+  .yr.now .t{color:var(--red-deep);font-weight:700}
+  .yr .span{display:block;font-size:11px;color:var(--note);font-family:var(--sans)}
+
+  /* 指标卡 */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+  .stat{background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--red);
+    border-radius:4px;padding:16px 16px 14px}
+  .stat .k{font-size:12px;color:var(--note);margin-bottom:8px}
+  .stat .v{font-family:var(--serif);font-size:27px;font-weight:700;color:var(--red-deep);line-height:1}
+  .stat .v small{font-size:14px;font-weight:600;color:var(--gold);margin-left:3px}
+  .stat .n{font-size:11px;color:var(--note);margin-top:6px}
+
+  /* takeaway */
+  .take{background:linear-gradient(180deg,#FFFCF4,#FBF6E9);border:1px solid var(--gold-soft);
+    border-left:5px solid var(--gold);border-radius:6px;padding:18px 20px;margin:30px 0 0}
+  .take .lbl{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:14px;
+    letter-spacing:2px;margin-bottom:8px}
+  .take p{margin:0;color:var(--ink)}
+
+  footer{border-top:3px double var(--red);background:var(--paper-deep);padding:18px 0;margin-top:50px}
+  footer .col{font-size:12px;color:var(--note);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  @media(max-width:560px){
+    h1{font-size:26px} .stats{grid-template-columns:1fr 1fr} .years{gap:3px} .yr .t{font-size:11px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="col hbar">
+    <div class="seal">十五<br>五</div>
+    <div class="logo">十五五规划学习站<span class="en">Fifteenth Five-Year Plan</span></div>
+    <div class="ribbon">政策读本 · 大白话精讲</div>
+  </div>
+</header>
+
+<main>
+  <div class="col">
+    <span class="kicker">第一课 · 总览</span>
+    <h1><span class="u">「十五五」是什么？</span><br>——五年规划的逻辑与这一版的看点</h1>
+    <p class="lead">一句话:「十五五」就是国家在 <strong>2026—2030 这五年</strong>怎么发展的总安排——往哪走、干什么、要达成什么,都写在里面。</p>
+
+    <h2>① 五年规划是怎么回事</h2>
+    <p>国家每隔五年定一版"发展计划书"。它先由中央提出建议,再编成正式的<gd>规划纲要</gd>,经全国人大审议通过后,各部门、各地方再把它拆成自己的施工图去落地。简单说:<strong>定方向 → 出纲要 → 分头落地</strong>。</p>
+    <p>纲要里既有"鼓励去做"的<gd>预期性指标</gd>,也有"必须做到"的<gd>约束性指标</gd>(比如环保、耕地这类红线)。看懂这两类指标,就看懂了一版规划的硬约束在哪。</p>
+
+    <h2>② 这一版站在什么时间坐标上</h2>
+    <div class="axis">
+      <div class="cap">五年规划编年坐标</div>
+      <div class="years">
+        <div class="yr"><div class="bar"></div><div class="t">十一五<span class="span">06–10</span></div></div>
+        <div class="yr"><div class="bar"></div><div class="t">十二五<span class="span">11–15</span></div></div>
+        <div class="yr"><div class="bar"></div><div class="t">十三五<span class="span">16–20</span></div></div>
+        <div class="yr"><div class="bar"></div><div class="t">十四五<span class="span">21–25</span></div></div>
+        <div class="yr now"><div class="bar"></div><div class="t">十五五<span class="span">26–30</span></div></div>
+      </div>
+    </div>
+    <p>它紧接"十四五"收官,又是迈向<strong>2035 年基本实现现代化</strong>这个长远目标的关键一程——所以这一版尤其被看重。</p>
+
+    <div class="stats">
+      <div class="stat"><div class="k">经济总量目标</div><div class="v">稳中求进<small></small></div><div class="n">演示占位 · 非真实数据</div></div>
+      <div class="stat"><div class="k">研发投入强度</div><div class="v">↑<small>%</small></div><div class="n">演示占位 · 非真实数据</div></div>
+      <div class="stat"><div class="k">常住人口城镇化率</div><div class="v">↑<small>%</small></div><div class="n">演示占位 · 非真实数据</div></div>
+    </div>
+
+    <div class="take">
+      <div class="lbl">◆ 对你意味着什么</div>
+      <p>规划不是离普通人很远的"大词"。它决定未来五年哪些行业拿到政策"绿灯"、钱往哪流、就业和创业的风口在哪。看懂它,等于提前拿到一份<strong>国家级的行业地图</strong>。</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="col">
+    <span>十五五规划学习站 · 风格 A 党政红金（选型稿）</span>
+    <span>纯静态 · 零依赖 · 离线可用</span>
+  </div>
+</footer>
+
+</body>
+</html>
