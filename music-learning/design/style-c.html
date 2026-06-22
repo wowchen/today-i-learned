@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音乐学习站 · 风格 C 声波律动</title>
+<style>
+  :root{
+    --bg:#fbf7f2; --ink:#15131c; --note:#6c6678; --card:#ffffff; --line:#ece5dc;
+    --magenta:#ff2e7e; --violet:#7c3aed; --cyan:#00c2c7; --lime:#c2f042; --orange:#ff7a1a; --blue:#2f6bff;
+    --sans:"PingFang SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;line-height:1.6}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  a{text-decoration:none;color:inherit}
+
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.18rem;letter-spacing:-.02em}
+  .eq{display:flex;align-items:flex-end;gap:3px;height:30px}
+  .eq i{width:5px;border-radius:3px;animation:bounce 1s ease-in-out infinite}
+  .eq i:nth-child(1){background:var(--magenta);height:12px;animation-delay:0s}
+  .eq i:nth-child(2){background:var(--violet);height:24px;animation-delay:.15s}
+  .eq i:nth-child(3){background:var(--cyan);height:16px;animation-delay:.3s}
+  .eq i:nth-child(4){background:var(--orange);height:28px;animation-delay:.45s}
+  @keyframes bounce{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+  .brand small{display:block;font-size:.6rem;letter-spacing:.4em;color:var(--note);font-weight:700}
+  .nav{display:flex;gap:8px}
+  .nav a{font-size:.82rem;font-weight:700;color:var(--ink);padding:7px 14px;border-radius:999px}
+  .nav a:first-child{background:var(--ink);color:#fff}
+  .nav a:hover{background:#efe8df}
+  .nav a:first-child:hover{background:var(--ink)}
+
+  /* hero */
+  .hero{padding:40px 0 26px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:800;
+    padding:7px 16px;border-radius:999px;background:var(--ink);color:#fff;letter-spacing:.06em}
+  h1{font-size:clamp(2.6rem,7vw,5rem);line-height:1;letter-spacing:-.04em;font-weight:900;margin:22px 0 0}
+  h1 .a{color:var(--magenta)} h1 .b{color:var(--violet)} h1 .c{color:var(--blue)}
+  .lede{margin:20px auto 0;color:var(--note);font-size:1.06rem;max-width:52ch}
+  .lede b{color:var(--ink);font-weight:700}
+  .cta{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:13px 26px;border-radius:999px;font-weight:800;font-size:.9rem}
+  .btn.primary{background:var(--magenta);color:#fff;box-shadow:0 12px 28px -10px rgba(255,46,126,.6)}
+  .btn.ghost{background:#fff;border:2px solid var(--ink);color:var(--ink)}
+  /* big waveform strip */
+  .strip{display:flex;align-items:center;justify-content:center;gap:5px;height:70px;margin:34px 0 0}
+  .strip i{width:7px;border-radius:5px;background:var(--ink);opacity:.85}
+  .strip i:nth-child(5n+1){background:var(--magenta)}
+  .strip i:nth-child(5n+2){background:var(--violet)}
+  .strip i:nth-child(5n+3){background:var(--cyan)}
+  .strip i:nth-child(5n+4){background:var(--orange)}
+  .strip i:nth-child(5n+5){background:var(--blue)}
+
+  /* module bento */
+  .shead{display:flex;align-items:center;justify-content:space-between;margin:50px 0 16px}
+  .shead h2{font-size:1.6rem;font-weight:900;letter-spacing:-.02em}
+  .shead span{font-size:.78rem;color:var(--note);font-weight:700;letter-spacing:.1em}
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .mod{grid-column:span 2;border-radius:20px;padding:22px;color:#fff;position:relative;overflow:hidden;
+    min-height:158px;display:flex;flex-direction:column;justify-content:flex-end;transition:.28s}
+  .mod:hover{transform:translateY(-6px) rotate(-1deg)}
+  .mod .no{position:absolute;top:16px;left:20px;font-size:.72rem;font-weight:900;letter-spacing:.14em;opacity:.85}
+  .mod .ico{position:absolute;top:14px;right:16px;font-size:2rem;opacity:.9}
+  .mod h3{font-size:1.22rem;font-weight:900;margin-bottom:5px}
+  .mod p{font-size:.82rem;opacity:.92}
+  .mod .chip{align-self:flex-start;margin-top:12px;font-size:.66rem;font-weight:800;
+    padding:4px 11px;border-radius:999px;background:rgba(0,0,0,.22)}
+  .m0{background:var(--ink);grid-column:span 3}
+  .m1{background:var(--magenta)} .m2{background:var(--violet)}
+  .m3{background:var(--blue)} .m4{background:var(--cyan);color:#06302f}
+  .m4 .chip{background:rgba(0,0,0,.14)}
+  .m5{background:linear-gradient(135deg,var(--orange),var(--magenta));grid-column:span 3}
+
+  /* sample lesson */
+  .lesson{margin-top:18px;background:var(--card);border:2px solid var(--ink);border-radius:22px;overflow:hidden;
+    box-shadow:8px 8px 0 var(--ink)}
+  .lh{padding:22px 26px;border-bottom:2px solid var(--ink);background:var(--lime)}
+  .lh .k{font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#3d5400}
+  .lh h3{font-size:1.5rem;margin:8px 0 4px;font-weight:900}
+  .lh .meta{font-size:.78rem;color:#4a5a14;font-weight:600}
+  .lbody{padding:22px 26px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .seg{border:2px solid var(--line);border-radius:16px;padding:16px}
+  .seg .t{display:inline-block;font-size:.72rem;font-weight:900;color:#fff;padding:3px 10px;
+    border-radius:999px;margin-bottom:9px}
+  .seg:nth-child(1) .t{background:var(--magenta)} .seg:nth-child(2) .t{background:var(--violet)}
+  .seg:nth-child(3) .t{background:var(--blue)} .seg:nth-child(4) .t{background:var(--orange)}
+  .seg p{font-size:.86rem;color:#39333f}
+  gd{border-bottom:2px dotted var(--violet);color:var(--violet);cursor:help;font-weight:600}
+  .ex{margin-top:10px;border-left:4px solid var(--cyan);background:rgba(0,194,199,.10);
+    padding:9px 12px;border-radius:0 10px 10px 0;font-size:.82rem;color:#065a5c}
+  .pit{margin-top:10px;border-left:4px solid var(--orange);background:rgba(255,122,26,.10);
+    padding:9px 12px;border-radius:0 10px 10px 0;font-size:.82rem;color:#9a4a07}
+
+  footer{border-top:2px solid var(--ink);margin-top:52px;padding:24px 0 50px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.78rem;color:var(--note);font-weight:600}
+  .demo{margin:30px 0 0;font-size:.76rem;color:var(--note);text-align:center}
+  .demo b{color:var(--magenta)}
+
+  @media (max-width:900px){.mod,.m0,.m5{grid-column:span 3}.lbody{grid-template-columns:1fr}.nav{display:none}}
+  @media (max-width:560px){.mod,.m0,.m5{grid-column:span 6}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar">
+    <a class="brand"><span class="eq"><i></i><i></i><i></i><i></i></span>
+      <span>音乐学习站<small>MUSIC LEARNING</small></span></a>
+    <nav class="nav"><a>首页</a><a>路线</a><a>术语表</a><a>术语本</a><a>搜索</a><a>设置</a></nav>
+  </div>
+
+  <section class="hero">
+    <span class="pill">▶ 零基础 · 大白话 · 点开即学</span>
+    <h1>听<span class="a">懂</span>它,<span class="b">玩</span>转它,<br><span class="c">唱</span>出来。</h1>
+    <p class="lede">用大白话讲透<b>乐理、乐器、音乐史、赏析</b>,再带你<b>学会流行歌演唱</b> —— 从第一个音符到站上话筒前,一路有声有色。</p>
+    <div class="cta"><a class="btn primary">开始第一课 →</a><a class="btn ghost">看学习路线</a></div>
+    <div class="strip">
+      <i style="height:22px"></i><i style="height:46px"></i><i style="height:30px"></i><i style="height:60px"></i><i style="height:38px"></i>
+      <i style="height:52px"></i><i style="height:24px"></i><i style="height:44px"></i><i style="height:66px"></i><i style="height:34px"></i>
+      <i style="height:48px"></i><i style="height:20px"></i><i style="height:40px"></i><i style="height:58px"></i><i style="height:28px"></i>
+      <i style="height:50px"></i><i style="height:36px"></i><i style="height:62px"></i><i style="height:26px"></i><i style="height:42px"></i>
+    </div>
+  </section>
+
+  <div class="shead"><h2>六个模块,一路通关</h2><span>MODULES 00—05</span></div>
+  <div class="bento">
+    <a class="mod m0"><span class="no">00 导览</span><span class="ico">&#9835;</span>
+      <h3>这个站怎么用</h3><p>音乐到底学什么、路线怎么走、术语点查与收藏怎么玩。先看地图。</p><span class="chip">4 课</span></a>
+    <a class="mod m1"><span class="no">01 乐理</span><span class="ico">&#9837;</span>
+      <h3>音乐的语法</h3><p>音符·节奏·音阶·和弦。</p><span class="chip">7 课</span></a>
+    <a class="mod m2"><span class="no">02 乐器</span><span class="ico">&#9839;</span>
+      <h3>乐器家族</h3><p>钢琴·吉他·弦管打。</p><span class="chip">7 课</span></a>
+    <a class="mod m3"><span class="no">03 音乐史</span><span class="ico">&#9833;</span>
+      <h3>风格脉络</h3><p>古典→爵士→摇滚→电子→流行。</p><span class="chip">7 课</span></a>
+    <a class="mod m4"><span class="no">04 赏析</span><span class="ico">&#9834;</span>
+      <h3>学会怎么听</h3><p>织体·配器·结构。</p><span class="chip">5 课</span></a>
+    <a class="mod m5"><span class="no">05 流行演唱</span><span class="ico">&#127908;</span>
+      <h3>把歌唱出来 · 特色模块</h3><p>发声·气息·音准·共鸣·咬字·律动·话筒与现场,从开口到上台。</p><span class="chip">7 课</span></a>
+  </div>
+
+  <div class="shead"><h2>一节课长这样</h2><span>SAMPLE</span></div>
+  <div class="lesson">
+    <div class="lh"><div class="k">乐理 · 第 1 课</div>
+      <h3>音符与音高:从 C 到 B 的 7 个音</h3>
+      <div class="meta">约 5 分钟 · 关键词:音高 · 五线谱 · 键盘</div></div>
+    <div class="lbody">
+      <div class="seg"><span class="t">① 是什么</span>
+        <p>音乐最小的积木是<gd>音符</gd>,代表不同<gd>音高</gd>。西方音乐用 C D E F G A B 七个字母表示基础音,然后循环。</p>
+        <div class="ex">就像彩虹七色,基础音也就这七个,从低到高排好队。</div></div>
+      <div class="seg"><span class="t">② 为什么重要</span>
+        <p>认全七个音,就能<gd>读谱</gd>、在键盘找位置、跟着唱准 —— 乐理和演唱共同的起点。</p></div>
+      <div class="seg"><span class="t">③ 怎么运作</span>
+        <p>钢琴白键由左到右循环;每过一组升一个<gd>八度</gd>:音名相同,频率翻倍。</p></div>
+      <div class="seg"><span class="t">④ 常见误解</span>
+        <p>很多人以为黑键是"多出来的音"。</p>
+        <div class="pit">升号 # 和降号 ♭ 不是新音,而是同一个音的两种写法(<gd>等音</gd>)。</div></div>
+    </div>
+  </div>
+
+  <p class="demo">说明:本页为<b>风格 C 选型稿</b>,数字/课时为演示占位;术语虚线为静态示意,未接点查引擎。定稿后据此搭引擎、填内容。</p>
+
+  <footer>
+    <span>音乐学习站 · Today I Learned</span>
+    <span>纯静态 · 零依赖 · 离线可用</span>
+  </footer>
+</div>
+</body>
+</html>

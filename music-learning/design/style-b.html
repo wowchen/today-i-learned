@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音乐学习站 · 风格 B 五线谱白皮书</title>
+<style>
+  :root{
+    --bg:#ffffff; --bg2:#f6f7fb; --paper:#ffffff; --line:#e4e8f0; --line2:#cfd6e4;
+    --ink:#1f2738; --note:#697288;
+    --indigo:#27408b; --indigo2:#3a5bbf; --gold:#b8862f; --teal:#0e8f86;
+    --serif:"Songti SC","STSong",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;line-height:1.65}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+  a{text-decoration:none;color:inherit}
+
+  /* staff lines as a hero backdrop */
+  .staff{position:relative}
+  .staff::before{content:"";position:absolute;left:0;right:0;top:96px;height:84px;z-index:0;opacity:.5;
+    background:repeating-linear-gradient(to bottom,transparent 0 19px,var(--line2) 19px 20px)}
+
+  .bar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
+    padding:24px 0;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.16rem;letter-spacing:-.01em}
+  .clef{font-family:var(--serif);font-size:2rem;line-height:1;color:var(--indigo)}
+  .brand small{display:block;font-size:.6rem;letter-spacing:.4em;color:var(--note);font-weight:700}
+  .nav{display:flex;gap:24px;font-size:.86rem;color:var(--note);font-weight:600}
+  .nav a:first-child{color:var(--indigo)}
+  .nav a:hover{color:var(--ink)}
+
+  /* ---- hero ---- */
+  .hero{position:relative;z-index:2;padding:58px 0 40px;max-width:62ch}
+  .kicker{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:800;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .kicker i{width:8px;height:8px;border-radius:50%;background:var(--indigo)}
+  h1{font-family:var(--serif);font-size:clamp(2.6rem,6vw,4rem);line-height:1.08;letter-spacing:.01em;font-weight:700}
+  h1 em{font-style:normal;color:var(--indigo);position:relative}
+  h1 em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:8px;background:rgba(184,134,47,.28);z-index:-1}
+  .lede{margin-top:22px;color:var(--note);font-size:1.06rem}
+  .lede b{color:var(--ink);font-weight:600}
+  .cta{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{padding:13px 26px;border-radius:8px;font-weight:700;font-size:.9rem}
+  .btn.primary{background:var(--indigo);color:#fff}
+  .btn.ghost{border:1px solid var(--line2);color:var(--ink)}
+  .stat{position:relative;z-index:2;display:flex;gap:0;border:1px solid var(--line);border-radius:14px;
+    margin-top:8px;overflow:hidden;background:var(--paper)}
+  .stat div{flex:1;padding:18px 22px;border-right:1px solid var(--line)}
+  .stat div:last-child{border-right:0}
+  .stat b{display:block;font-family:var(--serif);font-size:1.7rem;color:var(--indigo)}
+  .stat span{font-size:.76rem;color:var(--note);letter-spacing:.08em}
+
+  /* section head */
+  .shead{display:flex;align-items:baseline;justify-content:space-between;margin:56px 0 18px;
+    padding-bottom:12px;border-bottom:2px solid var(--ink)}
+  .shead h2{font-family:var(--serif);font-size:1.55rem;font-weight:700}
+  .shead span{font-size:.76rem;color:var(--note);letter-spacing:.14em}
+
+  /* module list — white paper index */
+  .mods{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .mod{display:flex;gap:16px;border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+    background:var(--paper);transition:.2s}
+  .mod:hover{border-color:var(--indigo2);box-shadow:0 14px 30px -20px rgba(39,64,139,.5);transform:translateY(-3px)}
+  .mod .num{font-family:var(--serif);font-size:1.9rem;color:var(--line2);line-height:1;min-width:48px}
+  .mod h3{font-size:1.1rem;font-weight:800;margin-bottom:4px}
+  .mod p{font-size:.83rem;color:var(--note)}
+  .mod .tag{display:inline-block;margin-top:10px;font-size:.68rem;font-weight:700;color:var(--gold);
+    letter-spacing:.08em}
+  .mod.vocal{background:linear-gradient(180deg,#fbf7ee,#fff);border-color:#e8dcc2}
+  .mod.vocal .num{color:var(--gold)}
+
+  /* sample lesson */
+  .lesson{margin-top:18px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--paper)}
+  .lh{padding:24px 26px;border-bottom:1px solid var(--line);background:var(--bg2)}
+  .lh .k{font-size:.72rem;font-weight:800;letter-spacing:.16em;color:var(--gold)}
+  .lh h3{font-family:var(--serif);font-size:1.5rem;margin:8px 0 4px;font-weight:700}
+  .lh .meta{font-size:.78rem;color:var(--note)}
+  .lbody{padding:24px 26px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .seg .t{font-size:.74rem;font-weight:800;letter-spacing:.12em;color:var(--indigo);margin-bottom:7px}
+  .seg p{font-size:.88rem;color:#3c465a}
+  gd{border-bottom:1.5px dotted var(--teal);color:var(--teal);cursor:help}
+  .ex{margin-top:10px;border-left:3px solid var(--teal);background:rgba(14,143,134,.07);
+    padding:9px 13px;border-radius:0 8px 8px 0;font-size:.84rem;color:#0c5f59}
+  .pit{margin-top:10px;border-left:3px solid #c2410c;background:rgba(194,65,12,.06);
+    padding:9px 13px;border-radius:0 8px 8px 0;font-size:.84rem;color:#9a3a12}
+
+  footer{border-top:1px solid var(--line);margin-top:56px;padding:26px 0 52px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.78rem;color:var(--note)}
+  .demo{margin:30px 0 0;font-size:.76rem;color:var(--note);text-align:center}
+  .demo b{color:var(--indigo)}
+
+  @media (max-width:820px){.mods,.lbody{grid-template-columns:1fr}.nav{display:none}.stat{flex-wrap:wrap}
+    .stat div{flex:1 1 50%;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<div class="wrap staff">
+
+  <div class="bar">
+    <a class="brand"><span class="clef">&#119070;</span><span>音乐学习站<small>MUSIC LEARNING</small></span></a>
+    <nav class="nav"><a>首页</a><a>学习路线</a><a>术语表</a><a>术语本</a><a>搜索</a><a>设置</a></nav>
+  </div>
+
+  <section class="hero">
+    <span class="kicker"><i></i>零基础大白话 · 一门门讲透</span>
+    <h1>从一个音符,<br>到唱完<em>一整首歌</em>。</h1>
+    <p class="lede">用大白话讲透<b>乐理、乐器、音乐史、赏析</b>四门基础,再用一整个模块带你<b>学会流行歌演唱</b>。术语点哪查哪,五分钟一节,离线可读。</p>
+    <div class="cta">
+      <a class="btn primary">开始第一课</a>
+      <a class="btn ghost">查看学习路线 →</a>
+    </div>
+  </section>
+
+  <div class="stat">
+    <div><b>6</b><span>大模块</span></div>
+    <div><b>30+</b><span>节五分钟课</span></div>
+    <div><b>100+</b><span>可点查术语</span></div>
+    <div><b>0</b><span>依赖 · 离线可用</span></div>
+  </div>
+
+  <div class="shead"><h2>学习路线 · 六篇</h2><span>MODULES 00 — 05</span></div>
+  <div class="mods">
+    <a class="mod"><div class="num">00</div><div>
+      <h3>学习导览</h3><p>怎么用 · 音乐到底学什么 · 路线图 · 术语点查怎么玩。</p><span class="tag">4 课</span></div></a>
+    <a class="mod"><div class="num">01</div><div>
+      <h3>乐理 · 音乐的语法</h3><p>音符 · 节奏 · 音阶调式 · 音程 · 和弦和声 · 曲式。</p><span class="tag">7 课</span></div></a>
+    <a class="mod"><div class="num">02</div><div>
+      <h3>乐器 · 认识家族</h3><p>钢琴 · 吉他 · 弦乐 · 管乐 · 打击乐 · 人声也是乐器。</p><span class="tag">7 课</span></div></a>
+    <a class="mod"><div class="num">03</div><div>
+      <h3>音乐史 · 风格脉络</h3><p>古典 · 爵士 · 摇滚 · 电子 · 华语与民族 · 流行。</p><span class="tag">7 课</span></div></a>
+    <a class="mod"><div class="num">04</div><div>
+      <h3>赏析 · 学会怎么听</h3><p>织体 · 配器 · 结构 —— 一首作品好在哪。</p><span class="tag">5 课</span></div></a>
+    <a class="mod vocal"><div class="num">05</div><div>
+      <h3>流行演唱 · 把歌唱出来</h3><p>发声 · 气息 · 音准 · 共鸣 · 咬字 · 律动 · 话筒与现场。</p><span class="tag">7 课 · 特色模块</span></div></a>
+  </div>
+
+  <div class="shead"><h2>一节课的样子</h2><span>SAMPLE LESSON · 五段式</span></div>
+  <div class="lesson">
+    <div class="lh">
+      <div class="k">乐理 · 第 1 课</div>
+      <h3>音符与音高:从 C 到 B 的 7 个音</h3>
+      <div class="meta">约 5 分钟 · 关键词:音高 · 五线谱 · 键盘</div>
+    </div>
+    <div class="lbody">
+      <div class="seg"><div class="t">① 是什么</div>
+        <p>音乐最小的积木是<gd>音符</gd>,代表不同的<gd>音高</gd>。西方音乐用 C D E F G A B 七个字母表示基础音,然后循环往复。</p>
+        <div class="ex">就像彩虹有七种颜色,基础音也就这七个,从低到高排好队。</div></div>
+      <div class="seg"><div class="t">② 为什么重要</div>
+        <p>认全这七个音,你就能<gd>读谱</gd>、在键盘上找到位置、跟着唱准 —— 这是乐理与演唱共同的起点。</p></div>
+      <div class="seg"><div class="t">③ 怎么运作</div>
+        <p>钢琴白键由左到右循环;每过一组,音高升一个<gd>八度</gd>:音名相同,频率翻倍。</p></div>
+      <div class="seg"><div class="t">④ 常见误解</div>
+        <p>不少人以为黑键是"多出来的音"。</p>
+        <div class="pit">升号 # 与降号 ♭ 并非新音,而是同一个音的两种记法(<gd>等音</gd>)。</div></div>
+    </div>
+  </div>
+
+  <p class="demo">说明:本页为<b>风格 B 选型稿</b>,数字/课时为演示占位;术语虚线为静态示意,未接点查引擎。定稿后据此搭引擎、填内容。</p>
+
+  <footer>
+    <span>音乐学习站 · Today I Learned</span>
+    <span>纯静态 · 零依赖 · 离线可用</span>
+  </footer>
+</div>
+</body>
+</html>

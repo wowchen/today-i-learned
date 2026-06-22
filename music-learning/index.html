@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音乐学习站 · 大白话讲透</title>
+<meta name="description" content="用大白话讲透音乐:乐理、乐器、音乐史、赏析,再加一整块流行歌演唱。从认识一个音符,到站上话筒前。零基础一看就懂,术语点哪查哪。">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<!-- 侧边图签索引(引擎渲染) -->
+<nav class="thumb" id="thumbNav" aria-label="模块索引"></nav>
+
+<header class="site">
+  <div class="masthead">
+    <a class="brand" href="#/">音乐学习站<small>MUSIC LEARNING</small></a>
+    <nav class="top" id="topNav">
+      <a href="#/" data-nav="home">首页</a>
+      <a href="#/path" data-nav="path">学习路线</a>
+      <a href="#/terms" data-nav="terms">术语表</a>
+      <a href="#/book" data-nav="book">术语本 <b id="navTermCount"></b></a>
+      <a href="#/search" data-nav="search">搜索</a>
+      <a href="#/settings" data-nav="settings">设置</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <noscript><p style="padding:40px 0">本站需要启用 JavaScript 才能运行。</p></noscript>
+</main>
+
+<footer class="site">
+  <span>音乐学习站 · 纯静态 · 零依赖 · 离线可用</span>
+  <span id="syncStatus">进度:仅本机</span>
+</footer>
+
+<!-- 引擎(不要在内容工作中改动 assets/ 下任何文件) -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/terms.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+
+<!-- 元数据:模块 + 学习路线 + 术语库 -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- 课程内容(新增课程文件后,在下方按模块分组追加 script 标签) -->
+<!-- 模块 0 · 学习导览 -->
+<script src="content/guide/01-howto.js"></script>
+<script src="content/guide/02-what.js"></script>
+<script src="content/guide/03-map.js"></script>
+<script src="content/guide/04-terms.js"></script>
+
+<!-- 模块 1 · 乐理 -->
+<script src="content/theory/01-notes.js"></script>
+<script src="content/theory/02-rhythm.js"></script>
+<script src="content/theory/03-scale.js"></script>
+<script src="content/theory/04-interval.js"></script>
+<script src="content/theory/05-chord.js"></script>
+<script src="content/theory/06-key.js"></script>
+<script src="content/theory/07-form.js"></script>
+
+<!-- 模块 2 · 乐器 -->
+<script src="content/instrument/01-family.js"></script>
+<script src="content/instrument/02-piano.js"></script>
+<script src="content/instrument/03-guitar.js"></script>
+<script src="content/instrument/04-strings.js"></script>
+<script src="content/instrument/05-wind.js"></script>
+<script src="content/instrument/06-percussion.js"></script>
+<script src="content/instrument/07-voice.js"></script>
+
+<!-- 模块 3 · 音乐史 -->
+<script src="content/history/01-classical.js"></script>
+<script src="content/history/02-modern.js"></script>
+<script src="content/history/03-jazz.js"></script>
+<script src="content/history/04-rock.js"></script>
+<script src="content/history/05-electronic.js"></script>
+<script src="content/history/06-chinese.js"></script>
+<script src="content/history/07-pop.js"></script>
+
+<!-- 模块 4 · 赏析 -->
+<script src="content/listening/01-howto.js"></script>
+<script src="content/listening/02-texture.js"></script>
+<script src="content/listening/03-classic.js"></script>
+<script src="content/listening/04-popstructure.js"></script>
+<script src="content/listening/05-world.js"></script>
+
+<!-- 模块 5 · 流行演唱 -->
+<script src="content/vocal/01-voice.js"></script>
+<script src="content/vocal/02-breath.js"></script>
+<script src="content/vocal/03-pitch.js"></script>
+<script src="content/vocal/04-resonance.js"></script>
+<script src="content/vocal/05-diction.js"></script>
+<script src="content/vocal/06-groove.js"></script>
+<script src="content/vocal/07-mic.js"></script>
+
+<!-- 引擎启动(必须在所有内容之后) -->
+<script src="assets/js/engine.js"></script>
+</body>
+</html>
