@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>架构学习站 · 系统架构设计师</title>
+<meta name="description" content="软考高级·系统架构设计师备考站:计算机系统、数据库、网络、安全、软件工程、架构设计与风格、质量属性与架构评估、可靠性、中间件微服务、案例分析与论文。大白话讲透,真题练习+错题本+架构计算器,纯静态离线可用。">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-3px;margin-right:6px"><rect x="2.5" y="2" width="11" height="3"/><rect x="2.5" y="6.5" width="11" height="3"/><rect x="2.5" y="11" width="11" height="3"/></svg>
+    架构学习站 <span class="accent">/</span> SAD
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/mistakes">错题</a>
+    <a class="nav-link" href="#/calc">计算器</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons -->
+<!-- guide -->
+<script src="content/guide/01-exam-intro.js"></script>
+<script src="content/guide/02-learning-path.js"></script>
+<script src="content/guide/03-strategy.js"></script>
+<script src="content/guide/04-features.js"></script>
+<!-- comp -->
+<script src="content/comp/01-computer-architecture.js"></script>
+<script src="content/comp/02-storage-hierarchy.js"></script>
+<script src="content/comp/03-checkcode.js"></script>
+<script src="content/comp/04-io.js"></script>
+<script src="content/comp/05-bus-pipeline.js"></script>
+<script src="content/comp/06-raid.js"></script>
+<script src="content/comp/07-embedded-hw.js"></script>
+<!-- os -->
+<script src="content/os/01-overview.js"></script>
+<script src="content/os/02-process-thread.js"></script>
+<script src="content/os/03-scheduling.js"></script>
+<script src="content/os/04-deadlock.js"></script>
+<script src="content/os/05-memory.js"></script>
+<script src="content/os/06-file-device.js"></script>
+<!-- db -->
+<script src="content/db/01-model.js"></script>
+<script src="content/db/02-er.js"></script>
+<script src="content/db/03-relational.js"></script>
+<script src="content/db/04-normalization.js"></script>
+<script src="content/db/05-transaction.js"></script>
+<script src="content/db/06-backup-recovery.js"></script>
+<script src="content/db/07-distributed.js"></script>
+<script src="content/db/08-warehouse-nosql.js"></script>
+<!-- net -->
+<script src="content/net/01-model.js"></script>
+<script src="content/net/02-protocol.js"></script>
+<script src="content/net/03-addressing.js"></script>
+<script src="content/net/04-networking.js"></script>
+<script src="content/net/05-storage.js"></script>
+<script src="content/net/06-planning.js"></script>
+<!-- se -->
+<script src="content/se/01-process.js"></script>
+<script src="content/se/02-capability.js"></script>
+<script src="content/se/03-requirements.js"></script>
+<script src="content/se/04-structured.js"></script>
+<script src="content/se/05-oo.js"></script>
+<script src="content/se/06-uml.js"></script>
+<script src="content/se/07-testing.js"></script>
+<script src="content/se/08-cleanroom.js"></script>
+<script src="content/se/09-reverse.js"></script>
+<script src="content/se/10-maintenance.js"></script>
+<!-- pattern -->
+<script src="content/pattern/01-overview.js"></script>
+<script src="content/pattern/02-creational.js"></script>
+<script src="content/pattern/03-structural.js"></script>
+<script src="content/pattern/04-behavioral.js"></script>
+<script src="content/pattern/05-exam.js"></script>
+<!-- sec -->
+<script src="content/sec/01-overview.js"></script>
+<script src="content/sec/02-symmetric.js"></script>
+<script src="content/sec/03-asymmetric.js"></script>
+<script src="content/sec/04-hash-signature.js"></script>
+<script src="content/sec/05-pki.js"></script>
+<script src="content/sec/06-access-model.js"></script>
+<script src="content/sec/07-security-arch.js"></script>
+<script src="content/sec/08-zero-trust.js"></script>
+<script src="content/sec/09-web-security.js"></script>
+<!-- arch -->
+<script src="content/arch/01-concept.js"></script>
+<script src="content/arch/02-views.js"></script>
+<script src="content/arch/03-absd.js"></script>
+<script src="content/arch/04-adl.js"></script>
+<script src="content/arch/05-reuse.js"></script>
+<script src="content/arch/06-dssa.js"></script>
+<!-- style -->
+<script src="content/style/01-overview.js"></script>
+<script src="content/style/02-dataflow.js"></script>
+<script src="content/style/03-call-return.js"></script>
+<script src="content/style/04-independent.js"></script>
+<script src="content/style/05-vm-repo.js"></script>
+<script src="content/style/06-compare.js"></script>
+<!-- quality -->
+<script src="content/quality/01-attributes.js"></script>
+<script src="content/quality/02-scenario.js"></script>
+<script src="content/quality/03-tactics.js"></script>
+<script src="content/quality/04-sensitivity.js"></script>
+<script src="content/quality/05-atam.js"></script>
+<script src="content/quality/06-saam.js"></script>
+<script src="content/quality/07-cbam.js"></script>
+<!-- rel -->
+<script src="content/rel/01-concept.js"></script>
+<script src="content/rel/02-metrics.js"></script>
+<script src="content/rel/03-series-parallel.js"></script>
+<script src="content/rel/04-design.js"></script>
+<script src="content/rel/05-fault-tolerance.js"></script>
+<script src="content/rel/06-testing.js"></script>
+<!-- perf -->
+<script src="content/perf/01-metrics.js"></script>
+<script src="content/perf/02-amdahl.js"></script>
+<script src="content/perf/03-evaluation.js"></script>
+<script src="content/perf/04-design.js"></script>
+<script src="content/perf/05-cache.js"></script>
+<!-- mid -->
+<script src="content/mid/01-middleware.js"></script>
+<script src="content/mid/02-soa.js"></script>
+<script src="content/mid/03-webservice.js"></script>
+<script src="content/mid/04-esb.js"></script>
+<script src="content/mid/05-microservice.js"></script>
+<script src="content/mid/06-cloud-native.js"></script>
+<script src="content/mid/07-devops.js"></script>
+<!-- embed -->
+<script src="content/embed/01-concept.js"></script>
+<script src="content/embed/02-rtos.js"></script>
+<script src="content/embed/03-architecture.js"></script>
+<script src="content/embed/04-software.js"></script>
+<script src="content/embed/05-reliability.js"></script>
+<!-- evo -->
+<script src="content/evo/01-evolution.js"></script>
+<script src="content/evo/02-maintenance.js"></script>
+<script src="content/evo/03-web-evolution.js"></script>
+<script src="content/evo/04-refactoring.js"></script>
+<script src="content/evo/05-legacy.js"></script>
+<!-- future -->
+<script src="content/future/01-cloud.js"></script>
+<script src="content/future/02-bigdata.js"></script>
+<script src="content/future/03-iot.js"></script>
+<script src="content/future/04-ai.js"></script>
+<script src="content/future/05-blockchain.js"></script>
+<script src="content/future/06-digital-twin.js"></script>
+<script src="content/future/07-new-tech.js"></script>
+<!-- standard -->
+<script src="content/standard/01-ip.js"></script>
+<script src="content/standard/02-standardization.js"></script>
+<script src="content/standard/03-standards-classification.js"></script>
+<script src="content/standard/04-doc.js"></script>
+<!-- case -->
+<script src="content/case/01-overview.js"></script>
+<script src="content/case/02-quality-scenario.js"></script>
+<script src="content/case/03-atam-case.js"></script>
+<script src="content/case/04-reliability-calc.js"></script>
+<script src="content/case/05-performance-calc.js"></script>
+<script src="content/case/06-db-design.js"></script>
+<script src="content/case/07-web-arch.js"></script>
+<script src="content/case/08-microservice-case.js"></script>
+<script src="content/case/09-cache-case.js"></script>
+<script src="content/case/10-answer-template.js"></script>
+<!-- essay -->
+<script src="content/essay/01-overview.js"></script>
+<script src="content/essay/02-structure.js"></script>
+<script src="content/essay/03-opening.js"></script>
+<script src="content/essay/04-body.js"></script>
+<script src="content/essay/05-closing.js"></script>
+<script src="content/essay/06-material.js"></script>
+<script src="content/essay/07-topic-style.js"></script>
+<script src="content/essay/08-topic-microservice.js"></script>
+<script src="content/essay/09-topic-data.js"></script>
+<script src="content/essay/10-scoring.js"></script>
+</body>
+</html>
