@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>系规学习站 · 系统规划与管理师</title>
+<meta name="description" content="软考高级·系统规划与管理师备考站:计算机与信息系统基础、网络数据库安全、IT服务与ITSS体系、服务规划设计/部署实施/运营管理/持续改进/监督管理、服务团队与营销、工具新技术、标准化与知识产权、专业英语,加案例分析专题。大白话讲透,真题练习+错题本+系规计算器,纯静态离线可用。">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-3px;margin-right:6px"><circle cx="8" cy="8" r="6"/><path d="M8 2.2v2M8 11.8v2M2.2 8h2M11.8 8h2"/><circle cx="8" cy="8" r="2"/></svg>
+    系规学习站 <span class="accent">/</span> SPM
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/mistakes">错题</a>
+    <a class="nav-link" href="#/calc">计算器</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- guide -->
+<script src="content/guide/01-exam-intro.js"></script>
+<script src="content/guide/02-learning-path.js"></script>
+<script src="content/guide/03-strategy.js"></script>
+<script src="content/guide/04-features.js"></script>
+<!-- comp -->
+<script src="content/comp/01-hardware.js"></script>
+<script src="content/comp/02-software.js"></script>
+<script src="content/comp/03-integration.js"></script>
+<script src="content/comp/04-os.js"></script>
+<script src="content/comp/05-embedded.js"></script>
+<!-- net -->
+<script src="content/net/01-model.js"></script>
+<script src="content/net/02-protocol.js"></script>
+<script src="content/net/03-addressing.js"></script>
+<script src="content/net/04-devices.js"></script>
+<script src="content/net/05-new-network.js"></script>
+<!-- db -->
+<script src="content/db/01-model.js"></script>
+<script src="content/db/02-sql.js"></script>
+<script src="content/db/03-transaction.js"></script>
+<script src="content/db/04-warehouse.js"></script>
+<!-- sec -->
+<script src="content/sec/01-crypto.js"></script>
+<script src="content/sec/02-auth.js"></script>
+<script src="content/sec/03-defense.js"></script>
+<script src="content/sec/04-mlps.js"></script>
+<script src="content/sec/05-attack.js"></script>
+<!-- itss -->
+<script src="content/itss/01-it-service.js"></script>
+<script src="content/itss/02-lifecycle.js"></script>
+<script src="content/itss/03-itss-system.js"></script>
+<script src="content/itss/04-elements.js"></script>
+<script src="content/itss/05-capability.js"></script>
+<script src="content/itss/06-governance.js"></script>
+<!-- plan -->
+<script src="content/plan/01-strategy.js"></script>
+<script src="content/plan/02-demand.js"></script>
+<script src="content/plan/03-scheme.js"></script>
+<script src="content/plan/04-sla.js"></script>
+<script src="content/plan/05-catalog.js"></script>
+<script src="content/plan/06-resource.js"></script>
+<!-- deploy -->
+<script src="content/deploy/01-plan.js"></script>
+<script src="content/deploy/02-resource-prep.js"></script>
+<script src="content/deploy/03-tech-prep.js"></script>
+<script src="content/deploy/04-delivery.js"></script>
+<script src="content/deploy/05-acceptance.js"></script>
+<!-- ops -->
+<script src="content/ops/01-overview.js"></script>
+<script src="content/ops/02-incident.js"></script>
+<script src="content/ops/03-problem.js"></script>
+<script src="content/ops/04-change.js"></script>
+<script src="content/ops/05-release-config.js"></script>
+<script src="content/ops/06-sla-mgmt.js"></script>
+<script src="content/ops/07-capacity-availability.js"></script>
+<script src="content/ops/08-continuity.js"></script>
+<script src="content/ops/09-servicedesk.js"></script>
+<!-- improve -->
+<script src="content/improve/01-concept.js"></script>
+<script src="content/improve/02-pdca.js"></script>
+<script src="content/improve/03-measurement.js"></script>
+<script src="content/improve/04-report.js"></script>
+<script src="content/improve/05-implement.js"></script>
+<!-- supervise -->
+<script src="content/supervise/01-concept.js"></script>
+<script src="content/supervise/02-quality.js"></script>
+<script src="content/supervise/03-satisfaction.js"></script>
+<script src="content/supervise/04-audit.js"></script>
+<!-- people -->
+<script src="content/people/01-team.js"></script>
+<script src="content/people/02-role.js"></script>
+<script src="content/people/03-performance.js"></script>
+<script src="content/people/04-training.js"></script>
+<script src="content/people/05-communication.js"></script>
+<!-- market -->
+<script src="content/market/01-concept.js"></script>
+<script src="content/market/02-crm.js"></script>
+<script src="content/market/03-pricing.js"></script>
+<script src="content/market/04-promotion.js"></script>
+<!-- pm -->
+<script src="content/pm/01-scope.js"></script>
+<script src="content/pm/02-schedule.js"></script>
+<script src="content/pm/03-cost.js"></script>
+<script src="content/pm/04-quality.js"></script>
+<script src="content/pm/05-risk.js"></script>
+<!-- tech -->
+<script src="content/tech/01-itsm-tool.js"></script>
+<script src="content/tech/02-monitor.js"></script>
+<script src="content/tech/03-automation.js"></script>
+<script src="content/tech/04-cloud.js"></script>
+<script src="content/tech/05-aiops-devops.js"></script>
+<!-- standard -->
+<script src="content/standard/01-standardization.js"></script>
+<script src="content/standard/02-ip.js"></script>
+<script src="content/standard/03-law.js"></script>
+<script src="content/standard/04-service-standard.js"></script>
+<!-- english -->
+<script src="content/english/01-terms.js"></script>
+<script src="content/english/02-reading.js"></script>
+<script src="content/english/03-vocab.js"></script>
+<!-- case -->
+<script src="content/case/01-overview.js"></script>
+<script src="content/case/02-plan-case.js"></script>
+<script src="content/case/03-ops-case.js"></script>
+<script src="content/case/04-sla-availability.js"></script>
+<script src="content/case/05-improve-case.js"></script>
+<script src="content/case/06-team-case.js"></script>
+<script src="content/case/07-cost-staffing.js"></script>
+<script src="content/case/08-answer-template.js"></script>
+<script src="content/case/09-real-1.js"></script>
+<script src="content/case/10-real-2.js"></script>
+</body>
+</html>
