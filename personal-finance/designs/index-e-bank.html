@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投资理财学习站(设计稿 E · 银行 App)</title>
+<style>
+  :root{
+    --bg:#F7F5F0;          /* 暖米白 */
+    --card:#FFFFFF;
+    --ink:#1F2421;
+    --ink-2:#5A6361;
+    --note:#9AA09D;
+    --line:rgba(31,36,33,.06);
+    --accent:#4A6B5A;       /* 钛绿 / 抹茶绿 */
+    --accent-soft:#E8EEEB;
+    --gold:#B49256;         /* 金属点缀 */
+    --sans:"Inter","SF Pro Display","PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:var(--sans);
+    line-height:1.5; -webkit-font-smoothing:antialiased; font-feature-settings:"ss01"}
+  .wrap{width:100%; max-width:1180px; margin:0 auto; padding:0 24px}
+
+  /* === Nav === */
+  nav{padding:24px 0; display:flex; justify-content:space-between; align-items:center}
+  .logo{display:flex; align-items:center; gap:10px; font-size:.95rem;
+    font-weight:600; letter-spacing:-.005em; color:var(--ink)}
+  .logo .mark{width:32px; height:32px; border-radius:10px;
+    background:var(--accent); color:#fff; display:flex; align-items:center;
+    justify-content:center; font-weight:700; font-size:.95rem}
+  .nav-r{font-size:.82rem; color:var(--note); letter-spacing:.04em}
+  .nav-r b{color:var(--ink); font-weight:600; background:#fff; padding:5px 10px;
+    border-radius:8px; box-shadow:0 1px 2px rgba(0,0,0,.04)}
+
+  /* === Hero card === */
+  .hero{background:var(--card); border-radius:24px; padding:54px 56px 48px;
+    margin:8px 0 14px; box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .pill{display:inline-flex; align-items:center; gap:6px; font-size:.72rem;
+    font-weight:600; letter-spacing:.05em; color:var(--accent);
+    background:var(--accent-soft); padding:6px 12px; border-radius:999px}
+  .pill::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent)}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.4rem); font-weight:700;
+    letter-spacing:-.03em; line-height:1.1; margin:18px 0 14px; color:var(--ink)}
+  .hero p{max-width:54ch; font-size:1.06rem; color:var(--ink-2); margin:0 0 28px; line-height:1.6}
+
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;
+    padding-top:24px; border-top:1px solid var(--line); max-width:680px}
+  .stats .num{font-size:1.9rem; font-weight:700; letter-spacing:-.025em;
+    line-height:1; color:var(--ink); display:flex; align-items:baseline; gap:4px}
+  .stats .num .u{font-size:.85rem; font-weight:500; color:var(--note); letter-spacing:0}
+  .stats .lbl{font-size:.82rem; color:var(--note); margin-top:6px}
+
+  /* === Grid === */
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  .card{background:var(--card); border-radius:20px; padding:28px 28px 24px;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+    cursor:pointer; text-decoration:none; color:inherit; display:block;
+    box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .card:hover{transform:translateY(-3px); box-shadow:0 12px 30px -10px rgba(31,36,33,.12)}
+  .card .ic{width:40px; height:40px; border-radius:12px; background:var(--accent-soft);
+    color:var(--accent); display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px}
+  .card .ic svg{width:20px; height:20px}
+  .card .ord{font-size:.7rem; font-weight:600; letter-spacing:.16em; color:var(--note);
+    text-transform:uppercase; margin:0 0 6px}
+  .card h3{font-size:1.2rem; font-weight:600; letter-spacing:-.015em;
+    margin:0 0 6px; color:var(--ink); line-height:1.3}
+  .card p{font-size:.88rem; color:var(--ink-2); line-height:1.55; margin:0}
+  .card .more{margin-top:18px; font-size:.82rem; font-weight:600; color:var(--accent);
+    display:inline-flex; align-items:center; gap:4px}
+  .card .more::after{content:"→"; transition:transform .2s}
+  .card:hover .more::after{transform:translateX(3px)}
+
+  /* feature card */
+  .card.feat{grid-column:span 2; background:var(--ink); color:#F0EDE6;
+    background-image:radial-gradient(circle at 92% 10%, rgba(180,146,86,.18), transparent 45%)}
+  .card.feat .ic{background:rgba(180,146,86,.18); color:var(--gold)}
+  .card.feat h3{color:#FFF}
+  .card.feat p{color:rgba(240,237,230,.7)}
+  .card.feat .ord{color:rgba(255,255,255,.5)}
+  .card.feat .more{color:var(--gold)}
+
+  /* === Footer === */
+  footer{margin:32px 0 32px; padding:18px 0; display:flex; justify-content:space-between;
+    flex-wrap:wrap; gap:8px; font-size:.78rem; color:var(--note)}
+  footer b{color:var(--ink-2)}
+
+  @media (max-width:960px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .card.feat{grid-column:span 2}
+    .hero{padding:36px 28px}
+    .stats{grid-template-columns:repeat(3,1fr); gap:20px}
+  }
+  @media (max-width:560px){
+    .grid{grid-template-columns:1fr}
+    .card.feat{grid-column:span 1}
+    .stats{grid-template-columns:1fr 1fr; gap:18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav>
+    <div class="logo">
+      <div class="mark">¥</div>
+      <span>今日得到 · 投资理财</span>
+    </div>
+    <div class="nav-r">11 模块 · <b>9.8 / 10</b></div>
+  </nav>
+
+  <!-- Hero card -->
+  <div class="hero">
+    <span class="pill">Personal Finance · 个人理财</span>
+    <h1>把钱的事，<br>说得像聊天一样简单。</h1>
+    <p>从一张工资条开始，到资产配置、股票债券、基金房产、保险税务，
+      再到风险管理。每一节五分钟，纯文字 + 计算器，
+      不荐股、不带货、不焦虑。</p>
+    <div class="stats">
+      <div>
+        <div class="num">11<span class="u">个模块</span></div>
+        <div class="lbl">从入门到实战</div>
+      </div>
+      <div>
+        <div class="num">×9<span class="u">倍</span></div>
+        <div class="lbl">30 年复利效应</div>
+      </div>
+      <div>
+        <div class="num">0<span class="u">元</span></div>
+        <div class="lbl">永久免费 · 离线可读</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid">
+
+    <!-- Feature: 复利 -->
+    <a class="card feat" href="#">
+      <div class="ic">
+        <!-- 增长线图标 -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+      </div>
+      <p class="ord">02 · 入门核心</p>
+      <h3>复利与时间价值</h3>
+      <p>72 法则、现值未值、年金、IRR。
+        把"时间是朋友"算成具体数字——10 万本金按 8% 年化, 30 年后约 100 万。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      </div>
+      <p class="ord">01</p>
+      <h3>理财通识</h3>
+      <p>记账、预算、应急金，三块基石先打牢。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18" opacity=".4"/></svg>
+      </div>
+      <p class="ord">03</p>
+      <h3>资产配置</h3>
+      <p>股/债/现金/另类四象限,比挑哪只更重要。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20V14M22 20H2"/></svg>
+      </div>
+      <p class="ord">04</p>
+      <h3>股票基础</h3>
+      <p>PE/PB/ROE 怎么看;主动 vs 被动。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c4 0 4-4 8-4s4 4 8 4-4 4-8 4-4 4-8 4"/></svg>
+      </div>
+      <p class="ord">05</p>
+      <h3>债券与利率</h3>
+      <p>价格为何"利率涨它跌";久期与信用利差。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+      </div>
+      <p class="ord">06</p>
+      <h3>基金与 ETF</h3>
+      <p>指数 vs 主动;费率、定投有没有用。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1H4a1 1 0 01-1-1v-9z"/><path d="M9 22V12h6v10"/></svg>
+      </div>
+      <p class="ord">07</p>
+      <h3>房产与 REITs</h3>
+      <p>自住房不是投资品;REITs 让收租可买卖。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+      </div>
+      <p class="ord">08</p>
+      <h3>保险规划</h3>
+      <p>意外/重疾/医疗/寿险谁先买;保障与理财别混。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <p class="ord">09</p>
+      <h3>退休 · 养老</h3>
+      <p>三支柱:基本养老、企业年金、个人养老金。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5L5 19M9 7a2 2 0 11-4 0 2 2 0 014 0zm10 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      </div>
+      <p class="ord">10</p>
+      <h3>税务基础</h3>
+      <p>个税、资本利得、专项扣除;合法节税路径。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l10 18H2L12 2z"/><path d="M12 10v5M12 18v.5"/></svg>
+      </div>
+      <p class="ord">11</p>
+      <h3>风险管理</h3>
+      <p>波动 ≠ 风险;最大回撤、夏普、止损纪律。</p>
+      <span class="more">开始学</span>
+    </a>
+
+    <a class="card" href="#" style="background:transparent; box-shadow:none; border:1.5px dashed rgba(31,36,33,.12)">
+      <div class="ic" style="background:transparent; border:1.5px dashed rgba(74,107,90,.3)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+      </div>
+      <p class="ord">附册 · 工具</p>
+      <h3>计算器</h3>
+      <p>复利、定投、退休缺口、贷款摊销。</p>
+      <span class="more">打开</span>
+    </a>
+
+  </div>
+
+  <footer>
+    <span><b>今日得到</b> · Today I Learned · 投资理财</span>
+    <span>不荐股 · 不带货 · 不焦虑</span>
+    <span>纯静态 · 离线可读</span>
+  </footer>
+
+</div>
+</body>
+</html>

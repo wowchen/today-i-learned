@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投资理财学习站(设计稿 D · 瑞士黑白)</title>
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ink:#000000;
+    --note:#7D7D7D;
+    --line:#E5E5E5;
+    --accent:#16A34A;
+    --sans:"Inter","Helvetica Neue","PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0; background:var(--bg)}
+  body{color:var(--ink); font-family:var(--sans); line-height:1.55;
+    -webkit-font-smoothing:antialiased; font-feature-settings:"ss01","cv11"}
+  .wrap{width:100%; max-width:1080px; margin:0 auto; padding:0 40px}
+
+  /* === Top label === */
+  .top{padding:48px 0 0; display:flex; justify-content:space-between; align-items:center;
+    font-size:11px; letter-spacing:.18em; color:var(--note); text-transform:uppercase; font-weight:500}
+  .top b{color:var(--ink); font-weight:600}
+
+  /* === Hero ===
+     极致克制:大字标题 + 一行副标 + 一行说明 + 大量留白 */
+  header{padding:120px 0 100px; max-width:780px}
+  .nm{font-size:clamp(3rem,7.5vw,5.2rem); font-weight:700; letter-spacing:-.035em;
+    line-height:1; margin:0; color:var(--ink)}
+  .nm .dot{display:inline-block; width:.32em; height:.32em; border-radius:50%;
+    background:var(--accent); margin:0 .04em .12em; vertical-align:middle}
+  .sub{margin:36px 0 0; font-size:1.1rem; color:var(--note); max-width:48ch; line-height:1.55}
+  .sub b{color:var(--ink); font-weight:600}
+
+  /* === Sections meta line === */
+  .meta-row{display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:24px 0; margin:0 0 100px}
+  .meta-row > div{padding:0 24px; border-right:1px solid var(--line)}
+  .meta-row > div:last-child{border-right:0}
+  .meta-row .k{font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500; margin:0 0 6px}
+  .meta-row .v{font-size:1.05rem; font-weight:600; letter-spacing:-.01em; margin:0; color:var(--ink)}
+
+  /* === Module list ===
+     不用卡片;一行一行的目录,空间感来自行距 */
+  .ix-head{display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--ink); padding-bottom:14px; margin-bottom:0}
+  .ix-head h2{font-size:.78rem; font-weight:600; letter-spacing:.22em;
+    text-transform:uppercase; margin:0; color:var(--ink)}
+  .ix-head .n{font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500}
+
+  .list{}
+  .row{display:grid; grid-template-columns:60px 1fr 160px 24px; gap:24px;
+    padding:32px 0; border-bottom:1px solid var(--line); align-items:baseline;
+    text-decoration:none; color:var(--ink); transition:padding-left .2s ease}
+  .row:hover{padding-left:12px}
+  .row:hover .arrow{color:var(--accent)}
+  .row .ord{font-size:11px; letter-spacing:.18em; color:var(--note); font-weight:500}
+  .row .title{font-size:1.5rem; font-weight:600; letter-spacing:-.018em; margin:0; line-height:1.25}
+  .row .title em{font-style:normal; color:var(--accent)}
+  .row .title small{display:block; font-size:.82rem; color:var(--note);
+    font-weight:400; letter-spacing:0; margin-top:4px; line-height:1.5; max-width:50ch}
+  .row .tag{font-size:11px; letter-spacing:.18em; color:var(--note); text-transform:uppercase; font-weight:500}
+  .row .arrow{font-size:1.4rem; text-align:right; color:var(--note); transition:color .2s; font-weight:400}
+
+  /* === Bottom note === */
+  .bottom{padding:120px 0 80px; max-width:540px}
+  .bottom p{font-size:1.02rem; color:var(--note); margin:0; line-height:1.7}
+  .bottom p b{color:var(--ink); font-weight:600}
+
+  footer{border-top:1px solid var(--line); padding:24px 0 60px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--note); font-weight:500}
+  footer b{color:var(--ink); font-weight:600}
+
+  @media (max-width:720px){
+    header{padding:60px 0 50px}
+    .row{grid-template-columns:50px 1fr 24px; gap:16px}
+    .row .tag{display:none}
+    .meta-row{grid-template-columns:repeat(2,1fr)}
+    .meta-row > div:nth-child(2){border-right:0}
+    .meta-row > div:nth-child(1), .meta-row > div:nth-child(2){border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="top">
+    <span>Today I Learned <b>/ Personal Finance</b></span>
+    <span>2026 — N°10</span>
+  </div>
+
+  <header>
+    <h1 class="nm">投资理财<span class="dot"></span></h1>
+    <p class="sub">把工资条到资产配置之间的事，用大白话讲透。
+      <b>11 个模块。纯文字。零依赖。</b>
+      不荐股、不带货、不焦虑。</p>
+  </header>
+
+  <div class="meta-row">
+    <div><p class="k">Modules</p><p class="v">11</p></div>
+    <div><p class="k">Format</p><p class="v">Text · Calc</p></div>
+    <div><p class="k">Bias</p><p class="v">No-Push</p></div>
+    <div><p class="k">Mode</p><p class="v">Offline</p></div>
+  </div>
+
+  <div class="ix-head">
+    <h2>Index</h2>
+    <span class="n">01 — 11</span>
+  </div>
+
+  <div class="list">
+
+    <a class="row" href="#">
+      <span class="ord">01</span>
+      <h3 class="title">理财通识 <small>钱从哪来到哪去；记账、预算、应急金。三块基石</small></h3>
+      <span class="tag">Basic</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">02</span>
+      <h3 class="title">复利与时间<em>·</em>价值 <small>72 法则、现值未值、年金、IRR。把"时间是朋友"算成具体数字</small></h3>
+      <span class="tag">Basic</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">03</span>
+      <h3 class="title">资产配置 <small>股、债、现金、另类四象限。按年龄目标分配,比挑哪只更重要</small></h3>
+      <span class="tag">Core</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">04</span>
+      <h3 class="title">股票基础 <small>PE / PB / ROE 怎么看；主动选股 vs 被动指数；长持与择时</small></h3>
+      <span class="tag">Core</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">05</span>
+      <h3 class="title">债券与利率 <small>债券为何"利率涨它跌"；久期、信用利差、收益率曲线</small></h3>
+      <span class="tag">Core</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">06</span>
+      <h3 class="title">基金与 ETF <small>公募私募、指数主动、QDII；费率、跟踪误差、定投有没有用</small></h3>
+      <span class="tag">Core</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">07</span>
+      <h3 class="title">房产与 REITs <small>自住房不是投资品；REITs 怎么把"收租"做成可买卖产品</small></h3>
+      <span class="tag">Advanced</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">08</span>
+      <h3 class="title">保险规划 <small>意外、重疾、医疗、寿险、年金谁先买；保障与理财为何不能混</small></h3>
+      <span class="tag">Advanced</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">09</span>
+      <h3 class="title">退休·养老 <small>三支柱:基本养老、企业年金、个人养老金。退休缺口</small></h3>
+      <span class="tag">Advanced</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">10</span>
+      <h3 class="title">税务基础 <small>个税、资本利得、专项扣除；普通人能用上的合法节税路径</small></h3>
+      <span class="tag">Practical</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">11</span>
+      <h3 class="title">风险管理 <small>波动 ≠ 风险；最大回撤、夏普比率、止损纪律、行为偏差</small></h3>
+      <span class="tag">Practical</span>
+      <span class="arrow">→</span>
+    </a>
+
+  </div>
+
+  <div class="bottom">
+    <p>本站不提供行情、不推荐产品、不构成任何投资建议。
+      <b>每一节五分钟。</b>
+      读完会知道：复利是数学不是鸡汤；配置比选品重要；保险先看保障；
+      税与退休越早规划越省力。</p>
+  </div>
+
+  <footer>
+    <span><b>TIL</b> · Personal Finance</span>
+    <span>Static · Offline · No Push</span>
+    <span>v0.1</span>
+  </footer>
+
+</div>
+</body>
+</html>

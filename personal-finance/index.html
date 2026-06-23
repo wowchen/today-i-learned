@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>投资理财学习站 · Personal Finance</title>
+<meta name="description" content="大白话讲透投资理财通识:理财基础、复利、资产配置、股票、债券、基金ETF、房产REITs、保险、退休养老、税务、风险管理与行为。11 模块 70 课,含理财计算器。纯静态离线、不荐股不带货不焦虑、不构成投资建议。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('pfin.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    投资理财 <small>· Personal Finance</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/calc">计算器</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="PFIN.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 PFIN.path 生成) -->
+<script src="content/basics/01-what-is-pf.js"></script>
+<script src="content/basics/02-income-expense.js"></script>
+<script src="content/basics/03-budget.js"></script>
+<script src="content/basics/04-emergency-fund.js"></script>
+<script src="content/basics/05-balance-sheet.js"></script>
+<script src="content/basics/06-goals.js"></script>
+<script src="content/basics/07-mindset.js"></script>
+<script src="content/compound/01-simple-vs-compound.js"></script>
+<script src="content/compound/02-rule-72.js"></script>
+<script src="content/compound/03-present-future-value.js"></script>
+<script src="content/compound/04-annuity.js"></script>
+<script src="content/compound/05-irr.js"></script>
+<script src="content/compound/06-inflation.js"></script>
+<script src="content/allocation/01-four-buckets.js"></script>
+<script src="content/allocation/02-risk-tolerance.js"></script>
+<script src="content/allocation/03-diversification.js"></script>
+<script src="content/allocation/04-rebalance.js"></script>
+<script src="content/allocation/05-lifecycle.js"></script>
+<script src="content/allocation/06-lazy-portfolio.js"></script>
+<script src="content/allocation/07-correlation.js"></script>
+<script src="content/stock/01-what-is-stock.js"></script>
+<script src="content/stock/02-how-to-earn.js"></script>
+<script src="content/stock/03-valuation.js"></script>
+<script src="content/stock/04-dividend.js"></script>
+<script src="content/stock/05-index.js"></script>
+<script src="content/stock/06-active-vs-passive.js"></script>
+<script src="content/stock/07-long-term.js"></script>
+<script src="content/stock/08-pitfalls.js"></script>
+<script src="content/bond/01-what-is-bond.js"></script>
+<script src="content/bond/02-price-yield.js"></script>
+<script src="content/bond/03-duration.js"></script>
+<script src="content/bond/04-credit.js"></script>
+<script src="content/bond/05-yield-curve.js"></script>
+<script src="content/bond/06-role.js"></script>
+<script src="content/fund/01-what-is-fund.js"></script>
+<script src="content/fund/02-index-fund.js"></script>
+<script src="content/fund/03-etf.js"></script>
+<script src="content/fund/04-fees.js"></script>
+<script src="content/fund/05-tracking-error.js"></script>
+<script src="content/fund/06-dca.js"></script>
+<script src="content/fund/07-qdii.js"></script>
+<script src="content/realestate/01-home-not-asset.js"></script>
+<script src="content/realestate/02-rent-vs-buy.js"></script>
+<script src="content/realestate/03-leverage.js"></script>
+<script src="content/realestate/04-reits.js"></script>
+<script src="content/realestate/05-liquidity.js"></script>
+<script src="content/insurance/01-principle.js"></script>
+<script src="content/insurance/02-four-types.js"></script>
+<script src="content/insurance/03-priority.js"></script>
+<script src="content/insurance/04-protect-vs-invest.js"></script>
+<script src="content/insurance/05-how-much.js"></script>
+<script src="content/insurance/06-pitfalls.js"></script>
+<script src="content/retirement/01-three-pillars.js"></script>
+<script src="content/retirement/02-personal-pension.js"></script>
+<script src="content/retirement/03-replacement-rate.js"></script>
+<script src="content/retirement/04-gap.js"></script>
+<script src="content/retirement/05-start-early.js"></script>
+<script src="content/retirement/06-withdrawal.js"></script>
+<script src="content/tax/01-income-tax.js"></script>
+<script src="content/tax/02-special-deduction.js"></script>
+<script src="content/tax/03-capital-gains.js"></script>
+<script src="content/tax/04-tax-saving.js"></script>
+<script src="content/tax/05-filing.js"></script>
+<script src="content/risk/01-volatility-vs-risk.js"></script>
+<script src="content/risk/02-drawdown.js"></script>
+<script src="content/risk/03-sharpe.js"></script>
+<script src="content/risk/04-stop-loss.js"></script>
+<script src="content/risk/05-behavior-bias.js"></script>
+<script src="content/risk/06-scam.js"></script>
+<script src="content/risk/07-checklist.js"></script>
+
+</body>
+</html>

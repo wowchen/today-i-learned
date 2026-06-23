@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投资理财学习站 · Personal Finance(设计稿 A · 金融报章)</title>
+<style>
+  :root{
+    --paper:#FBF1E5;        /* FT 米粉 */
+    --paper-2:#F4E6D0;
+    --ink:#2A1F14;
+    --body:#46382A;
+    --note:#8A7960;
+    --rule:#D9C9AE;
+    --rule-dk:#B79A6C;
+    --accent:#0D7680;       /* FT 青绿 */
+    --gain:#1F8A4E;
+    --loss:#B92F2F;
+    --serif:"Source Serif Pro","Songti SC",Charter,Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--serif);
+    line-height:1.62; -webkit-font-smoothing:antialiased; letter-spacing:.005em;
+    background-image:radial-gradient(rgba(42,31,20,.022) 1px,transparent 1px);
+    background-size:4px 4px;}
+  .wrap{width:100%; max-width:1100px; margin:0 auto; padding:0 32px}
+
+  /* === Masthead 报头 === */
+  .masthead{border-top:6px double var(--ink); border-bottom:2px solid var(--ink);
+    padding:18px 0 14px; margin-top:18px}
+  .mast-row{display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--sans); font-size:.72rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--note)}
+  .mast-row b{color:var(--ink)}
+  .nameplate{text-align:center; padding:24px 0 12px}
+  .nameplate h1{font-size:clamp(3.4rem,8.4vw,6.2rem); font-weight:700; letter-spacing:.02em;
+    line-height:.92; margin:0; font-family:var(--serif)}
+  .nameplate .sub{font-size:.78rem; font-family:var(--sans); font-weight:600;
+    letter-spacing:.42em; text-transform:uppercase; color:var(--note); margin:10px 0 0}
+  .nameplate em{font-style:italic; font-weight:600; color:var(--accent)}
+  .strap{border-top:1px solid var(--rule-dk); border-bottom:1px solid var(--rule-dk);
+    padding:10px 0; display:flex; justify-content:space-between; flex-wrap:wrap;
+    font-family:var(--sans); font-size:.74rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--body)}
+  .strap b{color:var(--accent); font-weight:700}
+
+  /* === Lede 导语 === */
+  .lede{padding:36px 0 12px; max-width:780px; margin:0 auto; text-align:center}
+  .lede .kicker{font-family:var(--sans); font-size:.74rem; font-weight:700;
+    letter-spacing:.36em; text-transform:uppercase; color:var(--accent); margin:0 0 12px}
+  .lede h2{font-size:clamp(1.6rem,3.2vw,2.1rem); font-weight:700; line-height:1.32;
+    margin:0 0 16px; letter-spacing:-.005em}
+  .lede p{font-size:1.05rem; color:var(--body); margin:0; max-width:60ch;
+    margin-left:auto; margin-right:auto}
+  .ornament{text-align:center; padding:18px 0 12px; color:var(--rule-dk);
+    font-size:1.3rem; letter-spacing:1em; padding-left:1em}
+
+  /* === Headline section 主标块 === */
+  .feature{display:grid; grid-template-columns:1.4fr 1fr; gap:46px; padding:24px 0 32px;
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+  .feature .lead{border-right:1px solid var(--rule); padding-right:46px}
+  .feature h3{font-size:2rem; font-weight:700; line-height:1.18; margin:0 0 14px;
+    letter-spacing:-.005em}
+  .feature .by{font-family:var(--sans); font-size:.7rem; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--note); margin:0 0 12px}
+  .feature p{font-size:1.02rem; color:var(--body); margin:0 0 12px}
+  .feature .drop::first-letter{font-size:3.6rem; line-height:.86; float:left;
+    padding:6px 10px 0 0; font-weight:700; color:var(--accent)}
+  .feature aside .stat{padding:14px 0; border-bottom:1px dotted var(--rule-dk)}
+  .feature aside .stat:last-child{border-bottom:0}
+  .feature aside .num{font-size:2.4rem; font-weight:700; letter-spacing:-.01em;
+    line-height:1; color:var(--ink)}
+  .feature aside .num .pct{color:var(--gain); font-size:1.4rem; vertical-align:.18em}
+  .feature aside .lbl{font-family:var(--sans); font-size:.72rem; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--note); margin-top:6px}
+
+  /* === Modules columns 模块栏目 === */
+  section.modules{padding:36px 0 24px}
+  .sec-head{display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:22px}
+  .sec-head h2{font-size:1.6rem; font-weight:700; letter-spacing:-.005em; margin:0}
+  .sec-head .meta{font-family:var(--sans); font-size:.72rem; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--note)}
+  .cols{display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    border-left:1px solid var(--rule)}
+  .col{padding:18px 22px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+  .col .num{font-family:var(--sans); font-size:.7rem; font-weight:700; letter-spacing:.28em;
+    color:var(--accent); margin:0 0 6px}
+  .col h4{font-size:1.18rem; font-weight:700; margin:0 0 6px; line-height:1.25}
+  .col .en{font-family:var(--sans); font-size:.72rem; font-weight:600;
+    letter-spacing:.14em; color:var(--note); text-transform:uppercase; margin:0 0 10px}
+  .col p{font-size:.92rem; color:var(--body); margin:0; line-height:1.55}
+  .col .symbol{float:right; font-size:1.6rem; color:var(--rule-dk);
+    font-weight:700; line-height:1; margin-left:8px}
+  .col.feat{background:var(--paper-2)}
+  .col.feat .num{color:var(--loss)}
+
+  /* === Ticker 报价条 === */
+  .ticker{border-top:1px solid var(--rule-dk); border-bottom:1px solid var(--rule-dk);
+    padding:10px 0; margin:28px 0 0; font-family:var(--sans); font-size:.78rem;
+    letter-spacing:.06em; overflow:hidden; white-space:nowrap; color:var(--body)}
+  .ticker span{margin-right:32px}
+  .ticker .up{color:var(--gain); font-weight:700}
+  .ticker .dn{color:var(--loss); font-weight:700}
+
+  /* === Footer === */
+  footer{border-top:6px double var(--ink); margin-top:30px; padding:18px 0 42px;
+    font-family:var(--sans); font-size:.72rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--note); display:flex;
+    justify-content:space-between; flex-wrap:wrap; gap:8px}
+  footer b{color:var(--ink)}
+
+  @media (max-width:880px){
+    .feature{grid-template-columns:1fr; gap:24px}
+    .feature .lead{border-right:0; padding-right:0; border-bottom:1px solid var(--rule);
+      padding-bottom:24px}
+    .cols{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:560px){
+    .cols{grid-template-columns:1fr}
+    .nameplate h1{letter-spacing:0}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- 报头 -->
+  <div class="masthead">
+    <div class="mast-row">
+      <span>第 <b>壹</b> 卷 · 创刊号</span>
+      <span>丙午年 · 公元 2026</span>
+      <span><b>¥ 28.00</b> · 离线零费</span>
+    </div>
+  </div>
+  <div class="nameplate">
+    <h1>投资<em>理财</em></h1>
+    <div class="sub">Personal Finance &nbsp;·&nbsp; Today I Learned</div>
+  </div>
+  <div class="strap">
+    <span><b>11</b> 个学习模块</span>
+    <span>纯静态 · 零依赖 · 离线可读</span>
+    <span>不荐股 · 不带货 · 不焦虑</span>
+  </div>
+
+  <!-- 导语 -->
+  <div class="lede">
+    <p class="kicker">— Lede · 创刊导语 —</p>
+    <h2>把"钱怎么生钱"这件事，<br>用大白话讲到底。</h2>
+    <p>从一张工资条开始，到资产配置、股票债券、基金房产、保险税务，再到风险管理。
+      不教你"快速致富"，只把那些每个人都该懂、却没人愿意慢慢讲的事，挨着讲清。</p>
+  </div>
+
+  <div class="ornament">§ &nbsp; ¥ &nbsp; § &nbsp; $ &nbsp; § &nbsp; € &nbsp; §</div>
+
+  <!-- 主标块 -->
+  <div class="feature">
+    <div class="lead">
+      <div class="by">本期头条 · Cover Story</div>
+      <h3>"复利"是世界第八大奇迹，<br>问题是大多数人没活够时间。</h3>
+      <p class="drop">爱因斯坦是否说过这句话其实没人能考证，但复利效应本身确实惊人。
+        一笔 10 万元的本金，按年化 8% 计算：10 年后翻一倍，
+        30 年后接近 10 倍，40 年后逼近 22 倍——前提是中间不抽走、不踩雷、不被通胀吃掉。</p>
+      <p>本站第二模块《复利与时间价值》会把这件事算清楚：
+        72 法则、现值/未值、年金、内部收益率(IRR)。把数学搞懂，复利才不是鸡汤。</p>
+    </div>
+    <aside>
+      <div class="stat">
+        <div class="num">8<span class="pct">%</span></div>
+        <div class="lbl">假设年化 · 长期股票市场</div>
+      </div>
+      <div class="stat">
+        <div class="num">×9.0</div>
+        <div class="lbl">30 年复利倍数</div>
+      </div>
+      <div class="stat">
+        <div class="num">72</div>
+        <div class="lbl">本金翻倍年数 ÷ 利率</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- 模块栏目 -->
+  <section class="modules">
+    <div class="sec-head">
+      <h2>本站栏目 · Sections</h2>
+      <div class="meta">11 · Modules</div>
+    </div>
+    <div class="cols">
+      <div class="col feat">
+        <p class="num">01 · 入门</p>
+        <span class="symbol">¥</span>
+        <h4>理财通识</h4>
+        <p class="en">Personal Finance 101</p>
+        <p>钱从哪来、到哪去；先把记账、预算、应急金这三块基石打牢，再谈投资。</p>
+      </div>
+      <div class="col">
+        <p class="num">02 · 入门</p>
+        <span class="symbol">∑</span>
+        <h4>复利与时间价值</h4>
+        <p class="en">Compounding · TVM</p>
+        <p>72 法则、现值未值、年金、IRR。把"时间是朋友"算成具体数字。</p>
+      </div>
+      <div class="col">
+        <p class="num">03 · 核心</p>
+        <span class="symbol">⊕</span>
+        <h4>资产配置</h4>
+        <p class="en">Asset Allocation</p>
+        <p>股/债/现金/另类四象限；按年龄、目标、风险承受度分配，比"挑哪只"更重要。</p>
+      </div>
+      <div class="col">
+        <p class="num">04 · 核心</p>
+        <span class="symbol">$</span>
+        <h4>股票基础</h4>
+        <p class="en">Equities</p>
+        <p>什么是公司股权，PE/PB/ROE 怎么看，主动选股 vs 被动指数,长持 vs 择时。</p>
+      </div>
+      <div class="col feat">
+        <p class="num">05 · 核心</p>
+        <span class="symbol">§</span>
+        <h4>债券与利率</h4>
+        <p class="en">Bonds · Rates</p>
+        <p>债券价格为什么"利率涨它跌"，久期、信用利差、收益率曲线讲到底。</p>
+      </div>
+      <div class="col">
+        <p class="num">06 · 核心</p>
+        <span class="symbol">€</span>
+        <h4>基金与 ETF</h4>
+        <p class="en">Funds · ETFs</p>
+        <p>公募/私募/指数/主动/QDII 区分,费率、跟踪误差、定投到底有没有用。</p>
+      </div>
+      <div class="col">
+        <p class="num">07 · 进阶</p>
+        <span class="symbol">⌂</span>
+        <h4>房产与 REITs</h4>
+        <p class="en">Real Estate · REITs</p>
+        <p>自住房不是投资品；REITs 怎么把"收租"做成可买卖的金融产品。</p>
+      </div>
+      <div class="col">
+        <p class="num">08 · 进阶</p>
+        <span class="symbol">£</span>
+        <h4>保险规划</h4>
+        <p class="en">Insurance</p>
+        <p>意外/重疾/医疗/寿险/年金谁先买、买多少，保障型与理财型为什么不能混。</p>
+      </div>
+      <div class="col">
+        <p class="num">09 · 进阶</p>
+        <span class="symbol">⊙</span>
+        <h4>退休/养老规划</h4>
+        <p class="en">Retirement</p>
+        <p>三支柱：基本养老、企业年金、个人养老金。算清楚退休前你需要攒多少。</p>
+      </div>
+      <div class="col feat">
+        <p class="num">10 · 实战</p>
+        <span class="symbol">%</span>
+        <h4>税务基础</h4>
+        <p class="en">Tax 101</p>
+        <p>个税、资本利得、专项扣除，普通人能用上的合法节税路径有哪些。</p>
+      </div>
+      <div class="col">
+        <p class="num">11 · 实战</p>
+        <span class="symbol">⚠</span>
+        <h4>风险管理</h4>
+        <p class="en">Risk · Drawdown</p>
+        <p>波动 ≠ 风险；最大回撤、夏普比率、止损纪律、行为偏差与"心魔"。</p>
+      </div>
+      <div class="col" style="background:transparent; border-right:0">
+        <p class="num" style="color:var(--note)">更多 · Coming</p>
+        <h4 style="color:var(--note)">案例 / 工具</h4>
+        <p class="en">Calculators</p>
+        <p>复利计算器、定投回测、退休缺口估算、贷款摊销——边读边算。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ticker -->
+  <div class="ticker">
+    <span><b>市场速记</b></span>
+    <span>沪深300 <span class="up">▲ 0.82%</span></span>
+    <span>纳指 <span class="dn">▼ 0.31%</span></span>
+    <span>10Y国债 <span class="up">▲ 2bp</span></span>
+    <span>WTI原油 <span class="dn">▼ 1.4%</span></span>
+    <span>黄金 <span class="up">▲ 0.6%</span></span>
+    <span>USD/CNY <span class="dn">▼ 0.12%</span></span>
+    <span style="color:var(--note)">※ 模拟显示，本站不提供行情、不构成投资建议</span>
+  </div>
+
+  <footer>
+    <span><b>今日得到</b> · Today I Learned</span>
+    <span>不荐股 · 不带货 · 不焦虑</span>
+    <span>纯静态 · 离线可读</span>
+  </footer>
+
+</div>
+</body>
+</html>

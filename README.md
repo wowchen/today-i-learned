@@ -17,6 +17,7 @@
 | 系分学习站 · SAN | [`system-analyst/`](system-analyst/) | 系统分析师(软考高级)备考:需求工程、结构化与面向对象分析设计、系统规划与可行性、数学运筹、信息系统综合,含案例画图与论文专题 | ✅ 已上线 |
 | 系规学习站 · SPM | [`system-planning-manager/`](system-planning-manager/) | 系统规划与管理师(软考高级)备考:IT 服务与 ITSS 体系、服务规划设计/部署实施/运营管理/持续改进/监督管理、团队营销、工具新技术、专业英语,含案例专题(不考论文) | ✅ 已上线 |
 | 网规学习站 · NPD | [`network-planning-designer/`](network-planning-designer/) | 网络规划设计师(软考高级)备考:数据通信、OSI/TCP-IP、IP 子网与路由、局域网广域网、互连设备、网络安全、无线/存储、SDN/NFV、网络规划与设计、运维管理,含案例与论文专题 | ✅ 已上线 |
+| 投资理财 · PFIN | [`personal-finance/`](personal-finance/) | 大白话投资理财通识(非应试):理财基础、复利、资产配置、股票、债券、基金ETF、房产REITs、保险、退休养老、税务、风险与行为偏差,含复利/定投/退休/贷款计算器。不荐股不带货不焦虑 | ✅ 已上线 |
 
 ## 本地预览
 
@@ -30,7 +31,7 @@ python3 -m http.server 8000
 
 ```
 .
-├── index.html                      # 引导页(9 张卡片 Bento 布局)
+├── index.html                      # 引导页(10 张卡片 Bento 布局)
 ├── english-made-simple/            # 子站
 ├── power-grid-fundamentals/        # 子站
 ├── info-system-project-manager/    # 子站
@@ -39,7 +40,8 @@ python3 -m http.server 8000
 ├── system-architecture-designer/   # 子站
 ├── system-analyst/                 # 子站
 ├── system-planning-manager/        # 子站
-└── network-planning-designer/      # 子站
+├── network-planning-designer/      # 子站
+└── personal-finance/               # 子站
 ```
 
 各子站使用相对路径,可独立运行,也可整体部署。

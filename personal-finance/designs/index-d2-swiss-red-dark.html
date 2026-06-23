@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投资理财学习站(设计稿 D2 · 瑞士黑白 + 中国红 · 含深色)</title>
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ink:#0B0B0B;
+    --note:#7D7D7D;
+    --line:#E5E5E5;
+    --line-2:#1A1A1A;
+    --red:#D93A2A;          /* 中国股市红/长红 */
+    --red-soft:#FBECEA;
+    --nav-bg:rgba(255,255,255,.92);
+    --mark-bg:var(--ink);
+    --cta-bg:var(--ink);
+    --cta-fg:#fff;
+    --sans:"Inter","Helvetica Neue","PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+  }
+  [data-theme="dark"]{
+    --bg:#0B0B0B;            /* 比纯黑略亮一点,长时间阅读不刺眼 */
+    --ink:#F4F4F4;
+    --note:#8A8A8A;
+    --line:#1F1F1F;
+    --line-2:#2E2E2E;
+    --red:#FF5142;           /* 暗底上稍亮一档,保持识别度 */
+    --red-soft:rgba(255,81,66,.12);
+    --nav-bg:rgba(11,11,11,.82);
+    --mark-bg:var(--ink);
+    --cta-bg:#fff;
+    --cta-fg:var(--bg);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{margin:0; background:var(--bg)}
+  body{color:var(--ink); font-family:var(--sans); line-height:1.55;
+    -webkit-font-smoothing:antialiased; font-feature-settings:"ss01","cv11";
+    transition:background .25s ease, color .25s ease}
+  .wrap{width:100%; max-width:1080px; margin:0 auto; padding:0 40px}
+
+  /* === Sticky nav === */
+  .nav{position:sticky; top:0; z-index:50; background:var(--nav-bg);
+    backdrop-filter:saturate(160%) blur(8px); -webkit-backdrop-filter:saturate(160%) blur(8px);
+    border-bottom:1px solid var(--line); transition:background .25s, border-color .25s}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between;
+    height:56px; max-width:1080px; margin:0 auto; padding:0 40px}
+  .brand{display:flex; align-items:center; gap:10px; font-size:.92rem; font-weight:600;
+    letter-spacing:-.005em; text-decoration:none; color:var(--ink)}
+  .brand .b-mark{width:18px; height:18px; position:relative}
+  .brand .b-mark::before{content:""; position:absolute; inset:0; background:var(--mark-bg);
+    transition:background .25s}
+  .brand .b-mark::after{content:""; position:absolute; width:8px; height:8px;
+    background:var(--red); right:-4px; bottom:-4px; border-radius:50%}
+  .brand small{color:var(--note); font-weight:500; letter-spacing:.06em; margin-left:6px}
+  .nav-links{display:flex; align-items:center; gap:2px}
+  .nav-links a{position:relative; padding:8px 14px; font-size:.85rem; font-weight:500;
+    letter-spacing:-.005em; color:var(--note); text-decoration:none;
+    transition:color .15s; background:transparent; border:0; cursor:pointer;
+    font-family:inherit}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a.act{color:var(--ink); font-weight:600}
+  .nav-links a.act::after{content:""; position:absolute; left:14px; right:14px;
+    bottom:1px; height:2px; background:var(--red)}
+
+  /* theme toggle button */
+  .theme-btn{margin-left:6px; width:32px; height:32px; display:inline-flex;
+    align-items:center; justify-content:center; border:1px solid var(--line-2);
+    background:transparent; cursor:pointer; color:var(--ink); transition:border-color .15s, color .15s}
+  .theme-btn:hover{border-color:var(--red); color:var(--red)}
+  .theme-btn svg{width:14px; height:14px; display:block}
+  .theme-btn .sun{display:none}
+  .theme-btn .moon{display:block}
+  [data-theme="dark"] .theme-btn .sun{display:block}
+  [data-theme="dark"] .theme-btn .moon{display:none}
+
+  .nav-cta{margin-left:8px; padding:8px 14px; font-size:.82rem; font-weight:600;
+    color:var(--cta-fg); background:var(--cta-bg); border-radius:0; text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px; transition:background .15s, color .15s}
+  .nav-cta:hover{background:var(--red); color:#fff}
+  .nav-cta::after{content:"→"}
+
+  /* === Top meta line === */
+  .top{padding:32px 0 0; display:flex; justify-content:space-between; align-items:center;
+    font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500}
+  .top b{color:var(--ink); font-weight:600}
+  .top .pill{color:var(--red); border:1px solid var(--red); padding:3px 8px;
+    border-radius:0; letter-spacing:.16em; font-weight:600}
+
+  /* === Hero === */
+  header{padding:110px 0 90px; max-width:820px; position:relative}
+  .nm{font-size:clamp(3rem,7.8vw,5.4rem); font-weight:700; letter-spacing:-.035em;
+    line-height:1; margin:0; color:var(--ink); position:relative}
+  .nm .dot{display:inline-block; width:.32em; height:.32em; border-radius:50%;
+    background:var(--red); margin:0 .04em .12em; vertical-align:middle;
+    box-shadow:0 0 0 .12em var(--red-soft)}
+  .nm small{display:inline-block; font-family:var(--sans); font-size:.16em; font-weight:600;
+    letter-spacing:.4em; color:var(--note); text-transform:uppercase;
+    margin-left:.6em; vertical-align:.65em}
+  .sub{margin:36px 0 0; font-size:1.12rem; color:var(--note); max-width:50ch;
+    line-height:1.6}
+  .sub b{color:var(--ink); font-weight:600}
+  .sub mark{background:var(--red-soft); color:var(--red); padding:1px 6px;
+    font-weight:600; border-radius:0}
+
+  /* === Meta row === */
+  .meta-row{display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border-top:1px solid var(--line-2); border-bottom:1px solid var(--line);
+    padding:24px 0; margin:0 0 80px}
+  .meta-row > div{padding:0 24px; border-right:1px solid var(--line)}
+  .meta-row > div:last-child{border-right:0}
+  .meta-row .k{font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500; margin:0 0 6px;
+    display:flex; align-items:center; gap:6px}
+  .meta-row .k::before{content:""; width:6px; height:6px; background:var(--red);
+    display:inline-block; border-radius:50%}
+  .meta-row .v{font-size:1.1rem; font-weight:600; letter-spacing:-.012em;
+    margin:0; color:var(--ink)}
+  .meta-row .v em{font-style:normal; color:var(--red)}
+
+  /* === Section heading === */
+  .sec-head{display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--line-2); padding-bottom:14px; margin-bottom:0;
+    scroll-margin-top:80px}
+  .sec-head h2{font-size:.82rem; font-weight:700; letter-spacing:.24em;
+    text-transform:uppercase; margin:0; color:var(--ink)}
+  .sec-head h2 .red{color:var(--red); margin-right:8px; font-weight:700}
+  .sec-head .right{font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500}
+  .sec-head .right b{color:var(--ink); font-weight:600}
+
+  /* === Module list === */
+  .list{margin-bottom:80px}
+  .row{display:grid; grid-template-columns:64px 1fr 140px 28px; gap:24px;
+    padding:30px 0; border-bottom:1px solid var(--line); align-items:baseline;
+    text-decoration:none; color:var(--ink); transition:padding-left .2s ease, border-color .2s}
+  .row:hover{padding-left:14px; border-bottom-color:var(--red)}
+  .row:hover .arrow{color:var(--red)}
+  .row:hover .ord{color:var(--red)}
+  .row .ord{font-size:11px; letter-spacing:.18em; color:var(--note); font-weight:600;
+    font-variant-numeric:tabular-nums; transition:color .2s; position:relative; padding-left:14px}
+  .row .ord::before{content:""; position:absolute; left:0; top:.45em; width:6px; height:6px;
+    background:var(--red); opacity:0; transition:opacity .2s; border-radius:50%}
+  .row:hover .ord::before{opacity:1}
+  .row .title{font-size:1.5rem; font-weight:600; letter-spacing:-.018em; margin:0;
+    line-height:1.25}
+  .row .title em{font-style:normal; color:var(--red)}
+  .row .title small{display:block; font-size:.85rem; color:var(--note);
+    font-weight:400; letter-spacing:0; margin-top:6px; line-height:1.55; max-width:54ch}
+  .row .tag{font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500}
+  .row .tag.hot{color:var(--red); font-weight:600}
+  .row .arrow{font-size:1.5rem; text-align:right; color:var(--note); transition:color .2s;
+    font-weight:400; line-height:1}
+
+  /* === Tools / About sections === */
+  .sec{padding:80px 0 0}
+  .tools{display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    border-bottom:1px solid var(--line); margin-bottom:0}
+  .tool{padding:36px 28px 32px; border-right:1px solid var(--line);
+    transition:background .2s; cursor:pointer; text-decoration:none; color:inherit}
+  .tool:last-child{border-right:0}
+  .tool:hover{background:var(--red-soft)}
+  .tool .tool-num{font-size:11px; letter-spacing:.18em; color:var(--red);
+    font-weight:600; margin:0 0 14px; text-transform:uppercase}
+  .tool h3{font-size:1.32rem; font-weight:600; letter-spacing:-.015em;
+    margin:0 0 8px; color:var(--ink)}
+  .tool p{font-size:.9rem; color:var(--note); line-height:1.55; margin:0}
+  .tool .open{margin-top:16px; font-size:.78rem; font-weight:600;
+    color:var(--ink); display:inline-flex; align-items:center; gap:4px}
+  .tool .open::after{content:"→"; transition:transform .2s}
+  .tool:hover .open::after{transform:translateX(3px); color:var(--red)}
+  .tool:hover .open{color:var(--red)}
+
+  /* === Discipline === */
+  .disc{padding:80px 0 0; display:grid; grid-template-columns:200px 1fr; gap:48px;
+    margin-bottom:30px}
+  .disc h3{font-size:.78rem; font-weight:700; letter-spacing:.24em;
+    text-transform:uppercase; margin:0; color:var(--ink)}
+  .disc h3 .red{color:var(--red); margin-right:8px}
+  .disc .body{font-size:1.04rem; color:var(--note); line-height:1.75; max-width:60ch}
+  .disc .body b{color:var(--ink); font-weight:600}
+  .disc .body p{margin:0 0 14px}
+  .disc .body p:last-child{margin-bottom:0}
+  .disc ul{margin:14px 0 0; padding-left:0; list-style:none}
+  .disc ul li{padding-left:20px; position:relative; color:var(--ink); font-weight:500;
+    margin-bottom:8px}
+  .disc ul li::before{content:""; position:absolute; left:0; top:.55em; width:8px; height:2px;
+    background:var(--red)}
+
+  footer{margin-top:120px; border-top:1px solid var(--line-2);
+    padding:24px 0 60px; display:flex; justify-content:space-between;
+    flex-wrap:wrap; gap:8px; font-size:11px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--note); font-weight:500}
+  footer b{color:var(--ink); font-weight:600}
+  footer .red{color:var(--red)}
+
+  @media (max-width:720px){
+    .nav-inner{padding:0 22px}
+    .nav-links a{padding:8px 8px; font-size:.78rem}
+    .nav-cta{margin-left:6px; padding:8px 10px; font-size:.74rem}
+    .wrap{padding:0 22px}
+    header{padding:56px 0 50px}
+    .row{grid-template-columns:50px 1fr 28px; gap:14px}
+    .row .tag{display:none}
+    .meta-row{grid-template-columns:repeat(2,1fr)}
+    .meta-row > div:nth-child(2n){border-right:0}
+    .meta-row > div:nth-child(1), .meta-row > div:nth-child(2){
+      border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:18px}
+    .tools{grid-template-columns:1fr}
+    .tool{border-right:0; border-bottom:1px solid var(--line)}
+    .tool:last-child{border-bottom:0}
+    .disc{grid-template-columns:1fr; gap:20px}
+  }
+</style>
+<script>
+  // 在 head 内联,防止刷新闪烁
+  (function(){
+    try{
+      var t = localStorage.getItem('pfin.theme');
+      if(!t){ t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+      if(t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+
+<!-- ===== Sticky Nav ===== -->
+<div class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="b-mark"></span>
+      投资理财
+      <small>· Today I Learned</small>
+    </a>
+    <nav class="nav-links">
+      <a href="#modules" class="act">模块</a>
+      <a href="#tools">计算器</a>
+      <a href="#about">关于</a>
+      <button class="theme-btn" id="themeBtn" aria-label="切换主题" title="切换深色/浅色">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a href="../" class="nav-cta">总站</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap" id="top">
+
+  <!-- ===== Top meta ===== -->
+  <div class="top">
+    <span>Personal Finance <b>/ N°10</b></span>
+    <span class="pill">长红 · 2026</span>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <header>
+    <h1 class="nm">投资理财<span class="dot"></span><small>11 Modules</small></h1>
+    <p class="sub">把工资条到资产配置之间的事，<b>用大白话讲透</b>。
+      <mark>11 个模块。</mark>纯文字、零依赖、离线可读。
+      <br>不荐股、不带货、不焦虑。</p>
+  </header>
+
+  <!-- ===== Meta row ===== -->
+  <div class="meta-row">
+    <div><p class="k">Modules</p><p class="v">11 <em>个</em></p></div>
+    <div><p class="k">Format</p><p class="v">Text · Calc</p></div>
+    <div><p class="k">Compound</p><p class="v"><em>× 9.0</em> / 30Y</p></div>
+    <div><p class="k">Cost</p><p class="v">¥ <em>0</em></p></div>
+  </div>
+
+  <!-- ===== Modules ===== -->
+  <div class="sec-head" id="modules">
+    <h2><span class="red">/</span>Index · 模块目录</h2>
+    <span class="right"><b>01</b> — <b>11</b></span>
+  </div>
+
+  <div class="list">
+
+    <a class="row" href="#">
+      <span class="ord">01</span>
+      <h3 class="title">理财通识 <small>钱从哪来到哪去；记账、预算、应急金。三块基石先打牢</small></h3>
+      <span class="tag">入门</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">02</span>
+      <h3 class="title">复利 <em>·</em> 时间价值 <small>72 法则、现值未值、年金、IRR。把"时间是朋友"算成具体数字</small></h3>
+      <span class="tag hot">入门 · 重</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">03</span>
+      <h3 class="title">资产配置 <small>股、债、现金、另类四象限。按年龄、目标分配，比挑哪只更重要</small></h3>
+      <span class="tag">核心</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">04</span>
+      <h3 class="title">股票基础 <small>PE / PB / ROE 怎么看；主动选股 vs 被动指数；长持与择时</small></h3>
+      <span class="tag">核心</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">05</span>
+      <h3 class="title">债券与利率 <small>债券为何"利率涨它跌"；久期、信用利差、收益率曲线</small></h3>
+      <span class="tag">核心</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">06</span>
+      <h3 class="title">基金 <em>·</em> ETF <small>公募/指数/主动/QDII；费率、跟踪误差、定投到底有没有用</small></h3>
+      <span class="tag hot">核心 · 重</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">07</span>
+      <h3 class="title">房产 <em>·</em> REITs <small>自住房不是投资品；REITs 怎么把"收租"做成可买卖的金融产品</small></h3>
+      <span class="tag">进阶</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">08</span>
+      <h3 class="title">保险规划 <small>意外/重疾/医疗/寿险/年金谁先买；保障型与理财型为何不能混</small></h3>
+      <span class="tag">进阶</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">09</span>
+      <h3 class="title">退休 <em>·</em> 养老规划 <small>三支柱:基本养老、企业年金、个人养老金。退休缺口越早规划越省力</small></h3>
+      <span class="tag">进阶</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">10</span>
+      <h3 class="title">税务基础 <small>个税、资本利得、专项扣除；普通人能用上的合法节税路径</small></h3>
+      <span class="tag">实战</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="row" href="#">
+      <span class="ord">11</span>
+      <h3 class="title">风险管理 <small>波动 ≠ 风险；最大回撤、夏普比率、止损纪律、行为偏差</small></h3>
+      <span class="tag hot">实战 · 重</span>
+      <span class="arrow">→</span>
+    </a>
+
+  </div>
+
+  <!-- ===== Tools ===== -->
+  <div class="sec-head" id="tools">
+    <h2><span class="red">/</span>Tools · 计算器</h2>
+    <span class="right"><b>3</b> 件 · 边读边算</span>
+  </div>
+
+  <div class="tools">
+    <a class="tool" href="#">
+      <p class="tool-num">T · 01</p>
+      <h3>复利计算器</h3>
+      <p>本金 + 月供 + 年化 + 年限,算出未来值与翻倍年。</p>
+      <span class="open">打开</span>
+    </a>
+    <a class="tool" href="#">
+      <p class="tool-num">T · 02</p>
+      <h3>定投回测</h3>
+      <p>每月固定金额定投指数,N 年后大致是什么收益曲线。</p>
+      <span class="open">打开</span>
+    </a>
+    <a class="tool" href="#">
+      <p class="tool-num">T · 03</p>
+      <h3>退休缺口</h3>
+      <p>当前年龄/收入/支出/已存,算出退休前还需积累多少。</p>
+      <span class="open">打开</span>
+    </a>
+  </div>
+
+  <!-- ===== About / Discipline ===== -->
+  <div class="disc" id="about">
+    <h3><span class="red">/</span>About</h3>
+    <div class="body">
+      <p>本站不提供行情、不推荐产品、不构成任何投资建议。
+        每一节五分钟，用<b>大白话</b>把那些每个人都该懂、却没人愿意慢慢讲的事讲清。</p>
+      <p>读完会知道：</p>
+      <ul>
+        <li>复利是数学，不是鸡汤；</li>
+        <li>资产配置比"挑哪只"更重要；</li>
+        <li>保险先看保障、再谈理财；</li>
+        <li>税务与退休越早规划越省力。</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <span><b>TIL</b> · 今日得到 · Personal Finance</span>
+    <span class="red">不荐股 · 不带货 · 不焦虑</span>
+    <span>Static · Offline · v0.1</span>
+  </footer>
+
+</div>
+
+<script>
+  // ===== Theme toggle =====
+  const btn = document.getElementById('themeBtn');
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const next = cur === 'dark' ? 'light' : 'dark';
+    if(next === 'dark') document.documentElement.setAttribute('data-theme','dark');
+    else document.documentElement.removeAttribute('data-theme');
+    try{ localStorage.setItem('pfin.theme', next); }catch(e){}
+  });
+
+  // ===== Nav anchor highlight =====
+  const links = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sections = ['modules','tools','about'].map(id => document.getElementById(id));
+  function update(){
+    const y = window.scrollY + 120;
+    let active = 'modules';
+    sections.forEach(s => { if(s && s.offsetTop <= y) active = s.id; });
+    links.forEach(a => a.classList.toggle('act', a.getAttribute('href') === '#' + active));
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  update();
+</script>
+
+</body>
+</html>
