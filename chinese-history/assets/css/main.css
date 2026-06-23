@@ -426,25 +426,47 @@ gd[data-term]:hover { background: var(--red-soft); }
 .cr-val.cr-bad { color: var(--note); }
 .cr-formula { color: var(--note); font-size: .82rem; }
 
-/* 全局时间轴(SVG 条带) */
-.timeline-strip {
-  width: 100%; height: 84px; margin: 18px 0 12px; display: block;
-  border: 1px solid var(--line); background: var(--bg);
+/* 全局时间轴(等宽朝代条带) */
+.tl-band {
+  display: grid; grid-template-columns: repeat(14, 1fr);
+  gap: 3px; margin: 18px 0 12px; width: 100%;
 }
-.timeline-strip text { font-family: var(--font); font-size: 10px; fill: #ffffff;
-  font-weight: 600; letter-spacing: .04em; }
-.timeline-strip .yr-axis { fill: var(--note); font-weight: 500; }
-.timeline-strip .seg { cursor: pointer; transition: opacity .15s; }
-.timeline-strip .seg:hover { opacity: .82; }
+.tl-seg {
+  position: relative; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 5px; min-height: 96px; padding: 12px 4px;
+  background: var(--brand); color: #fff; text-align: center; overflow: hidden;
+  transition: transform .15s, box-shadow .15s;
+}
+.tl-seg::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,.16), transparent 60%); }
+.tl-seg:hover { transform: translateY(-3px); box-shadow: 0 10px 24px -10px var(--brand); }
+.tl-ord { font-size: .62rem; font-weight: 700; letter-spacing: .12em;
+  color: rgba(255,255,255,.75); position: relative; z-index: 1; }
+.tl-name { font-size: .82rem; font-weight: 700; line-height: 1.2;
+  writing-mode: vertical-rl; text-orientation: upright; letter-spacing: .08em;
+  position: relative; z-index: 1; max-height: 56px; }
+.tl-yr { font-size: .56rem; font-weight: 600; color: rgba(255,255,255,.82);
+  font-family: var(--serif); position: relative; z-index: 1; line-height: 1.1; }
 
 .timeline-list { list-style: none; padding: 0; margin: 20px 0 0; }
-.timeline-list li { display: grid; grid-template-columns: 120px 1fr; gap: 18px;
-  padding: 14px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
-.timeline-list li .yr { font-family: var(--serif); font-size: .92rem; color: var(--note);
-  letter-spacing: .04em; }
-.timeline-list li .yr b { color: var(--red); font-weight: 600; margin-right: 4px; }
+.timeline-list li { display: grid; grid-template-columns: 130px 1fr; gap: 18px;
+  padding: 14px 0 14px 14px; border-bottom: 1px solid var(--line); align-items: baseline;
+  border-left: 3px solid var(--brand); transition: background .15s; }
+.timeline-list li:hover { background: var(--red-soft); }
+.timeline-list li .yr { font-family: var(--serif); font-size: .9rem; color: var(--note);
+  letter-spacing: .02em; }
+.timeline-list li .yr b { color: var(--red); font-weight: 600; margin-right: 6px; }
 .timeline-list li a { font-weight: 500; font-size: 1.02rem; }
 .timeline-list li a:hover { color: var(--red); }
+
+@media (max-width: 760px) {
+  .tl-band { grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .tl-name { writing-mode: horizontal-tb; max-height: none; }
+  .tl-seg { min-height: 76px; }
+}
+@media (max-width: 460px) {
+  .tl-band { grid-template-columns: repeat(4, 1fr); }
+}
 
 /* 朝代速查表 */
 .era-table { width: 100%; border-collapse: collapse; font-size: .94rem; margin-top: 18px; }

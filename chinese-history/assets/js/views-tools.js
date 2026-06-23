@@ -31,63 +31,37 @@ function toolLink(title, num, desc, action) {
 
 /* ==================== 1. 全局时间轴 ==================== */
 CHS.views.timeline = function() {
-  var W = 860, H = 64;
-  var totalYears = 7000; // 前5000 → 2026
-  var offset = 5000;    // 0 = 前5000, 7000 = 2026
-  function px(yearBCE) {
-    // yearBCE: 负值=公元前, 正值=公元
-    var absYear = yearBCE <= 0 ? -yearBCE : yearBCE + 1; // 前5000 = 0, 2026 = 7026
-    // 但yearBCE是负值比如-2070表示公元前2070 -> absYear = 2070
-    // 我们要从公元前5000开始: -5000 -> 0, -2000 -> 3000, 1 -> 5001, 2026 -> 7026
-    // 所以 pos = absYear - (-5000) = absYear + 5000 对于负数
-    return (yearBCE <= 0 ? (-yearBCE) : (yearBCE + 5001)) / totalYears * W;
-  }
+  var mods = CHS.modules;
+  var n = mods.length;
 
   var html = '<div class="tools-page">';
   html += '<h2>时间轴 · 5000 年中国历史</h2>';
-  html += '<p class="calc-intro">全局横轴浏览，下方可查看每个朝代内的事件流。</p>';
+  html += '<p class="calc-intro">14 个朝代/时段按先后顺序排列（等宽，非真实年代比例）。点任意一段查看该时段课时。</p>';
 
-  // SVG strip
-  html += '<svg class="timeline-strip" viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
-
-  // 每个朝代
-  var mods = CHS.modules;
-  for (var i = 0; i < mods.length; i++) {
+  // 等宽朝代条：每段一格，宽度相同，文字必可读
+  html += '<div class="tl-band">';
+  for (var i = 0; i < n; i++) {
     var m = mods[i];
-    var start = parseInt(m.yearStartBC || m.yearStart);
-    var endStr = m.yearEnd;
-    // 将起讫转为整数年份(公元前负数)
-    var y0 = start;
-    var y1 = parseInt(endStr);
-    if (isNaN(y1)) y1 = 2026; // 至今
-    var x0 = px(y0), x1 = px(y1);
-    var w = Math.max(x1 - x0, 6); // 最小 6px
-    html += '<a class="seg" href="#/m/' + m.id + '">' +
-      '<rect x="' + x0 + '" y="8" width="' + w + '" height="' + (H - 16) + '" ' +
-      'fill="var(' + m.color + ')" rx="0"/>' +
-      '<text x="' + (x0 + w/2) + '" y="' + (H/2 + 4) + '" text-anchor="middle">' +
-      m.shortTitle + '</text></a>';
+    var yr = m.yearStart + (m.yearEnd ? '–' + m.yearEnd : '');
+    html += '<a class="tl-seg" href="#/m/' + m.id + '" style="--brand:var(' + m.color + ')">' +
+      '<span class="tl-ord">' + pad(i + 1) + '</span>' +
+      '<span class="tl-name">' + CHS.esc(m.shortTitle) + '</span>' +
+      '<span class="tl-yr">' + CHS.esc(yr) + '</span>' +
+      '</a>';
   }
+  html += '</div>';
 
-  // BC/AD 刻度
-  html += '<text x="0" y="' + (H - 2) + '" class="yr-axis">前5000</text>';
-  html += '<text x="' + px(0) + '" y="' + (H - 2) + '" class="yr-axis">前1</text>';
-  html += '<text x="' + px(1000) + '" y="' + (H - 2) + '" class="yr-axis">1000</text>';
-  html += '<text x="' + px(2026) + '" y="' + (H - 2) + '" class="yr-axis">2026</text>';
-  html += '</svg>';
-
-  // 下方事件列表(取当前模块第一个或所有)
-  html += '<h3 style="margin-top:28px;font-size:.9rem;font-weight:600">朝代顺序 · 点模块看详情</h3>';
+  // 朝代顺序列表
+  html += '<h3 style="margin-top:32px;font-size:.9rem;font-weight:600">朝代顺序 · 点模块看详情</h3>';
   html += '<ul class="timeline-list">';
-  for (var i2 = 0; i2 < mods.length; i2++) {
+  for (var i2 = 0; i2 < n; i2++) {
     var m2 = mods[i2];
-    var lid = m2.firstLesson || '';
     var yrLabel = m2.yearStart + (m2.yearEnd ? '–' + m2.yearEnd : '');
-    html += '<li><div class="yr"><b>' + pad(i2 + 1) + '</b>' + yrLabel + '</div>' +
+    html += '<li style="--brand:var(' + m2.color + ')"><div class="yr"><b>' + pad(i2 + 1) + '</b>' + CHS.esc(yrLabel) + '</div>' +
       '<a href="#/m/' + m2.id + '">' + CHS.esc(m2.title) + ' · ' + CHS.esc(m2.era) + '</a></li>';
   }
   html += '</ul>';
-  html += '<p class="calc-note">年代为约数，学界存争议处(如夏商断代)暂取通说。<br>蓝色虚线仅示意时段长度，不精确到年。</p>';
+  html += '<p class="calc-note">年代为约数，学界存争议处（如夏商断代）暂取通说。条带为等宽示意，不代表真实年代长度。</p>';
 
   html += '</div>';
   CHS.render(html);
