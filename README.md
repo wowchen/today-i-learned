@@ -19,6 +19,7 @@
 | 网规学习站 · NPD | [`network-planning-designer/`](network-planning-designer/) | 网络规划设计师(软考高级)备考:数据通信、OSI/TCP-IP、IP 子网与路由、局域网广域网、互连设备、网络安全、无线/存储、SDN/NFV、网络规划与设计、运维管理,含案例与论文专题 | ✅ 已上线 |
 | 投资理财 · PFIN | [`personal-finance/`](personal-finance/) | 大白话投资理财通识(非应试):理财基础、复利、资产配置、股票、债券、基金ETF、房产REITs、保险、退休养老、税务、风险与行为偏差,含复利/定投/退休/贷款计算器。不荐股不带货不焦虑 | ✅ 已上线 |
 | 中国历史 · CHS | [`chinese-history/`](chinese-history/) | 大白话讲透五千年中国历史(科普非应试):14 个朝代/时段、135 节微课,从神话开篇到改革开放。含 5000 年时间轴、人物图鉴(约 96 位)、朝代速查表、皇帝年号换算器(约 280 条)。不戏说不阴谋论 | ✅ 已上线 |
+| 世界历史 · WHS | [`world-history/`](world-history/) | 大白话讲透世界历史(科普非应试):12 个时代/文明、122 节微课,从文明曙光到当代。含世界史时间轴、人物图鉴(75 位)、文明速查表、中外对照表。与中国历史站形成中/外一对,多文明并重不以单一文明为中心 | ✅ 已上线 |
 
 ## 本地预览
 
@@ -32,7 +33,7 @@ python3 -m http.server 8000
 
 ```
 .
-├── index.html                      # 引导页(11 张卡片 Bento 布局)
+├── index.html                      # 引导页(12 张卡片 Bento 布局)
 ├── english-made-simple/            # 子站
 ├── power-grid-fundamentals/        # 子站
 ├── info-system-project-manager/    # 子站
@@ -43,7 +44,8 @@ python3 -m http.server 8000
 ├── system-planning-manager/        # 子站
 ├── network-planning-designer/      # 子站
 ├── personal-finance/               # 子站
-└── chinese-history/                # 子站
+├── chinese-history/                # 子站
+└── world-history/                  # 子站
 ```
 
 各子站使用相对路径,可独立运行,也可整体部署。

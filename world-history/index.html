@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>世界历史学习站 · World History</title>
+<meta name="description" content="从文明曙光到当代，大白话讲透世界历史。12 个时代/文明、122 节微课。含世界史时间轴、人物图鉴、文明速查表、中外对照表。多文明并重、不戏说、纯静态离线。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem("whs.progress.v1") || "{}");
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"; }
+      if(t==="dark") document.documentElement.setAttribute("data-theme","dark");
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute("data-fs", p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    世界历史 <small>· World History</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/timeline">时间轴</a>
+    <a class="nav-link" href="#/figures">图鉴</a>
+    <a class="nav-link" href="#/civ-table">速查</a>
+    <a class="nav-link" href="#/cross-ref">对照</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="WHS.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/figures.js"></script>
+<script src="content/parallel.js"></script>
+
+<!-- Lessons (由 WHS.path 生成) -->
+<script src="content/origins/01-human-origins.js"></script>
+<script src="content/origins/02-out-of-africa.js"></script>
+<script src="content/origins/03-agricultural-revolution.js"></script>
+<script src="content/origins/04-first-cities.js"></script>
+<script src="content/origins/05-writing.js"></script>
+<script src="content/origins/06-bronze-age.js"></script>
+<script src="content/origins/07-four-civilizations.js"></script>
+<script src="content/origins/08-river-valleys.js"></script>
+<script src="content/near-east/01-sumer.js"></script>
+<script src="content/near-east/02-akkad-babylon.js"></script>
+<script src="content/near-east/03-hammurabi.js"></script>
+<script src="content/near-east/04-egypt-old.js"></script>
+<script src="content/near-east/05-egypt-new.js"></script>
+<script src="content/near-east/06-hebrews.js"></script>
+<script src="content/near-east/07-phoenicians.js"></script>
+<script src="content/near-east/08-assyria.js"></script>
+<script src="content/near-east/09-persia.js"></script>
+<script src="content/classical/01-minoan-mycenae.js"></script>
+<script src="content/classical/02-greek-polis.js"></script>
+<script src="content/classical/03-sparta-athens.js"></script>
+<script src="content/classical/04-greco-persian-wars.js"></script>
+<script src="content/classical/05-athenian-democracy.js"></script>
+<script src="content/classical/06-peloponnesian-war.js"></script>
+<script src="content/classical/07-greek-philosophy.js"></script>
+<script src="content/classical/08-alexander.js"></script>
+<script src="content/classical/09-hellenistic.js"></script>
+<script src="content/classical/10-roman-republic.js"></script>
+<script src="content/classical/11-punic-wars.js"></script>
+<script src="content/classical/12-caesar-augustus.js"></script>
+<script src="content/classical/13-roman-empire.js"></script>
+<script src="content/classical/14-fall-of-rome.js"></script>
+<script src="content/asia-classical/01-indus.js"></script>
+<script src="content/asia-classical/02-vedic.js"></script>
+<script src="content/asia-classical/03-buddhism.js"></script>
+<script src="content/asia-classical/04-maurya.js"></script>
+<script src="content/asia-classical/05-gupta.js"></script>
+<script src="content/asia-classical/06-hinduism.js"></script>
+<script src="content/asia-classical/07-silk-road.js"></script>
+<script src="content/asia-classical/08-central-asia-nomads.js"></script>
+<script src="content/asia-classical/09-india-legacy.js"></script>
+<script src="content/middle-ages/01-byzantium.js"></script>
+<script src="content/middle-ages/02-franks-charlemagne.js"></script>
+<script src="content/middle-ages/03-feudalism.js"></script>
+<script src="content/middle-ages/04-church.js"></script>
+<script src="content/middle-ages/05-vikings.js"></script>
+<script src="content/middle-ages/06-crusades.js"></script>
+<script src="content/middle-ages/07-medieval-towns.js"></script>
+<script src="content/middle-ages/08-universities.js"></script>
+<script src="content/middle-ages/09-black-death.js"></script>
+<script src="content/middle-ages/10-hundred-years-war.js"></script>
+<script src="content/islam/01-arabia-before.js"></script>
+<script src="content/islam/02-muhammad.js"></script>
+<script src="content/islam/03-five-pillars.js"></script>
+<script src="content/islam/04-caliphates.js"></script>
+<script src="content/islam/05-umayyad-abbasid.js"></script>
+<script src="content/islam/06-golden-age.js"></script>
+<script src="content/islam/07-andalus.js"></script>
+<script src="content/islam/08-ottomans.js"></script>
+<script src="content/islam/09-safavid-mughal.js"></script>
+<script src="content/americas-africa/01-mesoamerica.js"></script>
+<script src="content/americas-africa/02-aztec.js"></script>
+<script src="content/americas-africa/03-inca.js"></script>
+<script src="content/americas-africa/04-north-america.js"></script>
+<script src="content/americas-africa/05-west-africa.js"></script>
+<script src="content/americas-africa/06-songhai.js"></script>
+<script src="content/americas-africa/07-east-africa.js"></script>
+<script src="content/americas-africa/08-great-zimbabwe.js"></script>
+<script src="content/renaissance/01-renaissance-italy.js"></script>
+<script src="content/renaissance/02-humanism.js"></script>
+<script src="content/renaissance/03-art-science.js"></script>
+<script src="content/renaissance/04-printing.js"></script>
+<script src="content/renaissance/05-reformation.js"></script>
+<script src="content/renaissance/06-counter-reformation.js"></script>
+<script src="content/renaissance/07-exploration.js"></script>
+<script src="content/renaissance/08-columbus.js"></script>
+<script src="content/renaissance/09-spanish-empire.js"></script>
+<script src="content/renaissance/10-columbian-exchange.js"></script>
+<script src="content/renaissance/11-slave-trade.js"></script>
+<script src="content/revolutions/01-scientific-revolution.js"></script>
+<script src="content/revolutions/02-enlightenment.js"></script>
+<script src="content/revolutions/03-absolutism.js"></script>
+<script src="content/revolutions/04-english-revolution.js"></script>
+<script src="content/revolutions/05-glorious-revolution.js"></script>
+<script src="content/revolutions/06-american-revolution.js"></script>
+<script src="content/revolutions/07-french-revolution.js"></script>
+<script src="content/revolutions/08-napoleon.js"></script>
+<script src="content/revolutions/09-latin-america.js"></script>
+<script src="content/revolutions/10-congress-vienna.js"></script>
+<script src="content/revolutions/11-nationalism.js"></script>
+<script src="content/industrial/01-industrial-revolution.js"></script>
+<script src="content/industrial/02-second-industrial.js"></script>
+<script src="content/industrial/03-capitalism-socialism.js"></script>
+<script src="content/industrial/04-german-italian-unification.js"></script>
+<script src="content/industrial/05-imperialism.js"></script>
+<script src="content/industrial/06-scramble-africa.js"></script>
+<script src="content/industrial/07-india-britain.js"></script>
+<script src="content/industrial/08-china-opium.js"></script>
+<script src="content/industrial/09-japan-meiji.js"></script>
+<script src="content/industrial/10-us-civil-war.js"></script>
+<script src="content/industrial/11-social-change.js"></script>
+<script src="content/world-wars/01-causes-ww1.js"></script>
+<script src="content/world-wars/02-ww1.js"></script>
+<script src="content/world-wars/03-russian-revolution.js"></script>
+<script src="content/world-wars/04-versailles.js"></script>
+<script src="content/world-wars/05-roaring-depression.js"></script>
+<script src="content/world-wars/06-fascism.js"></script>
+<script src="content/world-wars/07-nazi-germany.js"></script>
+<script src="content/world-wars/08-ww2-europe.js"></script>
+<script src="content/world-wars/09-ww2-pacific.js"></script>
+<script src="content/world-wars/10-holocaust.js"></script>
+<script src="content/world-wars/11-end-ww2.js"></script>
+<script src="content/world-wars/12-aftermath.js"></script>
+<script src="content/contemporary/01-cold-war-origins.js"></script>
+<script src="content/contemporary/02-cold-war-hotspots.js"></script>
+<script src="content/contemporary/03-decolonization.js"></script>
+<script src="content/contemporary/04-third-world.js"></script>
+<script src="content/contemporary/05-european-integration.js"></script>
+<script src="content/contemporary/06-end-cold-war.js"></script>
+<script src="content/contemporary/07-globalization.js"></script>
+<script src="content/contemporary/08-information-age.js"></script>
+<script src="content/contemporary/09-post-cold-war.js"></script>
+<script src="content/contemporary/10-21st-century.js"></script>
+
+</body>
+</html>
