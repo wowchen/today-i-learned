@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中国历史学习站 · Chinese History</title>
+<meta name="description" content="从盘古开天到改革开放，大白话讲透五千年中国历史。14 个朝代/时段、135 节微课。含时间轴、人物图鉴、朝代速查、年号换算器。纯静态离线、不戏说不焦虑。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem("chs.progress.v1") || "{}");
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"; }
+      if(t==="dark") document.documentElement.setAttribute("data-theme","dark");
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute("data-fs", p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    中国历史 <small>· Chinese History</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/timeline">时间轴</a>
+    <a class="nav-link" href="#/figures">图鉴</a>
+    <a class="nav-link" href="#/era-table">速查</a>
+    <a class="nav-link" href="#/year-convert">年号</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="CHS.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/figures.js"></script>
+<script src="content/years.js"></script>
+
+<!-- Lessons (由 CHS.path 生成) -->
+<script src="content/myth/01-intro.js"></script>
+<script src="content/myth/02-pangu.js"></script>
+<script src="content/myth/03-nuwa.js"></script>
+<script src="content/myth/04-fuxi.js"></script>
+<script src="content/myth/05-yandi-huangdi.js"></script>
+<script src="content/myth/06-yaoshunyu.js"></script>
+<script src="content/xsz/01-xia.js"></script>
+<script src="content/xsz/02-shang.js"></script>
+<script src="content/xsz/03-west-zhou.js"></script>
+<script src="content/xsz/04-east-zhou.js"></script>
+<script src="content/xsz/05-rites.js"></script>
+<script src="content/xsz/06-bronze.js"></script>
+<script src="content/xsz/07-jiaguwen.js"></script>
+<script src="content/xsz/08-jingtian.js"></script>
+<script src="content/xsz/09-fengjian.js"></script>
+<script src="content/cqzg/01-spring-autumn.js"></script>
+<script src="content/cqzg/02-five-hegemons.js"></script>
+<script src="content/cqzg/03-seven-warriors.js"></script>
+<script src="content/cqzg/04-confucius.js"></script>
+<script src="content/cqzg/05-laozi.js"></script>
+<script src="content/cqzg/06-mozi.js"></script>
+<script src="content/cqzg/07-hanfei.js"></script>
+<script src="content/cqzg/08-shangyang.js"></script>
+<script src="content/cqzg/09-hezong.js"></script>
+<script src="content/cqzg/10-sunzi.js"></script>
+<script src="content/qin/01-shangyang-reform.js"></script>
+<script src="content/qin/02-yingzheng.js"></script>
+<script src="content/qin/03-unification.js"></script>
+<script src="content/qin/04-junxian.js"></script>
+<script src="content/qin/05-great-wall.js"></script>
+<script src="content/qin/06-books.js"></script>
+<script src="content/qin/07-downfall.js"></script>
+<script src="content/han/01-chu-han.js"></script>
+<script src="content/han/02-wen-jing.js"></script>
+<script src="content/han/03-hanwu.js"></script>
+<script src="content/han/04-silk-road.js"></script>
+<script src="content/han/05-wang-mang.js"></script>
+<script src="content/han/06-guangwu.js"></script>
+<script src="content/han/07-later-han.js"></script>
+<script src="content/han/08-rujia.js"></script>
+<script src="content/han/09-chaju.js"></script>
+<script src="content/han/10-sima-qian.js"></script>
+<script src="content/han/11-east-han-decline.js"></script>
+<script src="content/han/12-yellow-turbans.js"></script>
+<script src="content/han/13-end-of-han.js"></script>
+<script src="content/weijin/01-three-kingdoms.js"></script>
+<script src="content/weijin/02-caocao.js"></script>
+<script src="content/weijin/03-zhuge-liang.js"></script>
+<script src="content/weijin/04-sima-shi.js"></script>
+<script src="content/weijin/05-west-jin.js"></script>
+<script src="content/weijin/06-wu-hu.js"></script>
+<script src="content/weijin/07-east-jin.js"></script>
+<script src="content/weijin/08-buddhism.js"></script>
+<script src="content/weijin/09-xuanxue.js"></script>
+<script src="content/weijin/10-north-wei-reform.js"></script>
+<script src="content/weijin/11-sui-prelude.js"></script>
+<script src="content/sui-tang/01-sui.js"></script>
+<script src="content/sui-tang/02-grand-canal.js"></script>
+<script src="content/sui-tang/03-keju.js"></script>
+<script src="content/sui-tang/04-tang-foundation.js"></script>
+<script src="content/sui-tang/05-zhenguan.js"></script>
+<script src="content/sui-tang/06-wu-zetian.js"></script>
+<script src="content/sui-tang/07-kaiyuan.js"></script>
+<script src="content/sui-tang/08-poetry.js"></script>
+<script src="content/sui-tang/09-an-lushan.js"></script>
+<script src="content/sui-tang/10-mid-tang.js"></script>
+<script src="content/sui-tang/11-late-tang.js"></script>
+<script src="content/sui-tang/12-five-dynasties.js"></script>
+<script src="content/sui-tang/13-tang-culture.js"></script>
+<script src="content/sui-tang/14-sui-tang-economy.js"></script>
+<script src="content/song/01-chenqiao.js"></script>
+<script src="content/song/02-song-early.js"></script>
+<script src="content/song/03-wang-anshi.js"></script>
+<script src="content/song/04-jingkang.js"></script>
+<script src="content/song/05-south-song.js"></script>
+<script src="content/song/06-economy.js"></script>
+<script src="content/song/07-song-poems.js"></script>
+<script src="content/song/08-neo-confucianism.js"></script>
+<script src="content/song/09-liao.js"></script>
+<script src="content/song/10-jin.js"></script>
+<script src="content/song/11-xixia.js"></script>
+<script src="content/yuan/01-genghis.js"></script>
+<script src="content/yuan/02-kublai.js"></script>
+<script src="content/yuan/03-xingsheng.js"></script>
+<script src="content/yuan/04-yuan-culture.js"></script>
+<script src="content/yuan/05-mongol-empire.js"></script>
+<script src="content/yuan/06-yuan-decline.js"></script>
+<script src="content/ming/01-zhu-yuanzhang.js"></script>
+<script src="content/ming/02-yongle.js"></script>
+<script src="content/ming/03-zheng-he.js"></script>
+<script src="content/ming/04-tumu.js"></script>
+<script src="content/ming/05-zhang-juzheng.js"></script>
+<script src="content/ming/06-dongchang.js"></script>
+<script src="content/ming/07-hai-jin.js"></script>
+<script src="content/ming/08-wang-yangming.js"></script>
+<script src="content/ming/09-ming-culture.js"></script>
+<script src="content/ming/10-ming-economy.js"></script>
+<script src="content/ming/11-ming-downfall.js"></script>
+<script src="content/qing/01-manchu.js"></script>
+<script src="content/qing/02-kangxi.js"></script>
+<script src="content/qing/03-qianlong.js"></script>
+<script src="content/qing/04-yongzheng.js"></script>
+<script src="content/qing/05-qing-territory.js"></script>
+<script src="content/qing/06-opium-war.js"></script>
+<script src="content/qing/07-taiping.js"></script>
+<script src="content/qing/08-yangwu.js"></script>
+<script src="content/qing/09-jiawu.js"></script>
+<script src="content/qing/10-wuxu.js"></script>
+<script src="content/qing/11-xinhai.js"></script>
+<script src="content/qing/12-qing-culture.js"></script>
+<script src="content/qing/13-qing-economy.js"></script>
+<script src="content/roc/01-xinhai.js"></script>
+<script src="content/roc/02-beiyang.js"></script>
+<script src="content/roc/03-new-culture.js"></script>
+<script src="content/roc/04-northern-expedition.js"></script>
+<script src="content/roc/05-nanjing-decade.js"></script>
+<script src="content/roc/06-war-of-resistance.js"></script>
+<script src="content/roc/07-civil-war.js"></script>
+<script src="content/roc/08-roc-culture.js"></script>
+<script src="content/roc/09-roc-economy.js"></script>
+<script src="content/prc1/01-founding.js"></script>
+<script src="content/prc1/02-land-reform.js"></script>
+<script src="content/prc1/03-korea-war.js"></script>
+<script src="content/prc1/04-five-year.js"></script>
+<script src="content/prc1/05-exploration.js"></script>
+<script src="content/prc1/06-culture-revolution.js"></script>
+<script src="content/prc1/07-prc1-economy.js"></script>
+<script src="content/prc2/01-third-plenum.js"></script>
+<script src="content/prc2/02-sez.js"></script>
+<script src="content/prc2/03-wto.js"></script>
+<script src="content/prc2/04-urbanization.js"></script>
+<script src="content/prc2/05-internet.js"></script>
+<script src="content/prc2/06-reform-culture.js"></script>
+<script src="content/prc2/07-new-era.js"></script>
+<script src="content/prc2/08-prc2-economy.js"></script>
+
+</body>
+</html>

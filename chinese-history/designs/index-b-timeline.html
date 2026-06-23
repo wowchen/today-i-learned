@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国历史学习站(设计稿 B · 编年时间线)</title>
+<style>
+  :root{
+    --bg:#FAF8F3;
+    --paper:#FFFFFF;
+    --ink:#1A1814;
+    --body:#403A30;
+    --note:#8A7E68;
+    --line:#E0D9C9;
+    --line-2:#2E2A22;
+    --red:#B22222;            /* 朱红 */
+    --red-soft:#F5E3E0;
+    --gold:#A07A36;
+    --jade:#3F6B4E;
+    --serif:"Source Serif Pro","Songti SC","STSong",Georgia,serif;
+    --sans:"Inter","Helvetica Neue","PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:var(--serif);
+    line-height:1.7; -webkit-font-smoothing:antialiased; font-size:16px;}
+  .wrap{width:100%; max-width:1080px; margin:0 auto; padding:0 32px}
+  em{font-style:normal; color:var(--red)}
+
+  /* === Top === */
+  .top{padding:36px 0 0; display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--sans); font-size:11px; letter-spacing:.18em;
+    color:var(--note); text-transform:uppercase; font-weight:500}
+  .top b{color:var(--ink); font-weight:600}
+
+  /* === Hero === */
+  header{padding:54px 0 36px; display:grid; grid-template-columns:1.2fr 1fr; gap:54px;
+    border-bottom:1px solid var(--line); align-items:end}
+  .h-left h1{font-family:var(--serif); font-size:clamp(2.6rem,5.6vw,4.2rem);
+    font-weight:700; letter-spacing:-.012em; line-height:1.04; margin:0;
+    color:var(--ink)}
+  .h-left h1 em{color:var(--red)}
+  .h-left .sub{font-family:var(--sans); font-size:.78rem; font-weight:600;
+    letter-spacing:.36em; color:var(--note); margin:20px 0 0; text-transform:uppercase}
+  .h-right p{font-size:1.02rem; color:var(--body); line-height:1.75; margin:0;
+    max-width:42ch}
+  .h-right p b{color:var(--ink)}
+
+  .meta{display:grid; grid-template-columns:repeat(4,1fr);
+    border-bottom:1px solid var(--line); padding:22px 0; margin-bottom:60px}
+  .meta > div{padding:0 24px; border-right:1px solid var(--line)}
+  .meta > div:last-child{border-right:0}
+  .meta .k{font-family:var(--sans); font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500; margin:0 0 6px;
+    display:flex; align-items:center; gap:6px}
+  .meta .k::before{content:""; width:6px; height:6px; background:var(--red); border-radius:50%}
+  .meta .v{font-size:1.15rem; font-weight:700; letter-spacing:-.01em; color:var(--ink); margin:0;
+    font-family:var(--serif)}
+  .meta .v em{color:var(--red)}
+
+  /* === Section head === */
+  .sec-head{display:flex; justify-content:space-between; align-items:baseline;
+    padding-bottom:14px; border-bottom:2px solid var(--ink); margin-bottom:36px}
+  .sec-head h2{font-family:var(--sans); font-size:.82rem; font-weight:700; letter-spacing:.24em;
+    text-transform:uppercase; margin:0}
+  .sec-head h2 .red{color:var(--red); margin-right:8px}
+  .sec-head .right{font-family:var(--sans); font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500}
+  .sec-head .right b{color:var(--ink); font-weight:600}
+
+  /* === Timeline === */
+  .timeline{position:relative; padding:20px 0 30px 0;}
+  /* central spine line */
+  .timeline::before{
+    content:""; position:absolute; left:140px; top:0; bottom:0; width:1px;
+    background:linear-gradient(to bottom, var(--red), var(--gold) 30%, var(--note) 80%);
+    opacity:.7;
+  }
+  .era{display:grid; grid-template-columns:120px 40px 1fr; gap:0;
+    margin-bottom:40px; align-items:flex-start; position:relative;}
+  .era .year{
+    font-family:var(--sans); font-size:.82rem; font-weight:600; letter-spacing:.06em;
+    color:var(--ink); text-align:right; padding-top:6px; font-variant-numeric:tabular-nums;
+  }
+  .era .year small{display:block; font-size:.7rem; color:var(--note); font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase; margin-top:2px}
+  .era .dot{position:relative; height:24px}
+  .era .dot::before{
+    content:""; position:absolute; left:14px; top:8px; width:14px; height:14px;
+    background:var(--paper); border:2px solid var(--red); border-radius:50%;
+    box-shadow:0 0 0 5px var(--red-soft);
+  }
+  .era:hover .dot::before{ background:var(--red); }
+  .era.mythic .dot::before{ border-style:dashed; border-color:var(--gold);
+    box-shadow:0 0 0 5px rgba(160,122,54,.14); }
+  .era.modern .dot::before{ border-color:var(--jade);
+    box-shadow:0 0 0 5px rgba(63,107,78,.14); }
+
+  .era .card{
+    background:var(--paper); border:1px solid var(--line); padding:22px 24px;
+    transition:border-color .2s, transform .2s;
+  }
+  .era:hover .card{ border-color:var(--red); transform:translateX(3px); }
+  .era .card h3{font-family:var(--serif); font-size:1.45rem; font-weight:700;
+    margin:0 0 6px; letter-spacing:-.005em; color:var(--ink)}
+  .era .card h3 em{color:var(--red); font-size:.94rem; font-weight:400;
+    margin-left:10px; font-family:var(--sans); letter-spacing:.04em}
+  .era .card .tag{
+    display:inline-block; font-family:var(--sans); font-size:.66rem; font-weight:600;
+    letter-spacing:.18em; color:var(--gold); border:1px solid var(--gold);
+    padding:2px 8px; margin-bottom:10px; text-transform:uppercase;
+  }
+  .era.mythic .card .tag{ color:var(--gold); border-color:var(--gold) }
+  .era.imperial .card .tag{ color:var(--red); border-color:var(--red) }
+  .era.modern .card .tag{ color:var(--jade); border-color:var(--jade) }
+  .era .card p{font-size:.96rem; color:var(--body); line-height:1.68; margin:0; max-width:60ch}
+  .era .card .figures{
+    margin-top:12px; padding-top:10px; border-top:1px dotted var(--line);
+    font-family:var(--sans); font-size:.78rem; color:var(--note); letter-spacing:.04em;
+  }
+  .era .card .figures b{color:var(--ink); font-weight:600; margin-right:4px}
+
+  footer{margin-top:60px; padding:24px 0 60px; border-top:1px solid var(--line-2);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-family:var(--sans); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--note); font-weight:500}
+  footer b{color:var(--ink); font-weight:600}
+  footer .red{color:var(--red)}
+
+  @media (max-width:760px){
+    header{grid-template-columns:1fr; gap:24px}
+    .wrap{padding:0 22px}
+    .timeline::before{left:80px}
+    .era{grid-template-columns:60px 28px 1fr}
+    .era .year{font-size:.74rem}
+    .era .dot::before{left:8px; width:12px; height:12px}
+    .meta{grid-template-columns:repeat(2,1fr)}
+    .meta > div:nth-child(2n){border-right:0}
+    .meta > div:nth-child(1), .meta > div:nth-child(2){border-bottom:1px solid var(--line); padding-bottom:14px; margin-bottom:14px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="top">
+    <span>Today I Learned <b>/ Chinese History</b></span>
+    <span>2026 — N°11</span>
+  </div>
+
+  <header>
+    <div class="h-left">
+      <h1>中国<em>历史</em><br>5000 年一线读完</h1>
+      <p class="sub">A Layperson&rsquo;s Reader · Mythic → Modern</p>
+    </div>
+    <div class="h-right">
+      <p>从盘古开天、三皇五帝的<b>神话开篇</b>,到夏商周秦汉、隋唐宋元明清的<b>王朝兴替</b>,
+        再到民国与新中国的<b>百年现代化</b>。沿同一根时间轴一气读完,把"中国历史"先建立起整体的画面感。</p>
+    </div>
+  </header>
+
+  <div class="meta">
+    <div><p class="k">Periods</p><p class="v"><em>14</em> 卷</p></div>
+    <div><p class="k">Span</p><p class="v">5000<em>+</em> 年</p></div>
+    <div><p class="k">View</p><p class="v">Timeline</p></div>
+    <div><p class="k">Cost</p><p class="v">¥ <em>0</em></p></div>
+  </div>
+
+  <div class="sec-head">
+    <h2><span class="red">/</span>Timeline · 编年总览</h2>
+    <span class="right"><b>Mythic</b> &middot; <b>Imperial</b> &middot; <b>Modern</b></span>
+  </div>
+
+  <div class="timeline">
+
+    <a class="era mythic" href="#">
+      <div class="year">上古<small>~ 前2070</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Mythic · 神话</span>
+        <h3>神话与传说 <em>盘古·三皇五帝</em></h3>
+        <p>盘古开天、女娲补天、伏羲画卦、神农尝草;黄帝战蚩尤、尧舜禹禅让——中华叙事的总开篇。</p>
+        <p class="figures"><b>关键词</b>盘古 女娲 伏羲 神农 黄帝 尧舜禹</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">前2070<small>– 前256</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 古典</span>
+        <h3>夏商周 <em>礼乐肇始</em></h3>
+        <p>夏启家天下、商汤革命、武王伐纣;甲骨文、青铜礼器、井田与封建,中华文明的"古典开端"。</p>
+        <p class="figures"><b>关键词</b>夏启 武丁 武王 周公 井田 封建</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">前770<small>– 前221</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 思想</span>
+        <h3>春秋战国 <em>百家争鸣</em></h3>
+        <p>礼崩乐坏、列国兼并;孔孟老庄、韩非墨翟,中国思想的"轴心时代"。</p>
+        <p class="figures"><b>关键词</b>孔子 老子 孟子 庄子 商鞅 苏秦张仪</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">前221<small>– 前207</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 一统</span>
+        <h3>秦 <em>一统六合</em></h3>
+        <p>商鞅变法奠基、嬴政扫六合;书同文车同轨、郡县制立、长城与始皇陵——短而决定后世两千年的格局。</p>
+        <p class="figures"><b>关键词</b>秦始皇 李斯 郡县制 长城 焚书</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">前202<small>– 220</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 帝国</span>
+        <h3>两汉 <em>帝国奠基</em></h3>
+        <p>楚汉之争、文景之治、汉武雄略,丝路通西域;独尊儒术、察举取士、太史公作《史记》。</p>
+        <p class="figures"><b>关键词</b>刘邦 文景 汉武帝 张骞 司马迁 王莽 光武中兴</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">220<small>– 589</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 分合</span>
+        <h3>三国两晋南北朝 <em>分合之间</em></h3>
+        <p>群雄逐鹿、五胡入华;九品中正、佛教东传、玄学清谈,北朝民族大融合为隋唐铺路。</p>
+        <p class="figures"><b>关键词</b>曹操 诸葛亮 司马氏 五胡 北魏孝文帝</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">581<small>– 907</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 盛世</span>
+        <h3>隋唐 <em>盛世气象</em></h3>
+        <p>大运河贯南北、科举开寒门;贞观开元,长安万邦来朝;诗仙诗圣,中华古典文明的高峰。</p>
+        <p class="figures"><b>关键词</b>隋炀帝 唐太宗 武则天 玄宗 李白杜甫 安史之乱</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">907/960<small>– 1279</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 文盛</span>
+        <h3>宋辽金西夏 <em>文盛武衰</em></h3>
+        <p>陈桥兵变、王安石变法、靖康之耻、临安偏安;活字印刷、火药指南针、宋词理学,经济文化的另一座高峰。</p>
+        <p class="figures"><b>关键词</b>赵匡胤 王安石 苏轼 朱熹 岳飞</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">1271<small>– 1368</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 草原</span>
+        <h3>元 <em>草原王朝</em></h3>
+        <p>成吉思汗西征、忽必烈定都大都;行省制开创,横跨欧亚的世界帝国与中原王朝的交叠。</p>
+        <p class="figures"><b>关键词</b>成吉思汗 忽必烈 行省制 元曲</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">1368<small>– 1644</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 内圣</span>
+        <h3>明 <em>内圣外王</em></h3>
+        <p>朱元璋起于布衣、永乐迁都北京、郑和七下西洋;内阁、东厂、张居正改革,海禁与白银时代。</p>
+        <p class="figures"><b>关键词</b>朱元璋 朱棣 郑和 张居正 王阳明</p>
+      </div>
+    </a>
+
+    <a class="era imperial" href="#">
+      <div class="year">1644<small>– 1912</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Imperial · 终章</span>
+        <h3>清 <em>帝制终章</em></h3>
+        <p>满洲入关、康乾盛世、版图大成;鸦片战争始受冲击,洋务·戊戌·辛亥,两千年帝制谢幕。</p>
+        <p class="figures"><b>关键词</b>康熙 雍正 乾隆 林则徐 李鸿章 慈禧 孙中山</p>
+      </div>
+    </a>
+
+    <a class="era modern" href="#">
+      <div class="year">1912<small>– 1949</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Modern · 救亡</span>
+        <h3>民国 <em>救亡图存</em></h3>
+        <p>辛亥、北洋、新文化、北伐、抗战、内战;旧邦新命,中国向现代国家的痛苦转型。</p>
+        <p class="figures"><b>关键词</b>孙中山 袁世凯 蒋介石 毛泽东 新文化 抗战</p>
+      </div>
+    </a>
+
+    <a class="era modern" href="#">
+      <div class="year">1949<small>– 1978</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Modern · 建国</span>
+        <h3>新中国前期 <em>建国创业</em></h3>
+        <p>1949 立国、土改抗美、一化三改、波折与探索;一个农业大国走向独立工业体系的三十年。</p>
+        <p class="figures"><b>关键词</b>开国大典 土改 一化三改 抗美援朝 探索</p>
+      </div>
+    </a>
+
+    <a class="era modern" href="#">
+      <div class="year">1978<small>– 至今</small></div>
+      <div class="dot"></div>
+      <div class="card">
+        <span class="tag">Modern · 复兴</span>
+        <h3>改革开放至今 <em>复兴之路</em></h3>
+        <p>1978 改革开放,沿海起步、加入 WTO、城镇化与互联网;迈向现代化与"中华民族伟大复兴"。</p>
+        <p class="figures"><b>关键词</b>邓小平 改革开放 加入WTO 城镇化 复兴</p>
+      </div>
+    </a>
+
+  </div>
+
+  <footer>
+    <span><b>TIL</b> · 今日得到 · Chinese History</span>
+    <span class="red">不戏说 · 不阴谋论 · 不焦虑</span>
+    <span>Static · Offline · v0.1</span>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国历史学习站(设计稿 C · 朝代瓦片)</title>
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ink:#0E0E0E;
+    --note:#7C7C7C;
+    --line:#E6E4DF;
+    --line-2:#1A1A1A;
+    --red:#A52A2A;            /* 朱红(主强调) */
+    --gold:#A07A36;           /* 唐金 */
+    --jade:#3F6B4E;           /* 宋绿 */
+    --indigo:#33446B;         /* 明青 */
+    --crimson:#5C1F1F;        /* 秦汉黑红 */
+    --slate:#4A4640;          /* 民国铅灰 */
+    --rose:#C04E4E;           /* 现代红 */
+    --mist:#9B8D7B;           /* 三国南北朝灰 */
+    --plum:#6B3E4E;           /* 清紫绛 */
+    --bronze:#7E6238;          /* 夏商周青铜 */
+    --sky:#5A7A8E;             /* 春秋战国天青 */
+    --sans:"Inter","Helvetica Neue","PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+    --serif:"Source Serif Pro","Songti SC",Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:var(--sans);
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+    font-feature-settings:"ss01"; font-size:16px;}
+  .wrap{width:100%; max-width:1180px; margin:0 auto; padding:0 36px}
+
+  /* === Top === */
+  .top{padding:34px 0 0; display:flex; justify-content:space-between; align-items:center;
+    font-size:11px; letter-spacing:.18em; color:var(--note); text-transform:uppercase; font-weight:500}
+  .top b{color:var(--ink); font-weight:600}
+  .top .pill{color:var(--red); border:1px solid var(--red); padding:3px 8px;
+    letter-spacing:.16em; font-weight:600}
+
+  /* === Hero === */
+  header{padding:80px 0 60px; max-width:880px}
+  h1.nm{font-size:clamp(2.6rem,6.4vw,4.6rem); font-weight:800; letter-spacing:-.03em;
+    line-height:1.02; margin:0; color:var(--ink); font-family:var(--sans)}
+  h1.nm em{font-style:normal; color:var(--red); position:relative; padding-right:.18em}
+  h1.nm em::after{content:""; position:absolute; right:-.04em; bottom:.12em;
+    width:.18em; height:.18em; background:var(--red); border-radius:50%}
+  .sub{margin:32px 0 0; font-size:1.08rem; color:var(--note); max-width:52ch; line-height:1.6}
+  .sub b{color:var(--ink); font-weight:600}
+  .sub mark{background:rgba(165,42,42,.1); color:var(--red); padding:1px 6px; font-weight:600}
+
+  /* meta strip */
+  .meta{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line-2);
+    border-bottom:1px solid var(--line); padding:20px 0; margin:0 0 60px}
+  .meta > div{padding:0 22px; border-right:1px solid var(--line)}
+  .meta > div:last-child{border-right:0}
+  .meta .k{font-size:10px; letter-spacing:.2em; color:var(--note); text-transform:uppercase;
+    font-weight:600; margin:0 0 4px}
+  .meta .v{font-size:1.08rem; font-weight:700; letter-spacing:-.01em; margin:0; color:var(--ink)}
+  .meta .v em{color:var(--red)}
+
+  /* === Section head === */
+  .sec-head{display:flex; justify-content:space-between; align-items:baseline;
+    padding-bottom:14px; border-bottom:1px solid var(--line-2); margin-bottom:0}
+  .sec-head h2{font-size:.78rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase;
+    margin:0; color:var(--ink)}
+  .sec-head h2 .red{color:var(--red); margin-right:8px}
+  .sec-head .right{font-size:11px; letter-spacing:.18em; color:var(--note);
+    text-transform:uppercase; font-weight:500}
+  .sec-head .right b{color:var(--ink); font-weight:600}
+
+  /* === Tile grid === */
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px;
+    grid-auto-rows:200px}
+  .tile{
+    position:relative; padding:22px 22px 20px; cursor:pointer;
+    color:#fff; background:var(--brand); overflow:hidden;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+    display:flex; flex-direction:column; justify-content:space-between;
+    text-decoration:none;
+  }
+  .tile.feature{grid-column:span 2; grid-row:span 2}
+  .tile::after{content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(140% 110% at 100% 0%, rgba(255,255,255,.18), transparent 55%)}
+  .tile:hover{transform:translateY(-3px); box-shadow:0 18px 40px -16px var(--brand)}
+  .tile .head{display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:1}
+  .tile .num{font-size:.7rem; letter-spacing:.22em; font-weight:600;
+    color:rgba(255,255,255,.7); text-transform:uppercase; font-variant-numeric:tabular-nums}
+  .tile .tag{font-size:.66rem; letter-spacing:.18em; font-weight:600; text-transform:uppercase;
+    color:rgba(255,255,255,.8); border:1px solid rgba(255,255,255,.35); padding:3px 8px}
+  .tile h3{font-family:var(--sans); font-size:1.5rem; font-weight:700; letter-spacing:-.012em;
+    margin:auto 0 6px; line-height:1.18; position:relative; z-index:1}
+  .tile.feature h3{font-size:2.1rem; letter-spacing:-.02em}
+  .tile .zh{font-size:.86rem; font-weight:500; opacity:.88; margin-bottom:8px; position:relative; z-index:1}
+  .tile .yr{font-size:.74rem; font-weight:600; letter-spacing:.06em;
+    color:rgba(255,255,255,.78); font-variant-numeric:tabular-nums;
+    border-top:1px solid rgba(255,255,255,.25); padding-top:10px; position:relative; z-index:1;
+    font-family:var(--serif)}
+  .tile .yr b{color:#fff; font-weight:600; margin-right:6px}
+  .tile.feature .desc{font-size:.84rem; opacity:.82; line-height:1.55; margin:8px 0 0;
+    max-width:36ch; position:relative; z-index:1}
+  .tile .ghost{position:absolute; right:-.06em; bottom:-.32em; font-family:var(--serif);
+    font-size:9rem; font-weight:700; line-height:1; color:rgba(255,255,255,.12);
+    letter-spacing:-.04em; pointer-events:none}
+  .tile.feature .ghost{font-size:14rem}
+
+  /* === About === */
+  .about{padding:80px 0 30px; display:grid; grid-template-columns:200px 1fr; gap:48px}
+  .about h3{font-size:.78rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; margin:0}
+  .about h3 .red{color:var(--red); margin-right:8px}
+  .about .body{font-size:1.04rem; color:var(--note); line-height:1.75; max-width:60ch}
+  .about .body b{color:var(--ink); font-weight:600}
+  .about .body p{margin:0 0 14px}
+  .about ul{margin:14px 0 0; padding-left:0; list-style:none}
+  .about ul li{padding-left:20px; position:relative; color:var(--ink); font-weight:500; margin-bottom:8px}
+  .about ul li::before{content:""; position:absolute; left:0; top:.7em; width:8px; height:2px; background:var(--red)}
+
+  footer{margin-top:100px; border-top:1px solid var(--line-2); padding:24px 0 60px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--note); font-weight:500}
+  footer b{color:var(--ink); font-weight:600}
+
+  @media (max-width:980px){
+    .grid{grid-template-columns:repeat(3,1fr); grid-auto-rows:190px}
+    .tile.feature{grid-column:span 3}
+  }
+  @media (max-width:680px){
+    .wrap{padding:0 22px}
+    header{padding:50px 0 36px}
+    .grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:180px}
+    .tile.feature{grid-column:span 2}
+    .meta{grid-template-columns:repeat(2,1fr)}
+    .meta > div:nth-child(2n){border-right:0}
+    .meta > div:nth-child(1), .meta > div:nth-child(2){border-bottom:1px solid var(--line); padding-bottom:14px; margin-bottom:14px}
+    .about{grid-template-columns:1fr; gap:18px}
+  }
+  @media (max-width:480px){
+    .grid{grid-template-columns:1fr}
+    .tile.feature{grid-column:span 1}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="top">
+    <span>Today I Learned <b>/ Chinese History</b></span>
+    <span class="pill">第 11 卷 · 2026</span>
+  </div>
+
+  <header>
+    <h1 class="nm">中国<em>历史</em><br>从神话到现代</h1>
+    <p class="sub">从盘古开天、三皇五帝,到夏商周秦汉、隋唐宋元明清,再到民国与新中国。
+      <mark>14 个阶段</mark> 一图读完五千年,先有<b>整体画面感</b>,再谈细节。</p>
+  </header>
+
+  <div class="meta">
+    <div><p class="k">Periods</p><p class="v"><em>14</em> 卷</p></div>
+    <div><p class="k">Span</p><p class="v">5000<em>+</em> 年</p></div>
+    <div><p class="k">View</p><p class="v">Bento</p></div>
+    <div><p class="k">Cost</p><p class="v">¥ <em>0</em></p></div>
+  </div>
+
+  <div class="sec-head">
+    <h2><span class="red">/</span>Periods · 朝代瓦片</h2>
+    <span class="right"><b>01</b> — <b>14</b></span>
+  </div>
+
+  <!-- Tiles: 朝代色码,feature tile 给"神话开篇" -->
+  <div class="grid">
+
+    <a class="tile feature" href="#" style="--brand:var(--gold)">
+      <span class="ghost">壹</span>
+      <div class="head"><span class="num">01 · 神话</span><span class="tag">Mythic</span></div>
+      <div>
+        <h3>神话与传说</h3>
+        <div class="zh">盘古·三皇五帝</div>
+        <p class="desc">盘古开天、女娲补天、伏羲画卦、神农尝草;黄帝战蚩尤、尧舜禹禅让——中华叙事的总开篇。</p>
+      </div>
+      <div class="yr"><b>上古</b>~ 前 2070</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--bronze)">
+      <span class="ghost">貳</span>
+      <div class="head"><span class="num">02</span><span class="tag">古典</span></div>
+      <h3>夏商周</h3>
+      <div class="zh">礼乐肇始</div>
+      <div class="yr"><b>前 2070</b>– 前 256</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--sky)">
+      <span class="ghost">叁</span>
+      <div class="head"><span class="num">03</span><span class="tag">思想</span></div>
+      <h3>春秋战国</h3>
+      <div class="zh">百家争鸣</div>
+      <div class="yr"><b>前 770</b>– 前 221</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--crimson)">
+      <span class="ghost">肆</span>
+      <div class="head"><span class="num">04</span><span class="tag">一统</span></div>
+      <h3>秦</h3>
+      <div class="zh">一统六合</div>
+      <div class="yr"><b>前 221</b>– 前 207</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--red)">
+      <span class="ghost">伍</span>
+      <div class="head"><span class="num">05</span><span class="tag">帝国</span></div>
+      <h3>两汉</h3>
+      <div class="zh">帝国奠基</div>
+      <div class="yr"><b>前 202</b>– 220</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--mist)">
+      <span class="ghost">陸</span>
+      <div class="head"><span class="num">06</span><span class="tag">分合</span></div>
+      <h3>三国两晋南北朝</h3>
+      <div class="zh">分合之间</div>
+      <div class="yr"><b>220</b>– 589</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--gold)">
+      <span class="ghost">柒</span>
+      <div class="head"><span class="num">07</span><span class="tag">盛世</span></div>
+      <h3>隋唐</h3>
+      <div class="zh">盛世气象</div>
+      <div class="yr"><b>581</b>– 907</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--jade)">
+      <span class="ghost">捌</span>
+      <div class="head"><span class="num">08</span><span class="tag">文盛</span></div>
+      <h3>宋辽金西夏</h3>
+      <div class="zh">文盛武衰</div>
+      <div class="yr"><b>907/960</b>– 1279</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--sky)">
+      <span class="ghost">玖</span>
+      <div class="head"><span class="num">09</span><span class="tag">草原</span></div>
+      <h3>元</h3>
+      <div class="zh">草原王朝</div>
+      <div class="yr"><b>1271</b>– 1368</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--indigo)">
+      <span class="ghost">拾</span>
+      <div class="head"><span class="num">10</span><span class="tag">内圣</span></div>
+      <h3>明</h3>
+      <div class="zh">内圣外王</div>
+      <div class="yr"><b>1368</b>– 1644</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--plum)">
+      <span class="ghost">壹壹</span>
+      <div class="head"><span class="num">11</span><span class="tag">终章</span></div>
+      <h3>清</h3>
+      <div class="zh">帝制终章</div>
+      <div class="yr"><b>1644</b>– 1912</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--slate)">
+      <span class="ghost">壹貳</span>
+      <div class="head"><span class="num">12 · 近代</span><span class="tag">Modern</span></div>
+      <h3>民国</h3>
+      <div class="zh">救亡图存</div>
+      <div class="yr"><b>1912</b>– 1949</div>
+    </a>
+
+    <a class="tile" href="#" style="--brand:var(--rose)">
+      <span class="ghost">壹叁</span>
+      <div class="head"><span class="num">13 · 当代</span><span class="tag">Modern</span></div>
+      <h3>新中国前期</h3>
+      <div class="zh">建国创业</div>
+      <div class="yr"><b>1949</b>– 1978</div>
+    </a>
+
+    <a class="tile feature" href="#" style="--brand:var(--red)">
+      <span class="ghost">壹肆</span>
+      <div class="head"><span class="num">14 · 当代</span><span class="tag">Modern</span></div>
+      <div>
+        <h3>改革开放至今</h3>
+        <div class="zh">复兴之路</div>
+        <p class="desc">1978 改革开放,沿海起步、加入 WTO、城镇化与互联网;迈向现代化与"中华民族伟大复兴"。</p>
+      </div>
+      <div class="yr"><b>1978</b>– 至今</div>
+    </a>
+
+  </div>
+
+  <div class="about">
+    <h3><span class="red">/</span>About</h3>
+    <div class="body">
+      <p>本站不戏说、不阴谋论;以朝代为卷、以白话为体,
+        给非历史专业的普通读者一个<b>整体而清晰</b>的中国历史画面感。</p>
+      <p>读完会清楚:</p>
+      <ul>
+        <li>每个朝代<b>大致在做什么</b>、为何兴废;</li>
+        <li>哪些是<b>关键节点</b>(秦统一、汉武、唐盛、靖康、辛亥…);</li>
+        <li>制度、思想、版图、人物如何<b>一线相连</b>。</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <span><b>TIL</b> · 今日得到 · Chinese History</span>
+    <span>不戏说 · 不阴谋论 · 大白话</span>
+    <span>Static · Offline · v0.1</span>
+  </footer>
+
+</div>
+</body>
+</html>

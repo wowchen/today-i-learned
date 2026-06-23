@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国历史学习站(设计稿 A · 卷轴册页)</title>
+<style>
+  :root{
+    --paper:#F7F0DF;
+    --paper-2:#EFE5CB;
+    --ink:#1F1812;
+    --body:#3D2F1F;
+    --note:#7E6A4E;
+    --rule:#C9B387;
+    --rule-dk:#9C7F4E;
+    --seal:#B22222;          /* 朱印红 */
+    --seal-soft:#F0D8D2;
+    --gold:#876538;
+    --songti:"Songti SC","STSong","SimSun","Source Han Serif SC",serif;
+    --kaiti:"Kaiti SC","STKaiti","KaiTi","DFKai-SB",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--songti);
+    line-height:1.85; -webkit-font-smoothing:antialiased; font-size:16.5px;
+    background-image:
+      radial-gradient(rgba(135,101,56,.06) 1px,transparent 1px),
+      radial-gradient(rgba(135,101,56,.03) 1px,transparent 1px);
+    background-size:7px 7px, 19px 19px;}
+  .wrap{width:100%; max-width:760px; margin:0 auto; padding:0 32px}
+
+  /* === Top band 上栏 === */
+  .topband{display:flex; justify-content:space-between; align-items:center;
+    padding:18px 0 14px; font-family:var(--kaiti); font-size:.95rem; color:var(--gold);
+    border-bottom:1px double var(--rule)}
+  .topband b{color:var(--seal); font-weight:400; letter-spacing:.12em}
+
+  /* === Title 题签 === */
+  header{padding:60px 0 28px; text-align:center; position:relative}
+  .eyebrow{font-family:var(--kaiti); font-size:.92rem; letter-spacing:.6em;
+    color:var(--gold); margin:0 0 22px; padding-left:.6em}
+  h1.title{font-family:var(--songti); font-weight:700; font-size:clamp(3rem,8.4vw,5rem);
+    letter-spacing:.18em; line-height:1; margin:0; padding-left:.18em; color:var(--ink);
+    text-shadow:1px 1px 0 rgba(135,101,56,.18)}
+  h1.title em{font-style:normal; color:var(--seal)}
+  .subtitle-en{font-family:var(--sans); font-size:.78rem; font-weight:600;
+    letter-spacing:.42em; color:var(--note); margin:22px 0 0; text-transform:uppercase}
+  .seal-stamp{display:inline-block; border:2px solid var(--seal); color:var(--seal);
+    font-family:var(--kaiti); font-size:.78rem; font-weight:700; letter-spacing:.18em;
+    padding:6px 12px; margin-top:22px; transform:rotate(-3deg); background:var(--seal-soft)}
+
+  /* === Preface 序 === */
+  .preface{max-width:620px; margin:32px auto 8px; text-align:justify;
+    color:var(--body); font-size:1.02rem; line-height:1.95; text-indent:2em}
+  .preface b{color:var(--ink)}
+  .ornament{text-align:center; padding:18px 0 24px; color:var(--rule-dk); font-size:1.2rem;
+    letter-spacing:1em; padding-left:1em}
+
+  /* === Chapter list 目录 === */
+  section.toc{margin:18px 0 36px}
+  .toc-head{text-align:center; margin-bottom:30px}
+  .toc-head h2{display:inline-block; font-family:var(--songti); font-weight:700; font-size:1.45rem;
+    letter-spacing:.32em; padding-left:.32em; padding-bottom:8px; margin:0;
+    border-bottom:2px solid var(--gold); color:var(--ink)}
+  .toc-head .lat{font-family:var(--sans); font-size:.72rem; font-weight:600;
+    letter-spacing:.36em; color:var(--note); margin-top:12px; text-transform:uppercase}
+
+  /* 每一卷一行,纵向条目;前置朱印数字 + 朝代名 + 起讫年代 + 一句话 */
+  .vol{display:grid; grid-template-columns:56px 1fr 130px; gap:18px;
+    padding:22px 4px 22px 0; border-bottom:1px solid var(--rule);
+    align-items:baseline; transition:background .2s, padding-left .2s}
+  .vol:hover{background:rgba(178,34,34,.04); padding-left:6px}
+  .vol .seal-num{
+    width:48px; height:48px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--kaiti); font-weight:700; font-size:1.05rem; color:var(--seal);
+    border:2px solid var(--seal); background:rgba(178,34,34,.05);
+    transform:rotate(-4deg); letter-spacing:0;
+  }
+  .vol .body h3{font-family:var(--songti); font-weight:700; font-size:1.35rem;
+    margin:0 0 4px; letter-spacing:.04em; color:var(--ink)}
+  .vol .body h3 em{font-style:normal; color:var(--seal); margin-left:8px; font-size:.96rem;
+    font-weight:400; font-family:var(--kaiti)}
+  .vol .body p{margin:0; font-size:.95rem; color:var(--body); line-height:1.7;
+    text-align:justify}
+  .vol .era{text-align:right; font-family:var(--kaiti); font-size:.88rem; color:var(--note);
+    letter-spacing:.04em; padding-top:3px; white-space:nowrap}
+  .vol .era b{display:block; color:var(--gold); font-weight:400; font-size:.78rem;
+    letter-spacing:.18em; margin-bottom:3px}
+
+  /* mythic 标记 */
+  .vol.mythic .seal-num{border-style:dashed; background:transparent}
+  .vol.mythic .body h3{color:var(--gold)}
+
+  /* === Tally bar 算筹统计 === */
+  .tally{margin:30px 0 0; padding:24px 0; border-top:1px dashed var(--rule-dk);
+    border-bottom:1px dashed var(--rule-dk); display:grid;
+    grid-template-columns:repeat(4,1fr); gap:18px; text-align:center}
+  .tally .num{font-family:var(--songti); font-size:2.3rem; font-weight:700;
+    color:var(--seal); line-height:1; letter-spacing:.02em}
+  .tally .num small{color:var(--gold); font-size:.85rem; vertical-align:.2em; margin-left:2px}
+  .tally .lbl{font-family:var(--kaiti); font-size:.86rem; color:var(--note);
+    margin-top:8px; letter-spacing:.16em}
+
+  footer{padding:26px 0 50px; margin-top:24px; border-top:1px double var(--rule);
+    text-align:center; font-family:var(--kaiti); font-size:.85rem; color:var(--note);
+    letter-spacing:.18em}
+  footer b{color:var(--gold); font-weight:400}
+
+  @media (max-width:560px){
+    .wrap{padding:0 22px}
+    .vol{grid-template-columns:48px 1fr; gap:14px}
+    .vol .era{grid-column:2; text-align:left; margin-top:6px}
+    .tally{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Top -->
+  <div class="topband">
+    <span>今日得到 · <b>第拾壹册</b></span>
+    <span>丙午年 · 公元二〇二六</span>
+    <span>纯静 · 离线 · 大白话</span>
+  </div>
+
+  <!-- Title -->
+  <header>
+    <p class="eyebrow">· 中 国 历 史 学 习 站 ·</p>
+    <h1 class="title">中华<em>通</em>史</h1>
+    <p class="subtitle-en">A Layperson&rsquo;s Reader of Chinese History</p>
+    <span class="seal-stamp">大白话·从盘古至今</span>
+  </header>
+
+  <p class="preface">
+    自盘古开天、伏羲画卦,至共和肇建、改革开放,五千年风云人物兴废、制度礼仪损益,皆可读其大略而知其势。
+    本册以朝代为卷、以王纲为目、以白话为体,不求详尽,但求<b>"看得懂、记得住、串得起来"</b>——把神话、史实、制度、文化、版图与人物,顺着一条河,讲到今天。
+  </p>
+
+  <div class="ornament">§ &nbsp; ✦ &nbsp; § &nbsp; ✦ &nbsp; §</div>
+
+  <!-- TOC -->
+  <section class="toc">
+    <div class="toc-head">
+      <h2>本册十四卷</h2>
+      <div class="lat">Fourteen Volumes &middot; From Myth to Modern</div>
+    </div>
+
+    <a class="vol mythic" href="#">
+      <span class="seal-num">壹</span>
+      <div class="body">
+        <h3>神话与传说 <em>· 盘古·三皇五帝</em></h3>
+        <p>盘古开天、女娲补天、伏羲画卦、神农尝草,黄帝战蚩尤、尧舜禹禅让——中华叙事的总开篇。</p>
+      </div>
+      <div class="era"><b>Mythic</b>上古</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">貳</span>
+      <div class="body">
+        <h3>夏 商 周 <em>· 礼乐肇始</em></h3>
+        <p>夏启家天下、商汤革命、武王伐纣;甲骨文、青铜礼器、井田与封建,中华文明的"古典开端"。</p>
+      </div>
+      <div class="era"><b>约前2070–前256</b>夏商周</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">叁</span>
+      <div class="body">
+        <h3>春秋战国 <em>· 百家争鸣</em></h3>
+        <p>礼崩乐坏、列国兼并;孔孟老庄韩非墨翟,中国思想的"轴心时代"。</p>
+      </div>
+      <div class="era"><b>前770–前221</b>春秋战国</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">肆</span>
+      <div class="body">
+        <h3>秦 <em>· 一统六合</em></h3>
+        <p>商鞅变法奠基、嬴政扫六合;书同文车同轨、郡县制立、长城与始皇陵;短而决定后世两千年的格局。</p>
+      </div>
+      <div class="era"><b>前221–前207</b>秦</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">伍</span>
+      <div class="body">
+        <h3>两 汉 <em>· 帝国奠基</em></h3>
+        <p>楚汉之争、文景之治、汉武雄略,丝路通西域;独尊儒术、察举取士、太史公作《史记》。</p>
+      </div>
+      <div class="era"><b>前202–220</b>西汉·东汉</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">陸</span>
+      <div class="body">
+        <h3>三国两晋南北朝 <em>· 分合之间</em></h3>
+        <p>群雄逐鹿、五胡入华;九品中正、佛教东传、玄学清谈,北朝民族大融合为隋唐铺路。</p>
+      </div>
+      <div class="era"><b>220–589</b>魏晋南北朝</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">柒</span>
+      <div class="body">
+        <h3>隋 唐 <em>· 盛世气象</em></h3>
+        <p>大运河贯南北、科举开寒门;贞观开元,长安万邦来朝;诗仙诗圣,中华古典文明的高峰。</p>
+      </div>
+      <div class="era"><b>581–907</b>隋唐</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">捌</span>
+      <div class="body">
+        <h3>宋 辽 金 西夏 <em>· 文盛武衰</em></h3>
+        <p>陈桥兵变、王安石变法、靖康之耻、临安偏安;活字印刷、火药指南针、宋词理学,经济文化的另一座高峰。</p>
+      </div>
+      <div class="era"><b>907/960–1279</b>宋辽金</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">玖</span>
+      <div class="body">
+        <h3>元 <em>· 草原王朝</em></h3>
+        <p>成吉思汗西征、忽必烈定都大都;行省制开创,横跨欧亚的世界帝国与中原王朝的交叠。</p>
+      </div>
+      <div class="era"><b>1271–1368</b>元</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">拾</span>
+      <div class="body">
+        <h3>明 <em>· 内圣外王</em></h3>
+        <p>朱元璋起于布衣、永乐迁都北京、郑和七下西洋;内阁、东厂、张居正改革,海禁与白银时代。</p>
+      </div>
+      <div class="era"><b>1368–1644</b>明</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">拾壹</span>
+      <div class="body">
+        <h3>清 <em>· 帝制终章</em></h3>
+        <p>满洲入关、康乾盛世、版图大成;鸦片战争始受冲击,洋务·戊戌·辛亥,两千年帝制谢幕。</p>
+      </div>
+      <div class="era"><b>1644–1912</b>清</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">拾貳</span>
+      <div class="body">
+        <h3>民 国 <em>· 救亡图存</em></h3>
+        <p>辛亥、北洋、新文化、北伐、抗战、内战;旧邦新命,中国向现代国家的痛苦转型。</p>
+      </div>
+      <div class="era"><b>1912–1949</b>民国</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">拾叁</span>
+      <div class="body">
+        <h3>新中国前期 <em>· 建国创业</em></h3>
+        <p>1949 立国、土改抗美、一化三改、波折与探索;一个农业大国走向独立工业体系的三十年。</p>
+      </div>
+      <div class="era"><b>1949–1978</b>新中国前期</div>
+    </a>
+
+    <a class="vol" href="#">
+      <span class="seal-num">拾肆</span>
+      <div class="body">
+        <h3>改革开放至今 <em>· 复兴之路</em></h3>
+        <p>1978 改革开放,沿海起步、加入 WTO、城镇化与互联网;迈向现代化与"中华民族伟大复兴"。</p>
+      </div>
+      <div class="era"><b>1978–至今</b>当代中国</div>
+    </a>
+  </section>
+
+  <!-- Tally -->
+  <div class="tally">
+    <div><div class="num">14</div><div class="lbl">卷 / 章</div></div>
+    <div><div class="num">5000<small>+</small></div><div class="lbl">年</div></div>
+    <div><div class="num">25</div><div class="lbl">正史</div></div>
+    <div><div class="num">0<small>¥</small></div><div class="lbl">本站无费</div></div>
+  </div>
+
+  <footer>
+    大白话讲透中华通史 · 不戏说 · 不阴谋论<br>
+    <b>今日得到</b> · Today I Learned · 纯静态 · 离线可读
+  </footer>
+
+</div>
+</body>
+</html>
