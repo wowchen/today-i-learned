@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人工智能 · 视觉风格选型</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:16px/1.8 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0f1117;color:#e8edf6;padding:44px 20px}
+  .wrap{max-width:1040px;margin:0 auto}
+  h1{font-size:27px;letter-spacing:.5px;margin-bottom:6px}
+  p.sub{color:#9aa4b6;margin-bottom:8px;font-size:15px}
+  p.sub b{color:#e8edf6}
+  .note{font-size:13px;color:#76819a;margin-bottom:26px}
+  .new-tag{display:inline-block;background:#e4572e;color:#fff;font-size:11px;font-weight:800;border-radius:5px;padding:1px 8px;margin-left:8px;vertical-align:3px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+  a.card{display:block;background:#161b26;border:1px solid #232c3b;border-radius:16px;overflow:hidden;text-decoration:none;color:#e8edf6;transition:.16s}
+  a.card:hover{transform:translateY(-4px);border-color:#3a4760;box-shadow:0 16px 36px #0008}
+  .prev{height:128px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;position:relative;overflow:hidden;padding:14px}
+  .body{padding:18px 20px 20px}
+  .tag{display:inline-block;font-size:12px;font-weight:800;border-radius:6px;padding:2px 10px;margin-bottom:9px;color:#fff}
+  h2{font-size:18px;margin-bottom:7px}
+  .desc{font-size:13.5px;color:#9aa4b6}
+  .meta{font-size:12px;color:#76819a;margin-top:12px}
+  .meta b{color:#cdd6e4}
+  .old{margin-top:38px;border-top:1px solid #232c3b;padding-top:20px}
+  .old h3{font-size:15px;color:#9aa4b6;margin-bottom:4px}
+  .old p{font-size:13px;color:#76819a;margin-bottom:14px}
+  .old .row{display:flex;gap:12px;flex-wrap:wrap}
+  .old a{flex:1;min-width:180px;text-decoration:none;color:#cdd6e4;border:1px solid #232c3b;border-radius:11px;padding:12px 14px;font-size:13.5px;background:#12161f}
+  .old a:hover{border-color:#3a4760}
+  .old a b{display:block;font-size:14.5px;color:#e8edf6;margin-bottom:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>人工智能 · 视觉风格选型 <span class="new-tag">重做版</span></h1>
+  <p class="sub">这一轮的 3 款<b>换了"骨架"</b>,不再是"顶栏 + Bento + 卡片"那套家族通用布局——<b>各用一种全新的结构/交互范式</b>,刻意拉开和现有站的距离。</p>
+  <p class="note">同一节样例课(模块 4 第 1 课「注意力机制」)各渲染一遍。点开预览,电脑/手机都看看,选一个定稿(配色可再微调)。功能引擎仍沿用历史站(时间轴 + 人物图鉴,无小测),只是外在布局与气质按所选风格重做。</p>
+  <div class="grid">
+
+    <a class="card" href="style-d.html">
+      <div class="prev" style="background:#fbfbfd;color:#1f2230;align-items:stretch;justify-content:flex-start;gap:10px">
+        <div style="width:60px;background:#f4f5f8;border-right:1px solid #e7e8ee;border-radius:8px 0 0 8px;display:flex;flex-direction:column;gap:5px;padding:8px 6px"><span style="height:6px;background:#4f46e5;border-radius:3px"></span><span style="height:5px;background:#d9dbe4;border-radius:3px"></span><span style="height:5px;background:#d9dbe4;border-radius:3px"></span><span style="height:5px;background:#d9dbe4;border-radius:3px"></span></div>
+        <div style="align-self:center;font-size:20px">文档手册</div>
+      </div>
+      <div class="body">
+        <span class="tag" style="background:#4f46e5">D</span>
+        <h2>文档手册</h2>
+        <div class="desc">左侧模块树 + 正文 + 右侧大纲的<b style="color:#cdd6e4">三栏文档布局</b>(像 Notion/技术手册)。无顶栏、无 Bento,模块随时可跳,适合系统通读。</div>
+        <div class="meta">结构:<b>三栏 docs</b> · 浅色 · 靛蓝</div>
+      </div>
+    </a>
+
+    <a class="card" href="style-e.html">
+      <div class="prev" style="background:#0f1419;color:#e6edf3;flex-direction:column;gap:8px;align-items:flex-start">
+        <div style="align-self:flex-end;background:#14b8a6;color:#04201c;padding:7px 12px;border-radius:14px 14px 4px 14px;font-size:13px">这词模型怎么读懂?</div>
+        <div style="background:#1b2430;border:1px solid #26313f;padding:7px 12px;border-radius:14px 14px 14px 4px;font-size:13px">靠"注意力"——重点看相关的词</div>
+      </div>
+      <div class="body">
+        <span class="tag" style="background:#14b8a6;color:#04201c">E</span>
+        <h2>对话流</h2>
+        <div class="desc">整课做成<b style="color:#cdd6e4">"和 AI 老师对话"</b>的聊天流:你提问、AI 分段作答,底部还有输入框。最 AI 原生的范式。</div>
+        <div class="meta">结构:<b>聊天气泡 + 输入框</b> · 深色 · 青绿</div>
+      </div>
+    </a>
+
+    <a class="card" href="style-f.html">
+      <div class="prev" style="background:#f3efe6;color:#181613;flex-direction:column;align-items:flex-start;gap:2px;font-family:Georgia,serif">
+        <div style="font-size:11px;letter-spacing:2px;color:#e4572e">MODULE 04</div>
+        <div style="font-size:30px;font-weight:700;line-height:1">模型在<span style="font-style:italic;color:#e4572e">看</span>哪些词</div>
+        <div style="font-size:11px;color:#6f685c;margin-top:4px">— 大刊长读 —</div>
+      </div>
+      <div class="body">
+        <span class="tag" style="background:#e4572e">F</span>
+        <h2>编辑特写</h2>
+        <div class="desc">大刊长读:<b style="color:#cdd6e4">巨号衬线标题 + 编号大段 + 首字下沉</b>,暖纸底、几乎没有导航 chrome。像读一篇深度特稿。</div>
+        <div class="meta">结构:<b>杂志长读</b> · 暖纸 · 朱橙衬线</div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="old">
+    <h3>上一轮的 3 款(保留备选)</h3>
+    <p>这三款"换皮不换骨"、家族痕迹较重,留作对照,可点开回看。</p>
+    <div class="row">
+      <a href="style-a.html"><b>A · 神经脉络 Neural</b>深色 + 神经网络节点母题,青紫渐变</a>
+      <a href="style-b.html"><b>B · Token 流 Generative</b>浅色 + 紫粉蓝渐变,生成式美学</a>
+      <a href="style-c.html"><b>C · 智能体终端 Agent</b>深色 IDE/终端,等宽 + 绿琥珀</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人工智能 · 风格 D 文档手册</title>
+<style>
+  :root{
+    --bg:#fbfbfd; --side:#f4f5f8; --paper:#fff; --line:#e7e8ee; --line-2:#d9dbe4;
+    --ink:#1f2230; --ink-dim:#6a6f80; --accent:#4f46e5; --accent-soft:#eef0fe; --ok:#0d9268;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono","JetBrains Mono",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:15.5px/1.8 var(--sans);color:var(--ink);background:var(--bg)}
+  .ribbon{position:fixed;left:0;top:0;background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:5px 14px;border-radius:0 0 10px 0;z-index:30;letter-spacing:.5px}
+  .layout{display:grid;grid-template-columns:248px 1fr 220px;min-height:100vh}
+  /* 左侧模块树 */
+  aside.side{background:var(--side);border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh;overflow:auto}
+  .brand{font-size:17px;font-weight:800;letter-spacing:.5px;display:flex;align-items:center;gap:9px;margin-bottom:4px}
+  .brand .mk{width:24px;height:24px;border-radius:7px;background:var(--accent);display:inline-grid;place-items:center;color:#fff;font-size:12px;font-weight:800}
+  .brand small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--ink-dim);font-weight:500}
+  .tree{margin-top:18px}
+  .tree .grp{font-size:11px;letter-spacing:1px;color:var(--ink-dim);text-transform:uppercase;margin:16px 0 6px;font-weight:700}
+  .tree a{display:block;color:var(--ink-dim);text-decoration:none;font-size:13.5px;padding:5px 10px;border-radius:7px}
+  .tree a:hover{background:#e9eaf1;color:var(--ink)}
+  .tree a.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+  .tree a .i{display:inline-block;width:18px;font-family:var(--mono);font-size:11px;color:var(--ink-dim)}
+  /* 主栏 */
+  main{padding:26px 40px 70px;max-width:760px}
+  .crumb{font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:12px}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.4px;line-height:1.3}
+  .meta{color:var(--ink-dim);font-size:13px;margin:10px 0 4px;font-family:var(--mono)}
+  hr.rule{border:0;border-top:1px solid var(--line);margin:20px 0 26px}
+  h2.sec{font-size:18px;font-weight:800;margin:30px 0 10px;padding-left:12px;border-left:3px solid var(--accent);scroll-margin-top:20px}
+  h2.sec .n{font-family:var(--mono);font-size:12px;color:var(--accent);margin-right:8px}
+  p{margin-bottom:11px}strong{color:#000}
+  gd{color:var(--accent);border-bottom:1px dashed var(--accent);cursor:pointer;padding:0 1px}
+  .ex{border-left:3px solid var(--ok);background:#0d92680d;padding:11px 15px;margin:13px 0;border-radius:0 8px 8px 0;font-size:14.5px}
+  .pit{border-left:3px solid #e0823b;background:#e0823b12;padding:11px 15px;margin:13px 0;border-radius:0 8px 8px 0;font-size:14.5px}
+  .pit b{color:#c96a22}
+  figure.fig{margin:18px 0;border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:18px 12px 10px;text-align:center}
+  figcaption{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-top:8px}
+  .pager{display:flex;gap:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:18px}
+  .pager a{flex:1;border:1px solid var(--line-2);border-radius:10px;padding:11px 15px;text-decoration:none;color:var(--ink-dim);font-size:13.5px}
+  .pager a:hover{border-color:var(--accent);color:var(--accent)}
+  .pager a b{display:block;color:var(--ink);font-size:14.5px;margin-top:2px}
+  /* 右栏大纲 */
+  aside.rail{padding:28px 18px;position:sticky;top:0;height:100vh;border-left:1px solid var(--line);font-size:13px}
+  .rail h4{font-size:11px;letter-spacing:1px;color:var(--ink-dim);text-transform:uppercase;margin-bottom:10px}
+  .rail a{display:block;color:var(--ink-dim);text-decoration:none;padding:4px 0;border-left:2px solid var(--line);padding-left:10px}
+  .rail a.on{color:var(--accent);border-color:var(--accent);font-weight:600}
+  .rail .tcard{margin-top:24px;background:var(--accent-soft);border-radius:10px;padding:12px 13px}
+  .rail .tcard .t{color:var(--accent);font-weight:700;font-size:13.5px}
+  .rail .tcard .d{color:var(--ink);font-size:12.5px;margin-top:5px;line-height:1.65}
+  @media(max-width:980px){.layout{grid-template-columns:1fr}aside.side,aside.rail{display:none}main{max-width:none;padding:24px}}
+</style>
+</head>
+<body>
+<div class="ribbon">风格 D · 文档手册(三栏)</div>
+<div class="layout">
+  <aside class="side">
+    <div class="brand"><span class="mk">AI</span>人工智能<small>AI HANDBOOK</small></div>
+    <div class="tree">
+      <div class="grp">基础</div>
+      <a href="#"><span class="i">01</span>什么是 AI</a>
+      <a href="#"><span class="i">02</span>机器学习</a>
+      <a href="#"><span class="i">03</span>神经网络与深度学习</a>
+      <div class="grp">大模型</div>
+      <a class="on" href="#"><span class="i">04</span>Transformer 与大模型</a>
+      <a href="#"><span class="i">05</span>生成式 AI</a>
+      <a href="#"><span class="i">06</span>用好大模型</a>
+      <a href="#"><span class="i">07</span>四层工程</a>
+      <a href="#"><span class="i">08</span>智能体 Agent</a>
+      <div class="grp">实验室</div>
+      <a href="#"><span class="i">↳</span>注意力可视化</a>
+      <a href="#"><span class="i">↳</span>感知机互动</a>
+      <a href="#"><span class="i">↳</span>提示词演练器</a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="crumb">模块 04 · Transformer 与大模型 / 第 1 课</div>
+    <h1>注意力机制:模型在"看"哪些词</h1>
+    <div class="meta">约 5 分钟 · Attention · 大模型的核心</div>
+    <hr class="rule">
+
+    <h2 class="sec" id="s1"><span class="n">01</span>一句话是什么</h2>
+    <p>大模型读一句话时,不是逐字平均用力,而是给每个词分配<strong>"注意力"</strong>:理解某个词时,重点"看"句子里跟它最相关的那几个词。这套机制叫<gd>注意力</gd>,是 <gd>Transformer</gd> 的核心。</p>
+    <div class="ex">例:"小猫追着它的尾巴跑",模型要懂"它"指的是"小猫"——靠的就是把"它"的注意力大量分给"小猫"这个<gd>token</gd>。</div>
+
+    <h2 class="sec" id="s2"><span class="n">02</span>怎么运作</h2>
+    <p>每个词都会问三个问题:我想找什么(Query)、我能提供什么(Key)、我的内容是什么(Value)。词与词的 Q-K 匹配越高,分到的注意力越多。</p>
+    <figure class="fig"><svg viewBox="0 0 360 120" width="100%" style="max-width:340px">
+      <g font-size="13" fill="#1f2230" text-anchor="middle"><text x="40" y="30">小猫</text><text x="120" y="30">追</text><text x="200" y="30">它的</text><text x="290" y="30">尾巴</text></g>
+      <text x="200" y="100" font-size="13" fill="#4f46e5" text-anchor="middle">"它" 的注意力</text>
+      <g fill="none" stroke="#4f46e5"><path d="M200 88 C150 60,80 50,40 38" stroke-width="3"/><path d="M200 88 C200 70,200 55,120 38" stroke-width="1"/><path d="M200 88 C240 70,270 55,290 38" stroke-width="1.4"/></g>
+    </svg><figcaption>图 · "它" 把大部分注意力分给了"小猫"</figcaption></figure>
+
+    <h2 class="sec" id="s3"><span class="n">03</span>常见误解</h2>
+    <div class="pit"><b>误解:模型像人一样"有意识地注意"。</b>这里的注意力只是一组<strong>权重数字</strong>,表示相关程度,不是意识或主观选择。</div>
+
+    <div class="pager"><a href="#">‹ 上一课<b>大模型一览</b></a><a href="#" style="text-align:right">下一课 ›<b>Transformer 架构</b></a></div>
+  </main>
+
+  <aside class="rail">
+    <h4>本页大纲</h4>
+    <a class="on" href="#s1">一句话是什么</a>
+    <a href="#s2">怎么运作</a>
+    <a href="#s3">常见误解</a>
+    <div class="tcard"><div class="t">注意力 · attention</div><div class="d">模型给每个词分配的"关注权重"。类比:读句子时目光在关键词多停一会儿。</div></div>
+  </aside>
+</div>
+</body>
+</html>

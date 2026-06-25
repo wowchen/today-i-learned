@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人工智能 · 风格 A 神经脉络</title>
+<style>
+  :root{
+    --bg:#0a0c12; --bg2:#0e1118; --panel:#141a26; --line:#243043; --line-2:#33425c;
+    --ink:#e8edf6; --ink-dim:#93a1ba; --cyan:#22d3ee; --violet:#a78bfa; --ok:#34d399;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono","JetBrains Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:16px/1.85 var(--sans);color:var(--ink);
+    background:radial-gradient(900px 500px at 85% -10%,#1a2440,transparent 60%),radial-gradient(700px 400px at 0% 100%,#1a1430,transparent 55%),var(--bg)}
+  /* 神经节点底纹 */
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:radial-gradient(2px 2px at 12% 24%,#22d3ee55,transparent),radial-gradient(2px 2px at 70% 16%,#a78bfa55,transparent),radial-gradient(1.5px 1.5px at 40% 70%,#22d3ee44,transparent),radial-gradient(2px 2px at 88% 64%,#a78bfa44,transparent),radial-gradient(1.5px 1.5px at 22% 88%,#34d39944,transparent)}
+  .stage{position:relative;z-index:1}
+  .ribbon{position:fixed;left:0;top:0;background:linear-gradient(90deg,var(--cyan),var(--violet));color:#06080d;font-size:12px;font-weight:800;padding:5px 14px;border-radius:0 0 10px 0;z-index:20;letter-spacing:1px}
+  header{display:flex;justify-content:space-between;align-items:center;padding:16px 26px;border-bottom:1px solid var(--line);background:#0b0e16cc;backdrop-filter:blur(6px)}
+  .logo{font-size:19px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:12px}
+  .logo svg{width:34px;height:34px}
+  .logo .en{font-family:var(--mono);font-size:10px;letter-spacing:2px;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+  nav{display:flex;gap:3px;flex-wrap:wrap}
+  nav a{color:var(--ink-dim);text-decoration:none;font-size:13.5px;padding:6px 12px;border-radius:8px}
+  nav a.on{color:#06080d;background:linear-gradient(90deg,var(--cyan),var(--violet));font-weight:700}
+  nav a:hover{color:var(--cyan)}
+  .wrap{max-width:780px;margin:0 auto;padding:30px 22px 80px}
+  .hero{text-align:center;padding:24px 0 18px}
+  .hero .k{font-family:var(--mono);font-size:11px;letter-spacing:4px;color:var(--cyan);text-transform:uppercase}
+  .hero h1{font-size:40px;font-weight:800;letter-spacing:-.5px;margin:12px 0 6px;background:linear-gradient(90deg,#fff,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--ink-dim);font-size:14px}
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0 6px}
+  .cell{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px;position:relative;overflow:hidden}
+  .cell::after{content:"";position:absolute;right:-20px;top:-20px;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,var(--cyan)22,transparent 70%)}
+  .cell .n{font-family:var(--mono);font-size:10px;color:var(--cyan);letter-spacing:1px}
+  .cell h3{font-size:14px;margin-top:5px}
+  .cell.lg{grid-column:span 2;border-color:var(--line-2)}
+  .secn{font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--ink-dim);margin:28px 0 6px;text-transform:uppercase}
+  .crumb{font-family:var(--mono);font-size:11.5px;color:var(--cyan);margin-bottom:8px}
+  h2.title{font-size:28px;font-weight:800;letter-spacing:-.3px;line-height:1.35}
+  .meta{color:var(--ink-dim);font-size:13px;margin:8px 0 22px;font-family:var(--mono)}
+  section.blk{border:1px solid var(--line);background:var(--panel);border-radius:14px;margin:14px 0;overflow:hidden}
+  section.blk>h4{font-size:13px;font-weight:700;color:var(--cyan);background:#0c1422;padding:8px 16px;letter-spacing:1px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+  section.blk>h4 .no{font-family:var(--mono);background:linear-gradient(90deg,var(--cyan),var(--violet));color:#06080d;border-radius:5px;padding:1px 7px;font-size:11px}
+  section.blk>.bd{padding:15px 17px}
+  p{margin-bottom:10px}strong{color:#fff}
+  gd{color:var(--cyan);border-bottom:1px dashed var(--cyan);cursor:pointer;padding:0 1px}
+  .ex{border-left:3px solid var(--ok);background:#34d39912;padding:11px 14px;margin:12px 0;border-radius:0 8px 8px 0}
+  .pit{border-left:3px solid var(--violet);background:#a78bfa12;padding:11px 14px;margin:12px 0;border-radius:0 8px 8px 0}
+  .pit b{color:var(--violet)}
+  figure.fig{margin:16px 0;border:1px solid var(--line);border-radius:14px;background:#0b1019;padding:18px 12px 10px;text-align:center}
+  figcaption{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-top:8px}
+  .next{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+  .next a{color:var(--cyan);text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-size:14px;background:var(--panel)}
+  .next a:hover{border-color:var(--cyan)}
+  .termcard{position:fixed;right:22px;bottom:22px;width:284px;background:var(--bg2);border:1px solid var(--cyan);border-radius:14px;padding:15px 17px;font-size:14px;z-index:9;box-shadow:0 0 40px #22d3ee33}
+  .termcard .t{color:var(--cyan);font-weight:700;font-size:15px;margin-bottom:5px}
+  .termcard .a{color:var(--ink-dim);font-size:13px;margin-top:7px}
+  .termcard .ops{margin-top:11px;display:flex;gap:8px}
+  .termcard .ops span{border:1px solid var(--line);border-radius:7px;padding:3px 11px;font-size:12px;color:var(--ink)}
+  .termcard .ops span:first-child{border-color:var(--cyan);color:var(--cyan)}
+  @media(max-width:640px){.bento{grid-template-columns:repeat(2,1fr)}.termcard{display:none}.hero h1{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="ribbon">风格 A · 神经脉络 Neural</div>
+<div class="stage">
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 40 40" fill="none"><g stroke="#22d3ee" stroke-width="1.2" opacity=".7"><line x1="6" y1="10" x2="20" y2="20"/><line x1="6" y1="20" x2="20" y2="20"/><line x1="6" y1="30" x2="20" y2="20"/><line x1="20" y1="20" x2="34" y2="12"/><line x1="20" y1="20" x2="34" y2="28"/></g><g fill="#a78bfa"><circle cx="6" cy="10" r="3"/><circle cx="6" cy="20" r="3"/><circle cx="6" cy="30" r="3"/><circle cx="34" cy="12" r="3"/><circle cx="34" cy="28" r="3"/></g><circle cx="20" cy="20" r="4" fill="#22d3ee"/></svg>
+    人工智能<span class="en">AI · EXPLAINED</span>
+  </div>
+  <nav><a class="on" href="#">课时</a><a href="#">时间轴</a><a href="#">图鉴</a><a href="#">实验室</a><a href="#">术语</a><a href="#">设置</a></nav>
+</header>
+<div class="wrap">
+  <div class="hero">
+    <div class="k">Artificial Intelligence · AI 通识</div>
+    <h1>人工智能</h1>
+    <p>从神经元到大模型,用大白话讲透 AI——还能动手玩三个互动工具。</p>
+  </div>
+  <div class="secn">— 模块速览 —</div>
+  <div class="bento">
+    <div class="cell lg"><span class="n">M01</span><h3>什么是 AI</h3></div>
+    <div class="cell"><span class="n">M03</span><h3>深度学习</h3></div>
+    <div class="cell"><span class="n">M04</span><h3>大模型</h3></div>
+    <div class="cell"><span class="n">M05</span><h3>生成式 AI</h3></div>
+    <div class="cell"><span class="n">M08</span><h3>智能体</h3></div>
+    <div class="cell"><span class="n">M07</span><h3>四层工程</h3></div>
+    <div class="cell lg"><span class="n">LAB</span><h3>互动实验室</h3></div>
+  </div>
+  <div class="secn">— 样板课预览 —</div>
+  <div class="crumb">MODULE 04 / Transformer 与大模型 · 第 1 课</div>
+  <h2 class="title">注意力机制:模型在"看"哪些词</h2>
+  <div class="meta">约 5 分钟 · Attention · 大模型的核心</div>
+
+  <section class="blk"><h4><span class="no">概念</span>一句话是什么</h4><div class="bd">
+    <p>大模型读一句话时,不是逐字平均用力,而是给每个词分配<strong>"注意力"</strong>:理解某个词时,重点"看"句子里跟它最相关的那几个词。这套机制叫<gd>注意力</gd>,是 <gd>Transformer</gd> 的核心。</p>
+    <div class="ex">例:"小猫追着它的尾巴跑",模型要懂"它"指的是"小猫"——靠的就是把"它"的注意力大量分给"小猫"这个<gd>token</gd>。</div>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">拆解</span>怎么运作</h4><div class="bd">
+    <p>每个词都会问三个问题:我想找什么(Query)、我能提供什么(Key)、我的内容是什么(Value)。词与词的 Q-K 匹配越高,分到的注意力越多。</p>
+    <figure class="fig"><svg viewBox="0 0 360 120" width="100%" style="max-width:360px">
+      <g font-size="13" fill="#e8edf6" text-anchor="middle">
+      <text x="40" y="30">小猫</text><text x="120" y="30">追</text><text x="200" y="30">它的</text><text x="290" y="30">尾巴</text></g>
+      <text x="200" y="100" font-size="13" fill="#22d3ee" text-anchor="middle">"它" 的注意力</text>
+      <g stroke="#22d3ee" fill="none"><path d="M200 88 C150 60,80 50,40 38" stroke-width="3"/><path d="M200 88 C200 70,200 55,120 38" stroke-width="1"/><path d="M200 88 C240 70,270 55,290 38" stroke-width="1.4"/></g>
+    </svg><figcaption>图 · "它" 把大部分注意力分给了"小猫"(线越粗权重越大)</figcaption></figure>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">易错</span>常见误解</h4><div class="bd">
+    <div class="pit"><b>误解:模型像人一样"有意识地注意"。</b>这里的注意力只是一组<strong>权重数字</strong>,表示相关程度,不是意识或主观选择。</div>
+  </div></section>
+
+  <div class="next"><a href="#">‹ 上一课</a><a href="#">下一课 · Transformer 架构 ›</a></div>
+</div>
+</div>
+<div class="termcard">
+  <div class="t">注意力 · attention</div>
+  <div>模型给每个词分配的"关注权重",决定理解一个词时重点参考哪些词。</div>
+  <div class="a">类比:读句子时,你的目光会在关键词上多停一会儿。</div>
+  <div class="ops"><span>☆ 收藏</span><span>去那一课</span></div>
+</div>
+</body>
+</html>

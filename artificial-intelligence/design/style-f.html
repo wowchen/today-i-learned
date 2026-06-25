@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人工智能 · 风格 F 编辑特写</title>
+<style>
+  :root{
+    --bg:#f3efe6; --paper:#faf7f0; --ink:#181613; --ink-dim:#6f685c; --line:#ddd6c7;
+    --accent:#e4572e; --accent-2:#1d4ed8; --ok:#3f7d4e;
+    --serif:"Georgia","Songti SC","Source Han Serif SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:16px/1.85 var(--sans);color:var(--ink);background:var(--bg)}
+  .ribbon{position:fixed;left:0;top:0;background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:5px 14px;border-radius:0 0 10px 0;z-index:30}
+  .topline{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;border-bottom:2px solid var(--ink)}
+  .brand{font-family:var(--serif);font-size:18px;font-weight:700;letter-spacing:1px}
+  .brand i{font-style:normal;color:var(--accent)}
+  .topline .r{font-family:var(--mono);font-size:11.5px;letter-spacing:2px;color:var(--ink-dim);text-transform:uppercase}
+  .wrap{max-width:880px;margin:0 auto;padding:0 40px}
+  /* 大刊报头 */
+  .masthead{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:16px}
+  .masthead h1{font-family:var(--serif);font-size:64px;line-height:1.02;font-weight:700;letter-spacing:-1px}
+  .masthead h1 em{font-style:italic;color:var(--accent)}
+  .lead{font-size:19px;line-height:1.7;color:#33302a;margin-top:20px;max-width:62ch}
+  .lead::first-letter{font-family:var(--serif);font-size:62px;float:left;line-height:.82;padding:6px 12px 0 0;color:var(--accent);font-weight:700}
+  .byline{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);letter-spacing:1px;margin-top:18px}
+  /* 编号大段 */
+  .sec{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:34px 0;border-bottom:1px solid var(--line)}
+  .sec .num{font-family:var(--serif);font-size:58px;font-weight:700;color:var(--accent);line-height:.9}
+  .sec .num small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--ink-dim);margin-top:8px;text-transform:uppercase}
+  .sec h2{font-family:var(--serif);font-size:25px;margin-bottom:10px;letter-spacing:-.3px}
+  .sec p{margin-bottom:11px}strong{color:#000}
+  gd{color:var(--accent-2);border-bottom:1px solid var(--accent-2);cursor:pointer;text-decoration:none}
+  .ex{border-left:3px solid var(--ok);background:#3f7d4e10;padding:11px 16px;margin:14px 0;font-size:15px}
+  .pit{border-left:3px solid var(--accent);background:#e4572e10;padding:11px 16px;margin:14px 0;font-size:15px}
+  .pit b{color:var(--accent)}
+  figure.fig{margin:18px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:18px 0 10px;text-align:center}
+  figcaption{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-top:8px;letter-spacing:.5px}
+  .endmark{text-align:center;padding:30px 0 70px;font-family:var(--serif);color:var(--accent);font-size:22px}
+  .endmark a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--accent);font-family:var(--sans);font-size:14px;font-weight:600}
+  @media(max-width:720px){.masthead h1{font-size:42px}.sec{grid-template-columns:1fr}.sec .num{font-size:40px}.wrap,.topline{padding-left:22px;padding-right:22px}}
+</style>
+</head>
+<body>
+<div class="ribbon">风格 F · 编辑特写(大刊长读)</div>
+<div class="topline">
+  <div class="brand">人工智能<i>·</i>特写</div>
+  <div class="r">No.04 — Transformer / 目录 ↗</div>
+</div>
+<div class="wrap">
+  <div class="masthead">
+    <div class="kicker">Module 04 · 大模型的核心</div>
+    <h1>模型在"看"<br>哪些<em>词</em>?</h1>
+    <p class="lead">大模型读一句话时,并不是逐字平均用力,而是给每个词分配一份"注意力"——理解某个词时,它会重点参考句子里跟这个词最相关的那几个。这套看似朴素的机制,正是支撑起整个大模型时代的基石。</p>
+    <div class="byline">注意力机制 · ATTENTION · 约 5 分钟</div>
+  </div>
+
+  <div class="sec"><div class="num">01<small>What</small></div><div>
+    <h2>一句话是什么</h2>
+    <p>这套机制叫<gd>注意力</gd>,是 <gd>Transformer</gd> 的核心。理解一个词,就重点"看"跟它最相关的词。</p>
+    <div class="ex">例:"小猫追着它的尾巴跑",模型要懂"它"指的是"小猫"——靠的就是把"它"的注意力大量分给"小猫"这个 <gd>token</gd>。</div>
+  </div></div>
+
+  <div class="sec"><div class="num">02<small>How</small></div><div>
+    <h2>怎么运作</h2>
+    <p>每个词都问三件事:我想找什么(Query)、我能提供什么(Key)、我的内容是什么(Value)。Q-K 匹配越高,分到的注意力越多。</p>
+    <figure class="fig"><svg viewBox="0 0 360 118" width="100%" style="max-width:360px">
+      <g font-size="13" fill="#181613" text-anchor="middle"><text x="40" y="28">小猫</text><text x="120" y="28">追</text><text x="200" y="28">它的</text><text x="290" y="28">尾巴</text></g>
+      <text x="200" y="100" font-size="12" fill="#e4572e" text-anchor="middle">"它" 的注意力</text>
+      <g fill="none" stroke="#e4572e"><path d="M200 86 C150 58,80 48,40 36" stroke-width="3"/><path d="M200 86 C200 68,200 54,120 36" stroke-width="1"/><path d="M200 86 C240 68,268 54,290 36" stroke-width="1.4"/></g>
+    </svg><figcaption>图 · 线越粗,"它" 分给该词的注意力越大</figcaption></figure>
+  </div></div>
+
+  <div class="sec"><div class="num">03<small>Pitfall</small></div><div>
+    <h2>常见误解</h2>
+    <div class="pit"><b>误解:模型像人一样"有意识地注意"。</b>这里的注意力只是一组<strong>权重数字</strong>,表示相关程度,不是意识,也不是主观选择。</div>
+  </div></div>
+
+  <div class="endmark">❦<br><a href="#">下一篇 · Transformer 架构 ↗</a></div>
+</div>
+</body>
+</html>

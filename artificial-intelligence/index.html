@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>人工智能学习站 · Artificial Intelligence</title>
+<meta name="description" content="用大白话讲透人工智能:从神经元、机器学习、深度学习,到 Transformer、大模型、生成式 AI、智能体、提示词到 Loop 工程、安全伦理、发展史与未来。14 模块约 100 节微课,含 AI 发展史时间轴、人物图鉴、大模型速查、中外对照与三个互动实验。纯静态、离线、零依赖。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem("aix.progress.v1") || "{}");
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"; }
+      if(t==="dark") document.documentElement.setAttribute("data-theme","dark");
+      else document.documentElement.setAttribute("data-theme","light");
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute("data-fs", p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="mtop">
+  <button class="burger" id="burger" aria-label="菜单"><span></span><span></span><span></span></button>
+  <span class="mk">AI</span><b>人工智能</b>
+</div>
+<div class="app" id="app-shell">
+  <nav class="side" id="side"></nav>
+  <main id="app"></main>
+  <div class="scrim" id="scrim"></div>
+</div>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/shell.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/views-lab.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/figures.js"></script>
+<script src="content/timeline.js"></script>
+<script src="content/models.js"></script>
+<script src="content/compare.js"></script>
+
+<!-- Lessons (由 AIX.path 顺序加载) -->
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-ai-map.js"></script>
+<script src="content/guide/03-roadmap.js"></script>
+<script src="content/guide/04-mindset.js"></script>
+<script src="content/whatis/01-what-is-ai.js"></script>
+<script src="content/whatis/02-ai-ml-dl.js"></script>
+<script src="content/whatis/03-narrow-vs-agi.js"></script>
+<script src="content/whatis/04-symbol-vs-connection.js"></script>
+<script src="content/whatis/05-turing-test.js"></script>
+<script src="content/whatis/06-can-cannot.js"></script>
+<script src="content/whatis/07-three-waves.js"></script>
+<script src="content/whatis/08-why-now.js"></script>
+<script src="content/ml/01-what-is-ml.js"></script>
+<script src="content/ml/02-supervised.js"></script>
+<script src="content/ml/03-unsupervised.js"></script>
+<script src="content/ml/04-reinforcement.js"></script>
+<script src="content/ml/05-train-infer.js"></script>
+<script src="content/ml/06-features-data.js"></script>
+<script src="content/ml/07-overfitting.js"></script>
+<script src="content/ml/08-gradient-descent.js"></script>
+<script src="content/dl/01-neuron.js"></script>
+<script src="content/dl/02-mlp.js"></script>
+<script src="content/dl/03-activation.js"></script>
+<script src="content/dl/04-backprop.js"></script>
+<script src="content/dl/05-cnn.js"></script>
+<script src="content/dl/06-rnn.js"></script>
+<script src="content/dl/07-embedding.js"></script>
+<script src="content/dl/08-compute-gpu.js"></script>
+<script src="content/dl/09-why-deep-works.js"></script>
+<script src="content/llm/01-language-model.js"></script>
+<script src="content/llm/02-attention.js"></script>
+<script src="content/llm/03-transformer.js"></script>
+<script src="content/llm/04-token.js"></script>
+<script src="content/llm/05-pretrain.js"></script>
+<script src="content/llm/06-finetune-rlhf.js"></script>
+<script src="content/llm/07-scaling-law.js"></script>
+<script src="content/llm/08-context-window.js"></script>
+<script src="content/llm/09-open-vs-closed.js"></script>
+<script src="content/llm/10-major-models.js"></script>
+<script src="content/genai/01-what-is-genai.js"></script>
+<script src="content/genai/02-text-gen.js"></script>
+<script src="content/genai/03-diffusion.js"></script>
+<script src="content/genai/04-video-gen.js"></script>
+<script src="content/genai/05-speech-audio.js"></script>
+<script src="content/genai/06-multimodal.js"></script>
+<script src="content/genai/07-hallucination.js"></script>
+<script src="content/genai/08-deepfake-copyright.js"></script>
+<script src="content/use/01-how-to-chat.js"></script>
+<script src="content/use/02-prompt-basics.js"></script>
+<script src="content/use/03-rag.js"></script>
+<script src="content/use/04-tools-web.js"></script>
+<script src="content/use/05-finetune-when.js"></script>
+<script src="content/use/06-memory.js"></script>
+<script src="content/use/07-pick-model.js"></script>
+<script src="content/use/08-common-mistakes.js"></script>
+<script src="content/eng/01-overview.js"></script>
+<script src="content/eng/02-prompt-engineering.js"></script>
+<script src="content/eng/03-context-engineering.js"></script>
+<script src="content/eng/04-harness-engineering.js"></script>
+<script src="content/eng/05-loop-engineering.js"></script>
+<script src="content/eng/06-how-they-fit.js"></script>
+<script src="content/agent/01-what-is-agent.js"></script>
+<script src="content/agent/02-how-it-works.js"></script>
+<script src="content/agent/03-tool-use-mcp.js"></script>
+<script src="content/agent/04-coding-agents.js"></script>
+<script src="content/agent/05-agent-tools-compare.js"></script>
+<script src="content/agent/06-multi-agent.js"></script>
+<script src="content/agent/07-autonomy-levels.js"></script>
+<script src="content/agent/08-limits.js"></script>
+<script src="content/agent/09-risks.js"></script>
+<script src="content/apps/01-office-writing.js"></script>
+<script src="content/apps/02-coding.js"></script>
+<script src="content/apps/03-design-creative.js"></script>
+<script src="content/apps/04-search-service.js"></script>
+<script src="content/apps/05-science-medicine.js"></script>
+<script src="content/apps/06-autonomous-driving.js"></script>
+<script src="content/apps/07-industries.js"></script>
+<script src="content/safety/01-bias.js"></script>
+<script src="content/safety/02-privacy.js"></script>
+<script src="content/safety/03-deepfake-fraud.js"></script>
+<script src="content/safety/04-jobs.js"></script>
+<script src="content/safety/05-alignment.js"></script>
+<script src="content/safety/06-control-safety.js"></script>
+<script src="content/safety/07-governance.js"></script>
+<script src="content/safety/08-use-responsibly.js"></script>
+<script src="content/history/01-turing-dartmouth.js"></script>
+<script src="content/history/02-first-winter.js"></script>
+<script src="content/history/03-expert-systems.js"></script>
+<script src="content/history/04-connectionism.js"></script>
+<script src="content/history/05-2012-alexnet.js"></script>
+<script src="content/history/06-2016-alphago.js"></script>
+<script src="content/history/07-2017-transformer.js"></script>
+<script src="content/history/08-gpt-era.js"></script>
+<script src="content/history/09-china-global.js"></script>
+<script src="content/future/01-to-agi.js"></script>
+<script src="content/future/02-scaling-wall.js"></script>
+<script src="content/future/03-embodied.js"></script>
+<script src="content/future/04-ai-for-science.js"></script>
+<script src="content/future/05-human-ai.js"></script>
+<script src="content/future/06-keep-learning.js"></script>
+
+</body>
+</html>

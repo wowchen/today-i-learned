@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人工智能 · 风格 E 对话流</title>
+<style>
+  :root{
+    --bg:#0f1419; --bar:#0b0f14; --me:#14b8a6; --ai:#1b2430; --ai-2:#222e3c; --line:#26313f;
+    --ink:#e6edf3; --ink-dim:#8aa0b2; --teal:#2dd4bf; --amber:#fbbf24;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono","JetBrains Mono",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:15.5px/1.78 var(--sans);color:var(--ink);background:var(--bg)}
+  .ribbon{position:fixed;left:0;top:0;background:var(--teal);color:#06201c;font-size:12px;font-weight:800;padding:5px 14px;border-radius:0 0 10px 0;z-index:30}
+  .topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:11px 18px;background:var(--bar);border-bottom:1px solid var(--line)}
+  .av{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--teal),#3b82f6);display:grid;place-items:center;font-weight:800;color:#06201c;font-size:14px}
+  .who b{font-size:15px}.who small{display:block;color:var(--teal);font-size:11.5px}
+  .who small::before{content:"● ";font-size:9px}
+  .topbar nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+  .topbar nav a{color:var(--ink-dim);text-decoration:none;font-size:13px;padding:6px 11px;border-radius:8px}
+  .topbar nav a.on{background:var(--ai);color:var(--teal)}
+  .thread{max-width:720px;margin:0 auto;padding:22px 18px 120px}
+  .day{text-align:center;font-size:11.5px;color:var(--ink-dim);font-family:var(--mono);margin:6px 0 18px}
+  .row{display:flex;margin:14px 0;gap:10px}
+  .row.me{justify-content:flex-end}
+  .bub{max-width:80%;padding:11px 15px;border-radius:16px;font-size:15px}
+  .row.ai .a{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#3b82f6);flex:none;display:grid;place-items:center;font-size:12px;font-weight:800;color:#06201c}
+  .row.ai .bub{background:var(--ai);border:1px solid var(--line);border-top-left-radius:5px}
+  .row.me .bub{background:var(--me);color:#04201c;border-top-right-radius:5px;font-weight:500}
+  .bub h5{font-size:12px;letter-spacing:1px;color:var(--teal);margin-bottom:6px;font-family:var(--mono)}
+  .bub p{margin-bottom:8px}.bub p:last-child{margin-bottom:0}
+  strong{color:#fff}
+  gd{color:var(--teal);border-bottom:1px dashed var(--teal);cursor:pointer}
+  .ex{background:var(--ai-2);border-left:3px solid var(--teal);padding:9px 13px;margin:9px 0;border-radius:0 9px 9px 0;font-size:14px}
+  .pit{background:#fbbf2412;border-left:3px solid var(--amber);padding:9px 13px;margin:9px 0;border-radius:0 9px 9px 0;font-size:14px}
+  .pit b{color:var(--amber)}
+  figure.fig{margin:10px 0 2px;background:#11181f;border:1px solid var(--line);border-radius:12px;padding:14px 10px 8px;text-align:center}
+  figcaption{font-family:var(--mono);font-size:11px;color:var(--ink-dim);margin-top:6px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0;justify-content:flex-end}
+  .chips button{background:none;border:1px solid var(--line);color:var(--ink-dim);border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+  .chips button:hover{border-color:var(--teal);color:var(--teal)}
+  .typing{display:flex;gap:10px;align-items:center;margin:14px 0;color:var(--ink-dim);font-size:13px}
+  .typing .a{width:30px;height:30px;border-radius:9px;background:var(--ai);border:1px solid var(--line);flex:none}
+  .composer{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent,var(--bg) 26%);padding:14px 18px 18px}
+  .composer .box{max-width:720px;margin:0 auto;display:flex;gap:10px;align-items:center;background:var(--ai);border:1px solid var(--line-2,#33414f);border-radius:16px;padding:9px 9px 9px 16px}
+  .composer input{flex:1;background:none;border:0;outline:0;color:var(--ink);font-size:15px;font-family:inherit}
+  .composer .send{width:38px;height:38px;border-radius:11px;background:var(--teal);border:0;color:#06201c;font-weight:800;cursor:pointer;font-size:16px}
+  @media(max-width:640px){.topbar nav{display:none}}
+</style>
+</head>
+<body>
+<div class="ribbon">风格 E · 对话流(和 AI 学 AI)</div>
+<div class="topbar">
+  <div class="av">AI</div>
+  <div class="who"><b>AI 老师</b><small>在线 · 正在带你学「注意力机制」</small></div>
+  <nav><a class="on" href="#">对话</a><a href="#">时间轴</a><a href="#">图鉴</a><a href="#">实验室</a><a href="#">术语</a></nav>
+</div>
+<div class="thread">
+  <div class="day">模块 04 · Transformer 与大模型 · 第 1 课 — 约 5 分钟</div>
+
+  <div class="row me"><div class="bub">大模型到底是怎么"读懂"一句话的?</div></div>
+
+  <div class="row ai"><div class="a">AI</div><div class="bub">
+    <h5>一句话是什么</h5>
+    <p>它读一句话时,不是逐字平均用力,而是给每个词分配<strong>"注意力"</strong>:理解某个词时,重点"看"句子里跟它最相关的那几个词。这套机制叫<gd>注意力</gd>,是 <gd>Transformer</gd> 的核心。</p>
+    <div class="ex">例:"小猫追着它的尾巴跑",模型要懂"它"=「小猫」,靠的就是把"它"的注意力大量分给"小猫"这个<gd>token</gd>。</div>
+  </div></div>
+
+  <div class="row me"><div class="bub">那它具体怎么"分配注意力"?</div></div>
+
+  <div class="row ai"><div class="a">AI</div><div class="bub">
+    <h5>怎么运作</h5>
+    <p>每个词都问三件事:我想找什么(Query)、我能提供什么(Key)、我的内容是什么(Value)。Q-K 匹配越高,分到的注意力越多。</p>
+    <figure class="fig"><svg viewBox="0 0 340 116" width="100%" style="max-width:320px">
+      <g font-size="13" fill="#e6edf3" text-anchor="middle"><text x="38" y="28">小猫</text><text x="116" y="28">追</text><text x="192" y="28">它的</text><text x="278" y="28">尾巴</text></g>
+      <text x="190" y="98" font-size="12" fill="#2dd4bf" text-anchor="middle">"它" 的注意力</text>
+      <g fill="none" stroke="#2dd4bf"><path d="M190 86 C145 58,78 48,38 36" stroke-width="3"/><path d="M190 86 C190 68,190 54,116 36" stroke-width="1"/><path d="M190 86 C230 68,258 54,278 36" stroke-width="1.4"/></g>
+    </svg><figcaption>线越粗 = 注意力权重越大</figcaption></figure>
+  </div></div>
+
+  <div class="row me"><div class="bub">所以模型是真的在"用心注意"吗?</div></div>
+
+  <div class="row ai"><div class="a">AI</div><div class="bub">
+    <h5>容易踩的坑</h5>
+    <div class="pit"><b>不是。</b>这里的"注意力"只是一组<strong>权重数字</strong>,表示词之间的相关程度,不是意识、也不是主观选择。</div>
+    <div class="chips"><button>给我举个反例</button><button>下一课:Transformer 架构 ›</button></div>
+  </div></div>
+
+  <div class="typing"><div class="a"></div>AI 老师正在输入…</div>
+</div>
+<div class="composer"><div class="box">
+  <input placeholder="问点什么…(本站离线演示,不调用真实模型)">
+  <button class="send">↑</button>
+</div></div>
+</body>
+</html>
