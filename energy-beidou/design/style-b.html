@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>能源北斗 · 风格 B 时空蓝图 HUD</title>
+<style>
+  :root{
+    --bg:#070b10; --bg2:#0b121b; --panel:#0e1822; --line:#1c2c3a; --line-2:#2a3f52;
+    --ink:#dbe9f4; --ink-dim:#7d97ad; --cyan:#22d3ee; --green:#34d399; --amber:#fbbf24; --red:#fb7185;
+    --sans:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono","JetBrains Mono","Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:15.5px/1.8 var(--sans);color:var(--ink);background:var(--bg)}
+  /* 栅格底 */
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(#11202c 1px,transparent 1px),linear-gradient(90deg,#11202c 1px,transparent 1px);
+    background-size:40px 40px;
+    mask-image:radial-gradient(900px 500px at 70% 0%,#000,transparent 75%)}
+  .stage{position:relative;z-index:1}
+  /* HUD 顶栏 */
+  .hud{display:flex;align-items:center;gap:18px;padding:9px 20px;border-bottom:1px solid var(--line);
+    background:#070d13;font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);flex-wrap:wrap}
+  .hud .b{color:var(--cyan)}
+  .hud .dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;
+    box-shadow:0 0 8px var(--green);margin-right:5px}
+  .hud .seg{display:flex;gap:6px;align-items:center}
+  .hud .seg b{color:var(--ink);font-weight:600}
+  header{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-bottom:1px solid var(--line)}
+  .logo{font-weight:800;font-size:18px;letter-spacing:1px;display:flex;align-items:center;gap:11px}
+  .logo .orb{width:30px;height:30px}
+  .logo .en{font-family:var(--mono);font-size:9.5px;letter-spacing:2px;color:var(--cyan);font-weight:400}
+  nav{display:flex;gap:3px;flex-wrap:wrap}
+  nav a{color:var(--ink-dim);text-decoration:none;font-size:13px;font-family:var(--mono);padding:6px 12px;border:1px solid transparent}
+  nav a.on{color:var(--cyan);border-color:var(--line-2);background:#0d1a24}
+  nav a:hover{color:var(--cyan)}
+  .wrap{max-width:780px;margin:0 auto;padding:26px 22px 80px}
+  .hero{border:1px solid var(--line);border-left:3px solid var(--cyan);background:#0a131c;padding:20px 22px;margin-bottom:8px}
+  .hero .k{font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase}
+  .hero h1{font-size:30px;font-weight:800;letter-spacing:1px;margin:8px 0 5px}
+  .hero p{color:var(--ink-dim);font-size:13.5px}
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 6px}
+  .cell{background:var(--panel);border:1px solid var(--line);padding:12px;position:relative}
+  .cell::before{content:"";position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid var(--cyan);border-top:2px solid var(--cyan)}
+  .cell .n{font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:1px}
+  .cell h3{font-size:14px;margin-top:5px}
+  .cell.lg{grid-column:span 2}
+  .secn{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--ink-dim);margin:26px 0 6px}
+  .secn::before{content:"// "}
+  .crumb{font-family:var(--mono);font-size:11.5px;color:var(--cyan);margin-bottom:7px}
+  h2.title{font-size:26px;font-weight:800;line-height:1.35}
+  .meta{color:var(--ink-dim);font-size:12.5px;margin:7px 0 20px;font-family:var(--mono)}
+  section.blk{border:1px solid var(--line);background:#0a121a;margin:11px 0}
+  section.blk>h4{font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--bg);
+    background:var(--cyan);padding:6px 14px;letter-spacing:2px;display:flex;gap:8px}
+  section.blk>h4 .no{background:#0a121a;color:var(--cyan);padding:0 7px}
+  section.blk>.bd{padding:14px 16px}
+  p{margin-bottom:10px}
+  strong{color:#fff}
+  gd{color:var(--cyan);border-bottom:1px dashed var(--cyan);cursor:pointer;padding:0 1px}
+  .ex{border-left:3px solid var(--green);background:#34d39910;padding:10px 14px;margin:12px 0;font-size:14.5px}
+  .pit{border-left:3px solid var(--red);background:#fb718510;padding:10px 14px;margin:12px 0;font-size:14.5px}
+  .pit b{color:#fda4af}
+  figure.fig{margin:16px 0;border:1px dashed var(--line-2);padding:16px 10px 8px;text-align:center;background:#080f16}
+  figcaption{font-family:var(--mono);font-size:11px;color:var(--ink-dim);margin-top:8px;letter-spacing:1px}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;font-family:var(--mono)}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+  th{background:#0d1a24;color:var(--cyan)}
+  .next{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+  .next a{color:var(--cyan);text-decoration:none;border:1px solid var(--line);padding:9px 16px;font-size:13.5px;font-family:var(--mono);background:var(--panel)}
+  .next a:hover{border-color:var(--cyan)}
+  .termcard{position:fixed;right:20px;bottom:20px;width:282px;background:var(--bg2);
+    border:1px solid var(--cyan);padding:13px 16px;font-size:14px;z-index:9;box-shadow:0 0 30px #22d3ee30}
+  .termcard .t{color:var(--cyan);font-weight:700;font-size:14.5px;margin-bottom:5px;font-family:var(--mono)}
+  .termcard .a{color:var(--ink-dim);font-size:12.5px;margin-top:7px}
+  .termcard .ops{margin-top:10px;display:flex;gap:8px}
+  .termcard .ops span{border:1px solid var(--line);padding:3px 10px;font-size:12px;color:var(--ink);font-family:var(--mono)}
+  .termcard .ops span:first-child{border-color:var(--cyan);color:var(--cyan)}
+  .ribbon{position:fixed;left:0;top:0;background:var(--cyan);color:var(--bg);font-size:12px;font-weight:700;padding:5px 14px;z-index:20;font-family:var(--mono)}
+  @media(max-width:640px){.bento{grid-template-columns:repeat(2,1fr)}.termcard{display:none}.hud{font-size:10.5px}}
+</style>
+</head>
+<body>
+<div class="ribbon">STYLE B · 时空蓝图 HUD</div>
+<div class="stage">
+<div class="hud">
+  <span class="seg"><span class="dot"></span>SYSTEM <span class="b">NOMINAL</span></span>
+  <span class="seg">在轨卫星 <b>30</b></span>
+  <span class="seg">可见星 <b>11</b></span>
+  <span class="seg">PDOP <b>1.8</b></span>
+  <span class="seg">授时偏差 <b>±20ns</b></span>
+  <span class="seg" style="margin-left:auto">BDT 2026-06-25 09:41:07</span>
+</div>
+<header>
+  <div class="logo">
+    <svg class="orb" viewBox="0 0 40 40"><circle cx="20" cy="20" r="6" fill="#0d1a24" stroke="#22d3ee" stroke-width="1.5"/><ellipse cx="20" cy="20" rx="16" ry="7" fill="none" stroke="#22d3ee" stroke-width="1"/><ellipse cx="20" cy="20" rx="7" ry="16" fill="none" stroke="#34d399" stroke-width="1"/><circle cx="36" cy="20" r="2" fill="#fbbf24"/><circle cx="20" cy="4" r="2" fill="#34d399"/></svg>
+    能源北斗<span class="en">EBD//PNT</span>
+  </div>
+  <nav><a class="on" href="#">LESSON</a><a href="#">ROUTE</a><a href="#">TERMS</a><a href="#">SAVED</a><a href="#">SEARCH</a><a href="#">CFG</a></nav>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="k">Energy BeiDou · Spatiotemporal Services</div>
+    <h1>能源北斗与时空服务</h1>
+    <p>定位 · 导航 · 授时,把卫星的"时与空"接入电力系统。</p>
+  </div>
+
+  <div class="secn">MODULES // 模块速览</div>
+  <div class="bento">
+    <div class="cell lg"><span class="n">M01</span><h3>北斗基础</h3></div>
+    <div class="cell"><span class="n">M02</span><h3>时空原理</h3></div>
+    <div class="cell"><span class="n">M03</span><h3>高精度增强</h3></div>
+    <div class="cell"><span class="n">M05</span><h3>授时同步</h3></div>
+    <div class="cell"><span class="n">M06</span><h3>巡检运维</h3></div>
+    <div class="cell"><span class="n">M07</span><h3>形变监测</h3></div>
+    <div class="cell lg"><span class="n">M09</span><h3>短报文应急</h3></div>
+  </div>
+
+  <div class="secn">SAMPLE LESSON // 样板课预览</div>
+  <div class="crumb">M01 / 北斗基础 / SHEET 04 OF 10</div>
+  <h2 class="title">北斗的混合星座:三种轨道各司其职</h2>
+  <div class="meta">~4 MIN · BDS-3 · 招牌设计</div>
+
+  <section class="blk"><h4><span class="no">01</span>一句话是什么</h4><div class="bd">
+    <p>别家导航卫星基本"贴着同一层高度飞",北斗却让三种<strong>不同轨道</strong>的卫星搭班子组成<gd>星座</gd>:有的悬在赤道上空一动不动(<gd>GEO</gd>),有的在中国头顶画"8"字(<gd>IGSO</gd>),有的绕地球中圈匀速跑(<gd>MEO</gd>)。</p>
+    <div class="ex">一句话:<strong>GEO 看家、IGSO 顾区域、MEO 跑全球</strong>。三种凑一起,既全球定位,又能在中国及周边"抬头看到很多颗星"。</div>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">02</span>为什么重要</h4><div class="bd">
+    <p>这是北斗区别于 GPS 的<strong>招牌设计</strong>。正是 GEO/IGSO 两层"高空守望者",北斗才撑得起 GPS 没有的<gd>短报文</gd>等区域服务——这对没有公网的山区、海上电力设施意义重大。</p>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">03</span>怎么运作</h4><div class="bd">
+    <p>北斗三号共约 <strong>30 颗</strong>:24 MEO + 3 IGSO + 3 GEO,三层高度协同。</p>
+    <figure class="fig">
+      <svg viewBox="0 0 360 200" width="100%" style="max-width:360px">
+        <circle cx="180" cy="100" r="22" fill="#0d2a3a" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="180" y="104" fill="#9fe6f5" font-size="10" text-anchor="middle">地球</text>
+        <ellipse cx="180" cy="100" rx="48" ry="48" fill="none" stroke="#34d399" stroke-width="1" stroke-dasharray="3 3"/>
+        <ellipse cx="180" cy="100" rx="92" ry="40" fill="none" stroke="#fbbf24" stroke-width="1.1"/>
+        <ellipse cx="180" cy="100" rx="140" ry="80" fill="none" stroke="#22d3ee" stroke-width="1.1"/>
+        <circle cx="228" cy="100" r="3.4" fill="#34d399"/><text x="236" y="96" fill="#34d399" font-size="9">GEO</text>
+        <circle cx="180" cy="60" r="3.4" fill="#fbbf24"/><text x="150" y="52" fill="#fbbf24" font-size="9">IGSO</text>
+        <circle cx="320" cy="100" r="3.4" fill="#22d3ee"/><text x="296" y="118" fill="#22d3ee" font-size="9">MEO</text>
+      </svg>
+      <figcaption>FIG · 三种轨道高度示意</figcaption>
+    </figure>
+    <table><tr><th>TYPE</th><th>轨道</th><th>看上去</th><th>N</th></tr>
+      <tr><td>GEO</td><td>赤道同步</td><td>定点不动</td><td>3</td></tr>
+      <tr><td>IGSO</td><td>倾斜同步</td><td>画"8"字</td><td>3</td></tr>
+      <tr><td>MEO</td><td>中圆轨道</td><td>匀速绕地</td><td>24</td></tr></table>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">04</span>常见误解</h4><div class="bd">
+    <div class="pit"><b>坑 1:以为导航卫星都一样高。</b>GEO 约 3.6 万公里"定点",MEO 才 2 万公里出头且不停移动。</div>
+    <div class="pit"><b>坑 2:以为定位要"看见"卫星。</b>靠收无线电信号,不是光学看见;关键是可见星几何分布(PDOP)。</div>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">05</span>关联与延伸</h4><div class="bd">
+    <p>· 下一课《B1/B2/B3 信号频段》。<br>· 模块 9《短报文》会回到 GEO。</p>
+  </div></section>
+
+  <div class="next"><a href="#">‹ PREV · 四大全球系统</a><a href="#">NEXT · 信号频段 ›</a></div>
+</div>
+</div>
+
+<div class="termcard">
+  <div class="t">星座 // constellation</div>
+  <div>一组按设计排布、协同提供服务的卫星总体。北斗三号用 30 颗组成混合星座。</div>
+  <div class="a">类比:站位讲究的球队,而非一盘散沙。</div>
+  <div class="ops"><span>☆ SAVE</span><span>DETAIL</span></div>
+</div>
+</body>
+</html>

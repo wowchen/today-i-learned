@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>能源北斗与时空服务 · Energy BeiDou</title>
+<meta name="description" content="用大白话讲透北斗卫星导航系统的定位/导航/授时(PNT)与时空服务,以及它在能源/电力行业的落地:授时同步、巡检运维、形变监测、资产作业、短报文应急、时空数据。12 模块 100 课,零基础一看就懂,术语点哪查哪,纯静态离线。">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<!-- 侧边图签索引(引擎渲染) -->
+<nav class="thumb" id="thumbNav" aria-label="模块索引"></nav>
+
+<header class="site">
+  <div class="masthead">
+    <a class="brand" href="#/">能源北斗<small>BEIDOU · PNT</small></a>
+    <nav class="top" id="topNav">
+      <a href="#/" data-nav="home">首页</a>
+      <a href="#/path" data-nav="path">学习路线</a>
+      <a href="#/terms" data-nav="terms">术语表</a>
+      <a href="#/book" data-nav="book">术语本 <b id="navTermCount"></b></a>
+      <a href="#/search" data-nav="search">搜索</a>
+      <a href="#/settings" data-nav="settings">设置</a>
+      <a href="../">↗ 总站</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <noscript><p style="padding:40px 0">本站需要启用 JavaScript 才能运行。</p></noscript>
+</main>
+
+<footer class="site">
+  <span>能源北斗与时空服务 · 纯静态 · 零依赖 · 离线可用</span>
+  <span id="syncStatus">进度:仅本机</span>
+</footer>
+
+<!-- 引擎(不要在内容工作中改动 assets/ 下任何文件) -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/terms.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+
+<!-- 元数据:模块 + 学习路线 + 术语库 -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- 课程内容(新增课程文件后,在下方按模块分组、按 order 顺序追加 script 标签) -->
+<!-- 模块 0 · 学习导览 -->
+<script src="content/guide/01-howto.js"></script>
+<script src="content/guide/02-map.js"></script>
+<script src="content/guide/03-route.js"></script>
+<script src="content/guide/04-terms.js"></script>
+
+<!-- 模块 1 · 北斗基础 -->
+<script src="content/beidou/01-gnss.js"></script>
+<script src="content/beidou/02-four-systems.js"></script>
+<script src="content/beidou/03-three-steps.js"></script>
+<script src="content/beidou/04-constellation.js"></script>
+<script src="content/beidou/05-signal.js"></script>
+<script src="content/beidou/06-rnss-rdss.js"></script>
+<script src="content/beidou/07-shortmsg.js"></script>
+<script src="content/beidou/08-positioning.js"></script>
+<script src="content/beidou/09-why-four.js"></script>
+<script src="content/beidou/10-vs-gps.js"></script>
+
+<!-- 模块 2 · 时空服务原理 -->
+<script src="content/pnt/01-trio.js"></script>
+<script src="content/pnt/02-datum.js"></script>
+<script src="content/pnt/03-cgcs2000.js"></script>
+<script src="content/pnt/04-height.js"></script>
+<script src="content/pnt/05-bdt.js"></script>
+<script src="content/pnt/06-timing.js"></script>
+<script src="content/pnt/07-single-diff.js"></script>
+<script src="content/pnt/08-error.js"></script>
+<script src="content/pnt/09-integrity.js"></script>
+
+<!-- 模块 3 · 高精度增强 -->
+<script src="content/augment/01-why-meter.js"></script>
+<script src="content/augment/02-dgnss.js"></script>
+<script src="content/augment/03-rtk.js"></script>
+<script src="content/augment/04-cors.js"></script>
+<script src="content/augment/05-sbas.js"></script>
+<script src="content/augment/06-ppp.js"></script>
+<script src="content/augment/07-ppp-b2b.js"></script>
+<script src="content/augment/08-mm.js"></script>
+<script src="content/augment/09-table.js"></script>
+
+<!-- 模块 4 · 能源北斗总览 -->
+<script src="content/energy/01-why.js"></script>
+<script src="content/energy/02-strategy.js"></script>
+<script src="content/energy/03-autonomy.js"></script>
+<script src="content/energy/04-system.js"></script>
+<script src="content/energy/05-domains.js"></script>
+<script src="content/energy/06-value.js"></script>
+<script src="content/energy/07-policy.js"></script>
+<script src="content/energy/08-panorama.js"></script>
+
+<!-- 模块 5 · 授时与同步 -->
+<script src="content/timing/01-why.js"></script>
+<script src="content/timing/02-levels.js"></script>
+<script src="content/timing/03-soe.js"></script>
+<script src="content/timing/04-pmu.js"></script>
+<script src="content/timing/05-diff.js"></script>
+<script src="content/timing/06-not-gps.js"></script>
+<script src="content/timing/07-device.js"></script>
+<script src="content/timing/08-holdover.js"></script>
+<script src="content/timing/09-antijam.js"></script>
+
+<!-- 模块 6 · 巡检与运维 -->
+<script src="content/inspect/01-pain.js"></script>
+<script src="content/inspect/02-channel.js"></script>
+<script src="content/inspect/03-uav.js"></script>
+<script src="content/inspect/04-tower-db.js"></script>
+<script src="content/inspect/05-people.js"></script>
+<script src="content/inspect/06-repair.js"></script>
+<script src="content/inspect/07-mobile.js"></script>
+<script src="content/inspect/08-indoor.js"></script>
+<script src="content/inspect/09-tag.js"></script>
+
+<!-- 模块 7 · 形变与安全监测 -->
+<script src="content/monitor/01-why-mm.js"></script>
+<script src="content/monitor/02-tower.js"></script>
+<script src="content/monitor/03-geohazard.js"></script>
+<script src="content/monitor/04-dam.js"></script>
+<script src="content/monitor/05-ice.js"></script>
+<script src="content/monitor/06-station.js"></script>
+<script src="content/monitor/07-loop.js"></script>
+<script src="content/monitor/08-network.js"></script>
+<script src="content/monitor/09-case.js"></script>
+
+<!-- 模块 8 · 资产与作业管理 -->
+<script src="content/asset/01-tag.js"></script>
+<script src="content/asset/02-onsite.js"></script>
+<script src="content/asset/03-twoticket.js"></script>
+<script src="content/asset/04-dispatch.js"></script>
+<script src="content/asset/05-mobile.js"></script>
+<script src="content/asset/06-construction.js"></script>
+<script src="content/asset/07-warehouse.js"></script>
+<script src="content/asset/08-geofence.js"></script>
+
+<!-- 模块 9 · 短报文与应急通信 -->
+<script src="content/message/01-what.js"></script>
+<script src="content/message/02-no-net.js"></script>
+<script src="content/message/03-remote.js"></script>
+<script src="content/message/04-report.js"></script>
+<script src="content/message/05-vs-sat.js"></script>
+<script src="content/message/06-disaster.js"></script>
+<script src="content/message/07-telemetry.js"></script>
+<script src="content/message/08-capacity.js"></script>
+
+<!-- 模块 10 · 时空数据与数字电网 -->
+<script src="content/data/01-base.js"></script>
+<script src="content/data/02-gis.js"></script>
+<script src="content/data/03-onemap.js"></script>
+<script src="content/data/04-twin.js"></script>
+<script src="content/data/05-newpower.js"></script>
+<script src="content/data/06-sghc.js"></script>
+<script src="content/data/07-governance.js"></script>
+<script src="content/data/08-intelligence.js"></script>
+<script src="content/data/09-security.js"></script>
+
+<!-- 模块 11 · 安全自主与未来 -->
+<script src="content/future/01-autonomy.js"></script>
+<script src="content/future/02-gps-account.js"></script>
+<script src="content/future/03-anti-spoof.js"></script>
+<script src="content/future/04-5g.js"></script>
+<script src="content/future/05-leo.js"></script>
+<script src="content/future/06-ai.js"></script>
+<script src="content/future/07-global-msg.js"></script>
+<script src="content/future/08-trends.js"></script>
+
+<!-- 引擎启动(必须在所有内容之后) -->
+<script src="assets/js/engine.js"></script>
+</body>
+</html>

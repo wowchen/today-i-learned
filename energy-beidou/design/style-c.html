@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>能源北斗 · 风格 C 国测红金</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --paper:#ffffff; --line:#e4e7ec; --line-2:#d4d9e0;
+    --ink:#1b2330; --ink-dim:#6b7686; --red:#c8102e; --red-soft:#fbe9ec;
+    --gold:#b8893a; --gold-soft:#f7efe0; --ok:#1a7a4a;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    --serif:"Songti SC","STSong","Source Han Serif SC",Georgia,serif;
+    --mono:"SF Mono","JetBrains Mono",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:16px/1.85 var(--sans);color:var(--ink);background:var(--bg)}
+  /* 经纬网水印 */
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(#eceef2 1px,transparent 1px),linear-gradient(90deg,#eceef2 1px,transparent 1px);
+    background-size:46px 46px}
+  .stage{position:relative;z-index:1}
+  header{background:var(--paper);border-bottom:2px solid var(--red);
+    display:flex;justify-content:space-between;align-items:center;padding:14px 26px}
+  .logo{font-size:19px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:11px}
+  .logo .m{width:30px;height:30px}
+  .logo .en{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:600}
+  nav{display:flex;gap:2px;flex-wrap:wrap}
+  nav a{color:var(--ink-dim);text-decoration:none;font-size:13.5px;padding:7px 13px;border-radius:7px}
+  nav a.on{color:#fff;background:var(--red);font-weight:700}
+  nav a:hover{color:var(--red)}
+  .wrap{max-width:760px;margin:0 auto;padding:30px 24px 80px}
+  .hero{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--red);
+    border-radius:0 0 14px 14px;padding:26px 26px 22px;text-align:center}
+  .hero .k{font-family:var(--mono);font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase}
+  .hero h1{font-family:var(--serif);font-size:36px;font-weight:800;letter-spacing:2px;margin:10px 0 6px}
+  .hero p{color:var(--ink-dim);font-size:14px}
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 6px}
+  .cell{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px;position:relative;box-shadow:0 1px 2px #0000000a}
+  .cell .n{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:1px;font-weight:700}
+  .cell h3{font-size:14.5px;margin-top:5px}
+  .cell.lg{grid-column:span 2;border-left:3px solid var(--gold)}
+  .secn{font-size:12.5px;letter-spacing:2px;color:var(--ink-dim);margin:28px 0 4px;font-weight:700}
+  .secn b{color:var(--red)}
+  .crumb{font-family:var(--mono);font-size:11.5px;color:var(--red);margin-bottom:8px;letter-spacing:.5px}
+  h2.title{font-family:var(--serif);font-size:30px;font-weight:800;letter-spacing:1px;line-height:1.4}
+  .meta{color:var(--ink-dim);font-size:13px;margin:8px 0 4px}
+  .rule{height:3px;background:linear-gradient(90deg,var(--red) 0 60px,var(--gold) 60px 96px,var(--line) 96px);margin:14px 0 22px}
+  section.blk{background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:13px 0;overflow:hidden}
+  section.blk>h4{font-size:14px;font-weight:800;color:var(--ink);background:var(--gold-soft);
+    padding:9px 16px;letter-spacing:1px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+  section.blk>h4 .no{background:var(--red);color:#fff;width:22px;height:22px;border-radius:5px;display:grid;place-items:center;font-size:12px;font-family:var(--mono)}
+  section.blk>.bd{padding:15px 18px}
+  p{margin-bottom:11px}
+  strong{color:var(--red)}
+  gd{color:var(--red);border-bottom:1px dashed var(--red);cursor:pointer;padding:0 1px;font-weight:600}
+  .ex{border-left:3px solid var(--ok);background:#1a7a4a0d;padding:11px 15px;margin:12px 0;border-radius:0 8px 8px 0}
+  .pit{border-left:3px solid var(--red);background:var(--red-soft);padding:11px 15px;margin:12px 0;border-radius:0 8px 8px 0}
+  .pit b{color:var(--red)}
+  figure.fig{margin:16px 0;border:1px solid var(--line);border-radius:12px;background:#fcfcfd;padding:18px 10px 10px;text-align:center}
+  figcaption{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-top:8px;letter-spacing:.5px}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 11px;text-align:left}
+  th{background:var(--red-soft);color:var(--red);font-weight:700}
+  .next{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+  .next a{color:var(--red);text-decoration:none;border:1px solid var(--line-2);border-radius:9px;padding:10px 18px;font-size:14px;background:var(--paper)}
+  .next a:hover{border-color:var(--red)}
+  .termcard{position:fixed;right:22px;bottom:22px;width:282px;background:var(--paper);
+    border:1px solid var(--line-2);border-top:3px solid var(--red);border-radius:12px;padding:15px 17px;font-size:14px;z-index:9;box-shadow:0 14px 40px #0000001f}
+  .termcard .t{color:var(--red);font-weight:800;font-size:15px;margin-bottom:5px}
+  .termcard .a{color:var(--ink-dim);font-size:13px;margin-top:7px}
+  .termcard .ops{margin-top:11px;display:flex;gap:8px}
+  .termcard .ops span{border:1px solid var(--line-2);border-radius:7px;padding:3px 11px;font-size:12px;color:var(--ink)}
+  .termcard .ops span:first-child{border-color:var(--red);color:var(--red)}
+  .ribbon{position:fixed;left:0;top:0;background:var(--red);color:#fff;font-size:12px;font-weight:700;padding:5px 14px;border-radius:0 0 10px 0;z-index:20;letter-spacing:1px}
+  @media(max-width:640px){.bento{grid-template-columns:repeat(2,1fr)}.termcard{display:none}.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="ribbon">风格 C · 国测红金</div>
+<div class="stage">
+<header>
+  <div class="logo">
+    <svg class="m" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="#c8102e" stroke-width="2"/><path d="M20 5 L24 18 L37 20 L24 22 L20 35 L16 22 L3 20 L16 18 Z" fill="#c8102e"/><circle cx="20" cy="20" r="3" fill="#b8893a"/></svg>
+    能源北斗<span class="en">BEIDOU · PNT</span>
+  </div>
+  <nav><a class="on" href="#">课时</a><a href="#">路线</a><a href="#">术语</a><a href="#">收藏</a><a href="#">搜索</a><a href="#">设置</a></nav>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="k">Energy BeiDou · 时空服务通识</div>
+    <h1>能源北斗与时空服务</h1>
+    <p>用大白话讲透北斗的定位 · 导航 · 授时,以及它如何撑起电力的时与空。</p>
+  </div>
+
+  <div class="secn">模块速览 · <b>MODULES</b></div>
+  <div class="bento">
+    <div class="cell lg"><span class="n">M01</span><h3>北斗基础</h3></div>
+    <div class="cell"><span class="n">M02</span><h3>时空原理</h3></div>
+    <div class="cell"><span class="n">M03</span><h3>高精度增强</h3></div>
+    <div class="cell"><span class="n">M04</span><h3>能源北斗</h3></div>
+    <div class="cell"><span class="n">M05</span><h3>授时同步</h3></div>
+    <div class="cell"><span class="n">M06</span><h3>巡检运维</h3></div>
+    <div class="cell lg"><span class="n">M07</span><h3>形变监测</h3></div>
+  </div>
+
+  <div class="secn">样板课预览 · <b>SAMPLE</b></div>
+  <div class="crumb">模块 01 · 北斗基础 · 第 4 课</div>
+  <h2 class="title">北斗的混合星座:三种轨道各司其职</h2>
+  <div class="meta">约 4 分钟 · 北斗三号 · 招牌设计</div>
+  <div class="rule"></div>
+
+  <section class="blk"><h4><span class="no">1</span>一句话是什么</h4><div class="bd">
+    <p>别家导航卫星基本"贴着同一层高度飞",北斗却让三种<strong>不同轨道</strong>的卫星搭班子组成<gd>星座</gd>:有的悬在赤道上空一动不动(<gd>GEO</gd>),有的在中国头顶画"8"字(<gd>IGSO</gd>),有的绕地球中圈匀速跑(<gd>MEO</gd>)。</p>
+    <div class="ex">一句话记住:<strong>GEO 看家、IGSO 顾区域、MEO 跑全球</strong>。三种凑一起,既能全球定位,又能在中国及周边"抬头随时看到很多颗星"。</div>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">2</span>为什么重要</h4><div class="bd">
+    <p>这是北斗区别于 GPS 的<strong>招牌设计</strong>。正是 GEO/IGSO 这两层"高空守望者",北斗才撑得起 GPS 没有的<gd>短报文</gd>等区域特色服务——这对没有公网信号的山区、海上电力设施意义重大。</p>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">3</span>怎么运作</h4><div class="bd">
+    <p>北斗三号共约 <strong>30 颗</strong>卫星:24 颗 MEO + 3 颗 IGSO + 3 颗 GEO,三层高度协同。</p>
+    <figure class="fig">
+      <svg viewBox="0 0 360 200" width="100%" style="max-width:360px">
+        <circle cx="180" cy="100" r="22" fill="#fbe9ec" stroke="#c8102e" stroke-width="1.5"/>
+        <text x="180" y="104" fill="#c8102e" font-size="10" text-anchor="middle">地球</text>
+        <ellipse cx="180" cy="100" rx="48" ry="48" fill="none" stroke="#1a7a4a" stroke-width="1" stroke-dasharray="3 3"/>
+        <ellipse cx="180" cy="100" rx="92" ry="40" fill="none" stroke="#b8893a" stroke-width="1.2"/>
+        <ellipse cx="180" cy="100" rx="140" ry="80" fill="none" stroke="#c8102e" stroke-width="1.2"/>
+        <circle cx="228" cy="100" r="3.4" fill="#1a7a4a"/><text x="236" y="96" fill="#1a7a4a" font-size="9">GEO</text>
+        <circle cx="180" cy="60" r="3.4" fill="#b8893a"/><text x="150" y="52" fill="#b8893a" font-size="9">IGSO</text>
+        <circle cx="320" cy="100" r="3.4" fill="#c8102e"/><text x="296" y="118" fill="#c8102e" font-size="9">MEO</text>
+      </svg>
+      <figcaption>图 · 三种轨道高度示意(GEO 同步 / IGSO 倾斜 / MEO 中圆)</figcaption>
+    </figure>
+    <table><tr><th>类型</th><th>轨道</th><th>看上去</th><th>颗数</th></tr>
+      <tr><td>GEO</td><td>赤道同步</td><td>定点不动</td><td>3</td></tr>
+      <tr><td>IGSO</td><td>倾斜同步</td><td>头顶画"8"字</td><td>3</td></tr>
+      <tr><td>MEO</td><td>中圆轨道</td><td>匀速绕地</td><td>24</td></tr></table>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">4</span>常见误解</h4><div class="bd">
+    <div class="pit"><b>坑 1:以为导航卫星都一样高。</b>GEO 约 3.6 万公里"定点",MEO 才 2 万公里出头并不停移动,高度差着一大截。</div>
+    <div class="pit"><b>坑 2:以为定位要"亲眼看见"卫星。</b>靠的是接收无线电信号,不是光学看见;关键是"可见星几何分布好不好"。</div>
+  </div></section>
+
+  <section class="blk"><h4><span class="no">5</span>关联与延伸</h4><div class="bd">
+    <p>· 下一课《B1/B2/B3 信号频段》讲这些卫星发的是什么信号。<br>· 模块 9《短报文》会回到 GEO,讲它怎么帮你"发短信"。</p>
+  </div></section>
+
+  <div class="next"><a href="#">‹ 上一课 · 四大全球系统</a><a href="#">下一课 · 信号频段 ›</a></div>
+</div>
+</div>
+
+<div class="termcard">
+  <div class="t">星座 · constellation</div>
+  <div>一组按设计排布、协同提供服务的卫星总体。北斗三号用 30 颗卫星组成混合星座。</div>
+  <div class="a">类比:一支站位讲究的球队,而非一盘散沙。</div>
+  <div class="ops"><span>☆ 收藏</span><span>查看详解</span></div>
+</div>
+</body>
+</html>
