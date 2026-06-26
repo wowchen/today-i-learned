@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>医疗业务与信息化学习站 · Healthcare Business & IT</title>
+<meta name="description" content="用大白话讲透医疗业务与信息化:从医院业务流程、医保支付、医疗质量安全,到 HIS、EMR、LIS、PACS、数据标准、互联互通、安全合规、互联网医疗与智慧医院。13 模块 100 节微课,含行业时间轴、角色图鉴、缩略语速查、流程对照与三个互动实验。纯静态、离线、零依赖;仅供学习参考,不构成医疗建议。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem("hit.progress.v1") || "{}");
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"; }
+      if(t==="dark") document.documentElement.setAttribute("data-theme","dark");
+      else document.documentElement.setAttribute("data-theme","light");
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute("data-fs", p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="mtop">
+  <button class="burger" id="burger" aria-label="菜单"><span></span><span></span><span></span></button>
+  <span class="mk">HIT</span><b>医疗业务与信息化</b>
+</div>
+<div class="app" id="app-shell">
+  <nav class="side" id="side"></nav>
+  <main id="app"></main>
+  <div class="scrim" id="scrim"></div>
+</div>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/shell.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/views-lab.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/figures.js"></script>
+<script src="content/timeline.js"></script>
+<script src="content/models.js"></script>
+<script src="content/compare.js"></script>
+
+<!-- Lessons (由 HIT.path 顺序加载) -->
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-industry-map.js"></script>
+<script src="content/guide/03-three-lines.js"></script>
+<script src="content/guide/04-disclaimer.js"></script>
+<script src="content/overview/01-what-is-healthcare-business.js"></script>
+<script src="content/overview/02-patient-journey.js"></script>
+<script src="content/overview/03-healthcare-ecosystem.js"></script>
+<script src="content/overview/04-hospital-vs-primary.js"></script>
+<script src="content/overview/05-regulation-basics.js"></script>
+<script src="content/overview/06-drug-supply.js"></script>
+<script src="content/overview/07-hospital-operation.js"></script>
+<script src="content/overview/08-digital-value.js"></script>
+<script src="content/hospital/01-hospital-flow-map.js"></script>
+<script src="content/hospital/02-outpatient-flow.js"></script>
+<script src="content/hospital/03-emergency-flow.js"></script>
+<script src="content/hospital/04-inpatient-flow.js"></script>
+<script src="content/hospital/05-surgery-flow.js"></script>
+<script src="content/hospital/06-order-flow.js"></script>
+<script src="content/hospital/07-nursing-flow.js"></script>
+<script src="content/hospital/08-pharmacy-flow.js"></script>
+<script src="content/hospital/09-lab-flow.js"></script>
+<script src="content/hospital/10-imaging-flow.js"></script>
+<script src="content/payment/01-who-pays.js"></script>
+<script src="content/payment/02-basic-insurance.js"></script>
+<script src="content/payment/03-billing-settlement.js"></script>
+<script src="content/payment/04-commercial-and-selfpay.js"></script>
+<script src="content/payment/05-drg-basics.js"></script>
+<script src="content/payment/06-dip-basics.js"></script>
+<script src="content/payment/07-reconciliation.js"></script>
+<script src="content/payment/08-cost-control.js"></script>
+<script src="content/quality/01-quality-map.js"></script>
+<script src="content/quality/02-patient-safety.js"></script>
+<script src="content/quality/03-record-homepage.js"></script>
+<script src="content/quality/04-clinical-pathway.js"></script>
+<script src="content/quality/05-adverse-event.js"></script>
+<script src="content/quality/06-infection-control.js"></script>
+<script src="content/quality/07-quality-dashboard.js"></script>
+<script src="content/quality/08-accreditation.js"></script>
+<script src="content/systems/01-system-map.js"></script>
+<script src="content/systems/02-his.js"></script>
+<script src="content/systems/03-lis.js"></script>
+<script src="content/systems/04-pacs-ris.js"></script>
+<script src="content/systems/05-cpoe.js"></script>
+<script src="content/systems/06-emr-ehr.js"></script>
+<script src="content/systems/07-cdss.js"></script>
+<script src="content/systems/08-integration-platform.js"></script>
+<script src="content/systems/09-mobile-care.js"></script>
+<script src="content/systems/10-system-boundaries.js"></script>
+<script src="content/emr/01-emr-purpose.js"></script>
+<script src="content/emr/02-record-structure.js"></script>
+<script src="content/emr/03-order-closed-loop.js"></script>
+<script src="content/emr/04-nursing-system.js"></script>
+<script src="content/emr/05-mobile-rounds.js"></script>
+<script src="content/emr/06-record-quality.js"></script>
+<script src="content/emr/07-emr-rating.js"></script>
+<script src="content/emr/08-clinical-data-use.js"></script>
+<script src="content/data/01-why-standards.js"></script>
+<script src="content/data/02-icd-coding.js"></script>
+<script src="content/data/03-drg-coding.js"></script>
+<script src="content/data/04-dicom-imaging.js"></script>
+<script src="content/data/05-fhir-hl7.js"></script>
+<script src="content/data/06-master-data.js"></script>
+<script src="content/data/07-data-governance.js"></script>
+<script src="content/data/08-data-quality.js"></script>
+<script src="content/data/09-interface-governance.js"></script>
+<script src="content/regional/01-regional-platform.js"></script>
+<script src="content/regional/02-health-record.js"></script>
+<script src="content/regional/03-medical-alliance.js"></script>
+<script src="content/regional/04-public-health.js"></script>
+<script src="content/regional/05-referral.js"></script>
+<script src="content/regional/06-tiered-care.js"></script>
+<script src="content/regional/07-data-sharing.js"></script>
+<script src="content/internet/01-patient-portal.js"></script>
+<script src="content/internet/02-internet-hospital.js"></script>
+<script src="content/internet/03-appointment.js"></script>
+<script src="content/internet/04-online-payment-report.js"></script>
+<script src="content/internet/05-prescription-flow.js"></script>
+<script src="content/internet/06-telemedicine.js"></script>
+<script src="content/internet/07-follow-up.js"></script>
+<script src="content/security/01-security-basics.js"></script>
+<script src="content/security/02-phi.js"></script>
+<script src="content/security/03-rbac.js"></script>
+<script src="content/security/04-audit.js"></script>
+<script src="content/security/05-pipl-privacy.js"></script>
+<script src="content/security/06-desensitization.js"></script>
+<script src="content/security/07-backup-dr.js"></script>
+<script src="content/security/08-security-operation.js"></script>
+<script src="content/ops/01-project-lifecycle.js"></script>
+<script src="content/ops/02-requirements.js"></script>
+<script src="content/ops/03-procurement.js"></script>
+<script src="content/ops/04-implementation.js"></script>
+<script src="content/ops/05-go-live.js"></script>
+<script src="content/ops/06-om.js"></script>
+<script src="content/ops/07-metrics-evaluation.js"></script>
+<script src="content/future/01-smart-hospital.js"></script>
+<script src="content/future/02-clinical-ai.js"></script>
+<script src="content/future/03-data-platform.js"></script>
+<script src="content/future/04-digital-twin.js"></script>
+<script src="content/future/05-specialty-platform.js"></script>
+<script src="content/future/06-keep-learning.js"></script>
+
+</body>
+</html>

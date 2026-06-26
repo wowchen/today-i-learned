@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>医疗业务与信息化 · 视觉 Demo</title>
+  <style>
+    :root{--bg:#f6faf9;--paper:#fff;--ink:#12302e;--muted:#6a7d7a;--line:#dbe8e5;--brand:#0f766e;--brand2:#0f5c8a;--soft:#e8f5f2}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#dff5ef,transparent 34%),var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}.wrap{max-width:1120px;margin:0 auto;padding:44px 22px 70px}.top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:32px}.brand{display:flex;gap:12px;align-items:center}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:0 16px 34px rgba(15,118,110,.2)}h1{margin:0;font-size:clamp(30px,5vw,58px);letter-spacing:-.05em;line-height:1.05}.sub{max-width:760px;color:var(--muted);font-size:18px;margin:18px 0 34px}.pill{border:1px solid var(--line);background:rgba(255,255,255,.72);padding:8px 12px;border-radius:999px;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{display:flex;flex-direction:column;min-height:420px;text-decoration:none;color:inherit;background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:28px;padding:20px;box-shadow:0 18px 45px rgba(28,65,61,.08);transition:.18s ease}.card:hover{transform:translateY(-4px);box-shadow:0 26px 70px rgba(28,65,61,.14);border-color:#9ccfc4}.shot{height:190px;border-radius:22px;border:1px solid var(--line);overflow:hidden;background:var(--soft);position:relative;margin-bottom:18px}.a .shot{background:linear-gradient(180deg,#fff,#eff8f5)}.a .file{position:absolute;inset:18px 22px;background:#fff;border:1px solid #cfe4df;border-radius:18px;box-shadow:0 18px 32px rgba(15,118,110,.1)}.a .tab{position:absolute;top:0;left:24px;transform:translateY(-1px);background:#dff3ef;color:#0f766e;border:1px solid #cfe4df;border-top:0;border-radius:0 0 10px 10px;padding:5px 14px;font-size:12px;font-weight:800}.a .line{height:10px;background:#e7f0ee;border-radius:99px;margin:28px 24px 0}.a .line:nth-child(3){width:66%}.a .line:nth-child(4){width:86%;background:#f4efe1}.a .line:nth-child(5){width:46%}.b .shot{background:#0c1720}.b .metric{position:absolute;background:#122634;border:1px solid rgba(122,217,196,.3);border-radius:18px;padding:14px;color:#dffbf4}.b .m1{left:16px;top:18px;width:126px;height:78px}.b .m2{right:16px;top:18px;width:118px;height:78px}.b .m3{left:16px;right:16px;bottom:18px;height:64px}.b .bar{height:8px;background:#2b4851;border-radius:99px;margin-top:10px;overflow:hidden}.b .bar:before{content:"";display:block;height:100%;width:72%;background:#34d399}.c .shot{background:#eaf4fb;background-image:linear-gradient(#cfe1eb 1px,transparent 1px),linear-gradient(90deg,#cfe1eb 1px,transparent 1px);background-size:18px 18px}.c .node{position:absolute;border:2px solid #0f5c8a;background:#fff;border-radius:14px;padding:10px 12px;font-weight:900;color:#0f5c8a;font-size:12px}.c .n1{left:18px;top:28px}.c .n2{right:18px;top:28px}.c .n3{left:72px;bottom:24px}.c svg{position:absolute;inset:0}h2{margin:0 0 8px;font-size:24px;letter-spacing:-.03em}.desc{color:var(--muted);font-size:15px;margin:0 0 18px;flex:1}.tags{display:flex;flex-wrap:wrap;gap:8px}.tags span{font-size:12px;border:1px solid var(--line);background:#f8fbfa;border-radius:999px;padding:5px 9px;color:#607471}.go{margin-top:18px;font-weight:900;color:var(--brand)}.note{margin-top:28px;padding:18px 20px;background:#fff;border:1px solid var(--line);border-radius:22px;color:var(--muted)}@media(max-width:860px){.top{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}.card{min-height:0}.shot{height:170px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top">
+      <div class="brand"><div class="mark">HIT</div><div><b>今日得到 · 第 15 站</b><br><span style="color:var(--muted)">Healthcare Business & IT</span></div></div>
+      <a class="pill" href="../">返回上级</a>
+    </div>
+    <h1>医疗业务与信息化<br>三套视觉方向</h1>
+    <p class="sub">先选视觉,再全量建站。三套 demo 都用同一主题:从 HIS、电子病历、医保支付、互联互通到安全合规,给零基础读者建立业务与系统的双线地图。</p>
+    <section class="grid">
+      <a class="card a" href="style-a.html">
+        <div class="shot"><div class="file"><div class="tab">门诊病历</div><div class="line"></div><div class="line"></div><div class="line"></div></div></div>
+        <h2>A 临床病历</h2>
+        <p class="desc">像一份清爽的电子病历夹:白底、表单、标签、状态章,更贴近医生、护士、患者、药房、检查检验等真实业务场景。</p>
+        <div class="tags"><span>业务流程</span><span>病历夹</span><span>浅色</span><span>易读</span></div><span class="go">查看 Demo →</span>
+      </a>
+      <a class="card b" href="style-b.html">
+        <div class="shot"><div class="metric m1">门诊量<div class="bar"></div></div><div class="metric m2">床位<div class="bar"></div></div><div class="metric m3">医保结算 · 质控 · 运维<div class="bar"></div></div></div>
+        <h2>B 医院运营驾驶舱</h2>
+        <p class="desc">把医院看作一套运行中的复杂系统:指标卡、流程节点、数据看板,突出运营管理与信息化如何协同。</p>
+        <div class="tags"><span>运营指标</span><span>数据看板</span><span>深色</span><span>管理视角</span></div><span class="go">查看 Demo →</span>
+      </a>
+      <a class="card c" href="style-c.html">
+        <div class="shot"><svg viewBox="0 0 260 190"><path d="M60 58 C112 34 148 38 200 58 M80 138 C120 112 156 112 194 58" fill="none" stroke="#0f5c8a" stroke-width="3" stroke-dasharray="6 6"/></svg><div class="node n1">HIS</div><div class="node n2">EMR</div><div class="node n3">FHIR / 平台</div></div>
+        <h2>C 互联互通蓝图</h2>
+        <p class="desc">以系统架构图和数据流为视觉核心:接口、标准、平台、区域协同,更适合强调医疗信息化与数据标准。</p>
+        <div class="tags"><span>架构图</span><span>数据流</span><span>蓝绿</span><span>技术视角</span></div><span class="go">查看 Demo →</span>
+      </a>
+    </section>
+    <div class="note"><b>选择建议:</b>如果想让小白最快进入医疗场景,选 A;如果想突出业务经营与信息化价值,选 B;如果想把本站做成更强的信息化/架构学习站,选 C。</div>
+  </main>
+</body>
+</html>
