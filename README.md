@@ -20,6 +20,10 @@
 | 投资理财 · PFIN | [`personal-finance/`](personal-finance/) | 大白话投资理财通识(非应试):理财基础、复利、资产配置、股票、债券、基金ETF、房产REITs、保险、退休养老、税务、风险与行为偏差,含复利/定投/退休/贷款计算器。不荐股不带货不焦虑 | ✅ 已上线 |
 | 中国历史 · CHS | [`chinese-history/`](chinese-history/) | 大白话讲透五千年中国历史(科普非应试):14 个朝代/时段、135 节微课,从神话开篇到改革开放。含 5000 年时间轴、人物图鉴(约 96 位)、朝代速查表、皇帝年号换算器(约 280 条)。不戏说不阴谋论 | ✅ 已上线 |
 | 世界历史 · WHS | [`world-history/`](world-history/) | 大白话讲透世界历史(科普非应试):12 个时代/文明、122 节微课,从文明曙光到当代。含世界史时间轴、人物图鉴(75 位)、文明速查表、中外对照表。与中国历史站形成中/外一对,多文明并重不以单一文明为中心 | ✅ 已上线 |
+| 能源北斗与时空服务 · EBD | [`energy-beidou/`](energy-beidou/) | 大白话讲透北斗时空服务(定位/导航/授时)与电力的融合:北斗基础、时空原理、高精度增强、授时同步、巡检运维、形变监测、资产作业、短报文应急、时空数据。12 模块 100 课 | ✅ 已上线 |
+| 人工智能 · AIX | [`artificial-intelligence/`](artificial-intelligence/) | 大白话讲透人工智能:从神经元、机器学习、深度学习,到 Transformer、大模型、生成式 AI、智能体、提示词到 Loop 工程、安全伦理、发展史与未来。13 模块 100 课,含发展史时间轴、人物图鉴、大模型速查、中外对照与三个互动实验 | ✅ 已上线 |
+| 医疗业务与信息化 · HIT | [`healthcare-business-it/`](healthcare-business-it/) | 大白话讲透医疗业务与信息化:业务流程、医保支付、医疗质量,到 HIS/EMR/LIS/PACS、数据标准、互联互通、安全合规、互联网医疗与智慧医院。13 模块 100 课,含行业时间轴、角色图鉴、缩略语速查与三个互动实验。仅供学习参考 | ✅ 已上线 |
+| 信息安全通识 · ISL | [`information-security/`](information-security/) | 大白话讲透信息安全:CIA 三要素、密码学、网络与终端、身份与访问、数据安全、应用与云、合规等保、安全运营与攻防、CISP/CISSP 认证,以及大模型全生命周期与 MCP/A2A/Skill 智能体脚手架安全。14 模块 104 课,含安全大事记、人物图鉴、威胁速查、法规速查与四个互动实验(口令强度/提示词注入/MCP 权限/风险评估)。通识起步、兼顾从业备考 | ✅ 已上线 |
 
 ## 本地预览
 
@@ -33,7 +37,7 @@ python3 -m http.server 8000
 
 ```
 .
-├── index.html                      # 引导页(12 张卡片 Bento 布局)
+├── index.html                      # 引导页(16 张卡片 Bento 布局)
 ├── english-made-simple/            # 子站
 ├── power-grid-fundamentals/        # 子站
 ├── info-system-project-manager/    # 子站
@@ -45,7 +49,11 @@ python3 -m http.server 8000
 ├── network-planning-designer/      # 子站
 ├── personal-finance/               # 子站
 ├── chinese-history/                # 子站
-└── world-history/                  # 子站
+├── world-history/                  # 子站
+├── energy-beidou/                  # 子站
+├── artificial-intelligence/        # 子站
+├── healthcare-business-it/         # 子站
+└── information-security/           # 子站
 ```
 
 各子站使用相对路径,可独立运行,也可整体部署。

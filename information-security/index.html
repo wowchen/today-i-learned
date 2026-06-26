@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>信息安全通识学习站 · Information Security</title>
+<meta name="description" content="用大白话讲透信息安全:CIA 三要素、密码学、网络与终端、身份与访问、数据安全、应用与云、合规等保、安全运营与攻防、CISP/CISSP 认证,以及大模型全生命周期与 MCP/A2A/Skill 智能体脚手架安全。14 模块约 100 节微课,含安全大事记、人物图鉴、威胁速查、法规速查与互动实验室。纯静态、离线、零依赖。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem("isl.progress.v1") || "{}");
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"; }
+      if(t==="dark") document.documentElement.setAttribute("data-theme","dark");
+      else document.documentElement.setAttribute("data-theme","light");
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute("data-fs", p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="mtop">
+  <button class="burger" id="burger" aria-label="菜单"><span></span><span></span><span></span></button>
+  <span class="mk">ISL</span><b>信息安全通识</b>
+</div>
+<div class="app" id="app-shell">
+  <nav class="side" id="side"></nav>
+  <main id="app"></main>
+  <div class="scrim" id="scrim"></div>
+</div>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/shell.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/views-lab.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/figures.js"></script>
+<script src="content/timeline.js"></script>
+<script src="content/models.js"></script>
+<script src="content/compare.js"></script>
+
+<!-- Lessons (由 ISL.path 顺序加载) -->
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-map.js"></script>
+<script src="content/guide/03-roadmap.js"></script>
+<script src="content/guide/04-mindset.js"></script>
+<script src="content/basics/01-cia.js"></script>
+<script src="content/basics/02-risk-equation.js"></script>
+<script src="content/basics/03-threat-vuln-surface.js"></script>
+<script src="content/basics/04-defense-in-depth.js"></script>
+<script src="content/basics/05-least-privilege.js"></script>
+<script src="content/basics/06-zero-trust.js"></script>
+<script src="content/basics/07-threat-modeling.js"></script>
+<script src="content/basics/08-security-vs-compliance.js"></script>
+<script src="content/crypto/01-why-encrypt.js"></script>
+<script src="content/crypto/02-symmetric.js"></script>
+<script src="content/crypto/03-asymmetric.js"></script>
+<script src="content/crypto/04-hash.js"></script>
+<script src="content/crypto/05-signature-cert.js"></script>
+<script src="content/crypto/06-pki-tls.js"></script>
+<script src="content/crypto/07-sm-crypto.js"></script>
+<script src="content/crypto/08-key-management.js"></script>
+<script src="content/network/01-tcpip-security.js"></script>
+<script src="content/network/02-firewall.js"></script>
+<script src="content/network/03-ids-ips.js"></script>
+<script src="content/network/04-vpn.js"></script>
+<script src="content/network/05-ddos.js"></script>
+<script src="content/network/06-web-attacks.js"></script>
+<script src="content/network/07-apt-lateral.js"></script>
+<script src="content/network/08-perimeter-dissolve.js"></script>
+<script src="content/endpoint/01-endpoint-frontline.js"></script>
+<script src="content/endpoint/02-malware.js"></script>
+<script src="content/endpoint/03-ransomware.js"></script>
+<script src="content/endpoint/04-av-to-edr.js"></script>
+<script src="content/endpoint/05-patch-management.js"></script>
+<script src="content/endpoint/06-mobile-byod.js"></script>
+<script src="content/endpoint/07-firmware-hardware.js"></script>
+<script src="content/iam/01-identity-perimeter.js"></script>
+<script src="content/iam/02-aaa.js"></script>
+<script src="content/iam/03-password-problem.js"></script>
+<script src="content/iam/04-mfa.js"></script>
+<script src="content/iam/05-sso-federation.js"></script>
+<script src="content/iam/06-rbac-abac.js"></script>
+<script src="content/iam/07-pam.js"></script>
+<script src="content/data/01-why-data-security.js"></script>
+<script src="content/data/02-classification.js"></script>
+<script src="content/data/03-encryption-states.js"></script>
+<script src="content/data/04-masking-anon.js"></script>
+<script src="content/data/05-dlp.js"></script>
+<script src="content/data/06-database-bigdata.js"></script>
+<script src="content/data/07-backup-recovery.js"></script>
+<script src="content/data/08-cross-border.js"></script>
+<script src="content/appsec/01-shift-left-sdl.js"></script>
+<script src="content/appsec/02-devsecops.js"></script>
+<script src="content/appsec/03-owasp-top10-a.js"></script>
+<script src="content/appsec/04-owasp-top10-b.js"></script>
+<script src="content/appsec/05-api-security.js"></script>
+<script src="content/appsec/06-supply-chain.js"></script>
+<script src="content/appsec/07-container-cloud-native.js"></script>
+<script src="content/appsec/08-code-audit.js"></script>
+<script src="content/cloud/01-shared-responsibility.js"></script>
+<script src="content/cloud/02-misconfiguration.js"></script>
+<script src="content/cloud/03-container-k8s.js"></script>
+<script src="content/cloud/04-iot.js"></script>
+<script src="content/cloud/05-ot-ics.js"></script>
+<script src="content/cloud/06-blockchain-web3.js"></script>
+<script src="content/govern/01-management-matters.js"></script>
+<script src="content/govern/02-isms-iso27001.js"></script>
+<script src="content/govern/03-mlps.js"></script>
+<script src="content/govern/04-cybersecurity-law.js"></script>
+<script src="content/govern/05-data-security-law.js"></script>
+<script src="content/govern/06-pipl.js"></script>
+<script src="content/govern/07-gdpr-cross-border.js"></script>
+<script src="content/govern/08-risk-assessment-audit.js"></script>
+<script src="content/soc/01-soc.js"></script>
+<script src="content/soc/02-siem-logging.js"></script>
+<script src="content/soc/03-vuln-management.js"></script>
+<script src="content/soc/04-pentest.js"></script>
+<script src="content/soc/05-red-blue-purple.js"></script>
+<script src="content/soc/06-threat-intel.js"></script>
+<script src="content/soc/07-incident-response.js"></script>
+<script src="content/soc/08-forensics.js"></script>
+<script src="content/cisp/01-cert-landscape.js"></script>
+<script src="content/cisp/02-what-is-cisp.js"></script>
+<script src="content/cisp/03-cisp-cbk.js"></script>
+<script src="content/cisp/04-cissp-domains.js"></script>
+<script src="content/cisp/05-how-to-prep.js"></script>
+<script src="content/cisp/06-ethics-career.js"></script>
+<script src="content/aisec/01-why-ai-security.js"></script>
+<script src="content/aisec/02-training-data.js"></script>
+<script src="content/aisec/03-pretraining-risk.js"></script>
+<script src="content/aisec/04-posttraining-alignment.js"></script>
+<script src="content/aisec/05-prompt-injection.js"></script>
+<script src="content/aisec/06-jailbreak-adversarial.js"></script>
+<script src="content/aisec/07-hallucination-trust.js"></script>
+<script src="content/aisec/08-content-safety.js"></script>
+<script src="content/aisec/09-owasp-llm-top10.js"></script>
+<script src="content/aisec/10-model-supplychain-redteam.js"></script>
+<script src="content/agentsec/01-agent-amplifies-risk.js"></script>
+<script src="content/agentsec/02-tool-permission.js"></script>
+<script src="content/agentsec/03-mcp-security.js"></script>
+<script src="content/agentsec/04-a2a-multiagent.js"></script>
+<script src="content/agentsec/05-skill-plugin-supplychain.js"></script>
+<script src="content/agentsec/06-autonomy-hitl.js"></script>
+<script src="content/agentsec/07-memory-exfiltration.js"></script>
+<script src="content/agentsec/08-agent-defense-in-depth.js"></script>
+
+</body>
+</html>
