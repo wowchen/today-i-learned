@@ -30,15 +30,28 @@ HIT.views.home = function() {
   h += '<a class="btn" href="#/lab">打开互动实验室</a>';
   h += '<a class="btn" href="#/cheatsheet">缩略语速查</a>';
   h += '</div>';
-  h += '<div class="blueprint-map" aria-label="系统蓝图示意"><svg viewBox="0 0 720 250">' +
-    '<path class="f-line dash" d="M110 80 C210 35 310 35 405 80 S555 125 620 90"/>' +
-    '<path class="f-okln dash" d="M110 80 C180 150 270 175 360 170 S530 145 620 170"/>' +
-    '<rect class="f-box2" x="46" y="48" width="128" height="64" rx="16"/><text class="f-txt" x="110" y="86" text-anchor="middle">HIS 业务</text>' +
-    '<rect class="f-box2" x="296" y="48" width="128" height="64" rx="16"/><text class="f-txt" x="360" y="86" text-anchor="middle">EMR 临床</text>' +
-    '<rect class="f-box2" x="556" y="48" width="128" height="64" rx="16"/><text class="f-txt" x="620" y="86" text-anchor="middle">医保支付</text>' +
-    '<rect class="f-box2" x="46" y="148" width="128" height="64" rx="16"/><text class="f-txt" x="110" y="186" text-anchor="middle">LIS 检验</text>' +
-    '<rect class="f-box2" x="296" y="148" width="128" height="64" rx="16"/><text class="f-txt" x="360" y="186" text-anchor="middle">集成平台</text>' +
-    '<rect class="f-box2" x="556" y="148" width="128" height="64" rx="16"/><text class="f-txt" x="620" y="186" text-anchor="middle">PACS 影像</text>' +
+  h += '<div class="blueprint-map" aria-label="系统蓝图示意"><svg viewBox="0 0 720 260">' +
+    '<defs><marker id="hit-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="f-arr" d="M0 0 L10 5 L0 10 Z"/></marker></defs>' +
+    '<rect class="lane" x="30" y="36" width="660" height="190" rx="22"/>' +
+    '<text class="f-dim" x="52" y="66">虚构门诊闭环 · 业务动作与系统联动</text>' +
+    '<path class="f-line" marker-end="url(#hit-arr)" d="M152 126 H254"/>' +
+    '<path class="f-line" marker-end="url(#hit-arr)" d="M346 126 H448"/>' +
+    '<path class="f-line" marker-end="url(#hit-arr)" d="M538 126 C610 126 610 190 540 190"/>' +
+    '<path class="f-okln" marker-end="url(#hit-arr)" d="M450 190 H346"/>' +
+    '<path class="f-okln" marker-end="url(#hit-arr)" d="M254 190 C184 190 184 126 254 126"/>' +
+    '<rect class="f-node primary" x="58" y="88" width="94" height="76" rx="18"/>' +
+    '<text class="f-num" x="105" y="114" text-anchor="middle">01</text><text class="f-hot" x="105" y="138" text-anchor="middle">挂号收费</text>' +
+    '<rect class="f-node primary" x="254" y="88" width="94" height="76" rx="18"/>' +
+    '<text class="f-num" x="301" y="114" text-anchor="middle">02</text><text class="f-hot" x="301" y="138" text-anchor="middle">医生工作站</text>' +
+    '<rect class="f-node primary" x="450" y="88" width="94" height="76" rx="18"/>' +
+    '<text class="f-num" x="497" y="114" text-anchor="middle">03</text><text class="f-hot" x="497" y="138" text-anchor="middle">医保结算</text>' +
+    '<rect class="f-node" x="450" y="174" width="94" height="42" rx="14"/>' +
+    '<text class="f-txt" x="497" y="201" text-anchor="middle">检验影像</text>' +
+    '<rect class="f-node" x="254" y="174" width="94" height="42" rx="14"/>' +
+    '<text class="f-txt" x="301" y="201" text-anchor="middle">集成平台</text>' +
+    '<rect class="f-node" x="58" y="174" width="94" height="42" rx="14"/>' +
+    '<text class="f-txt" x="105" y="201" text-anchor="middle">数据质控</text>' +
+    '<g class="legend"><circle cx="604" cy="92" r="4"/><text class="f-dim" x="616" y="97">业务流</text><circle class="ok" cx="604" cy="122" r="4"/><text class="f-dim" x="616" y="127">报告/质控回流</text></g>' +
     '</svg></div>';
   h += '</section>';
 
