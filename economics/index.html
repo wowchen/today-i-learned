@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>经济学通识学习站 · Economics</title>
+<meta name="description" content="大白话讲透经济学通识(科普非应试):稀缺与选择、供给与需求、市场与失灵、GDP 与经济周期、货币与银行、通胀与就业、财政与货币政策、国际贸易与汇率、行为经济学、读懂中国经济。11 模块约 65 课,含经济增长/通胀购买力/实际利率/GDP 构成计算器。纯静态离线、不预测涨跌、不构成投资建议。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('econ.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    经济学通识 <small>· Economics</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">术语</a>
+    <a class="nav-link" href="#/calc">计算器</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="ECON.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 ECON.path 生成) -->
+<script src="content/basics/01-what-is-econ.js"></script>
+<script src="content/basics/02-scarcity-choice.js"></script>
+<script src="content/basics/03-opportunity-cost.js"></script>
+<script src="content/basics/04-marginal.js"></script>
+<script src="content/basics/05-incentive.js"></script>
+<script src="content/basics/06-invisible-hand.js"></script>
+<script src="content/basics/07-positive-normative.js"></script>
+<script src="content/micro/01-demand.js"></script>
+<script src="content/micro/02-supply.js"></script>
+<script src="content/micro/03-equilibrium.js"></script>
+<script src="content/micro/04-price-signal.js"></script>
+<script src="content/micro/05-elasticity.js"></script>
+<script src="content/micro/06-surplus.js"></script>
+<script src="content/micro/07-price-control.js"></script>
+<script src="content/market/01-competition.js"></script>
+<script src="content/market/02-monopoly.js"></script>
+<script src="content/market/03-externality.js"></script>
+<script src="content/market/04-public-goods.js"></script>
+<script src="content/market/05-info-asymmetry.js"></script>
+<script src="content/market/06-gov-and-market.js"></script>
+<script src="content/macro/01-what-is-macro.js"></script>
+<script src="content/macro/02-gdp.js"></script>
+<script src="content/macro/03-growth.js"></script>
+<script src="content/macro/04-business-cycle.js"></script>
+<script src="content/macro/05-three-engines.js"></script>
+<script src="content/macro/06-real-nominal.js"></script>
+<script src="content/money/01-what-is-money.js"></script>
+<script src="content/money/02-bank-credit.js"></script>
+<script src="content/money/03-central-bank.js"></script>
+<script src="content/money/04-interest-rate.js"></script>
+<script src="content/money/05-inflation.js"></script>
+<script src="content/money/06-deflation-asset.js"></script>
+<script src="content/employ/01-unemployment.js"></script>
+<script src="content/employ/02-types.js"></script>
+<script src="content/employ/03-cpi.js"></script>
+<script src="content/employ/04-phillips.js"></script>
+<script src="content/employ/05-wage-labor.js"></script>
+<script src="content/policy/01-how-gov-acts.js"></script>
+<script src="content/policy/02-fiscal.js"></script>
+<script src="content/policy/03-deficit-debt.js"></script>
+<script src="content/policy/04-monetary-tools.js"></script>
+<script src="content/policy/05-limits.js"></script>
+<script src="content/policy/06-policy-mix.js"></script>
+<script src="content/trade/01-why-trade.js"></script>
+<script src="content/trade/02-free-vs-protect.js"></script>
+<script src="content/trade/03-exchange-rate.js"></script>
+<script src="content/trade/04-bop.js"></script>
+<script src="content/trade/05-globalization.js"></script>
+<script src="content/trade/06-trade-friction.js"></script>
+<script src="content/behavior/01-rationality-cracks.js"></script>
+<script src="content/behavior/02-loss-aversion.js"></script>
+<script src="content/behavior/03-anchoring-accounting.js"></script>
+<script src="content/behavior/04-nudge.js"></script>
+<script src="content/behavior/05-can-cannot.js"></script>
+<script src="content/china/01-reform-opening.js"></script>
+<script src="content/china/02-transition.js"></script>
+<script src="content/china/03-realestate-land.js"></script>
+<script src="content/china/04-population-aging.js"></script>
+<script src="content/china/05-industrial-policy.js"></script>
+<script src="content/china/06-dual-circulation.js"></script>
+<script src="content/think/01-beyond-gdp.js"></script>
+<script src="content/think/02-inequality-gini.js"></script>
+<script src="content/think/03-what-econ-cant.js"></script>
+<script src="content/think/04-common-fallacies.js"></script>
+<script src="content/think/05-keep-reading.js"></script>
+
+</body>
+</html>

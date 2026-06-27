@@ -24,6 +24,7 @@
 | 人工智能 · AIX | [`artificial-intelligence/`](artificial-intelligence/) | 大白话讲透人工智能:从神经元、机器学习、深度学习,到 Transformer、大模型、生成式 AI、智能体、提示词到 Loop 工程、安全伦理、发展史与未来。13 模块 100 课,含发展史时间轴、人物图鉴、大模型速查、中外对照与三个互动实验 | ✅ 已上线 |
 | 医疗业务与信息化 · HIT | [`healthcare-business-it/`](healthcare-business-it/) | 大白话讲透医疗业务与信息化:业务流程、医保支付、医疗质量,到 HIS/EMR/LIS/PACS、数据标准、互联互通、安全合规、互联网医疗与智慧医院。13 模块 100 课,含行业时间轴、角色图鉴、缩略语速查与三个互动实验。仅供学习参考 | ✅ 已上线 |
 | 信息安全通识 · ISL | [`information-security/`](information-security/) | 大白话讲透信息安全:CIA 三要素、密码学、网络与终端、身份与访问、数据安全、应用与云、合规等保、安全运营与攻防、CISP/CISSP 认证,以及大模型全生命周期与 MCP/A2A/Skill 智能体脚手架安全。14 模块 104 课,含安全大事记、人物图鉴、威胁速查、法规速查与四个互动实验(口令强度/提示词注入/MCP 权限/风险评估)。通识起步、兼顾从业备考 | ✅ 已上线 |
+| 经济学通识 · ECON | [`economics/`](economics/) | 大白话讲透经济学(科普非应试):稀缺与选择、供给与需求、市场与失灵、GDP 与经济周期、货币与银行、通胀与就业、财政与货币政策、国际贸易与汇率、行为经济学、读懂中国经济、像经济学家思考。11 模块 65 课,五段式含"想一想",配经济增长/通胀购买力/实际利率/GDP 构成四个计算器。沿用投资理财站框架(瑞士黑白+增长绿),不预测涨跌不站队 | ✅ 已上线 |
 
 ## 本地预览
 
@@ -37,7 +38,7 @@ python3 -m http.server 8000
 
 ```
 .
-├── index.html                      # 引导页(16 张卡片 Bento 布局)
+├── index.html                      # 引导页(17 张卡片 Bento 布局)
 ├── english-made-simple/            # 子站
 ├── power-grid-fundamentals/        # 子站
 ├── info-system-project-manager/    # 子站
@@ -53,7 +54,8 @@ python3 -m http.server 8000
 ├── energy-beidou/                  # 子站
 ├── artificial-intelligence/        # 子站
 ├── healthcare-business-it/         # 子站
-└── information-security/           # 子站
+├── information-security/           # 子站
+└── economics/                      # 子站
 ```
 
 各子站使用相对路径,可独立运行,也可整体部署。
