@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>心理学通识学习站 · Psychology</title>
+<meta name="description" content="用大白话讲透心理学通识(科普非应试):研究方法、脑与神经、感觉知觉、学习记忆、思维与决策、情绪动机、毕生发展、人格差异、社会心理、心理健康与应用。13 模块约 80 节微课,含心理学大事记、人物图鉴、效应速查、流派对照,以及斯特鲁普效应、视错觉、认知偏差、记忆序列位置等互动实验。纯静态离线,科普非诊断治疗。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem("psy.progress.v1") || "{}");
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"; }
+      if(t==="dark") document.documentElement.setAttribute("data-theme","dark");
+      else document.documentElement.setAttribute("data-theme","light");
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute("data-fs", p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="mtop">
+  <button class="burger" id="burger" aria-label="菜单"><span></span><span></span><span></span></button>
+  <span class="mk">PSY</span><b>心理学通识</b>
+</div>
+<div class="app" id="app-shell">
+  <nav class="side" id="side"></nav>
+  <main id="app"></main>
+  <div class="scrim" id="scrim"></div>
+</div>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/shell.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/views-lab.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/figures.js"></script>
+<script src="content/timeline.js"></script>
+<script src="content/models.js"></script>
+<script src="content/compare.js"></script>
+
+<!-- Lessons (由 PSY.path 顺序加载) -->
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-map.js"></script>
+<script src="content/guide/03-roadmap.js"></script>
+<script src="content/guide/04-mindset.js"></script>
+<script src="content/method/01-is-science.js"></script>
+<script src="content/method/02-experiment.js"></script>
+<script src="content/method/03-correlation.js"></script>
+<script src="content/method/04-variables.js"></script>
+<script src="content/method/05-validity.js"></script>
+<script src="content/method/06-ethics.js"></script>
+<script src="content/brain/01-neuron.js"></script>
+<script src="content/brain/02-brain-regions.js"></script>
+<script src="content/brain/03-neurotransmitter.js"></script>
+<script src="content/brain/04-plasticity.js"></script>
+<script src="content/brain/05-left-right.js"></script>
+<script src="content/brain/06-sleep.js"></script>
+<script src="content/sensation/01-sensation-perception.js"></script>
+<script src="content/sensation/02-attention.js"></script>
+<script src="content/sensation/03-gestalt.js"></script>
+<script src="content/sensation/04-illusion.js"></script>
+<script src="content/sensation/05-constancy.js"></script>
+<script src="content/sensation/06-threshold.js"></script>
+<script src="content/learnmem/01-classical.js"></script>
+<script src="content/learnmem/02-operant.js"></script>
+<script src="content/learnmem/03-observational.js"></script>
+<script src="content/learnmem/04-memory-systems.js"></script>
+<script src="content/learnmem/05-forgetting.js"></script>
+<script src="content/learnmem/06-false-memory.js"></script>
+<script src="content/learnmem/07-better-memory.js"></script>
+<script src="content/cognition/01-concepts.js"></script>
+<script src="content/cognition/02-two-systems.js"></script>
+<script src="content/cognition/03-heuristics.js"></script>
+<script src="content/cognition/04-biases.js"></script>
+<script src="content/cognition/05-anchoring.js"></script>
+<script src="content/cognition/06-framing.js"></script>
+<script src="content/cognition/07-problem-solving.js"></script>
+<script src="content/emotion/01-what-emotion.js"></script>
+<script src="content/emotion/02-theories.js"></script>
+<script src="content/emotion/03-stress.js"></script>
+<script src="content/emotion/04-motivation.js"></script>
+<script src="content/emotion/05-needs.js"></script>
+<script src="content/emotion/06-happiness.js"></script>
+<script src="content/develop/01-nature-nurture.js"></script>
+<script src="content/develop/02-attachment.js"></script>
+<script src="content/develop/03-piaget.js"></script>
+<script src="content/develop/04-moral.js"></script>
+<script src="content/develop/05-adolescence.js"></script>
+<script src="content/develop/06-aging.js"></script>
+<script src="content/personality/01-what-personality.js"></script>
+<script src="content/personality/02-big-five.js"></script>
+<script src="content/personality/03-psychodynamic.js"></script>
+<script src="content/personality/04-intelligence.js"></script>
+<script src="content/personality/05-measure.js"></script>
+<script src="content/personality/06-pseudo.js"></script>
+<script src="content/social/01-conformity.js"></script>
+<script src="content/social/02-obedience.js"></script>
+<script src="content/social/03-attribution.js"></script>
+<script src="content/social/04-attitude.js"></script>
+<script src="content/social/05-prejudice.js"></script>
+<script src="content/social/06-group.js"></script>
+<script src="content/social/07-relationship.js"></script>
+<script src="content/health/01-normal-abnormal.js"></script>
+<script src="content/health/02-anxiety-depression.js"></script>
+<script src="content/health/03-common-disorders.js"></script>
+<script src="content/health/04-therapy.js"></script>
+<script src="content/health/05-help.js"></script>
+<script src="content/health/06-selfcare.js"></script>
+<script src="content/schools/01-birth.js"></script>
+<script src="content/schools/02-psychoanalysis.js"></script>
+<script src="content/schools/03-behaviorism.js"></script>
+<script src="content/schools/04-humanistic.js"></script>
+<script src="content/schools/05-cognitive.js"></script>
+<script src="content/schools/06-biological.js"></script>
+<script src="content/schools/07-modern.js"></script>
+<script src="content/apply/01-learning.js"></script>
+<script src="content/apply/02-habits.js"></script>
+<script src="content/apply/03-procrastination.js"></script>
+<script src="content/apply/04-decision.js"></script>
+<script src="content/apply/05-communication.js"></script>
+<script src="content/apply/06-emotion-manage.js"></script>
+<script src="content/apply/07-wellbeing.js"></script>
+<script src="content/apply/08-critical.js"></script>
+
+</body>
+</html>
