@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数学之美学习站 · Mathematics</title>
+<meta name="description" content="大白话讲透数学之美(科普非应试):数与无穷、代数与方程、几何与空间、三角与波、微积分、概率与随机、统计与数据、线性代数、离散与逻辑、数学之美。11 模块约 72 课,含黄金螺旋/π蒙特卡洛/函数绘图/素数筛四个互动实验。纯静态离线、重直觉与思想、不刷题不应试。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('math.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    数学之美 <small>· Mathematics</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">实验</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="MATH.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 MATH.path 生成) -->
+<script src="content/intro/01-what-is-math.js"></script>
+<script src="content/intro/02-proof.js"></script>
+<script src="content/intro/03-axiom.js"></script>
+<script src="content/intro/04-pure-applied.js"></script>
+<script src="content/intro/05-why-useful.js"></script>
+<script src="content/intro/06-math-language.js"></script>
+<script src="content/numbers/01-counting.js"></script>
+<script src="content/numbers/02-integers.js"></script>
+<script src="content/numbers/03-rationals.js"></script>
+<script src="content/numbers/04-irrationals.js"></script>
+<script src="content/numbers/05-reals.js"></script>
+<script src="content/numbers/06-complex.js"></script>
+<script src="content/numbers/07-infinity.js"></script>
+<script src="content/algebra/01-variables.js"></script>
+<script src="content/algebra/02-equations.js"></script>
+<script src="content/algebra/03-functions.js"></script>
+<script src="content/algebra/04-linear-quadratic.js"></script>
+<script src="content/algebra/05-polynomial-exp.js"></script>
+<script src="content/algebra/06-symmetry.js"></script>
+<script src="content/geometry/01-euclid.js"></script>
+<script src="content/geometry/02-pythagoras.js"></script>
+<script src="content/geometry/03-pi.js"></script>
+<script src="content/geometry/04-coordinate.js"></script>
+<script src="content/geometry/05-transformation.js"></script>
+<script src="content/geometry/06-non-euclidean.js"></script>
+<script src="content/geometry/07-topology.js"></script>
+<script src="content/trig/01-radian.js"></script>
+<script src="content/trig/02-sine-cosine.js"></script>
+<script src="content/trig/03-unit-circle.js"></script>
+<script src="content/trig/04-waves.js"></script>
+<script src="content/trig/05-solving.js"></script>
+<script src="content/trig/06-fourier.js"></script>
+<script src="content/calculus/01-limit.js"></script>
+<script src="content/calculus/02-derivative.js"></script>
+<script src="content/calculus/03-optimization.js"></script>
+<script src="content/calculus/04-integral.js"></script>
+<script src="content/calculus/05-ftc.js"></script>
+<script src="content/calculus/06-euler-e.js"></script>
+<script src="content/calculus/07-series.js"></script>
+<script src="content/probability/01-what-is-probability.js"></script>
+<script src="content/probability/02-counting.js"></script>
+<script src="content/probability/03-expectation.js"></script>
+<script src="content/probability/04-lln.js"></script>
+<script src="content/probability/05-gambler.js"></script>
+<script src="content/probability/06-bayes.js"></script>
+<script src="content/probability/07-monty-hall.js"></script>
+<script src="content/statistics/01-describe.js"></script>
+<script src="content/statistics/02-distribution.js"></script>
+<script src="content/statistics/03-normal.js"></script>
+<script src="content/statistics/04-sampling.js"></script>
+<script src="content/statistics/05-correlation.js"></script>
+<script src="content/statistics/06-regression.js"></script>
+<script src="content/statistics/07-simpson.js"></script>
+<script src="content/linear/01-vector.js"></script>
+<script src="content/linear/02-matrix.js"></script>
+<script src="content/linear/03-transformation.js"></script>
+<script src="content/linear/04-dot-product.js"></script>
+<script src="content/linear/05-determinant.js"></script>
+<script src="content/linear/06-ai.js"></script>
+<script src="content/discrete/01-sets.js"></script>
+<script src="content/discrete/02-logic.js"></script>
+<script src="content/discrete/03-graph.js"></script>
+<script src="content/discrete/04-combinatorics.js"></script>
+<script src="content/discrete/05-algorithm.js"></script>
+<script src="content/discrete/06-primes-crypto.js"></script>
+<script src="content/beauty/01-golden-ratio.js"></script>
+<script src="content/beauty/02-symmetry.js"></script>
+<script src="content/beauty/03-euler.js"></script>
+<script src="content/beauty/04-godel.js"></script>
+<script src="content/beauty/05-problems.js"></script>
+<script src="content/beauty/06-people.js"></script>
+<script src="content/beauty/07-keep-learning.js"></script>
+
+</body>
+</html>

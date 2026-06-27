@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数学之美 · 终稿 · B骨架 + 浅色朱红</title>
+<style>
+  :root{
+    --bg:#ffffff; --panel:#faf6f5; --ink:#141414; --body:#3d3d3d; --note:#8a8a8a;
+    --line:#e8e4e2; --acc:#e0301e; --acc2:#b8261a; --acc-soft:#fbe7e4;
+    --serif:"Songti SC",Charter,Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:var(--serif);
+    -webkit-font-smoothing:antialiased; line-height:1.65; position:relative; overflow-x:hidden}
+  body::before{content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(60% 50% at 82% -6%,rgba(224,48,30,.07),transparent 62%),
+      radial-gradient(50% 45% at 4% 8%,rgba(224,48,30,.04),transparent 60%);}
+  .wrap{max-width:940px; margin:0 auto; padding:0 30px; position:relative; z-index:1}
+
+  .top{display:flex; align-items:center; justify-content:space-between; padding:24px 0; border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--mono); font-size:.82rem; letter-spacing:.16em; color:var(--body); display:flex; gap:11px; align-items:center}
+  .brand .gd{width:18px; height:18px; border:1.5px solid var(--acc); border-radius:50%; position:relative}
+  .brand .gd::after{content:""; position:absolute; left:50%; top:50%; width:6px; height:6px; background:var(--acc); border-radius:50%; transform:translate(-50%,-50%)}
+  .top nav{display:flex; gap:24px; font-family:var(--mono); font-size:.78rem; letter-spacing:.04em}
+  .top nav a{color:var(--note); text-decoration:none}
+  .top nav a.on{color:var(--acc)}
+
+  header{padding:78px 0 46px; position:relative}
+  .spiral{position:absolute; right:-30px; top:24px; width:340px; height:340px; opacity:.4; z-index:-1}
+  .spiral svg{width:100%; height:100%}
+  @media(max-width:820px){.spiral{display:none}}
+  .kicker{font-family:var(--mono); font-size:.74rem; letter-spacing:.26em; text-transform:uppercase; color:var(--acc); margin:0 0 22px}
+  h1{font-size:clamp(3rem,8vw,5rem); line-height:1.05; margin:0; font-weight:600; letter-spacing:.02em}
+  h1 em{font-style:italic; color:var(--acc); font-family:var(--serif)}
+  .latin{font-family:var(--mono); font-size:.74rem; letter-spacing:.34em; text-transform:uppercase; color:var(--note); margin:20px 0 0}
+  .lede{font-family:var(--sans); font-size:1.06rem; color:var(--body); max-width:52ch; margin:26px 0 0; line-height:1.78}
+  .meta{display:flex; gap:30px; margin:32px 0 0; flex-wrap:wrap}
+  .meta div{font-family:var(--sans)}
+  .meta b{display:block; font-family:var(--serif); font-size:1.9rem; color:var(--acc2); font-weight:600; line-height:1}
+  .meta span{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--note)}
+
+  .rule{display:flex; align-items:center; gap:16px; margin:54px 0 6px}
+  .rule h2{font-size:1.15rem; font-weight:600; margin:0; letter-spacing:.02em; white-space:nowrap}
+  .rule .ln{flex:1; height:1px; background:var(--line)}
+  .rule small{font-family:var(--mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--note)}
+
+  .mods{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line);
+    border:1px solid var(--line); margin-top:22px}
+  @media(max-width:680px){.mods{grid-template-columns:1fr}}
+  .mod{background:var(--bg); padding:24px 22px; text-decoration:none; color:inherit; position:relative; transition:background .25s}
+  .mod:hover{background:var(--panel)}
+  .mod .row{display:flex; align-items:baseline; gap:12px}
+  .mod .no{font-family:var(--mono); font-size:.74rem; color:var(--acc); letter-spacing:.05em}
+  .mod h3{font-size:1.2rem; font-weight:600; margin:0}
+  .mod .en{font-family:var(--mono); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--note); margin:8px 0 9px}
+  .mod p{font-family:var(--sans); font-size:.86rem; color:var(--body); margin:0; line-height:1.6}
+  .mod::after{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--acc); transform:scaleY(0); transform-origin:top; transition:transform .3s}
+  .mod:hover::after{transform:scaleY(1)}
+
+  .tools{display:flex; gap:14px; margin-top:22px; flex-wrap:wrap}
+  .tool{flex:1; min-width:140px; background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:20px; display:flex; align-items:center; gap:14px}
+  .tool .g{font-family:var(--serif); font-style:italic; font-size:2rem; color:var(--acc2)}
+  .tool b{font-family:var(--sans); font-size:.95rem; display:block}
+  .tool span{font-family:var(--mono); font-size:.7rem; color:var(--note); letter-spacing:.08em}
+
+  footer{margin-top:60px; border-top:1px solid var(--line); padding:26px 0 64px;
+    font-family:var(--mono); font-size:.73rem; letter-spacing:.05em; color:var(--note);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand"><span class="gd"></span>MATHEMATICS · 数学之美</div>
+    <nav><a class="on" href="#">课时</a><a href="#">公式速查</a><a href="#">人物</a><a href="#">实验</a><a href="#">总站</a></nav>
+  </div>
+
+  <header>
+    <div class="spiral">
+      <svg viewBox="0 0 200 200" fill="none" stroke="#e0301e" stroke-width="1">
+        <rect x="76" y="76" width="48" height="48"/><rect x="124" y="76" width="48" height="48"/>
+        <rect x="76" y="124" width="48" height="48"/><rect x="28" y="28" width="96" height="96"/>
+        <rect x="124" y="28" width="48" height="48"/>
+        <path d="M124 76 A48 48 0 0 1 76 124" stroke="#b8261a" stroke-width="1.6"/>
+        <path d="M28 124 A96 96 0 0 1 124 28" stroke="#b8261a" stroke-width="1.6"/>
+        <path d="M124 124 A48 48 0 0 1 172 76" stroke="#b8261a" stroke-width="1.6"/>
+      </svg>
+    </div>
+    <p class="kicker">科普非应试 · 大白话讲透</p>
+    <h1>数学之<em>美</em></h1>
+    <p class="latin">The · Beauty · of · Mathematics</p>
+    <p class="lede">数学不是一堆要背的公式,而是人类想清楚世界的一种方式。这里讲清每个概念美在哪、用在哪 —— 从黄金分割到欧拉恒等式,从概率到无穷。</p>
+    <div class="meta">
+      <div><b>11</b><span>模块</span></div>
+      <div><b>72</b><span>微课</span></div>
+      <div><b>φ</b><span>4 互动实验</span></div>
+      <div><b>∑</b><span>公式 / 人物速查</span></div>
+    </div>
+  </header>
+
+  <div class="rule"><h2>模块索引</h2><span class="ln"></span><small>11 Modules</small></div>
+  <div class="mods">
+    <a class="mod" href="#"><div class="row"><span class="no">01</span><h3>数学是什么</h3></div><div class="en">What is Math</div><p>抽象、证明与直觉:数学凭什么是对的,又凭什么有用。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">02</span><h3>数与无穷</h3></div><div class="en">Numbers & Infinity</div><p>从自然数到复数,无理数的发现,无穷竟然分大小。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">03</span><h3>代数与方程</h3></div><div class="en">Algebra</div><p>用字母抓住规律,函数是把一个世界映到另一个世界。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">04</span><h3>几何与空间</h3></div><div class="en">Geometry</div><p>从欧几里得的公理,到解析几何与弯曲的拓扑空间。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">05</span><h3>三角与波</h3></div><div class="en">Trigonometry</div><p>圆与周期:傅里叶把任何声音拆成正弦波的叠加。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">06</span><h3>微积分</h3></div><div class="en">Calculus</div><p>极限、导数、积分 —— 研究变化与瞬间的伟大发明。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">07</span><h3>概率与随机</h3></div><div class="en">Probability</div><p>机会、期望、大数定律:随机里藏着惊人的确定性。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">08</span><h3>统计与数据</h3></div><div class="en">Statistics</div><p>相关不等于因果:读懂数字,识破图表里的把戏。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">09</span><h3>线性代数</h3></div><div class="en">Linear Algebra</div><p>向量与矩阵:AI、图形与搜索背后的空间变换。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">10</span><h3>离散与逻辑</h3></div><div class="en">Discrete & Logic</div><p>集合、图、组合与算法 —— 计算机的母语。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">11</span><h3>数学之美</h3></div><div class="en">The Beauty</div><p>黄金比、对称群、欧拉恒等式与七大千年难题。</p></a>
+    <a class="mod" href="#" style="background:linear-gradient(120deg,var(--acc-soft),transparent)"><div class="row"><span class="no">★</span><h3>互动实验台</h3></div><div class="en">Playground</div><p>动手算 π、画函数、看黄金螺旋长出来。</p></a>
+  </div>
+
+  <div class="rule"><h2>互动实验</h2><span class="ln"></span><small>Playground</small></div>
+  <div class="tools">
+    <div class="tool"><span class="g">φ</span><div><b>黄金螺旋</b><span>fibonacci spiral</span></div></div>
+    <div class="tool"><span class="g">π</span><div><b>蒙特卡洛</b><span>estimate π</span></div></div>
+    <div class="tool"><span class="g">∫</span><div><b>函数绘图</b><span>function plotter</span></div></div>
+    <div class="tool"><span class="g">℘</span><div><b>素数筛</b><span>prime sieve</span></div></div>
+  </div>
+
+  <footer>
+    <span>数学之美 · Today I Learned</span>
+    <span>纯静态 · 零依赖 · 离线可用 · 终稿 浅色朱红</span>
+  </footer>
+
+</div>
+</body>
+</html>
