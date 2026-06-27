@@ -51,7 +51,7 @@ HIT.views.lesson = function(id) {
   if (!P.isRead(id)) {
     h += '<span class="mark" onclick="HIT.markAndNext(\'' + id + '\')">标记已学 ✓</span>';
   } else {
-    h += '<span class="mark done">已学 ✓</span>';
+    h += '<span class="mark done" onclick="HIT.toggleRead(\'' + id + '\')" title="点击取消已学">已学 ✓</span>';
   }
   if (pathIdx >= 0 && pathIdx < HIT.path.length - 1) {
     var next = HIT.path[pathIdx + 1];
@@ -106,3 +106,11 @@ function bindRail() {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 }
+
+/* 在当前页切换已学/未学,不跳转 */
+HIT.toggleRead = function(id) {
+  var P = HIT.progress();
+  if (P.isRead(id)) P.markUnread(id); else P.markRead(id);
+  HIT.views.lesson(id);
+  if (HIT.renderShell) HIT.renderShell();
+};

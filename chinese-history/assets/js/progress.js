@@ -26,6 +26,13 @@ window.CHS = window.CHS || {};
         data.read[lessonId] = { readAt: Date.now(), updatedAt: Date.now() };
         save(data);
       },
+      markUnread: function(lessonId) {
+        if (data.read[lessonId]) {
+          data.read[lessonId].removed = true;
+          data.read[lessonId].updatedAt = Date.now();
+          save(data);
+        }
+      },
       isRead: function(lessonId) {
         return !!(data.read[lessonId] && !data.read[lessonId].removed);
       },

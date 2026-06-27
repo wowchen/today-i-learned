@@ -51,7 +51,7 @@ AIX.views.lesson = function(id) {
   if (!P.isRead(id)) {
     h += '<span class="mark" onclick="AIX.markAndNext(\'' + id + '\')">标记已学 ✓</span>';
   } else {
-    h += '<span class="mark done">已学 ✓</span>';
+    h += '<span class="mark done" onclick="AIX.toggleRead(\'' + id + '\')" title="点击取消已学">已学 ✓</span>';
   }
   if (pathIdx >= 0 && pathIdx < AIX.path.length - 1) {
     var next = AIX.path[pathIdx + 1];
@@ -106,3 +106,11 @@ function bindRail() {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 }
+
+/* 在当前页切换已学/未学,不跳转 */
+AIX.toggleRead = function(id) {
+  var P = AIX.progress();
+  if (P.isRead(id)) P.markUnread(id); else P.markRead(id);
+  AIX.views.lesson(id);
+  if (AIX.renderShell) AIX.renderShell();
+};

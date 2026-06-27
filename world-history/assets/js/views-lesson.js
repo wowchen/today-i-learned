@@ -66,7 +66,7 @@ WHS.views.lesson = function(id) {
   if (!P.isRead(id)) {
     html += '<button class="mark-read-btn" onclick="WHS.markAndNext(\'' + id + '\')">标记已学</button>';
   } else {
-    html += '<span class="read-done">✓ 已学</span>';
+    html += '<span class="read-done" onclick="WHS.toggleRead(\'' + id + '\')" title="点击取消已学" style="cursor:pointer">✓ 已学</span>';
   }
   if (pathIdx < WHS.path.length - 1) {
     var next = WHS.path[pathIdx + 1];
@@ -206,3 +206,11 @@ function checkQuizDone(area) {
     area.insertAdjacentHTML('beforeend', msg);
   }
 }
+
+/* 在当前页切换已学/未学,不跳转 */
+WHS.toggleRead = function(id) {
+  var P = WHS.progress();
+  if (P.isRead(id)) P.markUnread(id); else P.markRead(id);
+  WHS.views.lesson(id);
+  if (WHS.renderShell) WHS.renderShell();
+};

@@ -63,7 +63,7 @@ SAD.views.lesson = function(id) {
   if (!P.isRead(id)) {
     html += '<button class="mark-read-btn" onclick="SAD.markAndNext(\'' + id + '\')">标记已学</button>';
   } else {
-    html += '<span class="read-done">✓ 已学</span>';
+    html += '<span class="read-done" onclick="SAD.toggleRead(\'' + id + '\')" title="点击取消已学" style="cursor:pointer">✓ 已学</span>';
   }
   if (pathIdx < SAD.path.length - 1) {
     var next = SAD.path[pathIdx + 1];
@@ -218,3 +218,11 @@ function checkQuizDone(area) {
     area.insertAdjacentHTML('beforeend', msg);
   }
 }
+
+/* 在当前页切换已学/未学,不跳转 */
+SAD.toggleRead = function(id) {
+  var P = SAD.progress();
+  if (P.isRead(id)) P.markUnread(id); else P.markRead(id);
+  SAD.views.lesson(id);
+  if (SAD.renderShell) SAD.renderShell();
+};

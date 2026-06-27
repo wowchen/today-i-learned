@@ -51,7 +51,7 @@ ISL.views.lesson = function(id) {
   if (!P.isRead(id)) {
     h += '<span class="mark" onclick="ISL.markAndNext(\'' + id + '\')">标记已学 ✓</span>';
   } else {
-    h += '<span class="mark done">已学 ✓</span>';
+    h += '<span class="mark done" onclick="ISL.toggleRead(\'' + id + '\')" title="点击取消已学">已学 ✓</span>';
   }
   if (pathIdx >= 0 && pathIdx < ISL.path.length - 1) {
     var next = ISL.path[pathIdx + 1];
@@ -106,3 +106,11 @@ function bindRail() {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 }
+
+/* 在当前页切换已学/未学,不跳转 */
+ISL.toggleRead = function(id) {
+  var P = ISL.progress();
+  if (P.isRead(id)) P.markUnread(id); else P.markRead(id);
+  ISL.views.lesson(id);
+  if (ISL.renderShell) ISL.renderShell();
+};
