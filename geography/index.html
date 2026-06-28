@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>地理通识学习站 · Geography</title>
+<meta name="description" content="大白话讲透地理通识(科普非应试):地图与坐标、地球与运动、大气与天气、气候、水文、地貌与地质、土壤与生物、自然资源、人口与城市、经济地理、中国地理、世界地理与地缘。13 模块约 84 课,含时区换算/大圆距离/比例尺/太阳高度·昼长四个互动工具。纯静态离线、重空间视角与因果直觉、不背省会不应试。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('geo.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    地理通识 <small>· Geography</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="GEO.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 GEO.path 生成) -->
+<script src="content/intro/01-what-is-geo.js"></script>
+<script src="content/intro/02-spatial-view.js"></script>
+<script src="content/intro/03-scale-region.js"></script>
+<script src="content/intro/04-physical-human.js"></script>
+<script src="content/intro/05-map-thinking.js"></script>
+<script src="content/intro/06-why-geo.js"></script>
+<script src="content/map/01-latlon.js"></script>
+<script src="content/map/02-prime-meridian.js"></script>
+<script src="content/map/03-projection.js"></script>
+<script src="content/map/04-scale.js"></script>
+<script src="content/map/05-reading-map.js"></script>
+<script src="content/map/06-remote-sensing.js"></script>
+<script src="content/map/07-gis-gps.js"></script>
+<script src="content/earth/01-shape.js"></script>
+<script src="content/earth/02-rotation.js"></script>
+<script src="content/earth/03-revolution-tilt.js"></script>
+<script src="content/earth/04-seasons.js"></script>
+<script src="content/earth/05-timezone.js"></script>
+<script src="content/earth/06-sun-daylight.js"></script>
+<script src="content/atmosphere/01-layers.js"></script>
+<script src="content/atmosphere/02-pressure.js"></script>
+<script src="content/atmosphere/03-wind-coriolis.js"></script>
+<script src="content/atmosphere/04-humidity-rain.js"></script>
+<script src="content/atmosphere/05-weather-systems.js"></script>
+<script src="content/atmosphere/06-reading-weather.js"></script>
+<script src="content/climate/01-what-climate.js"></script>
+<script src="content/climate/02-climate-zones.js"></script>
+<script src="content/climate/03-monsoon.js"></script>
+<script src="content/climate/04-ocean-current.js"></script>
+<script src="content/climate/05-land-sea.js"></script>
+<script src="content/climate/06-koppen.js"></script>
+<script src="content/climate/07-climate-change.js"></script>
+<script src="content/water/01-water-cycle.js"></script>
+<script src="content/water/02-rivers.js"></script>
+<script src="content/water/03-lakes-groundwater.js"></script>
+<script src="content/water/04-oceans.js"></script>
+<script src="content/water/05-glaciers.js"></script>
+<script src="content/water/06-water-resource.js"></script>
+<script src="content/landform/01-earth-interior.js"></script>
+<script src="content/landform/02-plate-tectonics.js"></script>
+<script src="content/landform/03-volcano-earthquake.js"></script>
+<script src="content/landform/04-mountain-building.js"></script>
+<script src="content/landform/05-weathering-erosion.js"></script>
+<script src="content/landform/06-river-landform.js"></script>
+<script src="content/landform/07-coast-desert-karst.js"></script>
+<script src="content/biosphere/01-soil.js"></script>
+<script src="content/biosphere/02-vegetation-zones.js"></script>
+<script src="content/biosphere/03-zonality.js"></script>
+<script src="content/biosphere/04-vertical.js"></script>
+<script src="content/biosphere/05-ecosystem.js"></script>
+<script src="content/biosphere/06-biodiversity.js"></script>
+<script src="content/resources/01-what-resource.js"></script>
+<script src="content/resources/02-energy.js"></script>
+<script src="content/resources/03-minerals.js"></script>
+<script src="content/resources/04-land-water.js"></script>
+<script src="content/resources/05-renewable.js"></script>
+<script src="content/resources/06-sustainability.js"></script>
+<script src="content/population/01-distribution.js"></script>
+<script src="content/population/02-growth.js"></script>
+<script src="content/population/03-migration.js"></script>
+<script src="content/population/04-urbanization.js"></script>
+<script src="content/population/05-city-structure.js"></script>
+<script src="content/population/06-megacity.js"></script>
+<script src="content/population/07-rural.js"></script>
+<script src="content/economy/01-location.js"></script>
+<script src="content/economy/02-agriculture.js"></script>
+<script src="content/economy/03-industry.js"></script>
+<script src="content/economy/04-transport.js"></script>
+<script src="content/economy/05-services-trade.js"></script>
+<script src="content/economy/06-globalization.js"></script>
+<script src="content/china/01-terrain.js"></script>
+<script src="content/china/02-climate.js"></script>
+<script src="content/china/03-rivers.js"></script>
+<script src="content/china/04-regions.js"></script>
+<script src="content/china/05-population.js"></script>
+<script src="content/china/06-admin.js"></script>
+<script src="content/china/07-borders.js"></script>
+<script src="content/world/01-continents.js"></script>
+<script src="content/world/02-asia.js"></script>
+<script src="content/world/03-europe-africa.js"></script>
+<script src="content/world/04-americas-oceania.js"></script>
+<script src="content/world/05-population-culture.js"></script>
+<script src="content/world/06-geopolitics.js"></script>
+<script src="content/world/07-geography-power.js"></script>
+
+</body>
+</html>
