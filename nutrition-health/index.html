@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>营养与健康学习站 · Nutrition & Health</title>
+<meta name="description" content="大白话讲透营养与健康(科普通识):营养学基础、三大宏量营养素、维生素与矿物质、能量与代谢、消化与吸收、食物与膳食、膳食模式、生命周期营养、特殊人群、营养与慢病、食品安全、保健食品与补充剂、营养误区与辨真。13 模块约 84 课,含 BMI/TDEE/营养素推荐量/食物红绿灯四个互动工具。纯静态离线、重因果机制与平衡、不贩卖焦虑不替代医疗。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('nh.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    营养与健康 <small>· Nutrition</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="NH.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 NH.path 生成) -->
+<script src="content/intro/01-what-is.js"></script>
+<script src="content/intro/02-nutrient.js"></script>
+<script src="content/intro/03-macro-micro.js"></script>
+<script src="content/intro/04-energy.js"></script>
+<script src="content/intro/05-dri.js"></script>
+<script src="content/intro/06-evidence.js"></script>
+<script src="content/macro/01-carb.js"></script>
+<script src="content/macro/02-protein.js"></script>
+<script src="content/macro/03-fat.js"></script>
+<script src="content/macro/04-amino.js"></script>
+<script src="content/macro/05-fatty.js"></script>
+<script src="content/macro/06-fiber.js"></script>
+<script src="content/macro/07-gi.js"></script>
+<script src="content/micro/01-vit-fat.js"></script>
+<script src="content/micro/02-vit-water.js"></script>
+<script src="content/micro/03-vitc.js"></script>
+<script src="content/micro/04-vitd.js"></script>
+<script src="content/micro/05-calcium.js"></script>
+<script src="content/micro/06-iron.js"></script>
+<script src="content/micro/07-trace.js"></script>
+<script src="content/energy/01-calorie.js"></script>
+<script src="content/energy/02-bmr.js"></script>
+<script src="content/energy/03-tdee.js"></script>
+<script src="content/energy/04-tef.js"></script>
+<script src="content/energy/05-activity.js"></script>
+<script src="content/energy/06-comp.js"></script>
+<script src="content/digest/01-digest.js"></script>
+<script src="content/digest/02-absorb.js"></script>
+<script src="content/digest/03-microbiota.js"></script>
+<script src="content/digest/04-gut-brain.js"></script>
+<script src="content/digest/05-bioavail.js"></script>
+<script src="content/digest/06-probiotic.js"></script>
+<script src="content/food/01-group.js"></script>
+<script src="content/food/02-pagoda.js"></script>
+<script src="content/food/03-guideline.js"></script>
+<script src="content/food/04-wholegrain.js"></script>
+<script src="content/food/05-protein-food.js"></script>
+<script src="content/food/06-veg-fruit.js"></script>
+<script src="content/food/07-salt-oil.js"></script>
+<script src="content/pattern/01-pattern.js"></script>
+<script src="content/pattern/02-mediterranean.js"></script>
+<script src="content/pattern/03-dash.js"></script>
+<script src="content/pattern/04-vegetarian.js"></script>
+<script src="content/pattern/05-oriental.js"></script>
+<script src="content/pattern/06-fad.js"></script>
+<script src="content/life/01-pregnancy.js"></script>
+<script src="content/life/02-folate.js"></script>
+<script src="content/life/03-infant.js"></script>
+<script src="content/life/04-complementary.js"></script>
+<script src="content/life/05-child.js"></script>
+<script src="content/life/06-elderly.js"></script>
+<script src="content/life/07-breastfeed.js"></script>
+<script src="content/special/01-sports.js"></script>
+<script src="content/special/02-weightloss.js"></script>
+<script src="content/special/03-musclegain.js"></script>
+<script src="content/special/04-diabetes.js"></script>
+<script src="content/special/05-hypertension.js"></script>
+<script src="content/special/06-refeed.js"></script>
+<script src="content/special/07-hydration.js"></script>
+<script src="content/chronic/01-obesity.js"></script>
+<script src="content/chronic/02-metabolic.js"></script>
+<script src="content/chronic/03-cvd.js"></script>
+<script src="content/chronic/04-cancer.js"></script>
+<script src="content/chronic/05-insulin.js"></script>
+<script src="content/chronic/06-fatty-liver.js"></script>
+<script src="content/chronic/07-inflammation.js"></script>
+<script src="content/safety/01-additive.js"></script>
+<script src="content/safety/02-pesticide.js"></script>
+<script src="content/safety/03-storage.js"></script>
+<script src="content/safety/04-foodborne.js"></script>
+<script src="content/safety/05-handling.js"></script>
+<script src="content/safety/06-acrylamide.js"></script>
+<script src="content/sup/01-supplement.js"></script>
+<script src="content/sup/02-vit-sup.js"></script>
+<script src="content/sup/03-mineral-sup.js"></script>
+<script src="content/sup/04-protein-powder.js"></script>
+<script src="content/sup/05-reg.js"></script>
+<script src="content/sup/06-risk.js"></script>
+<script src="content/myth/01-myth.js"></script>
+<script src="content/myth/02-superfood.js"></script>
+<script src="content/myth/03-detox.js"></script>
+<script src="content/myth/04-label.js"></script>
+<script src="content/myth/05-sugar-sub.js"></script>
+<script src="content/myth/06-evidence.js"></script>
+
+</body>
+</html>
