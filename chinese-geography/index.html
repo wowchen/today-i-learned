@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中国地理学习站 · China Geography</title>
+<meta name="description" content="大白话讲透中国地理(科普通识):疆域与位置、地形与三级阶梯、气候与季风、河流与湖泊、海洋与海岸、自然资源、自然灾害、人口与民族、行政区划、四大地理区域、区域巡礼、经济与交通、人地与生态。13 模块约 84 课,含横跨五时区/胡焕庸线/河流流域/太阳高度·昼长四个互动工具。纯静态离线、重空间视角与因果直觉、不背省会不应试。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('cg.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    中国地理 <small>· China</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="CG.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 CG.path 生成) -->
+<script src="content/territory/01-where.js"></script>
+<script src="content/territory/02-area.js"></script>
+<script src="content/territory/03-neighbors.js"></script>
+<script src="content/territory/04-extremes.js"></script>
+<script src="content/territory/05-sea-rights.js"></script>
+<script src="content/territory/06-strategic.js"></script>
+<script src="content/terrain/01-three-steps.js"></script>
+<script src="content/terrain/02-first-step.js"></script>
+<script src="content/terrain/03-second-step.js"></script>
+<script src="content/terrain/04-basins.js"></script>
+<script src="content/terrain/05-third-step.js"></script>
+<script src="content/terrain/06-plains.js"></script>
+<script src="content/terrain/07-mountains.js"></script>
+<script src="content/climate/01-monsoon.js"></script>
+<script src="content/climate/02-rain-heat.js"></script>
+<script src="content/climate/03-temp.js"></script>
+<script src="content/climate/04-precip.js"></script>
+<script src="content/climate/05-zones.js"></script>
+<script src="content/climate/06-types.js"></script>
+<script src="content/climate/07-edge.js"></script>
+<script src="content/rivers/01-yangtze.js"></script>
+<script src="content/rivers/02-yellow.js"></script>
+<script src="content/rivers/03-pearl.js"></script>
+<script src="content/rivers/04-outflow-inflow.js"></script>
+<script src="content/rivers/05-tarim.js"></script>
+<script src="content/rivers/06-lakes.js"></script>
+<script src="content/rivers/07-transfer.js"></script>
+<script src="content/coast/01-four-seas.js"></script>
+<script src="content/coast/02-coastline.js"></script>
+<script src="content/coast/03-islands.js"></script>
+<script src="content/coast/04-shelf.js"></script>
+<script src="content/coast/05-eez.js"></script>
+<script src="content/coast/06-resource.js"></script>
+<script src="content/resources/01-land.js"></script>
+<script src="content/resources/02-water.js"></script>
+<script src="content/resources/03-mineral.js"></script>
+<script src="content/resources/04-energy.js"></script>
+<script src="content/resources/05-rare-earth.js"></script>
+<script src="content/resources/06-bio.js"></script>
+<script src="content/hazards/01-flood-drought.js"></script>
+<script src="content/hazards/02-typhoon.js"></script>
+<script src="content/hazards/03-cold-wave.js"></script>
+<script src="content/hazards/04-earthquake.js"></script>
+<script src="content/hazards/05-sandstorm.js"></script>
+<script src="content/hazards/06-reduce.js"></script>
+<script src="content/population/01-hu-line.js"></script>
+<script src="content/population/02-transition.js"></script>
+<script src="content/population/03-aging.js"></script>
+<script src="content/population/04-migrate.js"></script>
+<script src="content/population/05-urban.js"></script>
+<script src="content/population/06-density.js"></script>
+<script src="content/population/07-ethnic.js"></script>
+<script src="content/admin/01-34.js"></script>
+<script src="content/admin/02-types.js"></script>
+<script src="content/admin/03-sar.js"></script>
+<script src="content/admin/04-abbr.js"></script>
+<script src="content/admin/05-evolution.js"></script>
+<script src="content/admin/06-boundary.js"></script>
+<script src="content/regions/01-four.js"></script>
+<script src="content/regions/02-qinling.js"></script>
+<script src="content/regions/03-north.js"></script>
+<script src="content/regions/04-south.js"></script>
+<script src="content/regions/05-northwest.js"></script>
+<script src="content/regions/06-tibet.js"></script>
+<script src="content/regional/01-northeast.js"></script>
+<script src="content/regional/02-north-plain.js"></script>
+<script src="content/regional/03-yangtze-delta.js"></script>
+<script src="content/regional/04-pearl-delta.js"></script>
+<script src="content/regional/05-sichuan.js"></script>
+<script src="content/regional/06-loess.js"></script>
+<script src="content/regional/07-xinjiang.js"></script>
+<script src="content/economy/01-agri.js"></script>
+<script src="content/economy/02-staple.js"></script>
+<script src="content/economy/03-industry.js"></script>
+<script src="content/economy/04-rail.js"></script>
+<script src="content/economy/05-cluster.js"></script>
+<script src="content/economy/06-west-power.js"></script>
+<script src="content/economy/07-west-gas.js"></script>
+<script src="content/ecology/01-sanjiangyuan.js"></script>
+<script src="content/ecology/02-grain-green.js"></script>
+<script src="content/ecology/03-soil-water.js"></script>
+<script src="content/ecology/04-desert.js"></script>
+<script src="content/ecology/05-dual-carbon.js"></script>
+<script src="content/ecology/06-zone.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国地理 · Demo A · 青绿山水</title>
+<style>
+  :root{
+    --bg:#f6f4ec; --paper:#ffffff; --ink:#1c2622; --body:#45524a; --note:#8b978f;
+    --line:#e4e1d4; --acc:#1f7a5a; --acc2:#0f5c44; --acc-soft:#e2f0ea; --ridge:#cfe0d2;
+    --serif:"Songti SC",Charter,Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:var(--serif); line-height:1.65; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden}
+  body::before{content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(50% 40% at 12% 6%,rgba(31,122,90,.07),transparent 60%)}
+  .wrap{max-width:940px; margin:0 auto; padding:0 30px; position:relative; z-index:1}
+  .top{display:flex; align-items:center; justify-content:space-between; padding:22px 0; border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--mono); font-size:.82rem; letter-spacing:.14em; color:var(--body); display:flex; gap:11px; align-items:center}
+  .brand .gd{width:18px; height:18px; border:1.5px solid var(--acc); border-radius:3px; position:relative}
+  .brand .gd::after{content:""; position:absolute; left:2px; right:2px; bottom:2px; height:11px; background:var(--acc); clip-path:polygon(0 100%,40% 14%,64% 54%,100% 100%)}
+  .top nav{display:flex; gap:22px; font-family:var(--mono); font-size:.78rem}
+  .top nav a{color:var(--note); text-decoration:none} .top nav a.on{color:var(--acc)}
+
+  header{padding:78px 0 46px; position:relative}
+  .motif{position:absolute; right:-26px; top:24px; width:380px; height:340px; opacity:.92; z-index:-1}
+  @media(max-width:820px){.motif{display:none}}
+  .kicker{font-family:var(--mono); font-size:.74rem; letter-spacing:.26em; text-transform:uppercase; color:var(--acc); margin:0 0 22px}
+  h1{font-family:var(--serif); font-size:clamp(3rem,8vw,5rem); line-height:1.05; margin:0; font-weight:600; letter-spacing:.02em}
+  h1 em{font-style:italic; color:var(--acc)}
+  .latin{font-family:var(--mono); font-size:.74rem; letter-spacing:.34em; text-transform:uppercase; color:var(--note); margin:20px 0 0}
+  .lede{font-family:var(--sans); font-size:1.06rem; color:var(--body); max-width:52ch; margin:26px 0 0; line-height:1.78} .lede b{color:var(--ink)}
+  .meta{display:flex; gap:30px; margin:32px 0 0; flex-wrap:wrap}
+  .meta b{display:block; font-family:var(--serif); font-size:1.9rem; color:var(--acc2); font-weight:600; line-height:1}
+  .meta span{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--note)}
+
+  .rule{display:flex; align-items:center; gap:16px; margin:54px 0 6px}
+  .rule h2{font-family:var(--serif); font-size:1.2rem; font-weight:600; margin:0; white-space:nowrap}
+  .rule .ln{flex:1; height:1px; background:var(--line)} .rule small{font-family:var(--mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--note)}
+
+  .mods{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:22px}
+  @media(max-width:680px){.mods{grid-template-columns:1fr}}
+  .mod{background:var(--paper); padding:22px 20px; text-decoration:none; color:inherit; position:relative; transition:background .25s}
+  .mod:hover{background:var(--acc-soft)}
+  .mod .row{display:flex; align-items:baseline; gap:11px}
+  .mod .no{font-family:var(--mono); font-size:.72rem; color:var(--acc)}
+  .mod h3{font-family:var(--serif); font-size:1.12rem; font-weight:600; margin:0}
+  .mod .en{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--note); margin:7px 0 8px}
+  .mod p{font-family:var(--sans); font-size:.84rem; color:var(--body); margin:0; line-height:1.55}
+  .mod::after{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--acc); transform:scaleY(0); transform-origin:top; transition:transform .3s}
+  .mod:hover::after{transform:scaleY(1)}
+
+  .tools{display:flex; gap:14px; margin-top:22px; flex-wrap:wrap}
+  .tool{flex:1; min-width:150px; background:var(--paper); border:1px solid var(--line); border-radius:4px; padding:18px; display:flex; align-items:center; gap:13px}
+  .tool .g{font-family:var(--serif); font-style:italic; font-size:1.7rem; color:var(--acc2)}
+  .tool b{font-family:var(--sans); font-size:.92rem; display:block} .tool span{font-family:var(--mono); font-size:.68rem; color:var(--note)}
+
+  footer{margin-top:58px; border-top:1px solid var(--line); padding:24px 0 60px; font-family:var(--mono); font-size:.72rem; color:var(--note); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gd"></span>CHINA GEOGRAPHY · 中国地理</div>
+    <nav><a class="on" href="#">课时</a><a href="#">速查</a><a href="#">工具</a><a href="#">搜索</a><a href="#">总站</a></nav>
+  </div>
+
+  <header>
+    <div class="motif">
+      <svg viewBox="0 0 200 200" fill="none">
+        <!-- 第一级 青藏高原 远山 -->
+        <path d="M0 118 L24 76 L46 104 L70 60 L96 98 L122 70 L150 96 L176 78 L200 88 L200 200 L0 200 Z" fill="#cfe0d2" opacity=".75"/>
+        <!-- 第二级 高原盆地 -->
+        <path d="M0 146 L26 116 L52 134 L80 108 L110 132 L138 114 L168 132 L200 120 L200 200 L0 200 Z" fill="#86c8a4" opacity=".82"/>
+        <!-- 第三级 东部平原+海 -->
+        <path d="M0 170 L40 160 L82 164 L124 158 L166 161 L200 159 L200 200 L0 200 Z" fill="#2f9e72"/>
+        <!-- 大江东流 -->
+        <path d="M22 152 C62 142,100 152,138 140 S190 150,198 146" stroke="#0f5c44" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M30 162 C66 158,98 166,132 160 S176 166,196 162" stroke="#0f5c44" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".6"/>
+        <!-- 第一级顶点标注 -->
+        <circle cx="70" cy="60" r="2.6" fill="#0f5c44"/>
+        <circle cx="70" cy="60" r="5.5" fill="none" stroke="#0f5c44" stroke-width=".9" opacity=".5"/>
+      </svg>
+    </div>
+    <p class="kicker">科普通识 · 大白话讲透</p>
+    <h1>中国之<em>势</em></h1>
+    <p class="latin">Three · Steps · to · the · Sea</p>
+    <p class="lede">西高东低,三级阶梯把大地一阶阶引向大海;季风带来雨热同期的丰饶,长江黄河自高原奔流入海。<b>读懂这个"势",就读懂了中国大半的自然与命运</b>——从疆域地形到气候水文,从母亲河到人口、城市与人地关系。</p>
+    <div class="meta">
+      <div><b>13</b><span>模块</span></div>
+      <div><b>≈90</b><span>微课</span></div>
+      <div><b>4</b><span>互动工具</span></div>
+      <div><b>版图</b><span>速查 · 图鉴</span></div>
+    </div>
+  </header>
+
+  <div class="rule"><h2>模块索引</h2><span class="ln"></span><small>13 Modules</small></div>
+  <div class="mods">
+    <a class="mod" href="#"><div class="row"><span class="no">01</span><h3>疆域与位置</h3></div><div class="en">Territory &amp; Location</div><p>960 万平方千米、陆海兼备、邻国与经纬位置的基本国情。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">02</span><h3>地形与三级阶梯</h3></div><div class="en">Terrain &amp; Three Steps</div><p>西高东低、三大阶梯与高原盆地平原等地貌单元。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">03</span><h3>气候与季风</h3></div><div class="en">Climate &amp; Monsoon</div><p>季风进退、雨热同期、气温降水分布与气候类型。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">04</span><h3>河流与湖泊</h3></div><div class="en">Rivers &amp; Lakes</div><p>长江、黄河、珠江与主要湖泊的水文特征。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">05</span><h3>海洋与海岸</h3></div><div class="en">Coast &amp; Seas</div><p>渤海黄海东海南海、岛屿与漫长海岸线。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">06</span><h3>自然资源</h3></div><div class="en">Resources</div><p>土地、水、矿产、能源与生物资源的家底。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">07</span><h3>自然灾害</h3></div><div class="en">Natural Hazards</div><p>旱涝、台风、地震与地质灾害及防灾减灾。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">08</span><h3>人口与民族</h3></div><div class="en">Population &amp; Ethnicity</div><p>胡焕庸线、人口转变、老龄化与民族分布。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">09</span><h3>行政区划</h3></div><div class="en">Admin Divisions</div><p>34 省级、直辖市、自治区与特别行政区。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">10</span><h3>四大地理区域</h3></div><div class="en">Four Regions</div><p>北方、南方、西北、青藏的差异与分界。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">11</span><h3>区域巡礼</h3></div><div class="en">Regional Tour</div><p>七大地理分区的自然风貌与人文特色。</p></a>
+    <a class="mod" href="#"><div class="row"><span class="no">12</span><h3>经济与交通</h3></div><div class="en">Economy &amp; Transport</div><p>产业布局、交通网与城市群的空间逻辑。</p></a>
+    <a class="mod" href="#" style="background:var(--acc-soft)"><div class="row"><span class="no">13</span><h3>人地与生态</h3></div><div class="en">People, Land &amp; Ecology</div><p>生态保护、双碳与可持续发展的人地之道。</p></a>
+  </div>
+
+  <div class="rule"><h2>互动工具</h2><span class="ln"></span><small>Toolbox</small></div>
+  <div class="tools">
+    <div class="tool"><span class="g">◴</span><div><b>时差换算</b><span>横跨五时区</span></div></div>
+    <div class="tool"><span class="g">∿</span><div><b>河流流域</b><span>river basin</span></div></div>
+    <div class="tool"><span class="g">◐</span><div><b>胡焕庸线</b><span>hu line</span></div></div>
+    <div class="tool"><span class="g">☼</span><div><b>太阳高度·昼长</b><span>sun &amp; daylight</span></div></div>
+  </div>
+
+  <footer><span>中国地理 · Today I Learned</span><span>纯静态 · 零依赖 · 离线可用 · Demo A 青绿山水</span></footer>
+</div>
+</body>
+</html>
