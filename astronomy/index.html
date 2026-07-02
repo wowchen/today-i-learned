@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>天文与宇宙学习站 · Astronomy & Cosmos</title>
+<meta name="description" content="大白话讲透天文与宇宙(科普通识):天文学基础、太阳系、太阳与恒星光、行星世界、地球与月球、小天体、光与望远镜、恒星演化、星系与银河系、宇宙距离阶梯、宇宙学、暗物质与暗能量、系外行星与地外生命。13 模块 85 课,含行星体重秤/宇宙距离换算/开普勒第三定律/史瓦西半径四个互动工具。纯静态离线、重尺度与因果直觉、不背公式不故弄玄虚。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('ast.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    天文与宇宙 <small>· Cosmos</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="AST.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 AST.path 生成) -->
+<script src="content/intro/01-what-is.js"></script>
+<script src="content/intro/02-celestial-sphere.js"></script>
+<script src="content/intro/03-constellation.js"></script>
+<script src="content/intro/04-coordinate.js"></script>
+<script src="content/intro/05-magnitude.js"></script>
+<script src="content/intro/06-scale.js"></script>
+<script src="content/solar/01-overview.js"></script>
+<script src="content/solar/02-formation.js"></script>
+<script src="content/solar/03-planet-def.js"></script>
+<script src="content/solar/04-inner-outer.js"></script>
+<script src="content/solar/05-orbit-resonance.js"></script>
+<script src="content/solar/06-dwarf-planets.js"></script>
+<script src="content/solar/07-survey.js"></script>
+<script src="content/sun/01-what-is-star.js"></script>
+<script src="content/sun/02-sun.js"></script>
+<script src="content/sun/03-fusion.js"></script>
+<script src="content/sun/04-structure.js"></script>
+<script src="content/sun/05-activity.js"></script>
+<script src="content/sun/06-solar-wind.js"></script>
+<script src="content/planets/01-terrestrial.js"></script>
+<script src="content/planets/02-giant.js"></script>
+<script src="content/planets/03-atmosphere.js"></script>
+<script src="content/planets/04-magnetosphere.js"></script>
+<script src="content/planets/05-greenhouse.js"></script>
+<script src="content/planets/06-moon-satellite.js"></script>
+<script src="content/planets/07-rings.js"></script>
+<script src="content/earthmoon/01-rotation.js"></script>
+<script src="content/earthmoon/02-tilt-season.js"></script>
+<script src="content/earthmoon/03-moon-phase.js"></script>
+<script src="content/earthmoon/04-tide.js"></script>
+<script src="content/earthmoon/05-eclipse.js"></script>
+<script src="content/earthmoon/06-sidereal-synodic.js"></script>
+<script src="content/earthmoon/07-precession.js"></script>
+<script src="content/smallbody/01-asteroid.js"></script>
+<script src="content/smallbody/02-comet.js"></script>
+<script src="content/smallbody/03-meteor.js"></script>
+<script src="content/smallbody/04-dwarf.js"></script>
+<script src="content/smallbody/05-kuiper.js"></script>
+<script src="content/smallbody/06-oort.js"></script>
+<script src="content/light/01-spectrum.js"></script>
+<script src="content/light/02-telescope.js"></script>
+<script src="content/light/03-spectrum-analysis.js"></script>
+<script src="content/light/04-doppler.js"></script>
+<script src="content/light/05-redshift.js"></script>
+<script src="content/light/06-space-telescope.js"></script>
+<script src="content/light/07-resolution.js"></script>
+<script src="content/stars/01-hr-diagram.js"></script>
+<script src="content/stars/02-main-sequence.js"></script>
+<script src="content/stars/03-red-giant.js"></script>
+<script src="content/stars/04-white-dwarf.js"></script>
+<script src="content/stars/05-supernova.js"></script>
+<script src="content/stars/06-neutron-star.js"></script>
+<script src="content/stars/07-black-hole.js"></script>
+<script src="content/galaxies/01-galaxy.js"></script>
+<script src="content/galaxies/02-milky-way.js"></script>
+<script src="content/galaxies/03-spiral-arm.js"></script>
+<script src="content/galaxies/04-classification.js"></script>
+<script src="content/galaxies/05-smbh.js"></script>
+<script src="content/galaxies/06-agn.js"></script>
+<script src="content/galaxies/07-cluster.js"></script>
+<script src="content/distance/01-parallax.js"></script>
+<script src="content/distance/02-standard-candle.js"></script>
+<script src="content/distance/03-cepheid.js"></script>
+<script src="content/distance/04-sn1a.js"></script>
+<script src="content/distance/05-ladder.js"></script>
+<script src="content/distance/06-hubble.js"></script>
+<script src="content/cosmology/01-big-bang.js"></script>
+<script src="content/cosmology/02-cmb.js"></script>
+<script src="content/cosmology/03-expansion.js"></script>
+<script src="content/cosmology/04-redshift.js"></script>
+<script src="content/cosmology/05-critical-density.js"></script>
+<script src="content/cosmology/06-nucleosynthesis.js"></script>
+<script src="content/cosmology/07-inflation.js"></script>
+<script src="content/dark/01-dark-matter.js"></script>
+<script src="content/dark/02-missing-mass.js"></script>
+<script src="content/dark/03-lensing.js"></script>
+<script src="content/dark/04-dark-energy.js"></script>
+<script src="content/dark/05-acceleration.js"></script>
+<script src="content/dark/06-constant.js"></script>
+<script src="content/exolife/01-exoplanet.js"></script>
+<script src="content/exolife/02-transit.js"></script>
+<script src="content/exolife/03-radial-velocity.js"></script>
+<script src="content/exolife/04-habitable.js"></script>
+<script src="content/exolife/05-drake.js"></script>
+<script src="content/exolife/06-fermi.js"></script>
+
+</body>
+</html>
