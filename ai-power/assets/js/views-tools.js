@@ -401,43 +401,8 @@ AIP.views.settings = function() {
   html += '<div class="setting-row"><label>数据</label>';
   html += '<button class="setting-btn" onclick="AIP.exportData()">导出进度</button>';
   html += '<button class="setting-btn danger" onclick="AIP.clearData()">清除数据</button></div>';
-  // 云端同步(可选)
-  var sc = AIP.sync.getCfg();
-  html += '<div class="setting-row sync-row"><label>云端同步</label>';
-  html += '<div class="sync-box">';
-  html += '<span id="sync-status" class="sync-badge" data-state="off">未同步</span>';
-  html += '<input id="sync-repo" class="sync-input" type="text" placeholder="仓库名,如 you/grid-progress" value="' + escAttr(sc.repo || '') + '">';
-  html += '<input id="sync-token" class="sync-input" type="password" placeholder="Fine-grained PAT(仅存本机,不上传代码)" autocomplete="off">';
-  html += '<div class="sync-actions">';
-  html += '<button class="setting-btn" onclick="AIP.saveSync()">保存并同步</button>';
-  html += '<button class="setting-btn" onclick="AIP.testSync()">立即同步</button>';
-  html += '<button class="setting-btn danger" onclick="AIP.disconnectSync()">断开</button>';
-  html += '</div>';
-  html += '<p class="sync-note">进度仅备份到你自己的私有仓库(文件 progress/aip.json)。Token 只存在本机浏览器,不会写入站点代码。未配置则进度仅存本机,不影响学习。</p>';
-  html += '</div></div>';
   html += '</div>';
   AIP.render(html);
-  if (AIP.sync && AIP.sync.setStatusEl) AIP.sync.setStatusEl(document.getElementById('sync-status'));
-};
-function escAttr(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-AIP.saveSync = function () {
-  var repo = document.getElementById('sync-repo').value;
-  var token = document.getElementById('sync-token').value;
-  if (!repo || !repo.trim()) { alert('请填写仓库名,例如 you/grid-progress'); return; }
-  var cur = AIP.sync.getCfg();
-  if ((!token || !token.trim()) && !cur.token) { alert('请填写 Token(从 GitHub 生成的 fine-grained PAT)'); return; }
-  AIP.sync.saveCfg(repo, token);
-  AIP.sync.push().then(function (ok) {
-    if (ok) AIP.views.settings();
-    else alert('同步失败:请检查仓库名是否准确、PAT 是否对该仓库有 Contents 读写权限、以及网络是否可访问 api.github.com。');
-  });
-};
-AIP.testSync = function () { AIP.sync.push(); };
-AIP.disconnectSync = function () {
-  if (confirm('断开云端同步?本机进度会保留,之后不再自动备份到仓库。')) {
-    AIP.sync.clearCfg();
-    AIP.views.settings();
-  }
 };
 AIP.setTheme = function(t) { document.documentElement.dataset.theme = t; AIP.progress().setPref('theme', t); AIP.views.settings(); };
 AIP.setFontSize = function(s) { document.documentElement.dataset.fs = s; AIP.progress().setPref('fontSize', s); AIP.views.settings(); };
