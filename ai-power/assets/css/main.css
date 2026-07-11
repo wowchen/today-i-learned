@@ -405,6 +405,18 @@ gd[data-term]:hover { background: var(--acc-soft); }
 .setting-btn:hover { border-color: var(--acc); color: var(--acc); }
 .setting-btn.active { background: var(--cta-bg); color: var(--cta-fg); border-color: var(--cta-bg); }
 .setting-btn.danger:hover { border-color: var(--acc); color: var(--acc); }
+.sync-row { align-items: flex-start; }
+.sync-box { display: flex; flex-direction: column; gap: 8px; flex: 1; max-width: 440px; }
+.sync-badge { align-self: flex-start; font-size: .76rem; padding: 2px 10px; border-radius: 999px;
+  border: 1px solid var(--line-2); color: var(--note); background: var(--acc-soft); }
+.sync-badge[data-state="synced"] { color: var(--ok); border-color: var(--ok); background: transparent; }
+.sync-badge[data-state="pending"], .sync-badge[data-state="pulling"] { color: var(--acc); border-color: var(--acc); }
+.sync-badge[data-state="error"] { color: #c0392b; border-color: #c0392b; }
+.sync-input { padding: 9px 12px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink);
+  border-radius: 6px; font-size: .88rem; font-family: inherit; width: 100%; box-sizing: border-box; }
+.sync-input:focus { outline: none; border-color: var(--acc); }
+.sync-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.sync-note { font-size: .8rem; color: var(--note); line-height: 1.6; margin: 2px 0 0; }
 
 /* ============================================================
    响应式 + 动效守卫

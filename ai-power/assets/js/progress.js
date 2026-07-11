@@ -15,6 +15,7 @@ window.AIP = window.AIP || {};
 
   function save(data) {
     localStorage.setItem(KEY, JSON.stringify(data));
+    if (AIP.onProgressChange) { try { AIP.onProgressChange(); } catch (e) {} }
   }
 
   AIP.progress = function() {
