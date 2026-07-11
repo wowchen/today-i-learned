@@ -66,6 +66,7 @@ python3 -m http.server 8000
 ├── mathematics/                    # 子站
 ├── geography/                      # 子站
 └── astronomy/                      # 子站
+├── ai-power/                        # 子站
 ```
 
 各子站使用相对路径,可独立运行,也可整体部署。

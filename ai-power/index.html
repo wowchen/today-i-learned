@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI+电力学习站 · AI in Power</title>
+<meta name="description" content="大白话讲透人工智能在电力各专业的应用场景:发电AI、输变AI、配用AI、调度AI、新能源储能AI、算电协同、营销客服AI、安全安防AI、工程基建AI、大模型在电力、数据与平台。14模块99课,含负荷预测可视化/设备健康度评估/功率预测精度对比/巡检缺陷识别/算电协同调度模拟五个互动工具。纯静态离线、重应用场景与因果直觉。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('aip.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--acc)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1L4 10h4l-2 7 6-9H8l2-7z"/></svg>
+    AI+电力 <small>· AI in Power</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="AIP.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 AIP.path 生成) -->
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-ai-power-map.js"></script>
+<script src="content/guide/03-why-now.js"></script>
+<script src="content/guide/04-how-to-learn.js"></script>
+<script src="content/basics/01-ai-what.js"></script>
+<script src="content/basics/02-ml-dl-brief.js"></script>
+<script src="content/basics/03-llm-brief.js"></script>
+<script src="content/basics/04-can-cannot.js"></script>
+<script src="content/basics/05-power-data.js"></script>
+<script src="content/basics/06-power-special.js"></script>
+<script src="content/basics/07-security-zone.js"></script>
+<script src="content/basics/08-data-to-ai.js"></script>
+<script src="content/gen/01-power-forecast.js"></script>
+<script src="content/gen/02-forecast-methods.js"></script>
+<script src="content/gen/03-forecast-accuracy.js"></script>
+<script src="content/gen/04-thermal-optimization.js"></script>
+<script src="content/gen/05-unit-commitment.js"></script>
+<script src="content/gen/06-equipment-health.js"></script>
+<script src="content/gen/07-predictive-maintenance.js"></script>
+<script src="content/gen/08-hydro-forecast.js"></script>
+<script src="content/gen/09-gen-inspection.js"></script>
+<script src="content/gen/10-gen-ai-limits.js"></script>
+<script src="content/trans/01-uav-cv.js"></script>
+<script src="content/trans/02-corridor-hazard.js"></script>
+<script src="content/trans/03-transformer-health.js"></script>
+<script src="content/trans/04-gis-pd.js"></script>
+<script src="content/trans/05-uhv-maintenance.js"></script>
+<script src="content/trans/06-icing-forecast.js"></script>
+<script src="content/trans/07-substation-twin.js"></script>
+<script src="content/trans/08-trans-roi.js"></script>
+<script src="content/dist/01-fault-location.js"></script>
+<script src="content/dist/02-taiqu-analysis.js"></script>
+<script src="content/dist/03-load-forecast.js"></script>
+<script src="content/dist/04-meter-anomaly.js"></script>
+<script src="content/dist/05-outage-aware.js"></script>
+<script src="content/dist/06-usage-profiling.js"></script>
+<script src="content/dist/07-iot-edge.js"></script>
+<script src="content/dist/08-active-dn-challenge.js"></script>
+<script src="content/dispatch/01-why-dispatch-ai.js"></script>
+<script src="content/dispatch/02-forecast-into-dispatch.js"></script>
+<script src="content/dispatch/03-plan-optimization.js"></script>
+<script src="content/dispatch/04-agc-enhance.js"></script>
+<script src="content/dispatch/05-realtime-security.js"></script>
+<script src="content/dispatch/06-emergency-dispatch.js"></script>
+<script src="content/dispatch/07-vpp-dispatch.js"></script>
+<script src="content/dispatch/08-dispatch-safety.js"></script>
+<script src="content/newenergy/01-pv-defect.js"></script>
+<script src="content/newenergy/02-blade-damage.js"></script>
+<script src="content/newenergy/03-drivetrain.js"></script>
+<script src="content/newenergy/04-battery-soh.js"></script>
+<script src="content/newenergy/05-storage-dispatch.js"></script>
+<script src="content/newenergy/06-vpp-brain.js"></script>
+<script src="content/newenergy/07-forecast-storage.js"></script>
+<script src="content/newenergy/08-unmanned-station.js"></script>
+<script src="content/compute/01-compute-is-power.js"></script>
+<script src="content/compute/02-east-data-west-compute.js"></script>
+<script src="content/compute/03-pue.js"></script>
+<script src="content/compute/04-good-load.js"></script>
+<script src="content/compute/05-five-in-one.js"></script>
+<script src="content/compute/06-follow-green.js"></script>
+<script src="content/compute/07-green-direct.js"></script>
+<script src="content/compute/08-challenges.js"></script>
+<script src="content/marketing/01-ai-customer-service.js"></script>
+<script src="content/marketing/02-usage-profiling.js"></script>
+<script src="content/marketing/03-demand-response.js"></script>
+<script src="content/marketing/04-bill-risk.js"></script>
+<script src="content/marketing/05-smart-connection.js"></script>
+<script src="content/marketing/06-anti-theft-ai.js"></script>
+<script src="content/marketing/07-marketing-llm.js"></script>
+<script src="content/security/01-ics-cybersec.js"></script>
+<script src="content/security/02-substation-security.js"></script>
+<script src="content/security/03-work-safety.js"></script>
+<script src="content/security/04-data-privacy.js"></script>
+<script src="content/security/05-ai-own-risk.js"></script>
+<script src="content/security/06-compliance.js"></script>
+<script src="content/engineering/01-smart-design.js"></script>
+<script src="content/engineering/02-construction-safety.js"></script>
+<script src="content/engineering/03-bim-twin.js"></script>
+<script src="content/engineering/04-progress-control.js"></script>
+<script src="content/engineering/05-acceptance.js"></script>
+<script src="content/engineering/06-engineering-roi.js"></script>
+<script src="content/llm/01-what-is-domain-llm.js"></script>
+<script src="content/llm/02-how-to-train.js"></script>
+<script src="content/llm/03-rag-in-power.js"></script>
+<script src="content/llm/04-knowledge-management.js"></script>
+<script src="content/llm/05-coding-assist.js"></script>
+<script src="content/llm/06-agent-in-power.js"></script>
+<script src="content/llm/07-hallucination-risk.js"></script>
+<script src="content/llm/08-llm-status.js"></script>
+<script src="content/platform/01-data-middleware.js"></script>
+<script src="content/platform/02-mlops-platform.js"></script>
+<script src="content/platform/03-edge-computing.js"></script>
+<script src="content/platform/04-data-quality-life.js"></script>
+<script src="content/platform/05-data-governance.js"></script>
+<script src="content/platform/06-bi-to-ai.js"></script>
+<script src="content/future/01-data-barrier.js"></script>
+<script src="content/future/02-model-reliability.js"></script>
+<script src="content/future/03-safety-ethics.js"></script>
+<script src="content/future/04-future.js"></script>
+
+</body>
+</html>
