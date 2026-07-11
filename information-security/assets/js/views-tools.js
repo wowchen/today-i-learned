@@ -289,6 +289,7 @@ ISL.views.settings = function() {
   var prefs = P.getPrefs();
   var theme = prefs.theme || (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
   var fs = prefs.fontSize || 'm';
+  var cfg = (ISL.sync ? ISL.sync.config() : {});
 
   var h = '<div class="tool-head"><h1 class="page">设置</h1></div>';
   h += '<div class="card">';
@@ -300,11 +301,53 @@ ISL.views.settings = function() {
        '<button class="' + (fs === 'm' ? 'on' : '') + '" onclick="ISL.setFontSize(\'m\')">中</button>' +
        '<button class="' + (fs === 'l' ? 'on' : '') + '" onclick="ISL.setFontSize(\'l\')">大</button></div></div>';
   h += '</div>';
+
+  /* ── GitHub 进度同步(可选) ── */
+  h += '<div class="card"><h3 class="set-title">GitHub 进度同步(可选)</h3>';
+  h += '<p class="note">用一个<b>自己的 private 仓库</b>存进度(如 you/progress),fine-grained PAT 只授权该仓库 Contents 读写、建议设 90 天过期。token 只存在本机浏览器,不会进入站点代码仓库。不配置则进度仅存本机,不影响学习。</p>';
+  h += '<div class="set-row"><label>仓库</label><input id="syRepo" class="field" placeholder="owner/progress" value="' + ISL.esc(cfg.repo || '') + '"></div>';
+  h += '<div class="set-row"><label>分支</label><input id="syBranch" class="field" placeholder="main" value="' + ISL.esc(cfg.branch || 'main') + '"></div>';
+  h += '<div class="set-row"><label>Token</label><input id="syToken" class="field" type="password" placeholder="github_pat_…" value="' + ISL.esc(cfg.token || '') + '"></div>';
+  h += '<div class="set-row" style="margin-top:12px"><button class="set-btn" id="sySave">保存并立即同步</button><button class="set-btn" id="syPull">只拉取一次</button><button class="set-btn danger" id="syClear">清除 token</button></div>';
+  h += '<p class="note" id="syMsg">' + ISL.esc(ISL.sync ? ISL.sync.statusText : '仅本机') + '</p></div>';
+
   h += '<div class="card"><div class="set-row"><label>学习数据</label>' +
        '<button class="set-btn" onclick="ISL.exportData()">导出进度</button>' +
        '<button class="set-btn danger" onclick="ISL.clearData()">清除数据</button></div>' +
        '<p class="note" style="margin-top:4px">进度只存在本机浏览器(localStorage),不上传任何服务器。换设备可用"导出进度"备份。</p></div>';
   ISL.render(h);
+
+  // 同步按钮接线
+  function msg(text, cls) {
+    var el = document.getElementById('syMsg');
+    if (el) { el.textContent = text; el.className = 'note' + (cls ? ' ' + cls : ''); }
+  }
+  var sySave = document.getElementById('sySave');
+  var syPull = document.getElementById('syPull');
+  var syClear = document.getElementById('syClear');
+  if (sySave) sySave.addEventListener('click', function () {
+    if (!ISL.sync) return;
+    ISL.sync.setConfig({
+      repo: document.getElementById('syRepo').value,
+      branch: document.getElementById('syBranch').value,
+      token: document.getElementById('syToken').value
+    });
+    if (!ISL.sync.ready()) { msg('仓库和 token 都要填。', 'bad'); return; }
+    msg('同步中…');
+    ISL.sync.pullNow().then(function () { return ISL.sync.pushNow(); })
+      .then(function (ok) { msg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败:' + ISL.sync.statusText, ok ? 'ok' : 'bad'); });
+  });
+  if (syPull) syPull.addEventListener('click', function () {
+    if (!ISL.sync) return;
+    msg('拉取中…');
+    ISL.sync.pullNow().then(function (ok) { msg(ok ? '已拉取并合并远端进度 ✓' : ISL.sync.statusText, ok ? 'ok' : ''); });
+  });
+  if (syClear) syClear.addEventListener('click', function () {
+    if (!ISL.sync) return;
+    ISL.sync.clearToken();
+    var tok = document.getElementById('syToken'); if (tok) tok.value = '';
+    msg('token 已从本机清除。');
+  });
 };
 
 ISL.setTheme = function(t) {

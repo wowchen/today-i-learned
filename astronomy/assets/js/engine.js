@@ -72,6 +72,7 @@ window.AST = window.AST || {};
     if (prefs.fontSize) document.documentElement.dataset.fs = prefs.fontSize;
 
     window.addEventListener('hashchange', route);
+    AST.sync.boot();
     route();
   }
 

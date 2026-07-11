@@ -47,6 +47,7 @@ window.HIT = window.HIT || {};
 
     if (HIT.buildShell) HIT.buildShell();
     window.addEventListener('hashchange', route);
+    if (HIT.sync) HIT.sync.boot();
     route();
   }
 

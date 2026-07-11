@@ -73,6 +73,9 @@ window.NH = window.NH || {};
 
     window.addEventListener('hashchange', route);
     route();
+
+    // 配置过同步则启动时拉取合并;之后数据变更自动推送
+    NH.sync.boot();
   }
 
   if (document.readyState === 'loading') {

@@ -47,6 +47,7 @@ window.AIX = window.AIX || {};
 
     if (AIX.buildShell) AIX.buildShell();
     window.addEventListener('hashchange', route);
+    AIX.sync.boot();
     route();
   }
 

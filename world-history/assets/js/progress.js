@@ -2,6 +2,7 @@
 window.WHS = window.WHS || {};
 
 (function() {
+  var NS = window.WHS;
   var KEY = 'whs.progress.v1';
 
   function load() {
@@ -15,6 +16,8 @@ window.WHS = window.WHS || {};
 
   function save(data) {
     localStorage.setItem(KEY, JSON.stringify(data));
+    if (NS.sync) NS.sync.schedulePush();
+    if (NS.onProgressChange) NS.onProgressChange();
   }
 
   WHS.progress = function() {
@@ -101,6 +104,57 @@ window.WHS = window.WHS || {};
           if (!this.isRead(WHS.path[i])) return i;
         }
         return WHS.path.length;
+      },
+
+      /* ── 合并(可选 GitHub 同步):条目级并集,updatedAt 新者胜;activity 兼容数组/map ── */
+      merge: function(remote) {
+        if (!remote || typeof remote !== 'object') return data;
+        data.terms = data.terms || {};
+        data.read = data.read || {};
+        data.prefs = data.prefs || {};
+        data.activity = data.activity || {};
+        var r = remote;
+        var rterms = (r.terms && typeof r.terms === 'object') ? r.terms : {};
+        var rread = (r.read && typeof r.read === 'object') ? r.read : {};
+        ['terms', 'read'].forEach(function(k) {
+          var rm = (k === 'terms') ? rterms : rread;
+          Object.keys(rm).forEach(function(id) {
+            var rv = rm[id];
+            if (!rv || typeof rv !== 'object') return;
+            var lv = data[k][id];
+            if (!lv || (rv.updatedAt || 0) > (lv.updatedAt || 0)) data[k][id] = rv;
+          });
+        });
+        // prefs:旧模型无 updatedAt,保持本机(最后写入为准之本地优先)
+        // activity:兼容 {days:[...]} 数组并集 与 {day:count} map 逐键取最大值
+        var ract = r.activity || {};
+        if (ract && Array.isArray(ract.days)) {
+          var set = {};
+          (data.activity.days || []).forEach(function(d) { if (d) set[d] = 1; });
+          ract.days.forEach(function(d) { if (d) set[d] = 1; });
+          data.activity = { days: Object.keys(set).sort() };
+        } else if (ract && typeof ract === 'object') {
+          var m = {};
+          if (Array.isArray(data.activity.days)) {
+            data.activity.days.forEach(function(d) { m[d] = 1; });
+          } else if (data.activity && typeof data.activity === 'object') {
+            Object.keys(data.activity).forEach(function(kk) { if (kk !== 'days') m[kk] = data.activity[kk]; });
+          }
+          Object.keys(ract).forEach(function(day) {
+            if (day === 'days') return;
+            m[day] = Math.max(m[day] || 0, ract[day] || 0);
+          });
+          data.activity = m;
+        }
+        // 直接落盘,避免触发 save()(防止 pull 合并时再次推送)
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { }
+        if (NS.onProgressChange) NS.onProgressChange();
+        return data;
+      },
+
+      exportJson: function() { return JSON.stringify(data, null, 2); },
+      importJson: function(json) {
+        try { this.merge(JSON.parse(json)); return true; } catch (e) { return false; }
       },
 
       export: function() { return JSON.parse(JSON.stringify(data)); },

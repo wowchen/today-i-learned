@@ -401,6 +401,9 @@ gd[data-term]:hover { background: var(--acc-soft); }
 .setting-btn:hover { border-color: var(--acc); color: var(--acc); }
 .setting-btn.active { background: var(--cta-bg); color: var(--cta-fg); border-color: var(--cta-bg); }
 .setting-btn.danger:hover { border-color: var(--acc); color: var(--acc); }
+/* GitHub 进度同步卡片(可选功能) */
+.setting-row input { flex: 1; min-width: 0; padding: 9px 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 9px; font: inherit; font-size: .92rem; }
+.setting-row input:focus { outline: none; border-color: var(--acc); }
 
 /* ============================================================
    响应式 + 动效守卫

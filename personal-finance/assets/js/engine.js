@@ -72,6 +72,7 @@ window.PFIN = window.PFIN || {};
     if (prefs.fontSize) document.documentElement.dataset.fs = prefs.fontSize;
 
     window.addEventListener('hashchange', route);
+    PFIN.sync.boot();
     route();
   }
 

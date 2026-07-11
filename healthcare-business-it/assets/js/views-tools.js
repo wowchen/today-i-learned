@@ -114,7 +114,51 @@ HIT.views.myTerms = function() { var P = HIT.progress(), collected = HIT.terms.f
 HIT.views.search = function() { var h = '<div class="tool-head"><h1 class="page">搜索</h1><p class="sub">搜课时标题、关键词与术语。</p></div>'; h += '<div class="searchbox" style="margin:10px 0"><input id="sb" placeholder="输入关键词,如 HIS / DRG / 电子病历 / FHIR" oninput="HIT.doSearch(this.value)" autofocus></div>'; h += '<div id="search-results"></div>'; HIT.render(h); var sb = document.getElementById('sb'); if (sb) sb.focus(); };
 HIT.doSearch = function(q) { var el = document.getElementById('search-results'); if (!el) return; if (!q || q.length < 1) { el.innerHTML = ''; return; } var results = HIT.search(q); if (!results.length) { el.innerHTML = '<p class="empty">没有找到匹配内容。</p>'; return; } var esc = HIT.esc, h = ''; for (var i = 0; i < results.length; i++) { var r = results[i]; if (r.type === 'lesson') { var mod = HIT.modules.find(function(m) { return m.id === r.module; }); h += '<div class="result"><div class="crumb">' + (mod ? esc(mod.shortTitle || mod.title) : '') + '</div><a href="#/l/' + r.id + '">' + esc(r.title) + '</a><span class="tag">课时</span></div>'; } else { h += '<div class="result"><a onclick="HIT.showTermCardById(\'' + r.id + '\')" style="cursor:pointer">' + esc(r.title) + '</a><span class="tag">术语</span></div>'; } } el.innerHTML = h; };
 HIT.showTermCardById = function(id) { window.location.hash = '#/terms'; setTimeout(function() { HIT.filterTerms(''); }, 30); };
-HIT.views.settings = function() { var P = HIT.progress(), prefs = P.getPrefs(), theme = prefs.theme || (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'), fs = prefs.fontSize || 'm'; var h = '<div class="tool-head"><h1 class="page">设置</h1></div><div class="card">'; h += '<div class="set-row"><label>主题</label><div class="seg"><button class="' + (theme === 'light' ? 'on' : '') + '" onclick="HIT.setTheme(\'light\')">浅色</button><button class="' + (theme === 'dark' ? 'on' : '') + '" onclick="HIT.setTheme(\'dark\')">深色</button></div></div>'; h += '<div class="set-row"><label>字号</label><div class="seg"><button class="' + (fs === 's' ? 'on' : '') + '" onclick="HIT.setFontSize(\'s\')">小</button><button class="' + (fs === 'm' ? 'on' : '') + '" onclick="HIT.setFontSize(\'m\')">中</button><button class="' + (fs === 'l' ? 'on' : '') + '" onclick="HIT.setFontSize(\'l\')">大</button></div></div></div>'; h += '<div class="card"><div class="set-row"><label>学习数据</label><button class="set-btn" onclick="HIT.exportData()">导出进度</button><button class="set-btn danger" onclick="HIT.clearData()">清除数据</button></div><p class="note" style="margin-top:4px">进度只存在本机浏览器(localStorage),不上传任何服务器。换设备可用"导出进度"备份。</p></div>'; HIT.render(h); };
+HIT.views.settings = function() { var P = HIT.progress(), prefs = P.getPrefs(), theme = prefs.theme || (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'), fs = prefs.fontSize || 'm'; var cfg = (HIT.sync ? HIT.sync.config() : {}); var h = '<div class="tool-head"><h1 class="page">设置</h1></div><div class="card">'; h += '<div class="set-row"><label>主题</label><div class="seg"><button class="' + (theme === 'light' ? 'on' : '') + '" onclick="HIT.setTheme(\'light\')">浅色</button><button class="' + (theme === 'dark' ? 'on' : '') + '" onclick="HIT.setTheme(\'dark\')">深色</button></div></div>'; h += '<div class="set-row"><label>字号</label><div class="seg"><button class="' + (fs === 's' ? 'on' : '') + '" onclick="HIT.setFontSize(\'s\')">小</button><button class="' + (fs === 'm' ? 'on' : '') + '" onclick="HIT.setFontSize(\'m\')">中</button><button class="' + (fs === 'l' ? 'on' : '') + '" onclick="HIT.setFontSize(\'l\')">大</button></div></div></div>';
+
+  /* ── GitHub 进度同步(可选) ── */
+  h += '<div class="card"><h3 class="set-title">GitHub 进度同步(可选)</h3>';
+  h += '<p class="note">用一个<b>自己的 private 仓库</b>存进度(如 you/progress),fine-grained PAT 只授权该仓库 Contents 读写、建议设 90 天过期。token 只存在本机浏览器,不会进入站点代码仓库。不配置则进度仅存本机,不影响学习。</p>';
+  h += '<div class="set-row"><label>仓库</label><input id="syRepo" class="field" placeholder="owner/progress" value="' + HIT.esc(cfg.repo || '') + '"></div>';
+  h += '<div class="set-row"><label>分支</label><input id="syBranch" class="field" placeholder="main" value="' + HIT.esc(cfg.branch || 'main') + '"></div>';
+  h += '<div class="set-row"><label>Token</label><input id="syToken" class="field" type="password" placeholder="github_pat_…" value="' + HIT.esc(cfg.token || '') + '"></div>';
+  h += '<div class="set-row" style="margin-top:12px"><button class="set-btn" id="sySave">保存并立即同步</button><button class="set-btn" id="syPull">只拉取一次</button><button class="set-btn danger" id="syClear">清除 token</button></div>';
+  h += '<p class="note" id="syMsg">' + HIT.esc(HIT.sync ? HIT.sync.statusText : '仅本机') + '</p></div>';
+
+  h += '<div class="card"><div class="set-row"><label>学习数据</label><button class="set-btn" onclick="HIT.exportData()">导出进度</button><button class="set-btn danger" onclick="HIT.clearData()">清除数据</button></div><p class="note" style="margin-top:4px">进度只存在本机浏览器(localStorage),不上传任何服务器。换设备可用"导出进度"备份。</p></div>'; HIT.render(h);
+
+  // 同步按钮接线
+  function msg(text, cls) {
+    var el = document.getElementById('syMsg');
+    if (el) { el.textContent = text; el.className = 'note' + (cls ? ' ' + cls : ''); }
+  }
+  var sySave = document.getElementById('sySave');
+  var syPull = document.getElementById('syPull');
+  var syClear = document.getElementById('syClear');
+  if (sySave) sySave.addEventListener('click', function () {
+    if (!HIT.sync) return;
+    HIT.sync.setConfig({
+      repo: document.getElementById('syRepo').value,
+      branch: document.getElementById('syBranch').value,
+      token: document.getElementById('syToken').value
+    });
+    if (!HIT.sync.ready()) { msg('仓库和 token 都要填。', 'bad'); return; }
+    msg('同步中…');
+    HIT.sync.pullNow().then(function () { return HIT.sync.pushNow(); })
+      .then(function (ok) { msg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败:' + HIT.sync.statusText, ok ? 'ok' : 'bad'); });
+  });
+  if (syPull) syPull.addEventListener('click', function () {
+    if (!HIT.sync) return;
+    msg('拉取中…');
+    HIT.sync.pullNow().then(function (ok) { msg(ok ? '已拉取并合并远端进度 ✓' : HIT.sync.statusText, ok ? 'ok' : ''); });
+  });
+  if (syClear) syClear.addEventListener('click', function () {
+    if (!HIT.sync) return;
+    HIT.sync.clearToken();
+    var tok = document.getElementById('syToken'); if (tok) tok.value = '';
+    msg('token 已从本机清除。');
+  });
+};
 HIT.setTheme = function(t) { document.documentElement.dataset.theme = t; HIT.progress().setPref('theme', t); if (HIT.renderShell) HIT.renderShell(); HIT.views.settings(); };
 HIT.setFontSize = function(s) { document.documentElement.dataset.fs = s; HIT.progress().setPref('fontSize', s); HIT.views.settings(); };
 HIT.exportData = function() { var data = HIT.progress().export(); var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'hit-progress-' + new Date().toISOString().slice(0, 10) + '.json'; a.click(); };

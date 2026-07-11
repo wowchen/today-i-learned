@@ -300,11 +300,51 @@ PSY.views.settings = function() {
        '<button class="' + (fs === 'm' ? 'on' : '') + '" onclick="PSY.setFontSize(\'m\')">中</button>' +
        '<button class="' + (fs === 'l' ? 'on' : '') + '" onclick="PSY.setFontSize(\'l\')">大</button></div></div>';
   h += '</div>';
+
+  /* GitHub 进度同步(可选) */
+  h += '<div class="card">';
+  h += '<div class="set-row" style="margin-top:-4px"><label>GitHub 同步</label>'
+     + '<span class="note">可选：进度同步到你自己的 private 仓库（Fine-grained PAT，仅授权该仓库 Contents 读写），token 仅存本机，不进站点代码。不配置则仅本机。</span></div>';
+  h += '<div class="set-row"><label>仓库</label><input id="syRepo" class="field" placeholder="owner/repo"></div>';
+  h += '<div class="set-row"><label>分支</label><input id="syBranch" class="field" placeholder="main" value="main"></div>';
+  h += '<div class="set-row"><label>Token</label><input id="syToken" class="field" type="password" placeholder="github_pat_…"></div>';
+  h += '<div class="set-row"><label>操作</label>'
+     + '<button class="set-btn" id="sySave">保存并同步</button>'
+     + '<button class="set-btn" id="syPull">只拉取</button>'
+     + '<button class="set-btn" id="syClear">清除 token</button></div>';
+  h += '<p class="note" id="syMsg">仅本机</p>';
+  h += '</div>';
+
   h += '<div class="card"><div class="set-row"><label>学习数据</label>' +
        '<button class="set-btn" onclick="PSY.exportData()">导出进度</button>' +
        '<button class="set-btn danger" onclick="PSY.clearData()">清除数据</button></div>' +
        '<p class="note" style="margin-top:4px">进度只存在本机浏览器(localStorage),不上传任何服务器。换设备可用"导出进度"备份。</p></div>';
   PSY.render(h);
+
+  /* GitHub 同步接线 */
+  var synccfg = PSY.sync.config();
+  function syMsg(text) { var el = document.getElementById('syMsg'); if (el) el.textContent = text; }
+  var syRepo = document.getElementById('syRepo'), syBranch = document.getElementById('syBranch'), syToken = document.getElementById('syToken');
+  if (syRepo) syRepo.value = synccfg.repo || '';
+  if (syBranch) syBranch.value = synccfg.branch || 'main';
+  if (syToken) syToken.value = synccfg.token || '';
+  var sySaveBtn = document.getElementById('sySave'), syPullBtn = document.getElementById('syPull'), syClearBtn = document.getElementById('syClear');
+  if (sySaveBtn) sySaveBtn.addEventListener('click', function () {
+    PSY.sync.setConfig({ repo: syRepo.value, branch: syBranch.value, token: syToken.value });
+    if (!PSY.sync.ready()) { syMsg('仓库和 token 都要填。'); return; }
+    syMsg('同步中…');
+    PSY.sync.pullNow().then(function () { return PSY.sync.pushNow(); })
+      .then(function (ok) { syMsg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败:' + PSY.sync.statusText); });
+  });
+  if (syPullBtn) syPullBtn.addEventListener('click', function () {
+    syMsg('拉取中…');
+    PSY.sync.pullNow().then(function (ok) { syMsg(ok ? '已拉取并合并远端进度 ✓' : PSY.sync.statusText); });
+  });
+  if (syClearBtn) syClearBtn.addEventListener('click', function () {
+    PSY.sync.clearToken();
+    if (syToken) syToken.value = '';
+    syMsg('token 已从本机清除。');
+  });
 };
 
 PSY.setTheme = function(t) {

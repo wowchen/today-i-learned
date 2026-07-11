@@ -251,6 +251,7 @@ GEO.views.settings = function() {
   var P = GEO.progress(); var prefs = P.getPrefs();
   var theme = prefs.theme || (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
   var fs = prefs.fontSize || 'm';
+  var cfg = GEO.sync.config();
   var html = '<div class="tools-page"><h2>设置</h2>';
   html += '<div class="setting-row"><label>主题</label>';
   html += '<button class="setting-btn' + (theme === 'dark' ? ' active' : '') + '" onclick="GEO.setTheme(\'dark\')">深色 · 暗夜绿</button>';
@@ -259,11 +260,51 @@ GEO.views.settings = function() {
   html += '<button class="setting-btn' + (fs === 's' ? ' active' : '') + '" onclick="GEO.setFontSize(\'s\')">小</button>';
   html += '<button class="setting-btn' + (fs === 'm' ? ' active' : '') + '" onclick="GEO.setFontSize(\'m\')">中</button>';
   html += '<button class="setting-btn' + (fs === 'l' ? ' active' : '') + '" onclick="GEO.setFontSize(\'l\')">大</button></div>';
+
+  /* GitHub 进度同步(可选) */
+  html += '<h3 class="set-h">GitHub 进度同步(可选)</h3>';
+  html += '<p class="calc-note">用一个<b>自己的 private 仓库</b>存进度(如 you/geo-progress),fine-grained PAT 只授权该仓库的 Contents 读写、建议设 90 天过期。token 只存在本机浏览器,不会进入站点代码仓库。不配置则进度仅存本机,不影响学习。</p>';
+  html += '<div class="setting-row"><label>仓库</label><input id="syRepo" placeholder="owner/geo-progress" value="' + GEO.esc(cfg.repo || '') + '"></div>';
+  html += '<div class="setting-row"><label>分支</label><input id="syBranch" placeholder="main" value="' + GEO.esc(cfg.branch || 'main') + '"></div>';
+  html += '<div class="setting-row"><label>Token</label><input id="syToken" type="password" placeholder="github_pat_…" value="' + GEO.esc(cfg.token || '') + '"></div>';
+  html += '<div class="setting-row"><label>&nbsp;</label>';
+  html += '<button class="setting-btn" id="sySave">保存并立即同步</button>';
+  html += '<button class="setting-btn" id="syPull">只拉取一次</button>';
+  html += '<button class="setting-btn danger" id="syClear">清除 token</button>';
+  html += '</div>';
+  html += '<p class="calc-note" id="syMsg">' + GEO.esc(GEO.sync.statusText) + '</p>';
+
   html += '<div class="setting-row"><label>数据</label>';
   html += '<button class="setting-btn" onclick="GEO.exportData()">导出进度</button>';
   html += '<button class="setting-btn danger" onclick="GEO.clearData()">清除数据</button></div>';
   html += '</div>';
   GEO.render(html);
+
+  // 同步
+  function msg(text, cls) {
+    var el = document.getElementById('syMsg');
+    if (el) { el.textContent = text; el.className = 'calc-note' + (cls ? ' ' + cls : ''); }
+  }
+  document.getElementById('sySave').addEventListener('click', function () {
+    GEO.sync.setConfig({
+      repo: document.getElementById('syRepo').value,
+      branch: document.getElementById('syBranch').value,
+      token: document.getElementById('syToken').value
+    });
+    if (!GEO.sync.ready()) { msg('仓库和 token 都要填。', 'bad'); return; }
+    msg('同步中…');
+    GEO.sync.pullNow().then(function () { return GEO.sync.pushNow(); })
+      .then(function (ok) { msg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败:' + GEO.sync.statusText, ok ? 'ok' : 'bad'); });
+  });
+  document.getElementById('syPull').addEventListener('click', function () {
+    msg('拉取中…');
+    GEO.sync.pullNow().then(function (ok) { msg(ok ? '已拉取并合并远端进度 ✓' : GEO.sync.statusText, ok ? 'ok' : ''); });
+  });
+  document.getElementById('syClear').addEventListener('click', function () {
+    GEO.sync.clearToken();
+    document.getElementById('syToken').value = '';
+    msg('token 已从本机清除。');
+  });
 };
 GEO.setTheme = function(t) { document.documentElement.dataset.theme = t; GEO.progress().setPref('theme', t); GEO.views.settings(); };
 GEO.setFontSize = function(s) { document.documentElement.dataset.fs = s; GEO.progress().setPref('fontSize', s); GEO.views.settings(); };

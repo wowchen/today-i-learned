@@ -15,6 +15,8 @@ window.AIX = window.AIX || {};
 
   function save(data) {
     localStorage.setItem(KEY, JSON.stringify(data));
+    if (AIX.sync) AIX.sync.schedulePush();
+    if (AIX.onProgressChange) AIX.onProgressChange();
   }
 
   AIX.progress = function() {
@@ -107,6 +109,49 @@ window.AIX = window.AIX || {};
       import: function(incoming) {
         data = incoming;
         save(data);
+      },
+
+      /* ── 合并(可选 GitHub 同步):条目级并集,updatedAt 新者胜 ── */
+      merge: function(remote) {
+        if (!remote || typeof remote !== 'object') return data;
+        data.terms = data.terms || {};
+        data.read = data.read || {};
+        data.prefs = data.prefs || {};
+        data.activity = data.activity || {};
+        remote.terms = remote.terms || {};
+        remote.read = remote.read || {};
+        remote.prefs = remote.prefs || {};
+        remote.activity = remote.activity || {};
+        ['terms', 'read'].forEach(function (k) {
+          Object.keys(remote[k]).forEach(function (id) {
+            var r = remote[k][id], l = data[k][id];
+            if (!l || (r.updatedAt || 0) > (l.updatedAt || 0)) data[k][id] = r;
+          });
+        });
+        // prefs:整组最后写入为准(旧模型无 updatedAt,默认保留本地)
+        if ((remote.prefs.updatedAt || 0) > (data.prefs.updatedAt || 0)) data.prefs = remote.prefs;
+        // activity:兼容 {days:[...]} 与 {day:count} 两种形态
+        var ra = remote.activity;
+        if (Array.isArray(ra.days)) {
+          var set = {};
+          (data.activity.days || []).forEach(function (d) { set[d] = 1; });
+          ra.days.forEach(function (d) { set[d] = 1; });
+          data.activity = { days: Object.keys(set).sort() };
+        } else if (typeof ra === 'object') {
+          Object.keys(ra).forEach(function (day) {
+            if (day === 'days') return;
+            data.activity[day] = Math.max(data.activity[day] || 0, ra[day] || 0);
+          });
+        }
+        // 直接写回,避免触发 push(拉取合并时不应再次推送)
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { }
+        if (AIX.onProgressChange) AIX.onProgressChange();
+        return data;
+      },
+
+      exportJson: function () { return JSON.stringify(data, null, 2); },
+      importJson: function (json) {
+        try { this.merge(JSON.parse(json)); return true; } catch (e) { return false; }
       }
     };
   };

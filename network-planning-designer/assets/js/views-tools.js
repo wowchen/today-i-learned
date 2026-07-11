@@ -282,6 +282,7 @@ NPD.views.settings = function() {
   var prefs = P.getPrefs();
   var theme = prefs.theme || 'dark';
   var fs = prefs.fontSize || 'm';
+  var cfg = NPD.sync.config();
 
   var html = '<div class="tools-page">';
   html += '<h2>设置</h2>';
@@ -294,12 +295,50 @@ NPD.views.settings = function() {
   html += '<button class="setting-btn' + (fs === 'm' ? ' active' : '') + '" onclick="NPD.setFontSize(\'m\')">中</button>';
   html += '<button class="setting-btn' + (fs === 'l' ? ' active' : '') + '" onclick="NPD.setFontSize(\'l\')">大</button>';
   html += '</div>';
+
+  html += '<div class="setting-row"><label>GitHub 同步</label></div>';
+  html += '<p class="sync-desc">用一个<b>自己的 private 仓库</b>存进度(如 owner/npd-progress),fine-grained PAT 只授权该仓库的 Contents 读写、建议设 90 天过期。token 只存在本机浏览器,不会进入站点代码仓库。不配置则进度仅存本机,不影响学习。</p>';
+  html += '<div class="setting-row"><label>仓库</label><input id="syRepo" placeholder="owner/npd-progress" value="' + NPD.esc(cfg.repo || '') + '"></div>';
+  html += '<div class="setting-row"><label>分支</label><input id="syBranch" placeholder="main" value="' + NPD.esc(cfg.branch || 'main') + '"></div>';
+  html += '<div class="setting-row"><label>Token</label><input id="syToken" type="password" placeholder="github_pat_…" value="' + NPD.esc(cfg.token || '') + '"></div>';
+  html += '<div class="setting-row"><label></label>';
+  html += '<button class="setting-btn" id="sySave">保存并立即同步</button>';
+  html += '<button class="setting-btn" id="syPull">只拉取一次</button>';
+  html += '<button class="setting-btn danger" id="syClear">清除 token</button></div>';
+  html += '<p class="sync-desc" id="syMsg">' + NPD.esc(NPD.sync.statusText) + '</p>';
+
   html += '<div class="setting-row"><label>数据</label>';
   html += '<button class="setting-btn" onclick="NPD.exportData()">导出进度</button>';
   html += '<button class="setting-btn danger" onclick="NPD.clearData()">清除数据</button>';
   html += '</div>';
   html += '</div>';
   NPD.render(html);
+
+  // 同步
+  function msg(text, cls) {
+    var el = document.getElementById('syMsg');
+    if (el) { el.textContent = text; el.className = 'sync-desc ' + (cls || ''); }
+  }
+  document.getElementById('sySave').addEventListener('click', function () {
+    NPD.sync.setConfig({
+      repo: document.getElementById('syRepo').value,
+      branch: document.getElementById('syBranch').value,
+      token: document.getElementById('syToken').value
+    });
+    if (!NPD.sync.ready()) { msg('仓库和 token 都要填。', 'bad'); return; }
+    msg('同步中…');
+    NPD.sync.pullNow().then(function () { return NPD.sync.pushNow(); })
+      .then(function (ok) { msg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败:' + NPD.sync.statusText, ok ? 'ok' : 'bad'); });
+  });
+  document.getElementById('syPull').addEventListener('click', function () {
+    msg('拉取中…');
+    NPD.sync.pullNow().then(function (ok) { msg(ok ? '已拉取并合并远端进度 ✓' : NPD.sync.statusText, ok ? 'ok' : ''); });
+  });
+  document.getElementById('syClear').addEventListener('click', function () {
+    NPD.sync.clearToken();
+    document.getElementById('syToken').value = '';
+    msg('token 已从本机清除。');
+  });
 };
 
 NPD.setTheme = function(t) {

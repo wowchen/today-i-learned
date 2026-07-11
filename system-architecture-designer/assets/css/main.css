@@ -477,6 +477,17 @@ figcaption { font-family:var(--mono); font-size:10px; text-transform:uppercase; 
 .setting-btn.danger { color:var(--bad); border-color:var(--bad); }
 .setting-btn.danger:hover { background:var(--bad); color:#fff; }
 
+/* GitHub 进度同步输入框 */
+.setting-row input {
+  flex:1;
+  background:var(--paper);
+  border:2px solid var(--line2);
+  padding:9px 12px;
+  font:15px var(--mono, monospace);
+  color:var(--ink);
+}
+.setting-row input:focus { outline:none; border-color:var(--accent); }
+
 /* === Calculators === */
 .calc-intro { font-size:14px; color:var(--ink2); margin-bottom:24px; }
 .calc-card { border:2px solid var(--line); padding:24px; margin-bottom:20px; }

@@ -274,11 +274,46 @@ AST.views.settings = function() {
   html += '<button class="setting-btn' + (fs === 's' ? ' active' : '') + '" onclick="AST.setFontSize(\'s\')">小</button>';
   html += '<button class="setting-btn' + (fs === 'm' ? ' active' : '') + '" onclick="AST.setFontSize(\'m\')">中</button>';
   html += '<button class="setting-btn' + (fs === 'l' ? ' active' : '') + '" onclick="AST.setFontSize(\'l\')">大</button></div>';
+  // GitHub 进度同步(可选)
+  var gcfg = AST.sync.config();
+  html += '<div class="setting-row"><label>GitHub 进度同步(可选)</label></div>';
+  html += '<p class="calc-note">用一个<b>自己的 private 仓库</b>存进度(如 you/ast-progress),fine-grained PAT 只授权该仓库的 Contents 读写、建议设 90 天过期。token 只存在本机浏览器,不会进入站点代码仓库。不配置则进度仅存本机,不影响学习。</p>';
+  html += '<div class="setting-row"><label>仓库</label><input id="syRepo" placeholder="owner/ast-progress" value="' + AST.esc(gcfg.repo || '') + '"></div>';
+  html += '<div class="setting-row"><label>分支</label><input id="syBranch" placeholder="main" value="' + AST.esc(gcfg.branch || 'main') + '"></div>';
+  html += '<div class="setting-row"><label>Token</label><input id="syToken" type="password" placeholder="github_pat_…" value="' + AST.esc(gcfg.token || '') + '"></div>';
+  html += '<div class="setting-row" style="margin-top:14px"><button class="setting-btn" id="sySave">保存并立即同步</button><button class="setting-btn" id="syPull">只拉取一次</button><button class="setting-btn danger" id="syClear">清除 token</button></div>';
+  html += '<p class="calc-note" id="syMsg">' + AST.esc(AST.sync.statusText) + '</p>';
   html += '<div class="setting-row"><label>数据</label>';
   html += '<button class="setting-btn" onclick="AST.exportData()">导出进度</button>';
-  html += '<button class="setting-btn danger" onclick="AST.clearData()">清除数据</button></div>';
+  html +=        '<button class="setting-btn danger" onclick="AST.clearData()">清除数据</button></div>';
   html += '</div>';
   AST.render(html);
+
+  // GitHub 同步
+  function gmsg(text, cls) {
+    var el = document.getElementById('syMsg');
+    el.textContent = text; el.className = 'calc-note ' + (cls || '');
+  }
+  document.getElementById('sySave').addEventListener('click', function () {
+    AST.sync.setConfig({
+      repo: document.getElementById('syRepo').value,
+      branch: document.getElementById('syBranch').value,
+      token: document.getElementById('syToken').value
+    });
+    if (!AST.sync.ready()) { gmsg('仓库和 token 都要填。', 'bad'); return; }
+    gmsg('同步中…');
+    AST.sync.pullNow().then(function () { return AST.sync.pushNow(); })
+      .then(function (ok) { gmsg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败:' + AST.sync.statusText, ok ? 'ok' : 'bad'); });
+  });
+  document.getElementById('syPull').addEventListener('click', function () {
+    gmsg('拉取中…');
+    AST.sync.pullNow().then(function (ok) { gmsg(ok ? '已拉取并合并远端进度 ✓' : AST.sync.statusText, ok ? 'ok' : ''); });
+  });
+  document.getElementById('syClear').addEventListener('click', function () {
+    AST.sync.clearToken();
+    document.getElementById('syToken').value = '';
+    gmsg('token 已从本机清除。');
+  });
 };
 AST.setTheme = function(t) { document.documentElement.dataset.theme = t; AST.progress().setPref('theme', t); AST.views.settings(); };
 AST.setFontSize = function(s) { document.documentElement.dataset.fs = s; AST.progress().setPref('fontSize', s); AST.views.settings(); };

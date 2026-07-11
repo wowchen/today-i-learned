@@ -271,6 +271,7 @@ ECON.views.settings = function() {
   var prefs = P.getPrefs();
   var theme = prefs.theme || (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
   var fs = prefs.fontSize || 'm';
+  var cfg = ECON.sync.config();
 
   var html = '<div class="tools-page">';
   html += '<h2>设置</h2>';
@@ -283,12 +284,52 @@ ECON.views.settings = function() {
   html += '<button class="setting-btn' + (fs === 'm' ? ' active' : '') + '" onclick="ECON.setFontSize(\'m\')">中</button>';
   html += '<button class="setting-btn' + (fs === 'l' ? ' active' : '') + '" onclick="ECON.setFontSize(\'l\')">大</button>';
   html += '</div>';
+
+  /* GitHub 进度同步(可选) */
+  html += '<h3 class="set-h">GitHub 进度同步(可选)</h3>';
+  html += '<p class="calc-note">用一个<b>自己的 private 仓库</b>存进度(如 you/econ-progress),fine-grained PAT 只授权该仓库的 Contents 读写、建议设 90 天过期。token 只存在本机浏览器,不会进入站点代码仓库。不配置则进度仅存本机,不影响学习。</p>';
+  html += '<div class="setting-row"><label>仓库</label><input id="syRepo" placeholder="owner/econ-progress" value="' + ECON.esc(cfg.repo || '') + '"></div>';
+  html += '<div class="setting-row"><label>分支</label><input id="syBranch" placeholder="main" value="' + ECON.esc(cfg.branch || 'main') + '"></div>';
+  html += '<div class="setting-row"><label>Token</label><input id="syToken" type="password" placeholder="github_pat_…" value="' + ECON.esc(cfg.token || '') + '"></div>';
+  html += '<div class="setting-row"><label>&nbsp;</label>';
+  html += '<button class="setting-btn" id="sySave">保存并立即同步</button>';
+  html += '<button class="setting-btn" id="syPull">只拉取一次</button>';
+  html += '<button class="setting-btn danger" id="syClear">清除 token</button>';
+  html += '</div>';
+  html += '<p class="calc-note" id="syMsg">' + ECON.esc(ECON.sync.statusText) + '</p>';
+
   html += '<div class="setting-row"><label>数据</label>';
   html += '<button class="setting-btn" onclick="ECON.exportData()">导出进度</button>';
   html += '<button class="setting-btn danger" onclick="ECON.clearData()">清除数据</button>';
   html += '</div>';
   html += '</div>';
   ECON.render(html);
+
+  // 同步
+  function msg(text, cls) {
+    var el = document.getElementById('syMsg');
+    if (el) { el.textContent = text; el.className = 'calc-note' + (cls ? ' ' + cls : ''); }
+  }
+  document.getElementById('sySave').addEventListener('click', function () {
+    ECON.sync.setConfig({
+      repo: document.getElementById('syRepo').value,
+      branch: document.getElementById('syBranch').value,
+      token: document.getElementById('syToken').value
+    });
+    if (!ECON.sync.ready()) { msg('仓库和 token 都要填。', 'bad'); return; }
+    msg('同步中…');
+    ECON.sync.pullNow().then(function () { return ECON.sync.pushNow(); })
+      .then(function (ok) { msg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败:' + ECON.sync.statusText, ok ? 'ok' : 'bad'); });
+  });
+  document.getElementById('syPull').addEventListener('click', function () {
+    msg('拉取中…');
+    ECON.sync.pullNow().then(function (ok) { msg(ok ? '已拉取并合并远端进度 ✓' : ECON.sync.statusText, ok ? 'ok' : ''); });
+  });
+  document.getElementById('syClear').addEventListener('click', function () {
+    ECON.sync.clearToken();
+    document.getElementById('syToken').value = '';
+    msg('token 已从本机清除。');
+  });
 };
 
 ECON.setTheme = function(t) {

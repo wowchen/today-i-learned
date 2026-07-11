@@ -47,6 +47,7 @@ window.ISL = window.ISL || {};
 
     if (ISL.buildShell) ISL.buildShell();
     window.addEventListener('hashchange', route);
+    if (ISL.sync) ISL.sync.boot();
     route();
   }
 

@@ -61,6 +61,7 @@ window.SAD = window.SAD || {};
     if (prefs.fontSize) document.documentElement.dataset.fs = prefs.fontSize;
 
     window.addEventListener('hashchange', route);
+    SAD.sync.boot();
     route();
   }
 

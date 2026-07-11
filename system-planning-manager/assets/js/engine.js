@@ -61,6 +61,7 @@ window.SPM = window.SPM || {};
     if (prefs.fontSize) document.documentElement.dataset.fs = prefs.fontSize;
 
     window.addEventListener('hashchange', route);
+    SPM.sync.boot();
     route();
   }
 

@@ -61,6 +61,7 @@ window.ISPM = window.ISPM || {};
     if (prefs.fontSize) document.documentElement.dataset.fs = prefs.fontSize;
 
     window.addEventListener('hashchange', route);
+    if (ISPM.sync) ISPM.sync.boot();
     route();
   }
 

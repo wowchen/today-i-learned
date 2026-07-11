@@ -401,6 +401,12 @@ gd[data-term]:hover { background: var(--acc-soft); }
 .setting-btn:hover { border-color: var(--acc); color: var(--acc); }
 .setting-btn.active { background: var(--cta-bg); color: var(--cta-fg); border-color: var(--cta-bg); }
 .setting-btn.danger:hover { border-color: var(--acc); color: var(--acc); }
+.setting-row input { flex: 1; min-width: 0; padding: 8px 12px; border: 1px solid var(--line-2);
+  border-radius: 8px; background: var(--bg); color: var(--ink); font: inherit; font-size: .86rem; }
+.setting-row input:focus { outline: none; border-color: var(--acc); }
+.sync-desc { margin: 4px 0 0; padding: 0 2px; color: var(--note); font-size: .82rem; line-height: 1.5; }
+.sync-desc.bad { color: var(--acc); }
+.sync-desc.ok { color: var(--ok); }
 
 /* ============================================================
    响应式 + 动效守卫

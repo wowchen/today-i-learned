@@ -47,6 +47,7 @@ window.PSY = window.PSY || {};
 
     if (PSY.buildShell) PSY.buildShell();
     window.addEventListener('hashchange', route);
+    PSY.sync.boot();
     route();
   }
 

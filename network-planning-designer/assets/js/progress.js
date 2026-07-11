@@ -15,6 +15,8 @@ window.NPD = window.NPD || {};
 
   function save(data) {
     localStorage.setItem(KEY, JSON.stringify(data));
+    if (NPD.sync) NPD.sync.schedulePush();
+    if (NPD.onProgressChange) NPD.onProgressChange();
   }
 
   NPD.progress = function() {
@@ -129,6 +131,39 @@ window.NPD = window.NPD || {};
       import: function(incoming) {
         data = incoming;
         save(data);
+      },
+
+      /* ── 合并(同步用):条目级并集,updatedAt 新者胜;prefs 整组保留本机;activity 兼容两种形状 ── */
+      merge: function(remote) {
+        if (!remote || typeof remote !== 'object') return data;
+        ['terms', 'read', 'prefs', 'activity'].forEach(function (k) {
+          if (!data[k] || typeof data[k] !== 'object') data[k] = {};
+        });
+        ['terms', 'read'].forEach(function (k) {
+          Object.keys(remote[k] || {}).forEach(function (id) {
+            var r = remote[k][id], l = data[k][id];
+            if (!l || (r.updatedAt || 0) > (l.updatedAt || 0)) data[k][id] = r;
+          });
+        });
+        // prefs:旧模型无 updatedAt,整组保留本机(不合并)。
+        if (remote.activity && Array.isArray(remote.activity.days)) {
+          var set = {};
+          (data.activity.days || []).forEach(function (d) { set[d] = 1; });
+          remote.activity.days.forEach(function (d) { set[d] = 1; });
+          data.activity = { days: Object.keys(set).sort() };
+        } else if (remote.activity && typeof remote.activity === 'object') {
+          Object.keys(remote.activity).forEach(function (day) {
+            data.activity[day] = Math.max(data.activity[day] || 0, remote.activity[day]);
+          });
+        }
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { }
+        if (NPD.onProgressChange) NPD.onProgressChange();
+        return data;
+      },
+
+      exportJson: function() { return JSON.stringify(data, null, 2); },
+      importJson: function(json) {
+        try { this.merge(JSON.parse(json)); return true; } catch (e) { return false; }
       }
     };
   };

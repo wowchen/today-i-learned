@@ -15,6 +15,8 @@ window.CHS = window.CHS || {};
 
   function save(data) {
     localStorage.setItem(KEY, JSON.stringify(data));
+    if (CHS.sync) CHS.sync.schedulePush();
+    if (CHS.onProgressChange) CHS.onProgressChange();
   }
 
   CHS.progress = function() {
@@ -101,6 +103,48 @@ window.CHS = window.CHS || {};
           if (!this.isRead(CHS.path[i])) return i;
         }
         return CHS.path.length;
+      },
+
+      /* ── 合并(跨设备同步):条目级并集,updatedAt 新者胜 ── */
+      merge: function(remote) {
+        if (!remote || typeof remote !== 'object') return data;
+        data.terms = data.terms || {};
+        data.read = data.read || {};
+        data.prefs = data.prefs || {};
+        data.activity = data.activity || {};
+        var rterms = (remote.terms && typeof remote.terms === 'object') ? remote.terms : {};
+        var rread = (remote.read && typeof remote.read === 'object') ? remote.read : {};
+        var rprefs = (remote.prefs && typeof remote.prefs === 'object') ? remote.prefs : {};
+        var ract = remote.activity;
+        Object.keys(rterms).forEach(function(id) {
+          var r = rterms[id], l = data.terms[id];
+          if (!l || (r.updatedAt || 0) > (l.updatedAt || 0)) data.terms[id] = r;
+        });
+        Object.keys(rread).forEach(function(id) {
+          var r = rread[id], l = data.read[id];
+          if (!l || (r.updatedAt || 0) > (l.updatedAt || 0)) data.read[id] = r;
+        });
+        // prefs:整组最后写入为准(旧模型无 updatedAt,一般保持本机)
+        if ((rprefs.updatedAt || 0) > (data.prefs.updatedAt || 0)) data.prefs = rprefs;
+        // activity:数组(days)或对象(day:count 映射)两种形态都兼容
+        if (ract && Array.isArray(ract.days)) {
+          var seen = {};
+          (data.activity.days || []).forEach(function(d) { seen[d] = 1; });
+          ract.days.forEach(function(d) { seen[d] = 1; });
+          data.activity = { days: Object.keys(seen).sort() };
+        } else if (ract && typeof ract === 'object') {
+          Object.keys(ract).forEach(function(day) {
+            data.activity[day] = Math.max(data.activity[day] || 0, ract[day]);
+          });
+        }
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { }
+        if (CHS.onProgressChange) CHS.onProgressChange();
+        return data;
+      },
+
+      exportJson: function() { return JSON.stringify(data, null, 2); },
+      importJson: function(json) {
+        try { this.merge(JSON.parse(json)); return true; } catch (e) { return false; }
       },
 
       export: function() { return JSON.parse(JSON.stringify(data)); },

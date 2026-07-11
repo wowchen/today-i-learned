@@ -72,6 +72,7 @@ window.CG = window.CG || {};
     if (prefs.fontSize) document.documentElement.dataset.fs = prefs.fontSize;
 
     window.addEventListener('hashchange', route);
+    CG.sync.boot();
     route();
   }
 

@@ -83,6 +83,7 @@ window.WHS = window.WHS || {};
     if (prefs.fontSize) document.documentElement.dataset.fs = prefs.fontSize;
 
     window.addEventListener('hashchange', route);
+    WHS.sync.boot();
     route();
   }
 

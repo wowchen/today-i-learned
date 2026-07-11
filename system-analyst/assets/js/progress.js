@@ -15,6 +15,8 @@ window.SAN = window.SAN || {};
 
   function save(data) {
     localStorage.setItem(KEY, JSON.stringify(data));
+    if (SAN.sync) SAN.sync.schedulePush();
+    if (SAN.onProgressChange) SAN.onProgressChange();
   }
 
   SAN.progress = function() {
@@ -123,6 +125,49 @@ window.SAN = window.SAN || {};
           if (!this.isRead(SAN.path[i])) return i;
         }
         return SAN.path.length;
+      },
+
+      /* ── 合并(远端→本地):条目级并集,updatedAt 新者胜;progress 为工厂,直接写 localStorage ── */
+      merge: function(remote) {
+        if (!remote || typeof remote !== 'object') return data;
+        // 确保本地有这些对象
+        data.terms = data.terms || {};
+        data.read = data.read || {};
+        data.prefs = data.prefs || {};
+        data.activity = data.activity || {};
+        // terms & read:按 updatedAt 并集,新者胜
+        ['terms', 'read'].forEach(function (k) {
+          if (remote[k] && typeof remote[k] === 'object') {
+            Object.keys(remote[k]).forEach(function (id) {
+              var r = remote[k][id], l = data[k][id];
+              if (!l || (r.updatedAt || 0) > (l.updatedAt || 0)) data[k][id] = r;
+            });
+          }
+        });
+        // prefs:旧模型无 updatedAt,保持本机(整组最后写入为准在此跳过远端覆盖)
+        // activity:同时兼容 {days:[...]} 与 {day:count} 两种形态
+        var localDays = (data.activity && Array.isArray(data.activity.days)) ? data.activity.days : [];
+        if (remote.activity && Array.isArray(remote.activity.days)) {
+          var set = {};
+          localDays.forEach(function (d) { set[d] = 1; });
+          remote.activity.days.forEach(function (d) { set[d] = 1; });
+          data.activity = { days: Object.keys(set).sort() };
+        } else if (remote.activity && typeof remote.activity === 'object') {
+          var counts = {};
+          localDays.forEach(function (d) { counts[d] = 1; });
+          Object.keys(remote.activity).forEach(function (day) {
+            counts[day] = Math.max(counts[day] || 0, remote.activity[day] || 0);
+          });
+          data.activity = { days: Object.keys(counts).sort() };
+        }
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { }
+        if (SAN.onProgressChange) SAN.onProgressChange();
+        return data;
+      },
+
+      exportJson: function() { return JSON.stringify(data, null, 2); },
+      importJson: function(json) {
+        try { this.merge(JSON.parse(json)); return true; } catch (e) { return false; }
       },
 
       export: function() { return JSON.parse(JSON.stringify(data)); },

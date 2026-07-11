@@ -472,6 +472,19 @@ figcaption { font-family:var(--mono); font-size:10px; text-transform:uppercase; 
 .setting-btn.danger { color:var(--bad); border-color:var(--bad); }
 .setting-btn.danger:hover { background:var(--bad); color:#fff; }
 
+/* GitHub 进度同步卡片内的输入框(设置页原本只有按钮,无输入样式) */
+.setting-row input {
+  flex:1;
+  min-width:0;
+  background:var(--paper);
+  border:2px solid var(--line2);
+  border-radius:6px;
+  padding:8px 12px;
+  font:13px var(--font);
+  color:var(--ink);
+}
+.setting-row input:focus { outline:none; border-color:var(--accent); }
+
 /* === Calculators === */
 .calc-intro { font-size:14px; color:var(--ink2); margin-bottom:24px; }
 .calc-card { border:2px solid var(--line); padding:24px; margin-bottom:20px; }

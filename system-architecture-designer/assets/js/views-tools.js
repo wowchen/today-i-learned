@@ -254,12 +254,62 @@ SAD.views.settings = function() {
   html += '<button class="setting-btn' + (fs === 'm' ? ' active' : '') + '" onclick="SAD.setFontSize(\'m\')">中</button>';
   html += '<button class="setting-btn' + (fs === 'l' ? ' active' : '') + '" onclick="SAD.setFontSize(\'l\')">大</button>';
   html += '</div>';
+
+  /* ── GitHub 进度同步(可选) ── */
+  var syncCfg = SAD.sync.config();
+  html += '<h3>GitHub 进度同步（可选）</h3>';
+  html += '<p class="calc-intro">用一个<b>自己的 private 仓库</b>存放进度（如 you/sad-progress），fine-grained PAT 仅授权该仓库的 Contents 读写。token 只存本机浏览器，不会进入站点代码仓库。不配置则进度仅存本机，不影响学习。</p>';
+  html += '<div class="setting-row"><label>仓库</label><input id="syRepo" placeholder="owner/repo" value="' + SAD.esc(syncCfg.repo || '') + '"></div>';
+  html += '<div class="setting-row"><label>分支</label><input id="syBranch" placeholder="main" value="' + SAD.esc(syncCfg.branch || 'main') + '"></div>';
+  html += '<div class="setting-row"><label>Token</label><input id="syToken" type="password" placeholder="github_pat_…" value="' + SAD.esc(syncCfg.token || '') + '"></div>';
+  html += '<div class="setting-row"><button class="setting-btn" id="sySave">保存并立即同步</button>';
+  html += '<button class="setting-btn" id="syPull">只拉取一次</button>';
+  html += '<button class="setting-btn danger" id="syClear">清除 token</button></div>';
+  html += '<p class="calc-intro" id="syMsg">' + SAD.esc((SAD.sync && SAD.sync.statusText) || '仅本机') + '</p>';
+
   html += '<div class="setting-row"><label>数据</label>';
   html += '<button class="setting-btn" onclick="SAD.exportData()">导出进度</button>';
   html += '<button class="setting-btn danger" onclick="SAD.clearData()">清除数据</button>';
   html += '</div>';
   html += '</div>';
   SAD.render(html);
+
+  // 同步(可选)
+  function syncMsg(text, cls) {
+    var el = document.getElementById('syMsg');
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = cls === 'ok' ? 'var(--ok)' : cls === 'bad' ? 'var(--bad, var(--red))' : '';
+  }
+  var sySaveEl = document.getElementById('sySave');
+  if (sySaveEl) {
+    sySaveEl.addEventListener('click', function () {
+      SAD.sync.setConfig({
+        repo: document.getElementById('syRepo').value,
+        branch: document.getElementById('syBranch').value,
+        token: document.getElementById('syToken').value
+      });
+      if (!SAD.sync.ready()) { syncMsg('仓库和 token 都要填。', 'bad'); return; }
+      syncMsg('同步中…');
+      SAD.sync.pullNow().then(function () { return SAD.sync.pushNow(); })
+        .then(function (ok) { syncMsg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败：' + SAD.sync.statusText, ok ? 'ok' : 'bad'); });
+    });
+  }
+  var syPullEl = document.getElementById('syPull');
+  if (syPullEl) {
+    syPullEl.addEventListener('click', function () {
+      syncMsg('拉取中…');
+      SAD.sync.pullNow().then(function (ok) { syncMsg(ok ? '已拉取并合并远端进度 ✓' : SAD.sync.statusText, ok ? 'ok' : ''); });
+    });
+  }
+  var syClearEl = document.getElementById('syClear');
+  if (syClearEl) {
+    syClearEl.addEventListener('click', function () {
+      SAD.sync.clearToken();
+      document.getElementById('syToken').value = '';
+      syncMsg('token 已从本机清除。');
+    });
+  }
 };
 
 SAD.setTheme = function(t) {

@@ -61,6 +61,7 @@ window.SAN = window.SAN || {};
     if (prefs.fontSize) document.documentElement.dataset.fs = prefs.fontSize;
 
     window.addEventListener('hashchange', route);
+    SAN.sync.boot();
     route();
   }
 

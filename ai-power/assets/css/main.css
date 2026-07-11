@@ -406,6 +406,18 @@ gd[data-term]:hover { background: var(--acc-soft); }
 .setting-btn.active { background: var(--cta-bg); color: var(--cta-fg); border-color: var(--cta-bg); }
 .setting-btn.danger:hover { border-color: var(--acc); color: var(--acc); }
 
+/* GitHub 进度同步输入框 */
+.setting-row input {
+  flex:1;
+  background:var(--bg);
+  border:1px solid var(--line);
+  padding:10px 12px;
+  font-size:.95rem;
+  font-family:inherit;
+  color:var(--ink);
+}
+.setting-row input:focus { outline:none; border-color:var(--acc); }
+
 /* ============================================================
    响应式 + 动效守卫
    ============================================================ */

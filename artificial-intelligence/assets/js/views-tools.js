@@ -300,11 +300,51 @@ AIX.views.settings = function() {
        '<button class="' + (fs === 'm' ? 'on' : '') + '" onclick="AIX.setFontSize(\'m\')">中</button>' +
        '<button class="' + (fs === 'l' ? 'on' : '') + '" onclick="AIX.setFontSize(\'l\')">大</button></div></div>';
   h += '</div>';
+  // GitHub 进度同步(可选)
+  var gcfg = AIX.sync.config();
+  h += '<div class="card">' +
+    '<h3>GitHub 进度同步(可选)</h3>' +
+    '<p class="note">用一个<b>自己的 private 仓库</b>存进度(如 you/aix-progress),fine-grained PAT 只授权该仓库的 Contents 读写、建议设 90 天过期。token 只存在本机浏览器,不会进入站点代码仓库。不配置则进度仅存本机,不影响学习。</p>' +
+    '<div class="set-row"><label>仓库</label><input id="syRepo" placeholder="owner/aix-progress" value="' + AIX.esc(gcfg.repo || '') + '"></div>' +
+    '<div class="set-row"><label>分支</label><input id="syBranch" placeholder="main" value="' + AIX.esc(gcfg.branch || 'main') + '"></div>' +
+    '<div class="set-row"><label>Token</label><input id="syToken" type="password" placeholder="github_pat_…" value="' + AIX.esc(gcfg.token || '') + '"></div>' +
+    '<div class="set-row" style="margin-top:14px">' +
+    '<button class="set-btn" id="sySave">保存并立即同步</button>' +
+    '<button class="set-btn" id="syPull">只拉取一次</button>' +
+    '<button class="set-btn danger" id="syClear">清除 token</button></div>' +
+    '<p class="note" id="syMsg">' + AIX.esc(AIX.sync.statusText) + '</p>' +
+    '</div>';
   h += '<div class="card"><div class="set-row"><label>学习数据</label>' +
        '<button class="set-btn" onclick="AIX.exportData()">导出进度</button>' +
        '<button class="set-btn danger" onclick="AIX.clearData()">清除数据</button></div>' +
        '<p class="note" style="margin-top:4px">进度只存在本机浏览器(localStorage),不上传任何服务器。换设备可用"导出进度"备份。</p></div>';
   AIX.render(h);
+
+  // GitHub 同步
+  function gmsg(text, cls) {
+    var el = document.getElementById('syMsg');
+    el.textContent = text; el.className = 'note ' + (cls || '');
+  }
+  document.getElementById('sySave').addEventListener('click', function () {
+    AIX.sync.setConfig({
+      repo: document.getElementById('syRepo').value,
+      branch: document.getElementById('syBranch').value,
+      token: document.getElementById('syToken').value
+    });
+    if (!AIX.sync.ready()) { gmsg('仓库和 token 都要填。', 'bad'); return; }
+    gmsg('同步中…');
+    AIX.sync.pullNow().then(function () { return AIX.sync.pushNow(); })
+      .then(function (ok) { gmsg(ok ? '已同步 ✓ 两台设备现在看到同一份进度。' : '同步失败:' + AIX.sync.statusText, ok ? 'ok' : 'bad'); });
+  });
+  document.getElementById('syPull').addEventListener('click', function () {
+    gmsg('拉取中…');
+    AIX.sync.pullNow().then(function (ok) { gmsg(ok ? '已拉取并合并远端进度 ✓' : AIX.sync.statusText, ok ? 'ok' : ''); });
+  });
+  document.getElementById('syClear').addEventListener('click', function () {
+    AIX.sync.clearToken();
+    document.getElementById('syToken').value = '';
+    gmsg('token 已从本机清除。');
+  });
 };
 
 AIX.setTheme = function(t) {

@@ -15,6 +15,8 @@ window.ISPM = window.ISPM || {};
 
   function save(data) {
     localStorage.setItem(KEY, JSON.stringify(data));
+    if (ISPM.sync) ISPM.sync.schedulePush();
+    if (ISPM.onProgressChange) ISPM.onProgressChange();
   }
 
   ISPM.progress = function() {
@@ -129,6 +131,53 @@ window.ISPM = window.ISPM || {};
       import: function(incoming) {
         data = incoming;
         save(data);
+      },
+
+      /* ── 合并(用于 GitHub 拉取):条目级并集,updatedAt 新者胜 ──
+         兼容两种 activity 形态:本站 {days:[...]} 数组,或 PGF 系 {day:count} 映射。
+         错题本 mistakes 不同步(本功能只合 terms/read/prefs/activity)。 */
+      merge: function(remote) {
+        if (!remote || typeof remote !== 'object') return data;
+        if (!data.terms || typeof data.terms !== 'object') data.terms = {};
+        if (!data.read || typeof data.read !== 'object') data.read = {};
+        if (!data.prefs || typeof data.prefs !== 'object') data.prefs = {};
+        if (!data.activity || typeof data.activity !== 'object') data.activity = {};
+
+        // terms & read:按 updatedAt 并集,新者胜
+        ['terms', 'read'].forEach(function(k) {
+          var rm = remote[k];
+          if (rm && typeof rm === 'object') {
+            Object.keys(rm).forEach(function(id) {
+              var r = rm[id], l = data[k][id];
+              if (!l || (r && (r.updatedAt || 0) > (l.updatedAt || 0))) data[k][id] = r;
+            });
+          }
+        });
+
+        // prefs:旧模型无 updatedAt,整组以本机为准(不参与远程覆盖)
+
+        // activity:本站 days 数组 → 合并去重排序;若为映射 {day:count} → 逐键取最大值
+        if (remote.activity && Array.isArray(remote.activity.days)) {
+          var set = {};
+          (data.activity.days || []).forEach(function(d) { set[d] = 1; });
+          remote.activity.days.forEach(function(d) { set[d] = 1; });
+          data.activity = { days: Object.keys(set).sort() };
+        } else if (remote.activity && typeof remote.activity === 'object') {
+          Object.keys(remote.activity).forEach(function(day) {
+            data.activity[day] = Math.max(data.activity[day] || 0, remote.activity[day]);
+          });
+        }
+
+        // 直接落盘,避免 merge 过程中再次触发推送
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { }
+        if (ISPM.onProgressChange) ISPM.onProgressChange();
+        return data;
+      },
+
+      /* ── 自动同步用的 JSON 序列化/反序列化(区别于旧的 export()/import()) ── */
+      exportJson: function() { return JSON.stringify(data, null, 2); },
+      importJson: function(json) {
+        try { this.merge(JSON.parse(json)); return true; } catch (e) { return false; }
       }
     };
   };
