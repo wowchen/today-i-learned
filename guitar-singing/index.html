@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>吉他弹唱学习站 · Guitar Singing</title>
+<meta name="description" content="大白话讲透吉他弹唱(入门通识)：吉他入门、乐理速通、和弦大全、节奏与扫弦、指弹与分解、弹唱配合、变调夹与移调、常用技巧、经典弹唱曲目、编配与即兴、练习方法、器材与保养。12 模块 74 课，含和弦指板图/节拍器/标准音调音/变调夹计算器四个互动工具。纯静态离线、重直觉与实操、不炫技不堆术语。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('gtr.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    吉他弹唱 <small>· Guitar</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="GTR.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 GTR.path 生成) -->
+<script src="content/intro/01-what-is.js"></script>
+<script src="content/intro/02-types.js"></script>
+<script src="content/intro/03-parts.js"></script>
+<script src="content/intro/04-tuning.js"></script>
+<script src="content/intro/05-posture.js"></script>
+<script src="content/intro/06-hands.js"></script>
+<script src="content/theory/01-notes.js"></script>
+<script src="content/theory/02-semitone.js"></script>
+<script src="content/theory/03-scale.js"></script>
+<script src="content/theory/04-interval.js"></script>
+<script src="content/theory/05-key.js"></script>
+<script src="content/theory/06-chord-construction.js"></script>
+<script src="content/theory/07-notation.js"></script>
+<script src="content/chords/01-open.js"></script>
+<script src="content/chords/02-barre.js"></script>
+<script src="content/chords/03-power.js"></script>
+<script src="content/chords/04-family.js"></script>
+<script src="content/chords/05-progression.js"></script>
+<script src="content/chords/06-slash.js"></script>
+<script src="content/chords/07-substitution.js"></script>
+<script src="content/rhythm/01-time.js"></script>
+<script src="content/rhythm/02-basic-strum.js"></script>
+<script src="content/rhythm/03-patterns.js"></script>
+<script src="content/rhythm/04-dynamics.js"></script>
+<script src="content/rhythm/05-syncopation.js"></script>
+<script src="content/rhythm/06-mute.js"></script>
+<script src="content/rhythm/07-practice.js"></script>
+<script src="content/fingerstyle/01-basic.js"></script>
+<script src="content/fingerstyle/02-arpeggio.js"></script>
+<script src="content/fingerstyle/03-travis.js"></script>
+<script src="content/fingerstyle/04-alternating.js"></script>
+<script src="content/fingerstyle/05-melody.js"></script>
+<script src="content/fingerstyle/06-arrange.js"></script>
+<script src="content/playsing/01-coordination.js"></script>
+<script src="content/playsing/02-breathing.js"></script>
+<script src="content/playsing/03-range.js"></script>
+<script src="content/playsing/04-tempo.js"></script>
+<script src="content/playsing/05-dynamics.js"></script>
+<script src="content/playsing/06-strategy.js"></script>
+<script src="content/capo/01-what.js"></script>
+<script src="content/capo/02-position.js"></script>
+<script src="content/capo/03-find-key.js"></script>
+<script src="content/capo/04-methods.js"></script>
+<script src="content/capo/05-tricks.js"></script>
+<script src="content/techniques/01-hammer-pull.js"></script>
+<script src="content/techniques/02-slide.js"></script>
+<script src="content/techniques/03-bend.js"></script>
+<script src="content/techniques/04-vibrato.js"></script>
+<script src="content/techniques/05-palm-mute.js"></script>
+<script src="content/techniques/06-percussive.js"></script>
+<script src="content/techniques/07-harmonics.js"></script>
+<script src="content/songs/01-beginner.js"></script>
+<script src="content/songs/02-folk.js"></script>
+<script src="content/songs/03-pop.js"></script>
+<script src="content/songs/04-rock.js"></script>
+<script src="content/songs/05-chinese.js"></script>
+<script src="content/songs/06-blues.js"></script>
+<script src="content/songs/07-fingerstyle.js"></script>
+<script src="content/arrange/01-structure.js"></script>
+<script src="content/arrange/02-substitution.js"></script>
+<script src="content/arrange/03-intro-outro.js"></script>
+<script src="content/arrange/04-solo.js"></script>
+<script src="content/arrange/05-improvise.js"></script>
+<script src="content/arrange/06-tips.js"></script>
+<script src="content/practice/01-efficient.js"></script>
+<script src="content/practice/02-muscle.js"></script>
+<script src="content/practice/03-ear.js"></script>
+<script src="content/practice/04-metronome.js"></script>
+<script src="content/practice/05-plateau.js"></script>
+<script src="content/gear/01-choose.js"></script>
+<script src="content/gear/02-strings.js"></script>
+<script src="content/gear/03-amp.js"></script>
+<script src="content/gear/04-care.js"></script>
+<script src="content/gear/05-recording.js"></script>
+
+</body>
+</html>
