@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>文学通识学习站 · Literature</title>
+<meta name="description" content="大白话讲透文学(科普通识):文学基础、诗歌、小说、散文、戏剧、中国古典文学、中国现当代文学、西方古典文学、西方近现代文学、文学理论、批评与赏析、文学与时代。12 模块 83 课,含诗词体裁格律谱/叙事视角切换器/情节弧线绘制器/修辞赏析台四个互动工具。纯静态离线、重直觉与赏析、不背书单不故作高深。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('lit.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    文学通识 <small>· Literature</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="LIT.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 LIT.path 生成) -->
+<script src="content/intro/01-what-is.js"></script>
+<script src="content/intro/02-fiction.js"></script>
+<script src="content/intro/03-genre.js"></script>
+<script src="content/intro/04-form.js"></script>
+<script src="content/intro/05-function.js"></script>
+<script src="content/intro/06-how-to-read.js"></script>
+<script src="content/poetry/01-what-is-poetry.js"></script>
+<script src="content/poetry/02-imagery.js"></script>
+<script src="content/poetry/03-poetic-forms.js"></script>
+<script src="content/poetry/04-meter.js"></script>
+<script src="content/poetry/05-lyric-narrative.js"></script>
+<script src="content/poetry/06-appreciation.js"></script>
+<script src="content/poetry/07-classics.js"></script>
+<script src="content/novel/01-what-is-novel.js"></script>
+<script src="content/novel/02-character.js"></script>
+<script src="content/novel/03-plot.js"></script>
+<script src="content/novel/04-viewpoint.js"></script>
+<script src="content/novel/05-setting.js"></script>
+<script src="content/novel/06-theme.js"></script>
+<script src="content/novel/07-classics.js"></script>
+<script src="content/essay/01-what-is-essay.js"></script>
+<script src="content/essay/02-xingsan-shenju.js"></script>
+<script src="content/essay/03-types.js"></script>
+<script src="content/essay/04-masters.js"></script>
+<script src="content/essay/05-appreciation.js"></script>
+<script src="content/essay/06-classics.js"></script>
+<script src="content/drama/01-what-is-drama.js"></script>
+<script src="content/drama/02-conflict.js"></script>
+<script src="content/drama/03-dialogue-monologue.js"></script>
+<script src="content/drama/04-tragedy.js"></script>
+<script src="content/drama/05-comedy.js"></script>
+<script src="content/drama/06-stage.js"></script>
+<script src="content/drama/07-classics.js"></script>
+<script src="content/classical-cn/01-shijing-chuci.js"></script>
+<script src="content/classical-cn/02-preqin-han.js"></script>
+<script src="content/classical-cn/03-tangshi.js"></script>
+<script src="content/classical-cn/04-songci.js"></script>
+<script src="content/classical-cn/05-yuanqu.js"></script>
+<script src="content/classical-cn/06-mingqing-novel.js"></script>
+<script src="content/classical-cn/07-guwen.js"></script>
+<script src="content/classical-cn/08-summary.js"></script>
+<script src="content/modern-cn/01-new-culture.js"></script>
+<script src="content/modern-cn/02-modern-novel-six.js"></script>
+<script src="content/modern-cn/03-xinshi.js"></script>
+<script src="content/modern-cn/04-modern-prose.js"></script>
+<script src="content/modern-cn/05-contemporary.js"></script>
+<script src="content/modern-cn/06-hongtai.js"></script>
+<script src="content/modern-cn/07-web-era.js"></script>
+<script src="content/classical-west/01-myth-epic.js"></script>
+<script src="content/classical-west/02-greek-tragedy.js"></script>
+<script src="content/classical-west/03-medieval.js"></script>
+<script src="content/classical-west/04-renaissance.js"></script>
+<script src="content/classical-west/05-shakespeare.js"></script>
+<script src="content/classical-west/06-classicism.js"></script>
+<script src="content/classical-west/07-romantic-prelude.js"></script>
+<script src="content/modern-west/01-romanticism.js"></script>
+<script src="content/modern-west/02-realism.js"></script>
+<script src="content/modern-west/03-naturalism.js"></script>
+<script src="content/modern-west/04-symbolism.js"></script>
+<script src="content/modern-west/05-modernism.js"></script>
+<script src="content/modern-west/06-postmodernism.js"></script>
+<script src="content/modern-west/07-magical-realism.js"></script>
+<script src="content/theory/01-mimesis-expression.js"></script>
+<script src="content/theory/02-formalism.js"></script>
+<script src="content/theory/03-structuralism.js"></script>
+<script src="content/theory/04-reader-response.js"></script>
+<script src="content/theory/05-psychoanalysis.js"></script>
+<script src="content/theory/06-feminist.js"></script>
+<script src="content/theory/07-postcolonial.js"></script>
+<script src="content/criticism/01-close-reading.js"></script>
+<script src="content/criticism/02-context.js"></script>
+<script src="content/criticism/03-text-analysis.js"></script>
+<script src="content/criticism/04-comparative.js"></script>
+<script src="content/criticism/05-canonization.js"></script>
+<script src="content/criticism/06-archetype.js"></script>
+<script src="content/criticism/07-write-appreciation.js"></script>
+<script src="content/lit-era/01-lit-history.js"></script>
+<script src="content/lit-era/02-censorship.js"></script>
+<script src="content/lit-era/03-market.js"></script>
+<script src="content/lit-era/04-translation.js"></script>
+<script src="content/lit-era/05-adaptation.js"></script>
+<script src="content/lit-era/06-web-media.js"></script>
+<script src="content/lit-era/07-future.js"></script>
+
+</body>
+</html>
