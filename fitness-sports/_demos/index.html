@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m" data-palette="ignite" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>健身与运动学习站 · 视觉风格demo(三选一)</title>
+<style>
+/* === 三套配色令牌 === */
+:root{
+  --serif:"Songti SC",Charter,Georgia,"Times New Roman",serif;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,"Cascadia Code",Consolas,monospace;
+  --maxw:1000px;
+}
+/* 燃 · Ignite(能量橙红 · 力量健身房) */
+[data-palette="ignite"]{
+  --bg:#faf6f1;--paper:#fffefd;--ink:#241a13;--body:#5b4a3a;--note:#9c8b7c;
+  --line:#ece2d6;--line-2:#2c2018;--acc:#E8552A;--acc2:#BE3710;--acc-soft:#fbe7dd;
+  --ok:#1a7a4a;--nav-bg:rgba(250,246,241,.92);--cta-bg:#241a13;--cta-fg:#fffefd;
+  --grat:#ece2d6;--glow1:rgba(232,85,42,.07);--glow2:rgba(232,85,42,.03);
+}
+[data-palette="ignite"][data-theme="dark"]{
+  --bg:#18110d;--paper:#221913;--ink:#f2e7db;--body:#b9a797;--note:#7a6a5a;
+  --line:#3a2c22;--line-2:#5a4a3a;--acc:#FF7A45;--acc2:#FFB066;--acc-soft:rgba(255,122,69,.14);
+  --ok:#4ade80;--nav-bg:rgba(24,17,13,.84);--cta-bg:#FF7A45;--cta-fg:#18110d;
+  --grat:rgba(255,122,69,.10);--glow1:rgba(255,122,69,.16);--glow2:rgba(190,55,16,.12);
+}
+/* 野 · Wild(草地森绿 · 户外耐力) */
+[data-palette="wild"]{
+  --bg:#f5f8f2;--paper:#fffefb;--ink:#1b2418;--body:#4a5648;--note:#8c978a;
+  --line:#dde6d8;--line-2:#2a3526;--acc:#2E8B57;--acc2:#1F6B43;--acc-soft:#e3f0e4;
+  --ok:#1a7a4a;--nav-bg:rgba(245,248,242,.92);--cta-bg:#1b2418;--cta-fg:#fffefb;
+  --grat:#dde6d8;--glow1:rgba(46,139,87,.07);--glow2:rgba(46,139,87,.03);
+}
+[data-palette="wild"][data-theme="dark"]{
+  --bg:#10180f;--paper:#1a241b;--ink:#e8f0e4;--body:#a8b8a6;--note:#6c7a6a;
+  --line:#2c3a2e;--line-2:#4a5a48;--acc:#5BBB7E;--acc2:#8FD49E;--acc-soft:rgba(91,187,126,.14);
+  --ok:#4ade80;--nav-bg:rgba(16,24,15,.84);--cta-bg:#5BBB7E;--cta-fg:#10180f;
+  --grat:rgba(91,187,126,.10);--glow1:rgba(91,187,126,.16);--glow2:rgba(46,139,87,.12);
+}
+/* 律 · Rhythm(电光青蓝 · 科学数据) */
+[data-palette="rhythm"]{
+  --bg:#f4f8fa;--paper:#fff;--ink:#14212b;--body:#475560;--note:#8a98a4;
+  --line:#dfe7ed;--line-2:#243642;--acc:#0E9BC4;--acc2:#086F8C;--acc-soft:#dff1f8;
+  --ok:#1a7a4a;--nav-bg:rgba(244,248,250,.92);--cta-bg:#14212b;--cta-fg:#fff;
+  --grat:#dfe7ed;--glow1:rgba(14,155,196,.07);--glow2:rgba(14,155,196,.03);
+}
+[data-palette="rhythm"][data-theme="dark"]{
+  --bg:#0c151e;--paper:#16212d;--ink:#e6eef4;--body:#a8b8c4;--note:#687888;
+  --line:#263642;--line-2:#3a4a56;--acc:#38C6E8;--acc2:#7ADCF0;--acc-soft:rgba(56,198,232,.14);
+  --ok:#4ade80;--nav-bg:rgba(12,21,30,.84);--cta-bg:#38C6E8;--cta-fg:#0c151e;
+  --grat:rgba(56,198,232,.10);--glow1:rgba(56,198,232,.16);--glow2:rgba(14,155,196,.12);
+}
+[data-fs="s"]{font-size:15px}[data-fs="m"]{font-size:16px}[data-fs="l"]{font-size:18px}
+*{box-sizing:border-box}html,body{margin:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.65;
+  -webkit-font-smoothing:antialiased;position:relative;transition:background .25s,color .25s;
+  background-image:radial-gradient(var(--grat) 1.1px,transparent 1.1px);background-size:26px 26px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(60% 50% at 82% -6%,var(--glow1),transparent 62%),radial-gradient(50% 45% at 4% 8%,var(--glow2),transparent 60%)}
+a{color:inherit;text-decoration:none}em{font-style:normal;color:var(--acc)}
+
+/* top bar */
+.top-bar{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:saturate(160%) blur(8px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:58px}
+.top-bar h1{font-size:.98rem;font-weight:700;margin:0;display:flex;align-items:center;gap:11px;font-family:var(--serif)}
+.b-mark{width:14px;height:18px;background:var(--acc);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  clip-path:polygon(50% 0%,100% 35%,85% 100%,15% 100%,0% 35%)}
+.top-bar h1 small{color:var(--note);font-weight:500;font-family:var(--mono);font-size:.7rem}
+.nav{display:flex;align-items:center;gap:2px}
+.nav-link{padding:8px 13px;font-size:.85rem;font-weight:500;color:var(--note);transition:color .15s}
+.nav-link:hover{color:var(--ink)}.nav-link.active{color:var(--acc);font-weight:600}
+.theme-btn{margin-left:6px;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--line-2);background:transparent;color:var(--ink);cursor:pointer;border-radius:50%;transition:border-color .15s,color .15s}
+.theme-btn:hover{border-color:var(--acc);color:var(--acc)}
+.theme-btn .sun{display:none}.theme-btn .moon{display:block}
+[data-theme="dark"] .theme-btn .sun{display:block}[data-theme="dark"] .theme-btn .moon{display:none}
+
+/* demo control bar */
+.demo-bar{position:sticky;top:58px;z-index:49;background:var(--paper);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;padding:10px 32px;flex-wrap:wrap}
+.demo-bar .lab{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--note)}
+.pal-btn{padding:7px 16px;border:1px solid var(--line-2);background:transparent;color:var(--body);font-family:var(--serif);
+  font-size:.92rem;font-weight:600;cursor:pointer;transition:all .15s;border-radius:2px}
+.pal-btn:hover{border-color:var(--acc);color:var(--acc)}
+.pal-btn.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.demo-bar .hint{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--note)}
+
+main{max-width:var(--maxw);margin:0 auto;padding:0 30px;position:relative;z-index:1}
+
+/* hero */
+.gh-hero{padding:76px 0 44px;position:relative}
+.gh-globe{position:absolute;right:-26px;top:18px;width:360px;height:360px;opacity:.95;z-index:-1;animation:ghFloat 10s ease-in-out infinite}
+.gh-globe svg{width:100%;height:100%;overflow:visible}
+@keyframes ghFloat{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.2deg)}}
+.gh-kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--acc);margin:0 0 22px}
+.gh-title{font-family:var(--serif);font-size:clamp(3rem,8vw,5rem);line-height:1.05;margin:0;font-weight:600;letter-spacing:.02em}
+.gh-title em{font-style:italic;color:var(--acc)}
+.gh-latin{font-family:var(--mono);font-size:.74rem;letter-spacing:.34em;text-transform:uppercase;color:var(--note);margin:20px 0 0}
+.gh-lede{font-size:1.06rem;color:var(--body);max-width:52ch;margin:26px 0 0;line-height:1.78}
+.gh-lede b{color:var(--ink);font-weight:600}
+.gh-cta{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:13px 22px;background:var(--cta-bg);
+  color:var(--cta-fg);font-weight:600;font-size:.92rem;transition:background .15s,color .15s}
+.gh-cta:hover{background:var(--acc);color:#fff}
+.gh-meta{display:flex;gap:34px;margin:34px 0 0;flex-wrap:wrap}
+.gh-meta b{display:block;font-family:var(--serif);font-size:1.9rem;color:var(--acc2);font-weight:600;line-height:1}
+.gh-meta span{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--note)}
+.gh-rule{display:flex;align-items:center;gap:16px;margin:56px 0 6px}
+.gh-rule h2{font-family:var(--serif);font-size:1.2rem;font-weight:600;margin:0;white-space:nowrap}
+.gh-rule .ln{flex:1;height:1px;background:var(--line)}
+.gh-rule small{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--note)}
+
+/* module grid */
+.gh-mods{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:22px}
+.gh-mod{background:var(--bg);padding:24px 22px;position:relative;transition:background .25s}
+.gh-mod:hover{background:var(--paper)}
+.gh-mod .row{display:flex;align-items:baseline;gap:12px}
+.gh-mod .no{font-family:var(--mono);font-size:.74rem;color:var(--acc);font-variant-numeric:tabular-nums}
+.gh-mod h3{font-family:var(--serif);font-size:1.2rem;font-weight:600;margin:0}
+.gh-mod .en{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--note);margin:8px 0 9px}
+.gh-mod p{font-size:.86rem;color:var(--body);margin:0;line-height:1.6}
+.gh-mod .prog{margin-top:12px;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--note)}
+.gh-mod::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--acc);transform:scaleY(0);transform-origin:top;transition:transform .3s}
+.gh-mod:hover::after{transform:scaleY(1)}
+
+/* tools */
+.gh-tools{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap}
+.gh-tool{flex:1;min-width:150px;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:20px;
+  display:flex;align-items:center;gap:14px;transition:border-color .2s,transform .2s,box-shadow .2s}
+.gh-tool:hover{border-color:var(--acc);transform:translateY(-4px);box-shadow:0 12px 30px -14px var(--acc-soft)}
+.gh-tool .g{font-family:var(--serif);font-style:italic;font-size:1.9rem;color:var(--acc2);line-height:1}
+.gh-tool b{font-size:.95rem;display:block}.gh-tool span{font-family:var(--mono);font-size:.7rem;color:var(--note);letter-spacing:.08em}
+
+/* lesson preview */
+.lp{margin-top:42px;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:30px 34px}
+.lp .step{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;color:var(--note);text-transform:uppercase}
+.lp h1{font-family:var(--serif);font-size:1.9rem;font-weight:600;margin:10px 0 6px}
+.lp .lm{font-family:var(--mono);font-size:.76rem;color:var(--note);margin-bottom:24px}
+.sec{margin:26px 0}
+.sec-tag{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acc);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.sec p{margin:0 0 12px;line-height:1.78}
+.sec .ex{border-left:3px solid var(--acc);background:var(--acc-soft);padding:12px 16px;margin:0 0 12px;font-size:.94rem;line-height:1.72}
+.sec .pit{border-left:3px solid var(--note);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 16px;margin:0 0 12px;font-size:.94rem;line-height:1.72}
+.sec .pit b{color:var(--acc)}
+
+/* about + foot */
+.gh-about{padding:56px 0 20px;display:grid;grid-template-columns:180px 1fr;gap:40px}
+.gh-about h3{font-family:var(--mono);font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;margin:0;color:var(--acc)}
+.gh-about .body{font-size:1.02rem;color:var(--body);line-height:1.78;max-width:60ch}
+.gh-about .body b{color:var(--ink);font-weight:600}.gh-about .body p{margin:0 0 14px}
+.gh-about ul{margin:14px 0 0;padding-left:0;list-style:none}
+.gh-about ul li{padding-left:20px;position:relative;color:var(--ink);margin-bottom:8px}
+.gh-about ul li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:2px;background:var(--acc)}
+.gh-foot{margin-top:56px;border-top:1px solid var(--line);padding:24px 0 60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:.72rem;color:var(--note)}
+
+/* motif visibility */
+.motif{display:none}[data-palette="ignite"] .motif-ignite{display:block}
+[data-palette="wild"] .motif-wild{display:block}[data-palette="rhythm"] .motif-rhythm{display:block}
+.pulse{stroke-dasharray:600;animation:draw 3s ease-in-out infinite}
+@keyframes draw{0%{stroke-dashoffset:600}50%{stroke-dashoffset:0}100%{stroke-dashoffset:-600}}
+.spark{animation:sp 1.6s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+@media(max-width:680px){.gh-globe{width:240px;height:240px;opacity:.5}.gh-mods{grid-template-columns:1fr}.gh-about{grid-template-columns:1fr;gap:16px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <h1><span class="b-mark"></span>健身与运动 <small>· Fitness</small></h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#">课时</a>
+    <a class="nav-link" href="#">速查</a>
+    <a class="nav-link" href="#">工具</a>
+    <a class="nav-link" href="#">收藏</a>
+    <a class="nav-link" href="#">设置</a>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-link" href="../../">总站</a>
+  </nav>
+</div>
+
+<div class="demo-bar">
+  <span class="lab">视觉风格 · 三选一</span>
+  <button class="pal-btn on" data-pal="ignite" onclick="setPal('ignite')">燃 · Ignite</button>
+  <button class="pal-btn" data-pal="wild" onclick="setPal('wild')">野 · Wild</button>
+  <button class="pal-btn" data-pal="rhythm" onclick="setPal('rhythm')">律 · Rhythm</button>
+  <span class="hint">点按钮切换配色与主视觉 · 右上角可切深/浅色</span>
+</div>
+
+<main>
+  <section class="gh-hero">
+    <div class="gh-globe">
+      <!-- 燃:心跳脉搏 + 能量火花 -->
+      <svg class="motif motif-ignite" viewBox="0 0 360 360">
+        <circle cx="180" cy="180" r="150" fill="none" stroke="var(--acc-soft)" stroke-width="2"/>
+        <circle cx="180" cy="180" r="110" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="3 7"/>
+        <path class="pulse" d="M30 200 H130 L158 120 L182 270 L210 95 L236 200 H330" fill="none" stroke="var(--acc)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle class="spark" cx="210" cy="95" r="7" fill="var(--acc2)"/>
+        <circle class="spark" cx="210" cy="95" r="13" fill="none" stroke="var(--acc2)" stroke-width="1.5" style="animation-delay:.3s"/>
+      </svg>
+      <!-- 野:山脊 + 太阳 + 跑步弧线 -->
+      <svg class="motif motif-wild" viewBox="0 0 360 360">
+        <circle cx="180" cy="180" r="150" fill="none" stroke="var(--acc-soft)" stroke-width="2"/>
+        <circle cx="250" cy="120" r="34" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="2"/>
+        <path d="M30 280 L96 165 L150 225 L214 120 L286 235 L330 185" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M96 165 L130 215 L150 225" fill="none" stroke="var(--acc)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M40 300 Q180 130 320 300" fill="none" stroke="var(--acc)" stroke-width="2" stroke-dasharray="4 9" stroke-linecap="round"/>
+        <circle cx="320" cy="300" r="5" fill="var(--acc2)"/>
+      </svg>
+      <!-- 律:环形配速仪表 + 心电 -->
+      <svg class="motif motif-rhythm" viewBox="0 0 360 360">
+        <circle cx="180" cy="180" r="140" fill="none" stroke="var(--line)" stroke-width="2"/>
+        <circle cx="180" cy="180" r="140" fill="none" stroke="var(--acc)" stroke-width="5" stroke-dasharray="660" stroke-dashoffset="180" stroke-linecap="round" transform="rotate(-90 180 180)"/>
+        <circle cx="180" cy="180" r="104" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="2 6"/>
+        <path class="pulse" d="M96 180 H150 L166 132 L184 232 L206 150 L222 180 H264" fill="none" stroke="var(--acc2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="180" y="300" text-anchor="middle" font-family="var(--mono)" font-size="13" fill="var(--note)" letter-spacing="2">75 BPM</text>
+      </svg>
+    </div>
+    <p class="gh-kicker" id="kicker">科普通识 · 大白话讲透</p>
+    <h1 class="gh-title" id="title">燃，<em>动起来</em></h1>
+    <p class="gh-latin" id="latin">Move · Lift · Burn</p>
+    <p class="gh-lede" id="lede">从为什么该动、身体怎么运转，到力量、有氧、拉伸、核心、间歇，再到营养、恢复、减脂增肌和运动心理--把"练就一副好用耐用的身体"这件事拆成 <b>89 节能讲清的微课</b>。<b>学会用最省力的方式练对、吃对、歇对，运动不再是苦差，而是能持续一辈子的习惯。</b></p>
+    <a class="gh-cta" href="#">开始第一课 <span class="nm-t">→ 入门通识</span></a>
+    <div class="gh-meta">
+      <div><b>14</b><span>模块 Modules</span></div>
+      <div><b>89</b><span>课时 Lessons</span></div>
+      <div><b>5</b><span>互动工具 Tools</span></div>
+      <div><b>0</b><span>依赖 Deps</span></div>
+    </div>
+  </section>
+
+  <div class="gh-rule"><h2>学习路线</h2><div class="ln"></div><small>14 模块 · 由浅入深</small></div>
+  <div class="gh-mods" id="mods"></div>
+
+  <div class="gh-rule"><h2>互动工具</h2><div class="ln"></div><small>5 件 · 边练边算</small></div>
+  <div class="gh-tools" id="tools"></div>
+
+  <div class="gh-rule"><h2>课时样例</h2><div class="ln"></div><small>五段式 · 一节讲透一个点</small></div>
+  <div class="lp">
+    <div class="step">入门通识 · 第 1 课</div>
+    <h1>为什么人该运动</h1>
+    <div class="lm">4 分钟 · 关键词：久坐、健康收益、最低门槛</div>
+    <div class="sec"><div class="sec-tag">① 一句话</div><p>一句话：规律运动是回报率最高的健康投资--每周 150 分钟中等强度，就能显著降低心血管病、糖尿病和早亡风险。</p></div>
+    <div class="sec"><div class="sec-tag">② 讲透</div><p>身体是为"动"设计的。久坐会让代谢变慢、肌肉流失、关节僵硬；而运动反过来<strong>提升心肺、增强骨密度、改善情绪和睡眠</strong>。好消息是收益有"最低门槛"：不必跑马拉松，快走、爬楼、跳绳都算。</p><div class="ex">世界卫生组织建议：成年人每周 150-300 分钟中等强度，或 75-150 分钟高强度，加两次力量训练。拆到每天就是 20 多分钟。</div></div>
+    <div class="sec"><div class="sec-tag">③ 别踩坑</div><div class="pit"><b>别踩坑 </b>别一上来就猛练。新手最大的坑是"动机过强、负荷过大"--练到酸痛三天起不来，然后放弃。从能轻松完成的量开始，宁可练完还意犹未尽。</div></div>
+  </div>
+
+  <div class="gh-about">
+    <h3>关于本站</h3>
+    <div class="body">
+      <p>本站不贩卖焦虑、不堆术语、不故弄玄虚。每节五分钟，用<b>大白话</b>把健身与运动里那些真正重要、却常被讲成"黑话天书"或"玄学励志"的道理讲清：<b>为什么</b>这么练，而不是背下一串动作名。</p>
+      <p>读完会知道：</p>
+      <ul>
+        <li>身体怎么产能、为什么力量和有氧缺一不可；</li>
+        <li>深蹲、硬拉、卧推等基础动作的标准与常见错误；</li>
+        <li>怎么用渐进超负荷持续进步，怎么吃、怎么歇、怎么避免过度训练；</li>
+        <li>减脂不等于节食、增肌不等于猛吃--以及如何让运动成为可持续的习惯。</li>
+      </ul>
+      <p style="color:var(--note);font-size:.88rem;margin-top:18px">说明：本站为科普通识，重在直觉与原理，不替代医疗与专业教练指导；涉及伤病请遵医嘱，动作请在能力范围内循序渐进。</p>
+    </div>
+  </div>
+  <div class="gh-foot"><span>健身与运动 · Today I Learned</span><span>纯静态 · 零依赖 · 离线可用</span></div>
+</main>
+
+<script>
+var MODS=[
+  ['入门通识','Getting Started','为什么动、运动分类、装备与安全','入门',6],
+  ['身体认知','Body Basics','肌肉骨骼、心肺、能量系统','基础',6],
+  ['力量训练','Strength','自重、器械、动作、计划','核心',7],
+  ['有氧耐力','Cardio','跑步、骑行、游泳、配速','核心',7],
+  ['柔韧拉伸','Flexibility','静态/动态拉伸、关节活动度','核心',6],
+  ['核心稳定','Core','核心肌群、平板、抗旋','核心',6],
+  ['高强度间歇','HIIT','间歇原理、Tabata、编排','进阶',6],
+  ['体态与功能','Posture','体态矫正、功能性动作','实用',6],
+  ['运动营养','Nutrition','三大营养素、练前练后、补水','实用',7],
+  ['恢复与睡眠','Recovery','拉伸、睡眠、DOMS、过度训练','实用',6],
+  ['减脂与塑形','Fat Loss','热量缺口、有氧+力量、误区','实战',6],
+  ['增肌与力量','Hypertrophy','渐进超负荷、容量、分化','进阶',7],
+  ['运动心理','Mindset','习惯养成、目标、坚持、平台期','实用',6],
+  ['运动项目','Sports','球类、游泳、骑行、攀岩','实战',7]
+];
+var TOOLS=[['♡','BMI 体成分','body composition'],['⇧','1RM 最大重量','one-rep max'],['◎','心率区间','heart rate zones'],['※','热量消耗','calorie burn'],['⏱','间歇计时器','HIIT timer']];
+(function(){
+  var h='';MODS.forEach(function(m,i){h+='<div class="gh-mod"><div class="row"><span class="no">'+String(i+1).padStart(2,'0')+'</span><h3>'+m[0]+'</h3></div><div class="en">'+m[1]+'</div><p>'+m[2]+'</p><div class="prog">'+m[4]+' 课 · '+m[3]+'</div></div>'});
+  document.getElementById('mods').innerHTML=h;
+  var t='';TOOLS.forEach(function(x){t+='<div class="gh-tool"><span class="g">'+x[0]+'</span><div><b>'+x[1]+'</b><span>'+x[2]+'</span></div></div>'});
+  document.getElementById('tools').innerHTML=t;
+})();
+var PAL={
+  ignite:{kicker:'科普通识 · 大白话讲透',title:'燃，<em>动起来</em>',latin:'Move · Lift · Burn'},
+  wild:{kicker:'科普通识 · 大白话讲透',title:'迈出<em>那一步</em>',latin:'Run · Climb · Breathe'},
+  rhythm:{kicker:'科普通识 · 大白话讲透',title:'练，<em>有章法</em>',latin:'Train · Measure · Improve'}
+};
+function setPal(p){
+  document.documentElement.setAttribute('data-palette',p);
+  var c=PAL[p];document.getElementById('kicker').textContent=c.kicker;
+  document.getElementById('title').innerHTML=c.title;document.getElementById('latin').textContent=c.latin;
+  document.querySelectorAll('.pal-btn').forEach(function(b){b.classList.toggle('on',b.dataset.pal===p)});
+  try{localStorage.setItem('fit.demo.pal',p)}catch(e){}
+}
+function toggleTheme(){
+  var d=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',d);
+  try{localStorage.setItem('fit.demo.theme',d)}catch(e){}
+}
+(function(){try{var p=localStorage.getItem('fit.demo.pal');if(p)setPal(p);var t=localStorage.getItem('fit.demo.theme');if(t)document.documentElement.setAttribute('data-theme',t);else if(matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark')}catch(e){}})();
+</script>
+</body>
+</html>

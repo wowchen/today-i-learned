@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>健身与运动学习站 · Fitness & Exercise</title>
+<meta name="description" content="大白话讲透健身与运动(科普通识)：入门通识、身体认知、力量训练、有氧耐力、柔韧拉伸、核心稳定、高强度间歇、体态与功能、运动营养、恢复与睡眠、减脂与塑形、增肌与力量、运动心理、运动项目。14 模块 89 课，含 BMI 体成分/1RM 最大重量/心率区间/热量消耗/间歇计时器五个互动工具。纯静态离线、重直觉与原理、不贩卖焦虑不堆术语。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('fit.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    健身与运动 <small>· Fitness</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="FIT.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 FIT.path 生成) -->
+<script src="content/intro/01-why-move.js"></script>
+<script src="content/intro/02-categories.js"></script>
+<script src="content/intro/03-fitness-elements.js"></script>
+<script src="content/intro/04-gear.js"></script>
+<script src="content/intro/05-safety.js"></script>
+<script src="content/intro/06-start-here.js"></script>
+<script src="content/body/01-muscle.js"></script>
+<script src="content/body/02-fiber.js"></script>
+<script src="content/body/03-cardiopulmonary.js"></script>
+<script src="content/body/04-energy-system.js"></script>
+<script src="content/body/05-bone-joint.js"></script>
+<script src="content/body/06-fatigue.js"></script>
+<script src="content/strength/01-what-is.js"></script>
+<script src="content/strength/02-bodyweight.js"></script>
+<script src="content/strength/03-squat.js"></script>
+<script src="content/strength/04-deadlift.js"></script>
+<script src="content/strength/05-press.js"></script>
+<script src="content/strength/06-pull.js"></script>
+<script src="content/strength/07-program.js"></script>
+<script src="content/cardio/01-what-is.js"></script>
+<script src="content/cardio/02-running.js"></script>
+<script src="content/cardio/03-pace.js"></script>
+<script src="content/cardio/04-cycling.js"></script>
+<script src="content/cardio/05-swimming.js"></script>
+<script src="content/cardio/06-lsd.js"></script>
+<script src="content/cardio/07-progress.js"></script>
+<script src="content/flex/01-what-is.js"></script>
+<script src="content/flex/02-static.js"></script>
+<script src="content/flex/03-dynamic.js"></script>
+<script src="content/flex/04-mobility.js"></script>
+<script src="content/flex/05-common.js"></script>
+<script src="content/flex/06-mistakes.js"></script>
+<script src="content/core/01-what-is.js"></script>
+<script src="content/core/02-plank.js"></script>
+<script src="content/core/03-anti-rotation.js"></script>
+<script src="content/core/04-posterior.js"></script>
+<script src="content/core/05-breath.js"></script>
+<script src="content/core/06-training.js"></script>
+<script src="content/hiit/01-what-is.js"></script>
+<script src="content/hiit/02-principle.js"></script>
+<script src="content/hiit/03-tabata.js"></script>
+<script src="content/hiit/04-design.js"></script>
+<script src="content/hiit/05-combine.js"></script>
+<script src="content/hiit/06-caution.js"></script>
+<script src="content/posture/01-what-is.js"></script>
+<script src="content/posture/02-assess.js"></script>
+<script src="content/posture/03-sit.js"></script>
+<script src="content/posture/04-shoulder.js"></script>
+<script src="content/posture/05-lumbar.js"></script>
+<script src="content/posture/06-functional.js"></script>
+<script src="content/nutrition/01-macros.js"></script>
+<script src="content/nutrition/02-protein.js"></script>
+<script src="content/nutrition/03-carb.js"></script>
+<script src="content/nutrition/04-fat.js"></script>
+<script src="content/nutrition/05-timing.js"></script>
+<script src="content/nutrition/06-hydration.js"></script>
+<script src="content/nutrition/07-supplement.js"></script>
+<script src="content/recovery/01-what-is.js"></script>
+<script src="content/recovery/02-sleep.js"></script>
+<script src="content/recovery/03-doms.js"></script>
+<script src="content/recovery/04-active-recovery.js"></script>
+<script src="content/recovery/05-overtraining.js"></script>
+<script src="content/recovery/06-deload.js"></script>
+<script src="content/fatloss/01-principle.js"></script>
+<script src="content/fatloss/02-deficit.js"></script>
+<script src="content/fatloss/03-combine.js"></script>
+<script src="content/fatloss/04-diet.js"></script>
+<script src="content/fatloss/05-plateau.js"></script>
+<script src="content/fatloss/06-myths.js"></script>
+<script src="content/muscle/01-principle.js"></script>
+<script src="content/muscle/02-overload.js"></script>
+<script src="content/muscle/03-volume.js"></script>
+<script src="content/muscle/04-split.js"></script>
+<script src="content/muscle/05-tempo.js"></script>
+<script src="content/muscle/06-protein.js"></script>
+<script src="content/muscle/07-rest.js"></script>
+<script src="content/mindset/01-habit.js"></script>
+<script src="content/mindset/02-goal.js"></script>
+<script src="content/mindset/03-motivation.js"></script>
+<script src="content/mindset/04-discipline.js"></script>
+<script src="content/mindset/05-setback.js"></script>
+<script src="content/mindset/06-lifetime.js"></script>
+<script src="content/sports/01-ball.js"></script>
+<script src="content/sports/02-swim.js"></script>
+<script src="content/sports/03-cycle.js"></script>
+<script src="content/sports/04-climb.js"></script>
+<script src="content/sports/05-combat.js"></script>
+<script src="content/sports/06-outdoor.js"></script>
+<script src="content/sports/07-pick.js"></script>
+
+</body>
+</html>
