@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>世界艺术通史学习站 · World Art History</title>
+<meta name="description" content="大白话讲透世界艺术通史(科普通识,加德纳式脉络):史前与原始、古代近东与埃及、爱琴与古希腊、古罗马、早期基督教与拜占庭、伊斯兰、中世纪罗马式与哥特、文艺复兴、巴洛克与洛可可、18-19世纪、现代、当代,以及东亚、印度·美洲·非洲·大洋洲。15 模块 87 课,含艺术史时间轴/艺术家图鉴/流派速查/中外艺术对照四个互动工具。纯静态离线、重直觉与赏析、不堆术语不故作高深。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('wah.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="pal-mark"><i style="background:#c0392b"></i><i style="background:#e08a1e"></i><i style="background:#1d4e89"></i></span>
+    世界艺术通史 <small>· World Art History</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="WAH.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/artists.js"></script>
+<script src="content/crossref.js"></script>
+
+<!-- Lessons (由 WAH.path 生成) -->
+<script src="content/guide/01-what-is-art.js"></script>
+<script src="content/guide/02-how-to-look.js"></script>
+<script src="content/guide/03-roadmap.js"></script>
+<script src="content/prehistoric/01-cave-painting.js"></script>
+<script src="content/prehistoric/02-venus.js"></script>
+<script src="content/prehistoric/03-megalith.js"></script>
+<script src="content/prehistoric/04-why.js"></script>
+<script src="content/prehistoric/05-summary.js"></script>
+<script src="content/ancient-east/01-sumer.js"></script>
+<script src="content/ancient-east/02-akkad-babylon.js"></script>
+<script src="content/ancient-east/03-assyrian.js"></script>
+<script src="content/ancient-east/04-persia.js"></script>
+<script src="content/ancient-east/05-egypt-old.js"></script>
+<script src="content/ancient-east/06-egypt-new.js"></script>
+<script src="content/aegean-greece/01-minoan.js"></script>
+<script src="content/aegean-greece/02-mycenaean.js"></script>
+<script src="content/aegean-greece/03-archaic.js"></script>
+<script src="content/aegean-greece/04-classical.js"></script>
+<script src="content/aegean-greece/05-late-classical.js"></script>
+<script src="content/aegean-greece/06-hellenistic.js"></script>
+<script src="content/rome/01-etruscan.js"></script>
+<script src="content/rome/02-architecture.js"></script>
+<script src="content/rome/03-sculpture.js"></script>
+<script src="content/rome/04-pompeii.js"></script>
+<script src="content/rome/05-relief.js"></script>
+<script src="content/byzantine/01-early-christian.js"></script>
+<script src="content/byzantine/02-basilica-church.js"></script>
+<script src="content/byzantine/03-ravenna.js"></script>
+<script src="content/byzantine/04-icon.js"></script>
+<script src="content/byzantine/05-hagia-sophia.js"></script>
+<script src="content/islamic/01-mosque.js"></script>
+<script src="content/islamic/02-decoration.js"></script>
+<script src="content/islamic/03-alhambra.js"></script>
+<script src="content/islamic/04-miniature.js"></script>
+<script src="content/medieval/01-early-medieval.js"></script>
+<script src="content/medieval/02-romanesque.js"></script>
+<script src="content/medieval/03-gothic-born.js"></script>
+<script src="content/medieval/04-stained-glass.js"></script>
+<script src="content/medieval/05-manuscript.js"></script>
+<script src="content/medieval/06-summary.js"></script>
+<script src="content/renaissance/01-giotto.js"></script>
+<script src="content/renaissance/02-early-renaissance.js"></script>
+<script src="content/renaissance/03-davinci.js"></script>
+<script src="content/renaissance/04-michelangelo.js"></script>
+<script src="content/renaissance/05-raphael.js"></script>
+<script src="content/renaissance/06-venice.js"></script>
+<script src="content/renaissance/07-northern.js"></script>
+<script src="content/renaissance/08-durer.js"></script>
+<script src="content/baroque/01-caravaggio.js"></script>
+<script src="content/baroque/02-bernini.js"></script>
+<script src="content/baroque/03-rembrandt.js"></script>
+<script src="content/baroque/04-vermeer.js"></script>
+<script src="content/baroque/05-spanish-french.js"></script>
+<script src="content/baroque/06-rococo.js"></script>
+<script src="content/c19/01-neoclassicism.js"></script>
+<script src="content/c19/02-romanticism.js"></script>
+<script src="content/c19/03-romantic-landscape.js"></script>
+<script src="content/c19/04-realism.js"></script>
+<script src="content/c19/05-manet.js"></script>
+<script src="content/c19/06-impressionism.js"></script>
+<script src="content/c19/07-post-impressionism.js"></script>
+<script src="content/modern/01-fauvism.js"></script>
+<script src="content/modern/02-cubism.js"></script>
+<script src="content/modern/03-expressionism.js"></script>
+<script src="content/modern/04-dada.js"></script>
+<script src="content/modern/05-surrealism.js"></script>
+<script src="content/modern/06-abstract.js"></script>
+<script src="content/modern/07-duchamp.js"></script>
+<script src="content/contemporary/01-abstract-expressionism.js"></script>
+<script src="content/contemporary/02-pop-art.js"></script>
+<script src="content/contemporary/03-minimalism.js"></script>
+<script src="content/contemporary/04-conceptual.js"></script>
+<script src="content/contemporary/05-installation-land.js"></script>
+<script src="content/contemporary/06-new-media.js"></script>
+<script src="content/east-asia/01-gu-kaizhi.js"></script>
+<script src="content/east-asia/02-tang-painting.js"></script>
+<script src="content/east-asia/03-song-landscape.js"></script>
+<script src="content/east-asia/04-literati.js"></script>
+<script src="content/east-asia/05-qing-bada.js"></script>
+<script src="content/east-asia/06-japan-yamato.js"></script>
+<script src="content/east-asia/07-ukiyoe.js"></script>
+<script src="content/world-beyond/01-india.js"></script>
+<script src="content/world-beyond/02-southeast-asia.js"></script>
+<script src="content/world-beyond/03-pre-columbian.js"></script>
+<script src="content/world-beyond/04-africa.js"></script>
+<script src="content/world-beyond/05-oceania.js"></script>
+<script src="content/world-beyond/06-native-north.js"></script>
+
+</body>
+</html>
