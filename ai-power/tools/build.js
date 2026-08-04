@@ -31,6 +31,7 @@ const MODULES = [
   ['security','安全与安防 AI','工控网安、变电站安防、作业安全监控','应用','Security AI'],
   ['engineering','工程与基建 AI','智能设计、施工安全、BIM与数字孪生','应用','Engineering AI'],
   ['llm','大模型在电力','行业大模型、RAG、智能体探索','进阶','LLM in Power'],
+  ['agentapp','智能体应用','电力智能体落地:巡检报告、故障处置、调度辅助','进阶','Agent Apps'],
   ['platform','数据与平台','数据中台、MLOps、边缘计算、数据质量','进阶','Data & Platform'],
   ['future','挑战与展望','数据壁垒、模型可靠性、安全合规、未来走向','前沿','Challenges'],
 ];
@@ -123,6 +124,18 @@ const TERMS = [
   ['hallucination','幻觉','Hallucination','大模型生成看似合理但实际错误内容的现象。','一本正经胡说。','llm'],
   ['fine-tune','微调','Fine-tuning','在预训练模型基础上用特定数据继续训练以适配下游任务。','再补一课。','llm'],
   ['mcp','MCP','Model Context Protocol','让AI模型安全调用外部工具与数据源的协议标准。','AI的工具箱接口。','llm'],
+  ['knowledge-base','知识库','Knowledge Base','把规程、手册、工单等文档结构化整理、可供检索与问答的数据资产。','电力的资料库。','llm'],
+  ['chunking','文档切分','Chunking','把长文档切成适合检索的小片段的过程,切分策略影响检索效果。','切段。','llm'],
+  ['lora','LoRA','Low-Rank Adaptation','一种高效微调方法,只训练少量低秩参数,省显存、训练快。','只调小旋钮。','llm'],
+  ['eval','应用评测','Evaluation','衡量AI应用在真实业务中效果的方法,包括准确率、引用核实与人工抽检。','验收。','llm'],
+  ['data-flywheel','数据飞轮','Data Flywheel','模型上线→收集badcase→标注→再训练→效果提升的循环。','越用越好。','llm'],
+  ['private-deploy','私有化部署','Private Deployment','把模型部署在自有内网环境,数据不出域。','内网自建。','llm'],
+
+  // 智能体应用
+  ['agent-app','智能体应用','Agent Application','在电力业务中落地智能体的实践,包括工具调用、流程编排与人工审核。','给AI派活。','agentapp'],
+  ['report-gen','报告生成','Report Generation','让AI根据数据与记录自动生成结构化报告。','自动写报告。','agentapp'],
+  ['advisory','辅助决策','Decision Support','AI只提供建议、人做最终决策的模式,电力核心场景的通行做法。','AI当参谋。','agentapp'],
+  ['sandbox','沙箱','Sandbox','隔离执行环境,限制AI的动作范围与权限,防止越权与破坏。','隔离区。','agentapp'],
 
   // 平台
   ['data-middleware','数据中台','Data Middleware','统一采集、治理、服务的数据基础设施,打破数据孤岛。','数据的集散中心。','platform'],
