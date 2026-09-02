@@ -127,7 +127,8 @@
   };
 
   CDC.q=function(k){
-    var h=location.hash.split('?')[1]||''; var m=new RegExp('[?&]'+k+'=([^&]*)').exec(h);
+    var h=location.hash.split('?')[1]||'';
+    var m=new RegExp('(?:^|&)'+k+'=([^&]*)').exec(h);
     return m?decodeURIComponent(m[1]):'';
   };
 })();

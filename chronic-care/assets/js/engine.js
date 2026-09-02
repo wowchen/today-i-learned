@@ -81,6 +81,7 @@
     var hit=null,hm=null;
     (CDC.modules||[]).forEach(function(m){ m.lessons.forEach(function(l){ if(l.id===id){hit=l;hm=m;} }); });
     if(!hit){ nav('#/home'); return; }
+    hit=Object.assign({},hit,CDC.lessonData[id]||{});   // 合并正文与 quiz(正文存 lessonData)
     var flat=[]; (CDC.modules||[]).forEach(function(m){ m.lessons.forEach(function(l){ flat.push({l:l,m:m}); }); });
     var idx=flat.findIndex(function(x){return x.l.id===id});
     var prev=flat[idx-1], next=flat[idx+1];
