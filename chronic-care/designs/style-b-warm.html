@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格 B · 温暖陪伴风 — 慢病管理通知站草案</title>
+<meta name="description" content="慢病管理知识站 · 风格草案B:温暖陪伴风。暖米色、大字号、圆角、柔和插画感,适合中老年慢病人群。">
+<style>
+  :root{
+    --bg:#FBF6EE; --paper:#FFFDF8; --ink:#3D2E24; --body:#6B5A4C; --note:#A08D7C;
+    --line:#EFE4D4;
+    --coral:#D96C4F; --coral-dk:#B8502F; --coral-soft:#FBE9E2;
+    --green:#7A9E5F; --green-soft:#EDF3E4;
+    --sun:#E8A93C; --sun-soft:#FAF0DC;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --serif:"Songti SC",Charter,Georgia,"Times New Roman",serif;
+    --r:22px;
+    --shadow:0 2px 6px rgba(61,46,36,.05),0 12px 32px rgba(61,46,36,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(rgba(61,46,36,.025) 1.2px,transparent 1.2px);background-size:22px 22px}
+
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,246,238,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--line)}
+  .topbar .in{max-width:920px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:14px}
+  .logo{width:46px;height:46px;border-radius:16px;background:var(--coral);display:grid;place-items:center;font-size:1.4rem;box-shadow:0 4px 12px rgba(217,108,79,.3)}
+  .brand{font-family:var(--serif);font-weight:800;font-size:1.25rem}
+  .brand small{display:block;font-family:var(--sans);font-weight:600;font-size:.68rem;color:var(--note);letter-spacing:.2em}
+  .topnav{margin-left:auto;display:flex;gap:4px}
+  .topnav a{color:var(--body);text-decoration:none;font-size:.98rem;font-weight:700;padding:9px 16px;border-radius:999px;transition:.2s}
+  .topnav a:hover{background:var(--coral-soft);color:var(--coral-dk)}
+  .topnav a.on{background:var(--coral);color:#fff}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+
+  /* ---- Hero ---- */
+  .hero{text-align:center;padding:66px 0 10px}
+  .hero .sun{width:74px;height:74px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(160deg,var(--sun),#F5C56B);display:grid;place-items:center;font-size:2.1rem;box-shadow:0 8px 24px rgba(232,169,60,.35);animation:bob 3.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  h1{font-family:var(--serif);font-size:clamp(2.1rem,5.4vw,3.1rem);line-height:1.25;margin:0;letter-spacing:.01em}
+  h1 .warm{color:var(--coral)}
+  .lede{font-size:1.12rem;color:var(--body);max-width:34em;margin:20px auto 0}
+  .hero-actions{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;font-weight:800;font-size:1.05rem;text-decoration:none;border:none;cursor:pointer;transition:.2s;font-family:inherit}
+  .btn-p{background:var(--coral);color:#fff;box-shadow:0 6px 18px rgba(217,108,79,.32)}
+  .btn-p:hover{background:var(--coral-dk);transform:translateY(-2px)}
+  .btn-g{background:var(--paper);color:var(--ink);border:2px solid var(--line)}
+  .btn-g:hover{border-color:var(--coral);color:var(--coral-dk)}
+
+  /* ---- greeting ribbon ---- */
+  .ribbon{margin:46px 0 0;background:var(--paper);border:2px dashed var(--line);border-radius:var(--r);padding:22px 28px;display:flex;align-items:center;gap:18px;text-align:left}
+  .ribbon .emo{font-size:2rem}
+  .ribbon b{font-size:1.05rem}
+  .ribbon p{margin:2px 0 0;color:var(--body);font-size:.95rem}
+
+  /* ---- Sections ---- */
+  section{padding:60px 0 6px}
+  .shead{text-align:center;margin-bottom:34px}
+  .shead .kicker{font-size:.82rem;font-weight:800;letter-spacing:.3em;color:var(--coral)}
+  .shead h2{font-family:var(--serif);font-size:1.9rem;margin:10px 0 6px}
+  .shead p{color:var(--note);font-size:.98rem;margin:0}
+
+  /* ---- Disease tiles (soft illustration feel) ---- */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .tile{background:var(--paper);border-radius:var(--r);padding:30px 24px;text-align:center;border:2px solid transparent;transition:.22s;cursor:pointer;box-shadow:0 2px 8px rgba(61,46,36,.04)}
+  .tile:hover{transform:translateY(-4px);border-color:var(--line);box-shadow:var(--shadow)}
+  .tile .art{width:78px;height:78px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;font-size:2.2rem}
+  .tile h3{font-family:var(--serif);font-size:1.25rem;margin:0 0 8px}
+  .tile p{margin:0;color:var(--body);font-size:.92rem}
+  .tile .n{display:inline-block;margin-top:14px;font-size:.8rem;font-weight:800;color:var(--coral-dk);background:var(--coral-soft);padding:4px 14px;border-radius:999px}
+
+  /* ---- big list lessons ---- */
+  .daylist{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .day{display:flex;align-items:center;gap:18px;background:var(--paper);border-radius:var(--r);padding:20px 24px;border:2px solid transparent;transition:.2s;cursor:pointer}
+  .day:hover{border-color:var(--sun)}
+  .day .no{flex:0 0 auto;width:54px;height:54px;border-radius:18px;background:var(--sun-soft);display:grid;place-items:center;font-family:var(--serif);font-weight:800;font-size:1.2rem;color:#B07E1E}
+  .day.done .no{background:var(--green-soft);color:var(--green)}
+  .day h4{margin:0 0 3px;font-size:1.08rem}
+  .day p{margin:0;color:var(--note);font-size:.88rem}
+  .day .chk{margin-left:auto;flex:0 0 auto;font-size:1.3rem}
+  .day.done .chk{color:var(--green)}
+
+  /* ---- Notice cards ---- */
+  .ntcs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .ntc{background:var(--paper);border-radius:var(--r);padding:26px;box-shadow:0 2px 8px rgba(61,46,36,.04);display:flex;flex-direction:column;gap:10px}
+  .ntc .tp{display:flex;align-items:center;gap:8px}
+  .ntc .badge{font-size:.78rem;font-weight:800;padding:4px 13px;border-radius:999px}
+  .ntc h4{margin:0;font-size:1.08rem;line-height:1.5;font-family:var(--serif)}
+  .ntc p{margin:0;color:var(--body);font-size:.93rem}
+  .ntc .when{margin-top:auto;color:var(--note);font-size:.82rem;padding-top:8px}
+
+  /* ---- Lesson demo ---- */
+  .lesson{max-width:720px;margin:0 auto;background:var(--paper);border-radius:26px;box-shadow:var(--shadow);padding:40px 42px}
+  .lesson .crumb{display:inline-block;font-size:.85rem;font-weight:800;color:var(--coral-dk);background:var(--coral-soft);padding:6px 16px;border-radius:999px}
+  .lesson h2{font-family:var(--serif);font-size:1.7rem;margin:18px 0 6px}
+  .lesson .sub{color:var(--note);margin:0 0 26px;font-size:.98rem}
+  .seg{background:var(--bg);border-radius:18px;padding:22px 24px;margin:0 0 16px}
+  .seg .k{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1rem;margin-bottom:8px}
+  .seg .k .e{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:1rem}
+  .seg p{margin:0;color:var(--body);font-size:1.02rem;line-height:1.8}
+  .quiz{background:var(--sun-soft);border-radius:18px;padding:24px}
+  .quiz .q{font-weight:800;font-size:1.05rem;margin:0 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid #EFE0C4;border-radius:14px;padding:13px 18px;margin:9px 0;font-size:1rem;cursor:pointer;font-family:inherit;transition:.18s;color:var(--ink)}
+  .opt:hover{border-color:var(--sun)}
+  .opt.right{border-color:var(--green);background:var(--green-soft);font-weight:800}
+  .opt.wrong{border-color:var(--coral);background:var(--coral-soft)}
+  .quiz .why{display:none;margin-top:14px;font-size:.95rem;color:#5C7A42;background:var(--green-soft);border-radius:14px;padding:14px 18px;line-height:1.7}
+  .quiz .why.show{display:block;animation:fadein .3s}
+  @keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  .encourage{display:none;margin-top:16px;text-align:center;font-weight:800;color:var(--coral);font-size:1.02rem}
+  .encourage.show{display:block;animation:fadein .4s}
+
+  /* ---- salt widget ---- */
+  .widget{max-width:720px;margin:18px auto 0;background:linear-gradient(160deg,#4A3728,#2E2118);border-radius:26px;padding:36px 38px;color:#F5EBDD}
+  .widget h3{font-family:var(--serif);margin:0 0 4px;font-size:1.3rem}
+  .widget .hint{color:#C4A88A;font-size:.92rem;margin:0 0 22px}
+  .beer{display:flex;align-items:flex-end;gap:8px;height:130px;margin-bottom:20px}
+  .glass{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;background:rgba(255,255,255,.07);border-radius:12px;overflow:hidden;position:relative}
+  .glass .fill{background:linear-gradient(180deg,#E8A93C,#C77F2A);width:100%;transition:height .5s ease}
+  .glass .fl{position:absolute;top:6px;width:100%;text-align:center;font-size:.78rem;font-weight:800;color:#F5EBDD}
+  .w-res{border-top:1px solid rgba(255,255,255,.15);padding-top:20px;display:flex;align-items:center;gap:14px}
+  .w-res .big{font-size:2.4rem;font-family:var(--serif);font-weight:800;font-variant-numeric:tabular-nums}
+  .w-res .msg{font-size:1rem;line-height:1.7;color:#E3CDAF}
+  .w-res .msg b{color:#F5EBDD}
+  input[type=range]{width:100%;accent-color:var(--sun);height:30px}
+
+  footer{margin-top:76px;background:var(--paper);border-top:2px solid var(--line);padding:36px 24px 48px;text-align:center;color:var(--note);font-size:.92rem}
+  footer .heart{color:var(--coral)}
+
+  @media(max-width:860px){
+    .tiles,.ntcs{grid-template-columns:1fr}
+    .ribbon{flex-direction:column;text-align:center}
+    .day .no{width:46px;height:46px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <div class="logo">🌿</div>
+    <div class="brand">慢病暖屋<small>CHRONIC CARE · 慢慢来，比较快</small></div>
+    <nav class="topnav">
+      <a class="on" href="#">课程</a><a href="#">通知</a><a href="#">小工具</a><a href="#">设置</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="sun">🌅</div>
+    <h1>慢病不可怕，<br>懂它就<span class="warm">不怕它</span></h1>
+    <p class="lede">高血压、糖尿病，说到底就是几位需要长期打交道的"老熟人"。这里用大白话把它们讲明白——每天一课，5 分钟，不着急。</p>
+    <div class="hero-actions">
+      <button class="btn btn-p">📖 今天从第 1 课开始</button>
+      <button class="btn btn-g">🔔 看看有什么通知</button>
+    </div>
+    <div class="ribbon">
+      <div class="emo">☀️</div>
+      <div>
+        <b>早上好！今天是 9 月 1 日，天气渐凉</b>
+        <p>换季血压容易波动，记得今天早晚各量一次血压。昨天的课《限盐不是不吃盐》还没读，5 分钟就够了。</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="tiles">
+    <div class="shead">
+      <div class="kicker">认 识 它 们</div>
+      <h2>六位"老熟人"，一个一个懂</h2>
+      <p>点开任何一个，都从最基础讲起，不用先懂医</p>
+    </div>
+    <div class="tiles">
+      <div class="tile"><div class="art" style="background:var(--coral-soft)">🫀</div><h3>高血压</h3><p>血管里的"水压"为什么高？高了怎么办？</p><span class="n">16 节课</span></div>
+      <div class="tile"><div class="art" style="background:var(--sun-soft)">🩸</div><h3>糖尿病</h3><p>血糖是怎么回事？饭到底怎么吃？</p><span class="n">16 节课</span></div>
+      <div class="tile"><div class="art" style="background:#F0E9F7">🧪</div><h3>血脂高</h3><p>化验单上的箭头，一个个给你讲明白</p><span class="n">12 节课</span></div>
+      <div class="tile"><div class="art" style="background:var(--green-soft)">🥗</div><h3>吃与动</h3><p>不用忌口到没乐趣，会搭配就行</p><span class="n">14 节课</span></div>
+      <div class="tile"><div class="art" style="background:#E3EDF7">💊</div><h3>吃药那些事</h3><p>漏了怎么办？能不能停？一次说清</p><span class="n">14 节课</span></div>
+      <div class="tile"><div class="art" style="background:#FBE9E2">🏥</div><h3>看病随访</h3><p>查什么、问什么、带上什么去复诊</p><span class="n">16 节课</span></div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="shead">
+      <div class="kicker">今 天 学 点 啥</div>
+      <h2>每天一小步，健康一大步</h2>
+      <p>学完一节，点亮一颗星</p>
+    </div>
+    <div class="daylist">
+      <div class="day done"><div class="no">1</div><div><h4>血压是什么？先认识这个"水压系统"</h4><p>已学完 · 昨天完成</p></div><div class="chk">⭐</div></div>
+      <div class="day done"><div class="no">2</div><div><h4>为什么会得高血压？三句话说明白</h4><p>已学完 · 昨天完成</p></div><div class="chk">⭐</div></div>
+      <div class="day"><div class="no">3</div><div><h4>限盐不是不吃盐：藏在厨房里的钠</h4><p>今天建议学习 · 约 5 分钟</p></div><div class="chk">☆</div></div>
+      <div class="day"><div class="no">4</div><div><h4>在家测血压的 5 个正确姿势</h4><p>明天见 · 约 5 分钟</p></div><div class="chk">☆</div></div>
+    </div>
+  </section>
+
+  <section id="notices">
+    <div class="shead">
+      <div class="kicker">温 馨 提 醒</div>
+      <h2>最近的通知</h2>
+      <p>都看完了吗？重要的加了标签</p>
+    </div>
+    <div class="ntcs">
+      <div class="ntc"><div class="tp"><span class="badge" style="background:var(--coral-soft);color:var(--coral-dk)">重要</span></div><h4>换季了，血压容易"闹脾气"</h4><p>天一凉血管会收缩，血压容易比夏天高一些。最近两周建议每天早晚各量一次，记在纸上或手机里，复诊时带去给医生看。</p><div class="when">发布于 9 月 1 日</div></div>
+      <div class="ntc"><div class="tp"><span class="badge" style="background:var(--green-soft);color:#5C7A42">好消息</span></div><h4>社区免费测血糖，9 月 15 日见</h4><p>早上 8 点到 11 点，社区卫生服务中心二楼。要去的话记得空腹 8 小时以上——前一晚 10 点后别吃东西，可以喝少量白开水。</p><div class="when">发布于 8 月 28 日</div></div>
+      <div class="ntc"><div class="tp"><span class="badge" style="background:var(--sun-soft);color:#B07E1E">新课</span></div><h4>新课上架：化验单上的箭头怎么看</h4><p>总胆固醇、甘油三酯、"好胆固醇""坏胆固醇"——这一课教你 5 分钟看懂血脂化验单，再也不怕那些箭头。</p><div class="when">发布于 8 月 25 日</div></div>
+    </div>
+  </section>
+
+  <section id="lesson">
+    <div class="shead">
+      <div class="kicker">课 是 这 样 的</div>
+      <h2>像家里人跟你聊天</h2>
+      <p>点下面的答案试试，答完有惊喜</p>
+    </div>
+    <div class="lesson">
+      <span class="crumb">🫀 高血压 · 第 3 课</span>
+      <h2>限盐不是不吃盐：藏在厨房里的钠</h2>
+      <p class="sub">读完这课，你会知道盐藏在哪、一天到底能吃多少</p>
+      <div class="seg"><div class="k"><span class="e" style="background:var(--coral-soft)">💬</span>先说一句</div><p>盐不是只有炒菜那一勺——咸菜、酱油、挂面里都藏着钠，一天 5 克盐（约一啤酒瓶盖），是所有来源加起来的总量。</p></div>
+      <div class="seg"><div class="k"><span class="e" style="background:var(--sun-soft)">📖</span>细细讲</div><p>一块 20 克的腐乳就有约 4 克盐，一包方便面的酱包约 5 克——很多长辈"炒菜少放盐了"血压还是高，问题就出在这些"隐形盐"上。买包装食品翻过来看营养成分表：钠含量（毫克）乘 2.5，约等于盐的克数。</p></div>
+      <div class="seg"><div class="k"><span class="e" style="background:var(--green-soft)">😊</span>别担心</div><p>不用一下子戒干净。先从"咸菜减半、酱油用限盐勺"开始，口味 4–6 周就能慢慢变淡，血压也会跟着谢谢你。</p></div>
+      <div class="quiz">
+        <p class="q">考考你：一天吃多少盐比较合适？</p>
+        <button class="opt" onclick="pick(this,0)">A. 越少越好，最好不吃</button>
+        <button class="opt" onclick="pick(this,1)">B. 大约一啤酒瓶盖（5 克）</button>
+        <button class="opt" onclick="pick(this,2)">C. 两三勺都没问题</button>
+        <div class="why" id="why">答对啦！大约一啤酒瓶盖（5 克），而且是所有食物加起来的总量。别忘了腐乳、酱油、挂面里的"隐形盐"。</div>
+        <div class="encourage" id="enc">🎉 太棒了！你已经超过大多数人的营养课水平了，明天第 4 课见！</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="widget">
+    <div class="shead">
+      <div class="kicker">小 工 具</div>
+      <h2>你的"隐形盐"账本</h2>
+      <p>拖动滑块，看看今天的盐有没有超标</p>
+    </div>
+    <div class="widget">
+      <h3>🧂 今日吃盐估算</h3>
+      <p class="hint">凭感觉拖一拖，看看离 5 克还有多远</p>
+      <input type="range" id="r1" min="0" max="10" step="0.5" value="2.5" oninput="salt()">
+      <div class="beer">
+        <div class="glass"><div class="fl">炒菜</div><div class="fill" id="f1"></div></div>
+        <div class="glass"><div class="fl">咸菜酱料</div><div class="fill" id="f2"></div></div>
+        <div class="glass"><div class="fl">主食零食</div><div class="fill" id="f3"></div></div>
+        <div class="glass"><div class="fl">总量对比<br>(红线=5克)</div><div class="fill" id="f4"></div></div>
+      </div>
+      <div class="w-res">
+        <div class="big" id="tot">6.2<span style="font-size:1.1rem"> 克</span></div>
+        <div class="msg" id="msg"><b>今天超了一点点。</b>咸菜和酱料是大头——明天试试把咸菜减半，炒菜出锅前再放盐（咸味更明显，用量更少）。</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p style="font-family:var(--serif);font-size:1.1rem;color:var(--body)">慢慢来，比较快。<span class="heart">♥</span></p>
+    <p>慢病暖屋 · 草案 B（温暖陪伴风）<br>内容仅供健康科普，不构成诊疗建议 · 有不舒服，先去医院</p>
+  </footer>
+</div>
+
+<script>
+function pick(btn,i){
+  var opts=btn.parentNode.querySelectorAll('.opt');
+  opts.forEach(function(o){o.classList.remove('right','wrong')});
+  if(i===1){btn.classList.add('right');document.getElementById('enc').classList.add('show')}
+  else{btn.classList.add('wrong')}
+  document.getElementById('why').classList.add('show');
+}
+function salt(){
+  var cook=+document.getElementById('r1').value;
+  var pickle=3, staple=0.7+ (document.getElementById('r1').value-2.5)*0.1; // implied hidden sources
+  var total=cook+pickle+Math.max(0.3,staple);
+  var limit=5;
+  var hs=[cook,pickle,staple].map(function(v){return Math.min(100, v/limit*100*0.9)});
+  var totalH=Math.min(100,total/ (limit*2) *100);
+  document.getElementById('f1').style.height=hs[0]+'%';
+  document.getElementById('f2').style.height=hs[1]+'%';
+  document.getElementById('f3').style.height=Math.max(6,hs[2])+'%';
+  document.getElementById('f4').style.height=totalH+'%';
+  document.getElementById('tot').innerHTML=total.toFixed(1)+'<span style="font-size:1.1rem"> 克</span>';
+  var m=document.getElementById('msg');
+  if(total>limit*1.6){m.innerHTML='<b>今天明显超标了。</b>总量 '+total.toFixed(1)+' 克——建议明天从两处下手：咸菜换凉拌黄瓜，酱油换限盐勺。慢慢来。'}
+  else if(total>limit){m.innerHTML='<b>今天超了一点点。</b>总量 '+total.toFixed(1)+' 克。咸菜和酱料是大头——试试出锅前再放盐，咸味更明显、用量更少。'}
+  else{m.innerHTML='<b>不错，控制在 5 克以内。</b>保持这个节奏，味蕾会慢慢适应清淡，血压也会跟着谢谢你。'}
+}
+salt();
+</script>
+</body>
+</html>

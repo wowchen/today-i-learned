@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格 C · 杂志编辑风 — 慢病管理通知站草案</title>
+<meta name="description" content="慢病管理知识站 · 风格草案C:杂志编辑风。衬线大标题、报纸式排版、健康期刊质感。">
+<style>
+  :root{
+    --bg:#F8F5EF; --paper:#FFFDF9; --ink:#1E1A14; --body:#514A3E; --note:#948A78;
+    --line:#DED7C8; --rule:#1E1A14;
+    --crimson:#A33B2E; --crimson-soft:#F4E5E1;
+    --pine:#2E5A4C; --pine-soft:#E4EDE7;
+    --gold:#B98A2E;
+    --serif:"Songti SC",Charter,"Bitstream Charter",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.7;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(rgba(30,26,20,.02) 1px,transparent 1px);background-size:4px 4px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+  /* ---- Masthead ---- */
+  header{padding:52px 0 0;text-align:center}
+  .vol{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.42em;text-transform:uppercase;color:var(--note);margin:0 0 20px}
+  .masthead{font-size:clamp(2.8rem,9vw,4.6rem);font-weight:800;letter-spacing:.06em;line-height:1;margin:0}
+  .latin{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.5em;text-transform:uppercase;color:var(--ink);margin:16px 0 0;padding-left:.5em}
+  .dateline{display:flex;align-items:center;justify-content:center;gap:16px;margin:26px 0 0;font-family:var(--sans);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--note)}
+  .dateline::before,.dateline::after{content:"";height:1px;width:72px;background:var(--ink)}
+  .motto{font-style:italic;color:var(--body);margin:20px auto 0;max-width:40ch;font-size:1.02rem}
+
+  .ruleband{margin:40px 0 0;border-top:3px solid var(--rule);position:relative}
+  .ruleband::after{content:"";position:absolute;top:3px;left:0;right:0;border-top:1px solid var(--rule)}
+
+  /* ---- nav within rule ---- */
+  .paper-nav{display:flex;justify-content:center;gap:0;border-bottom:1px solid var(--line);font-family:var(--sans)}
+  .paper-nav a{padding:13px 26px;text-decoration:none;color:var(--body);font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border-bottom:3px solid transparent;transition:.2s}
+  .paper-nav a:hover{color:var(--crimson)}
+  .paper-nav a.on{color:var(--crimson);border-bottom-color:var(--crimson)}
+
+  /* ---- Lead story ---- */
+  .lead{display:grid;grid-template-columns:1.25fr .75fr;gap:44px;padding:46px 0 40px;border-bottom:1px solid var(--line)}
+  .kicker-row{display:flex;align-items:center;gap:12px;font-family:var(--sans);margin-bottom:16px}
+  .kicker-row .col{font-size:.7rem;font-weight:800;letter-spacing:.3em;color:var(--crimson);text-transform:uppercase}
+  .kicker-row .rule{flex:1;height:1px;background:var(--line)}
+  .kicker-row .date{font-family:var(--mono);font-size:.72rem;color:var(--note)}
+  .lead h2{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.25;margin:0 0 18px;letter-spacing:.01em;font-weight:800}
+  .lead h2 .drop{color:var(--crimson)}
+  .lead .standfirst{font-size:1.06rem;color:var(--body);font-style:italic;margin:0 0 20px;max-width:48ch}
+  .byline{font-family:var(--sans);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--note);margin:0 0 22px}
+  .byline b{color:var(--ink)}
+  .lead .body p{margin:0 0 14px;font-size:1.02rem;color:var(--body);text-align:justify}
+  .lead .body p:first-child::first-letter{font-size:3.3em;font-weight:800;float:left;line-height:.82;padding:6px 10px 0 0;color:var(--crimson)}
+  .readmore{font-family:var(--sans);font-size:.85rem;font-weight:700;color:var(--crimson);text-decoration:none;border-bottom:2px solid var(--crimson-soft);transition:.2s}
+  .readmore:hover{border-bottom-color:var(--crimson)}
+
+  /* sidebar: index numbers */
+  .vitals{border-left:1px solid var(--line);padding-left:36px}
+  .vitals h3{font-family:var(--sans);font-size:.72rem;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--note);margin:0 0 20px}
+  .vnum{padding:14px 0;border-bottom:1px solid var(--line)}
+  .vnum:last-of-type{border-bottom:none}
+  .vnum .big{font-size:2.1rem;font-weight:800;line-height:1;letter-spacing:-.01em}
+  .vnum .big small{font-size:.9rem;color:var(--note);font-weight:600}
+  .vnum .cap{font-family:var(--sans);font-size:.78rem;color:var(--body);margin-top:5px}
+  .vnum .arrow{font-family:var(--sans);font-size:.72rem;font-weight:700}
+  .up{color:var(--pine)} .down{color:var(--crimson)}
+
+  /* ---- Columns section ---- */
+  section{padding:46px 0 8px}
+  .sec-head{display:flex;align-items:center;gap:18px;margin-bottom:30px}
+  .sec-head h2{font-size:1.5rem;font-weight:800;letter-spacing:.08em;margin:0;white-space:nowrap}
+  .sec-head .rule{flex:1;border-top:1px solid var(--ink);position:relative}
+  .sec-head .rule::after{content:"■";position:absolute;right:0;top:-9px;font-size:.6rem;color:var(--ink)}
+  .sec-head .en{font-family:var(--sans);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--note);white-space:nowrap}
+
+  .columns{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
+  .col-article{padding:26px 26px 30px;border-right:1px solid var(--line)}
+  .col-article:last-child{border-right:none}
+  .col-article .tag{font-family:var(--sans);font-size:.68rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--pine)}
+  .col-article h3{font-size:1.22rem;line-height:1.45;margin:10px 0 10px;font-weight:800}
+  .col-article h3 a{color:inherit;text-decoration:none}
+  .col-article h3 a:hover{color:var(--crimson)}
+  .col-article p{margin:0;color:var(--body);font-size:.92rem}
+  .col-article .meta{font-family:var(--sans);font-size:.72rem;color:var(--note);margin-top:14px;letter-spacing:.1em}
+
+  /* ---- Notice as classifieds ---- */
+  .classified{border:2px solid var(--ink);padding:30px 34px;background:var(--paper)}
+  .classified .cl-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:6px}
+  .classified .cl-head h2{font-size:1.35rem;font-weight:800;letter-spacing:.1em;margin:0}
+  .classified .cl-head span{font-family:var(--sans);font-size:.7rem;letter-spacing:.2em;color:var(--note);text-transform:uppercase}
+  .cl-item{display:grid;grid-template-columns:110px 1fr auto;gap:20px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .cl-item:last-child{border-bottom:none}
+  .cl-item .when{font-family:var(--mono);font-size:.76rem;color:var(--note)}
+  .cl-item .when b{display:block;color:var(--crimson);font-size:.68rem;letter-spacing:.1em;margin-top:3px;font-family:var(--sans)}
+  .cl-item h4{font-size:1.08rem;font-weight:800;margin:0 0 5px;line-height:1.45}
+  .cl-item p{margin:0;color:var(--body);font-size:.9rem;font-family:var(--sans);line-height:1.65}
+  .cl-item .go{font-family:var(--sans);font-size:.8rem;font-weight:700;color:var(--ink);text-decoration:none;white-space:nowrap;border-bottom:2px solid var(--gold)}
+  .cl-item .go:hover{color:var(--crimson);border-bottom-color:var(--crimson)}
+
+  /* ---- Lesson feature ---- */
+  .feature{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;border:2px solid var(--ink);background:var(--paper);margin-top:8px}
+  .f-left{padding:38px 34px;border-right:1px solid var(--line);background:var(--pine-soft)}
+  .f-left .chap{font-family:var(--sans);font-size:.7rem;font-weight:800;letter-spacing:.3em;color:var(--pine);text-transform:uppercase}
+  .f-left h3{font-size:1.8rem;line-height:1.3;margin:14px 0 12px;font-weight:800}
+  .f-left p{color:var(--body);font-size:.95rem;margin:0 0 22px}
+  .f-left .toc{font-family:var(--sans);font-size:.85rem}
+  .f-left .toc div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #C3D4C9}
+  .f-left .toc div:last-child{border-bottom:none}
+  .f-left .toc b{font-weight:700;color:var(--ink)}
+  .f-left .toc span{color:var(--pine);font-family:var(--mono);font-size:.76rem}
+  .f-right{padding:38px 38px}
+  .f-right .part{margin:0 0 24px}
+  .f-right .part .pn{font-family:var(--sans);font-size:.68rem;font-weight:800;letter-spacing:.26em;color:var(--crimson);text-transform:uppercase;display:flex;align-items:center;gap:10px}
+  .f-right .part .pn::after{content:"";flex:1;height:1px;background:var(--line)}
+  .f-right .part p{margin:8px 0 0;font-size:.98rem;color:var(--body);text-align:justify}
+  .quiz{border:2px solid var(--ink);padding:22px 24px;margin-top:6px}
+  .quiz .q{font-weight:800;font-size:1.05rem;margin:0 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:transparent;border:none;border-bottom:1px solid var(--line);padding:11px 4px;margin:0;font-size:.95rem;cursor:pointer;font-family:var(--serif);color:var(--ink);transition:.18s}
+  .opt:hover{background:var(--crimson-soft);padding-left:10px}
+  .opt.right{color:var(--pine);font-weight:800;border-bottom-color:var(--pine)}
+  .opt.wrong{color:var(--crimson);text-decoration:line-through}
+  .quiz .why{display:none;margin-top:14px;font-size:.9rem;color:var(--pine);border-left:3px solid var(--pine);padding:4px 0 4px 14px;line-height:1.7;font-family:var(--sans)}
+  .quiz .why.show{display:block;animation:fadein .3s}
+  @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  /* ---- BMI widget ---- */
+  .tool{border:2px solid var(--ink);background:var(--paper);padding:34px 38px;max-width:760px;margin:8px auto 0}
+  .tool .t-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:22px}
+  .tool .t-head h3{font-size:1.3rem;font-weight:800;margin:0}
+  .tool .t-head span{font-family:var(--sans);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--note)}
+  .tool .t-row{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .tool label{font-family:var(--sans);font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--note);display:block;margin-bottom:8px}
+  .tool input{width:100%;font-family:var(--serif);font-size:1.6rem;font-weight:800;background:transparent;border:none;border-bottom:2px solid var(--line);padding:6px 2px;color:var(--ink)}
+  .tool input:focus{outline:none;border-bottom-color:var(--crimson)}
+  .tool .res{display:flex;align-items:baseline;gap:22px;margin-top:28px;border-top:1px solid var(--line);padding-top:22px}
+  .tool .res .big{font-size:3.4rem;font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .tool .res .who{font-family:var(--sans);font-size:.9rem;color:var(--body);line-height:1.7}
+  .tool .res .who b{color:var(--ink)}
+
+  footer{margin-top:70px;border-top:3px solid var(--ink);padding:26px 0 46px;display:flex;justify-content:space-between;align-items:baseline;font-family:var(--sans);flex-wrap:wrap;gap:12px}
+  footer .fn{font-size:.78rem;color:var(--note)}
+  footer .fn b{color:var(--ink)}
+
+  @media(max-width:880px){
+    .lead,.feature{grid-template-columns:1fr}
+    .f-left{border-right:none;border-bottom:1px solid var(--line)}
+    .vitals{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:20px}
+    .columns{grid-template-columns:1fr}
+    .col-article{border-right:none;border-bottom:1px solid var(--line)}
+    .cl-item{grid-template-columns:1fr;gap:6px}
+    .tool .t-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <p class="vol">Vol. 01 · 慢病管理专辑</p>
+    <h1 class="masthead">慢病生活</h1>
+    <p class="latin">The Chronic Care Review</p>
+    <div class="dateline">二〇二六年 九月 · 创刊号</div>
+    <p class="motto">"把医学期刊上那些要紧的事，翻译成人人读得懂的大白话。"</p>
+  </header>
+
+  <div class="ruleband"></div>
+  <nav class="paper-nav">
+    <a class="on" href="#lead">本期头条</a>
+    <a href="#columns">专栏</a>
+    <a href="#classified">健康公告</a>
+    <a href="#feature">本期课程</a>
+    <a href="#tool">自查工具</a>
+  </nav>
+
+  <div class="lead" id="lead">
+    <div>
+      <div class="kicker-row"><span class="col">封面故事 · 高血压</span><span class="rule"></span><span class="date">2026-09-01</span></div>
+      <h2>换季了，你的血压<br>比夏天<span class="drop">高了几个格</span>吗</h2>
+      <p class="standfirst">气温每降 1℃，收缩压平均上升约 0.5–1 mmHg。入秋不必恐慌，但值得把量血压这件事重新认真起来。</p>
+      <p class="byline">文 · <b>慢病生活编辑部</b> · 阅读约 6 分钟</p>
+      <div class="body">
+        <p>入秋之后，不少人的血压悄悄上了一个台阶——这不是错觉。血管"热胀冷缩"，天凉时外周血管收缩，血压自然抬头。对正在服药的人来说，这恰恰是一年中最需要盯紧数据的几周。</p>
+        <p>编辑部的建议很简单：换季两周内，每天早晚各测一次，把数字记下来。是正常波动，还是需要调药，让连续的记录替你说话——复诊时带上一整页记录，比口头说"感觉高了"有用得多。</p>
+      </div>
+      <a class="readmore" href="#">阅读全文 →</a>
+    </div>
+    <aside class="vitals">
+      <h3>本期关键数字</h3>
+      <div class="vnum"><div class="big">5 <small>克/天</small></div><div class="cap">盐摄入推荐上限（约一啤酒瓶盖）</div><div class="arrow up">▲ 多数国人实际摄入 9–10 克</div></div>
+      <div class="vnum"><div class="big">135/85</div><div class="cap">家庭自测血压警戒线（mmHg）</div><div class="arrow down">▼ 比诊室标准 140/90 低 5 个单位</div></div>
+      <div class="vnum"><div class="big">150 <small>分钟/周</small></div><div class="cap">中等强度运动推荐量（如快走）</div><div class="arrow up">▲ 可拆成每天 30 分钟 × 5 天</div></div>
+      <div class="vnum"><div class="big">7.0<small>%</small></div><div class="cap">糖化血红蛋白一般控制目标</div><div class="arrow down">▼ 个体目标以主治医生意见为准</div></div>
+    </aside>
+  </div>
+
+  <section id="columns">
+    <div class="sec-head"><h2>三 个 专 栏</h2><span class="rule"></span><span class="en">Columns</span></div>
+    <div class="columns">
+      <article class="col-article">
+        <span class="tag">认识疾病</span>
+        <h3><a href="#">白大衣高血压：见到医生就紧张，算病吗</a></h3>
+        <p>诊室里 150，回到家 128——这层"白大衣滤镜"有多少是真实的健康信号？家里测 + 医院测，两本账要一起看。</p>
+        <div class="meta">第 1 篇 · 约 5 分钟</div>
+      </article>
+      <article class="col-article">
+        <span class="tag">吃动平衡</span>
+        <h3><a href="#">限盐的真相：盐藏在哪里，比放了多少更关键</a></h3>
+        <p>腐乳、挂面、酱油里的"隐形盐"占了每日摄入的大头。学会看营养成分表，限盐就从"凭感觉"变成"看得见"。</p>
+        <div class="meta">第 2 篇 · 约 5 分钟</div>
+      </article>
+      <article class="col-article">
+        <span class="tag">用药常识</span>
+        <h3><a href="#">血压正常了，降压药可以停吗</a></h3>
+        <p>这是后台被问得最多的问题。答案通常是"不能自行停"——为什么？这背后是"控制"和"治愈"两个概念的区别。</p>
+        <div class="meta">第 3 篇 · 约 6 分钟</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="classified">
+    <div class="classified">
+      <div class="cl-head"><h2>健 康 公 告</h2><span>Health Notices · 持续更新</span></div>
+      <div class="cl-item">
+        <div class="when">2026-09-01<b>换季提醒</b></div>
+        <div><h4>秋季血压波动期：连续两周，早晚各测一次</h4><p>气温下降血管收缩，换季期间建议加密监测并记录；复诊时把记录带去，让数据替你发言。</p></div>
+        <a class="go" href="#">查看详情</a>
+      </div>
+      <div class="cl-item">
+        <div class="when">2026-08-28<b>社区筛查</b></div>
+        <div><h4>9 月 15 日社区免费血糖筛查（需空腹 8 小时）</h4><p>上午 8:00–11:00，社区卫生服务中心二楼。前一晚十点后禁食，可少量饮水。</p></div>
+        <a class="go" href="#">查看详情</a>
+      </div>
+      <div class="cl-item">
+        <div class="when">2026-08-25<b>新课上线</b></div>
+        <div><h4>《看懂血脂化验单》已发布，阅读约 5 分钟</h4><p>总胆固醇、甘油三酯、LDL-C / HDL-C——每项代表什么、哪个箭头最要紧，一次讲清。</p></div>
+        <a class="go" href="#">开始阅读</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="feature">
+    <div class="sec-head"><h2>本 期 课 程</h2><span class="rule"></span><span class="en">Featured Lesson</span></div>
+    <div class="feature">
+      <div class="f-left">
+        <span class="chap">第 1 章 · 高血压 · 第 3 课</span>
+        <h3>140/90 不是随便定的：诊断标准怎么读</h3>
+        <p>为什么家里测和医院测的标准不一样？这 5 个单位差在哪里？读完这一课，你比多数人都明白自己的血压数字。</p>
+        <div class="toc">
+          <div><b>一句话结论</b><span>30 秒</span></div>
+          <div><b>讲透原理</b><span>2 分钟</span></div>
+          <div><b>别绕晕</b><span>1 分钟</span></div>
+          <div><b>想一想（测验）</b><span>1 分钟</span></div>
+          <div><b>下一课预告</b><span>10 秒</span></div>
+        </div>
+      </div>
+      <div class="f-right">
+        <div class="part"><div class="pn">一句话</div><p>高血压的诊断线，医院里测是 140/90，自己在家测要更严格——135/85 就算高了。</p></div>
+        <div class="part"><div class="pn">讲透</div><p>在家环境放松、没有"白大衣效应"，测出的数更接近真实血压，所以标准下调 5 个单位。诊断不能靠一次测量：不同日测三次都超标，才需要和医生谈诊断的事。</p></div>
+        <div class="quiz">
+          <p class="q">想一想：在家自测血压，达到多少就算偏高了？</p>
+          <button class="opt" onclick="pick(this,0)">A. 150 / 95 mmHg —— 这明显太高了</button>
+          <button class="opt" onclick="pick(this,1)">B. 140 / 90 mmHg —— 这是医院的标准</button>
+          <button class="opt" onclick="pick(this,2)">C. 135 / 85 mmHg —— 家里更严一点</button>
+          <button class="opt" onclick="pick(this,3)">D. 130 / 80 mmHg —— 这是"正常高值"的界线</button>
+          <div class="why" id="why">✓ 正确答案 C。家庭自测的警戒线是 135/85，比诊室标准（140/90）低 5 个单位——因为在家更放松，数字更真实。记不住就记"家里更严一点"。</div>
+        </div>
+        <div class="part" style="margin-top:24px"><div class="pn">接着读</div><p>下一课：《在家测血压的 5 个正确姿势》——袖带位置、测量时间、记录方法，一次配齐。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tool">
+    <div class="sec-head"><h2>自 查 工 具</h2><span class="rule"></span><span class="en">Self Check</span></div>
+    <div class="tool">
+      <div class="t-head"><h3>体质指数（BMI）计算</h3><span>输入身高体重，即时计算</span></div>
+      <div class="t-row">
+        <div><label>身高 Height (cm)</label><input id="h" type="number" value="172" min="80" max="250" oninput="bmi()"></div>
+        <div><label>体重 Weight (kg)</label><input id="w" type="number" value="78" min="20" max="300" oninput="bmi()"></div>
+      </div>
+      <div class="res">
+        <div class="big" id="val">—</div>
+        <div class="who" id="who"><b>请输入身高与体重。</b><br>BMI 是初筛工具，肌肉量高的人可能被"误判"，仅供参考。</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fn"><b>慢病生活 · The Chronic Care Review</b> · 草案 C（杂志编辑风）</div>
+    <div class="fn">内容仅供健康科普，不构成诊疗建议 · 有不适请及时就医</div>
+  </footer>
+</div>
+
+<script>
+function pick(btn,i){
+  var opts=btn.parentNode.querySelectorAll('.opt');
+  opts.forEach(function(o){o.classList.remove('right','wrong')});
+  if(i===2){btn.classList.add('right')}else{btn.classList.add('wrong')}
+  document.getElementById('why').classList.add('show');
+}
+function bmi(){
+  var h=+document.getElementById('h').value/100, w=+document.getElementById('w').value;
+  var val=document.getElementById('val'), who=document.getElementById('who');
+  if(h>0.5&&w>10){
+    var b=w/(h*h);
+    val.textContent=b.toFixed(1);
+    var cat,col,adv;
+    if(b<18.5){cat='偏瘦';col='#B98A2E';adv='体重偏低。慢病管理同样需要足够的营养储备，建议咨询医生或营养师评估饮食结构。'}
+    else if(b<24){cat='正常';col='#2E5A4C';adv='体重在正常范围。保持现有饮食与运动习惯，每 6–12 个月复查一次即可。'}
+    else if(b<28){cat='超重';col='#B98A2E';adv='进入超重区间。对血压、血糖、血脂而言，减重 5% 就能带来明确的获益——从每天多走 2000 步开始。'}
+    else{cat='肥胖';col='#A33B2E';adv='达到肥胖标准。建议就诊评估代谢指标（血压/血糖/血脂），在医生指导下制定减重计划，不必自行极端节食。'}
+    val.style.color=col;
+    who.innerHTML='<b>'+cat+'</b><br>'+adv;
+  } else { val.textContent='—'; val.style.color=''; }
+}
+bmi();
+</script>
+</body>
+</html>
