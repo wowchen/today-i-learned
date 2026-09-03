@@ -45,6 +45,12 @@ const TERMS=[
   ['retinopathy','视网膜病变','糖尿病眼部微血管病变,早期无症状,是工作年龄人群致盲的首因之一。'],
   ['nephropathy','糖尿病肾病','最早信号是尿微量白蛋白升高,放任发展可致肾功能衰竭,需每年筛查。'],
   ['uacr','尿微量白蛋白','尿液里检出的少量白蛋白,是糖尿病肾伤最早期的信号,比常规尿蛋白试纸早好几年,应每年查一次。'],
+  ['mi','心肌梗死','冠状动脉被血栓急性堵死致心肌坏死,胸痛持续超 15 分钟须立即拨 120。'],
+  ['stroke','脑卒中','脑梗死与脑出血的统称,高血压是第一位危险因素,FAST 口诀识别、救治有时间窗。'],
+  ['tia','TIA','短暂性脑缺血发作,俗称小中风:症状几分钟到几小时完全恢复,却是大中风的前哨,当天就要就诊。'],
+  ['thrombolysis','溶栓','用药物溶解血栓,脑梗静脉溶栓黄金时间窗为发病 4.5 小时内,越早越好。'],
+  ['stent','支架植入','球囊撑开狭窄血管后放入金属网管保持开通,是心梗救治的关键手段,黄金时间 90 分钟。'],
+  ['thrombectomy','取栓','导管进入血管把大血栓直接取出,大血管堵塞脑梗经评估可延至发病 24 小时内。'],
   ['referral','转诊','社区医生根据病情把你推荐到上级医院对应科室的过程。']
 ].map(t=>({id:t[0],cn:t[1],def:t[2]}));
 if(!TERMS.some(t=>t.id==='hypertension-crisis')){}
@@ -116,7 +122,7 @@ let kwN=kwLinked;
 /* ---------- 注入 index.html ---------- */
 const idxPath=path.join(ROOT,'index.html');
 let html=fs.readFileSync(idxPath,'utf8');
-const inject='<!-- content:start -->\n<script src="content/modules.js?v=20260904"></script>\n<script src="content/lessons.js?v=20260904"></script>\n<script src="content/terms.js?v=20260904"></script>\n<script src="content/notices.js?v=20260904"></script>\n<!-- content:end -->';
+const inject='<!-- content:start -->\n<script src="content/modules.js?v=20260905"></script>\n<script src="content/lessons.js?v=20260905"></script>\n<script src="content/terms.js?v=20260905"></script>\n<script src="content/notices.js?v=20260905"></script>\n<!-- content:end -->';
 html=html.replace(/<!-- content:start -->[\s\S]*?<!-- content:end -->/, inject);
 fs.writeFileSync(idxPath,html);
 
