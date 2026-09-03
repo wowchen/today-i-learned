@@ -3,8 +3,13 @@
   window.CDC=window.CDC||{};
 
   function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  window.CDC=window.CDC||{}; CDC.esc=esc;   /* 供 views-tools 等模块复用 */
 
   /* ===== 共享小部件 ===== */
+  CDC.ecgSVG=function(){
+    return '<svg class="ecg" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">'
+    +'<path d="M0,22 L40,22 L48,14 L56,30 L64,22 L110,22 L118,22 L124,6 L132,38 L140,22 L190,22 L198,14 L206,30 L214,22 L260,22 L268,22 L274,10 L282,34 L290,22 L300,22" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  };
   CDC.footer=function(){
     return '<footer><b>慢病管理站 · Chronic Care</b> · 纯静态 · 离线可用<br>'
     +'<div class="med">⚠️ 本站内容仅为健康科普，不能替代医生的诊断与治疗建议。用药请遵医嘱，身体不适请及时就医。数据仅存于你的浏览器本机。</div></footer>';
@@ -70,8 +75,13 @@
     if(i===answer){ btn.classList.add('right'); } else { btn.classList.add('wrong'); opts[answer].classList.add('right'); }
     CDC.progress.recordQuiz(lid,i===answer);
     var why=box.querySelector('.why'); if(why) why.classList.add('show');
-    /* 答题即视为学到东西:标记课程完成 */
-    CDC.progress.setDone(lid,true);
+    /* 注意:答题不自动标记课程完成——由页面底部"标记已学"按钮控制 */
+  };
+  CDC.markDone=function(btn,id){
+    if(CDC.progress.isDone(id)) return;
+    CDC.progress.setDone(id,true);
+    btn.textContent='已学 ✓'; btn.disabled=true;
+    btn.classList.remove('btn-p'); btn.classList.add('btn-g');
   };
 
   /* ===== 设置页:导入导出 / 重置 / sync ===== */
@@ -131,4 +141,30 @@
     var m=new RegExp('(?:^|&)'+k+'=([^&]*)').exec(h);
     return m?decodeURIComponent(m[1]):'';
   };
+
+  /* ===== 术语气泡(移动端可点,事件委托) ===== */
+  (function(){
+    var pop=null;
+    function ensurePop(){
+      if(pop) return pop;
+      pop=document.createElement('div'); pop.className='termpop'; pop.id='termPop';
+      document.body.appendChild(pop); return pop;
+    }
+    document.addEventListener('click',function(e){
+      var kw=e.target.closest ? e.target.closest('.kw[data-term]') : null;
+      var p=ensurePop();
+      if(kw){
+        var slug=kw.getAttribute('data-term');
+        var t=(CDC.terms||[]).filter(function(x){return x.id===slug})[0];
+        if(!t) return;
+        p.innerHTML='<b>'+t.cn+'</b>'+t.def;
+        var r=kw.getBoundingClientRect();
+        p.style.left=Math.max(8,Math.min(window.innerWidth-248,r.left))+'px';
+        p.style.top=(r.bottom+8+window.scrollY)+'px';
+        p.classList.add('show');
+      } else if(!p.contains(e.target)){
+        p.classList.remove('show');
+      }
+    });
+  })();
 })();

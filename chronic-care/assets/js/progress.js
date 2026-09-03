@@ -38,10 +38,12 @@
       save();
     },
     tool:function(tid,key,val){
-      var s=load(); var t=s.tools[tid]||(s.tools[tid]={});
-      if(key===undefined) return t;
-      if(val===undefined) return t[key];
-      t[key]=val; save(); return val;
+      var s=load();
+      if(key===undefined && val===undefined) return s.tools[tid];      // 读整个
+      if(key===null){ s.tools[tid]=val; save(); return val; }          // 写整个(覆盖)
+      var t=s.tools[tid]||(s.tools[tid]={});
+      if(val===undefined) return t[key];                               // 读单项
+      t[key]=val; save(); return val;                                  // 写单项
     },
     moduleProg:function(modId,lessonIds){
       var done=0; lessonIds.forEach(function(id){ if(load().lessons[id]) done++; });
@@ -63,19 +65,28 @@
       save(); return true;
     },
     merge:function(remote){
-      /* 按 updatedAt 逐条合并:新覆盖旧 */
+      /* 逐条合并:每条记录比时间戳,新覆盖旧(activity 数值取 max)——两台设备同时学习不丢数据 */
       var s=load(); if(!remote||typeof remote!=='object') return;
-      var rn=+remote.updatedAt||0, ln=+s.updatedAt||0;
-      if(rn<=ln) return;
       ['lessons','activity','quizzes','tools'].forEach(function(k){
         var src=remote[k]||{}; if(!s[k]) s[k]={};
         Object.keys(src).forEach(function(id){
           var a=s[k][id], b=src[id];
-          var at=a&&(a.at||a.updatedAt||0), bt=b&&(b.at||b.updatedAt||0);
-          if(!a||( !at && !bt )||bt>=at||typeof a!=='object'||typeof b!=='object'){ s[k][id]=b; }
+          if(k==='activity'){
+            /* 数值型:两边取大,叠加学习天数互不覆盖 */
+            var av=(typeof a==='number')?a:0, bv=(typeof b==='number')?b:0;
+            if(bv>av) s[k][id]=bv;
+          } else if(a===undefined || a===null){
+            s[k][id]=b;
+          } else if(typeof a==='object' && typeof b==='object'){
+            var at=a.at||a.updatedAt||0, bt=b.at||b.updatedAt||0;
+            if(bt>at) s[k][id]=b;
+          }
+          /* 其余情况(类型不匹配等)保留本地 */
         });
       });
-      s.updatedAt=rn; save();
+      var rn=+remote.updatedAt||0, ln=+s.updatedAt||0;
+      if(rn>ln) s.updatedAt=rn;
+      save();
     },
     resetAll:function(){
       try{ localStorage.removeItem(KEY); }catch(e){}

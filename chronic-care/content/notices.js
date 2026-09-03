@@ -6,8 +6,8 @@ CDC.notices=[
   "kind": "重要",
   "title": "秋季血压易波动：换季监测提醒",
   "body": "气温下降血管收缩，血压容易比夏天高一些。建议换季两周内每天早晚各测一次血压并记录，复诊时把记录带给医生——让数据替你说话。",
-  "cta": "去测血压",
-  "link": "#/lesson?id=hypertension-04"
+  "cta": "去学这课",
+  "link": "#/lesson?id=hypertension-12"
  },
  {
   "date": "2026-08-28",

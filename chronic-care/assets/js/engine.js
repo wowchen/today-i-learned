@@ -23,6 +23,7 @@
     +'<div class="hero"><div>'
       +'<span class="pill"><span class="dot"></span>高风险慢病 · 防大于治</span>'
       +'<h1>把高血压、糖尿病<br>讲成<em>大白话</em></h1>'
+      +CDC.ecgSVG()
       +'<p class="lede">不背指南原文，不贩卖焦虑。每节课 5 分钟，讲透一个慢病知识点——诊断标准怎么看、盐怎么减、药能不能停，一篇说明白。内容仅供健康科普，不替代医嘱。</p>'
       +'<div class="hero-actions">'
         +'<button class="btn btn-p" onclick="CDC.nav(\''+CDC.firstLessonHash()+'\')">开始学习 →</button>'
@@ -40,7 +41,7 @@
     +'</div></div>'
 
     +'<div class="strip">'
-      +'<div class="stat"><div class="n"><i>'+(CDC.META.ndiseases||6)+'</i> 大慢病</div><div class="t">高血压 / 糖尿病 / 血脂…</div></div>'
+      +'<div class="stat"><div class="n"><i>'+(CDC.META.ndiseases||3)+'</i> 大慢病</div><div class="t">高血压 / 糖尿病 / 血脂异常</div></div>'
       +'<div class="stat"><div class="n"><i>'+totalL+'</i> 节微课</div><div class="t">每节 5 分钟 · 五段式讲透</div></div>'
       +'<div class="stat"><div class="n"><i>'+(CDC.TOOL_LIST.length)+'</i> 个工具</div><div class="t">血压 / BMI / 盐分 / 记录 / 打卡</div></div>'
       +'<div class="stat"><div class="n"><i>0</i> 广告</div><div class="t">纯静态离线 · 不替代医嘱</div></div>'
@@ -102,6 +103,11 @@
         +'<div class="why" id="quizWhy">'+hit.quiz.why+'</div>'
       +'</div>'
       +(hit.next?'<div class="seg" style="margin-top:18px;margin-bottom:0"><span class="k">接着读</span><p>'+hit.next+'</p></div>':'')
+      +'<div style="text-align:center;margin-top:22px">'
+        +(CDC.progress.isDone(id)
+          ?'<button class="btn btn-g btn-sm" disabled>已学 ✓</button>'
+          :'<button class="btn btn-p btn-sm" onclick="CDC.markDone(this,\''+hit.id+'\')">✓ 标记已学</button>')
+      +'</div>'
       +'<div class="nextnav">'
         +(prev?'<button class="btn btn-g btn-sm" onclick="CDC.nav(\'#/lesson?id='+prev.l.id+'\')">← '+prev.l.title+'</button>':'<span></span>')
         +(next?'<button class="btn btn-p btn-sm" onclick="CDC.nav(\'#/lesson?id='+next.l.id+'\')">'+next.l.title+' →</button>':'<span></span>')

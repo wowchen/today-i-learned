@@ -149,7 +149,20 @@ section{padding:50px 0 8px}
 .seg .k{display:inline-block;font-size:.68rem;font-weight:800;color:var(--teal-dk);background:var(--teal-soft);padding:2px 11px;border-radius:99px;margin-bottom:8px;letter-spacing:.1em}
 .seg p{margin:0;color:var(--body);font-size:.95rem}
 .seg p b{color:var(--ink)}
-.kw{color:var(--teal-dk);font-weight:700;border-bottom:1.5px dotted var(--teal);cursor:help;text-decoration:none}
+.kw{color:var(--teal-dk);font-weight:700;border-bottom:1.5px dotted var(--teal);cursor:pointer;text-decoration:none}
+.termpop{position:absolute;z-index:99;max-width:240px;background:#0F2E3A;color:#E5F2F5;font-size:.8rem;line-height:1.65;padding:11px 14px;border-radius:12px;opacity:0;pointer-events:none;transform:translateY(5px);transition:.18s;box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.termpop.show{opacity:1;pointer-events:auto;transform:none}
+.termpop b{display:block;margin-bottom:3px;color:#6FC4CB}
+
+/* ---------- ECG 心电动画(首页 hero) ---------- */
+.ecg{width:100%;max-width:340px;height:44px;display:block;margin:16px 0 0;overflow:visible}
+.ecg path{stroke-dasharray:520;stroke-dashoffset:520;animation:ecgDraw 3.2s linear infinite;filter:drop-shadow(0 0 6px rgba(14,124,134,.35))}
+@keyframes ecgDraw{0%{stroke-dashoffset:520}62%{stroke-dashoffset:0}100%{stroke-dashoffset:-520}}
+.mod .ic{transition:transform .2s}
+.mod:hover .ic{animation:beat .9s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}25%{transform:scale(1.12)}40%{transform:scale(1)}55%{transform:scale(1.08)}}
+@media (prefers-reduced-motion: reduce){.ecg path{animation:none;stroke-dashoffset:0}.mod:hover .ic{animation:none}.pill .dot{animation:none}}
+
 .nextnav{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:26px;padding-top:20px}
 .nextnav button{max-width:48%}
 

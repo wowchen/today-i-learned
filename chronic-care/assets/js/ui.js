@@ -11,12 +11,18 @@
     try{ t=localStorage.getItem(THEME_KEY)|| (window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'); }catch(e){}
     applyTheme(t);
   }
+  function syncBtn(){
+    var tb=document.querySelector('.theme-btn');
+    if(tb) tb.textContent = document.documentElement.getAttribute('data-theme')==='dark' ? '☀️' : '🌙';
+  }
   window.CDC=window.CDC||{};
   CDC.toggleTheme=function(){
     var cur=document.documentElement.getAttribute('data-theme')||'light';
     applyTheme(cur==='dark'?'light':'dark');
+    syncBtn();
   };
   CDC.initTheme=initTheme;
+  CDC.syncThemeBtn=syncBtn;
 
   /* 心电图 logo */
   CDC.icons={

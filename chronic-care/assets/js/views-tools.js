@@ -2,6 +2,19 @@
 (function(){
   window.CDC=window.CDC||{};
 
+  /* ---- 数据规范化:tool() 首次默认给 {},这里兜底成正确形状 ---- */
+  function recList(){
+    var v=CDC.progress.tool('rec');
+    if(!Array.isArray(v)) { v=[]; CDC.progress.tool('rec',null,v); }
+    return v;
+  }
+  function medData(){
+    var v=CDC.progress.tool('med');
+    if(!v || !Array.isArray(v.list)) { v={list:[],taken:{},day:''}; CDC.progress.tool('med',null,v); }
+    if(!v.taken) v.taken={};
+    return v;
+  }
+
   /* ============ 1. 血压分级评估 ============ */
   CDC.toolBp=function(){
     return '<h3>🩺 血压分级评估</h3><p class="hint">输入一次测量的收缩压 / 舒张压，看它落在哪一档。仅供学习，不构成诊断。</p>'
@@ -38,7 +51,11 @@
   };
   CDC.bpRecord=function(){
     var b=CDC._bpLast; if(!b){alert('先输入血压值');return;}
-    CDC.recAdd('bp',b.s+'/'+b.d);
+    /* 与 recSubmit 相同的 mix 结构,保证记录本图表可见 */
+    var list=recList();
+    list.unshift({t:Date.now(),kind:'mix',v:{s:b.s,d:b.d,g:0,w:0}});
+    if(list.length>200) list.length=200;
+    CDC.progress.tool('rec',null,list);
     alert('已记入健康记录本 ✓ 可在下方"健康记录本"查看趋势');
   };
 
@@ -107,7 +124,7 @@
     +'<div class="recent" id="recList"></div>';
   };
   CDC.recAdd=function(kind,valStr){
-    var list=CDC.progress.tool('rec')||[];
+    var list=recList();
     list.unshift({t:Date.now(),kind:kind,v:valStr});
     if(list.length>200) list.length=200;
     CDC.progress.tool('rec',null,list);
@@ -121,7 +138,7 @@
     CDC.recRender();
   };
   CDC.recRender=function(){
-    var list=(CDC.progress.tool('rec')||[]).filter(function(x){return x.kind==='mix'});
+    var list=recList().filter(function(x){return x.kind==='mix'});
     var svg=document.getElementById('recChart'), lg=document.getElementById('recLegend'), li=document.getElementById('recList');
     if(!svg) return;
     /* 简单折线: 收缩压 */
@@ -148,7 +165,7 @@
 
   /* ============ 5. 服药打卡 ============ */
   CDC.toolMed=function(){
-    var data=CDC.progress.tool('med')||{list:[],day:'',taken:{}};
+    var data=medData();
     return '<h3>💊 服药打卡</h3><p class="hint">添加自己的药物清单，每天勾选打卡，次日自动重置。漏服一天别慌，别自行补双倍——详见「用药与监测」模块。</p>'
     +'<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">'
     +'<div class="field" style="flex:2;min-width:150px"><label>药名</label><input id="medName" placeholder="如 氨氯地平"></div>'
@@ -161,25 +178,25 @@
   CDC.medAdd=function(){
     var name=document.getElementById('medName').value.trim(); if(!name){alert('填个药名');return;}
     var freq=document.getElementById('medFreq').value;
-    var data=CDC.progress.tool('med')||{list:[],day:'',taken:{}};
+    var data=medData();
     data.list.push({n:name,f:freq});
     CDC.progress.tool('med',null,data);
     document.getElementById('medName').value='';
     CDC.medRender();
   };
   CDC.medDel=function(i){
-    var data=CDC.progress.tool('med')||{list:[],day:'',taken:{}};
+    var data=medData();
     data.list.splice(i,1); CDC.progress.tool('med',null,data); CDC.medRender();
   };
   CDC.medToggle=function(i){
-    var data=CDC.progress.tool('med')||{list:[],day:'',taken:{}};
+    var data=medData();
     if(data.day!==medDay()){data.day=medDay();data.taken={};}
     data.taken[i]=!data.taken[i];
     CDC.progress.tool('med',null,data); CDC.medRender();
   };
   CDC.medRender=function(){
     var box=document.getElementById('medList'); if(!box) return;
-    var data=CDC.progress.tool('med')||{list:[],day:'',taken:{}};
+    var data=medData();
     if(data.day!==medDay()){data.taken={};data.day=medDay();}
     if(!data.list.length){box.innerHTML='<div class="setmsg">还没有药物记录——添加一支试试。</div>';return;}
     var done=data.list.filter(function(_,i){return data.taken[i]}).length;
@@ -187,7 +204,7 @@
     +data.list.map(function(m,i){
       var on=!!data.taken[i];
       return '<div class="medrow"><input type="checkbox" '+(on?'checked':'')+' onchange="CDC.medToggle('+i+')" style="accent-color:var(--teal);width:17px;height:17px">'
-      +'<b style="'+(on?'text-decoration:line-through;color:var(--note)':'')+'">'+esc(m.n)+'</b><span class="when">'+esc(m.f)+'</span>'
+      +'<b style="'+(on?'text-decoration:line-through;color:var(--note)':'')+'">'+CDC.esc(m.n)+'</b><span class="when">'+CDC.esc(m.f)+'</span>'
       +'<button class="btn btn-g btn-sm" style="padding:4px 10px" onclick="CDC.medDel('+i+')">删</button></div>';
     }).join('');
   };
