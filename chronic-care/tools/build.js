@@ -39,6 +39,12 @@ const TERMS=[
   ['chronic-disease-clinic','慢病门诊','医院或社区针对慢病患者的长期处方与随访服务。'],
   ['hypertension-crisis','高血压急症','血压骤升(常 >180/120)伴头痛/视物模糊/胸痛等,需立即就医。'],
   ['foot-care','足部护理','糖尿病患者每日检查双足,预防糖尿病足的关键日常动作。'],
+  ['dka','酮症酸中毒','糖尿病急性并发症:胰岛素严重不足致酮体堆积、血液变酸,呼气可有烂苹果味,需立即急诊。'],
+  ['hhs','高渗高血糖状态','多见于老年 2 型的糖尿病急性并发症:血糖常超 33.3 mmol/L,伴极度脱水与意识障碍。'],
+  ['diabetic-foot','糖尿病足','神经病变与血管病变叠加致足部溃疡/感染/坏疽,是截肢的首要原因之一。'],
+  ['retinopathy','视网膜病变','糖尿病眼部微血管病变,早期无症状,是工作年龄人群致盲的首因之一。'],
+  ['nephropathy','糖尿病肾病','最早信号是尿微量白蛋白升高,放任发展可致肾功能衰竭,需每年筛查。'],
+  ['uacr','尿微量白蛋白','尿液里检出的少量白蛋白,是糖尿病肾伤最早期的信号,比常规尿蛋白试纸早好几年,应每年查一次。'],
   ['referral','转诊','社区医生根据病情把你推荐到上级医院对应科室的过程。']
 ].map(t=>({id:t[0],cn:t[1],def:t[2]}));
 if(!TERMS.some(t=>t.id==='hypertension-crisis')){}
@@ -110,7 +116,7 @@ let kwN=kwLinked;
 /* ---------- 注入 index.html ---------- */
 const idxPath=path.join(ROOT,'index.html');
 let html=fs.readFileSync(idxPath,'utf8');
-const inject='<!-- content:start -->\n<script src="content/modules.js?v=20260903d"></script>\n<script src="content/lessons.js?v=20260903d"></script>\n<script src="content/terms.js?v=20260903d"></script>\n<script src="content/notices.js?v=20260903d"></script>\n<!-- content:end -->';
+const inject='<!-- content:start -->\n<script src="content/modules.js?v=20260904"></script>\n<script src="content/lessons.js?v=20260904"></script>\n<script src="content/terms.js?v=20260904"></script>\n<script src="content/notices.js?v=20260904"></script>\n<!-- content:end -->';
 html=html.replace(/<!-- content:start -->[\s\S]*?<!-- content:end -->/, inject);
 fs.writeFileSync(idxPath,html);
 

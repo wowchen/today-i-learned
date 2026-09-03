@@ -116,26 +116,38 @@ CDC.modules=[
    },
    {
     "id": "diabetes-10",
-    "title": "每年该查什么：并发症筛查清单"
+    "title": "急性并发症：酮症酸中毒与高渗高血糖"
    },
    {
     "id": "diabetes-11",
-    "title": "吃：餐盘法则实战版"
+    "title": "慢性并发症：糖尿病足——滑坡的每一步都能踩刹车"
    },
    {
     "id": "diabetes-12",
-    "title": "动：控糖的运动账"
+    "title": "慢性并发症：眼睛与肾脏——两个沉默的受害者"
    },
    {
     "id": "diabetes-13",
-    "title": "减轻 5%：身体给你的一次机会"
+    "title": "每年该查什么：并发症筛查清单"
    },
    {
     "id": "diabetes-14",
-    "title": "糖友用药地图：从二甲双胍到胰岛素"
+    "title": "吃：餐盘法则实战版"
    },
    {
     "id": "diabetes-15",
+    "title": "动：控糖的运动账"
+   },
+   {
+    "id": "diabetes-16",
+    "title": "减轻 5%：身体给你的一次机会"
+   },
+   {
+    "id": "diabetes-17",
+    "title": "糖友用药地图：从二甲双胍到胰岛素"
+   },
+   {
+    "id": "diabetes-18",
     "title": "监测节奏：什么时候测、测多少"
    }
   ]
@@ -361,4 +373,4 @@ CDC.modules=[
   ]
  }
 ];
-CDC.flatLessons=["hypertension-01","hypertension-02","hypertension-03","hypertension-04","hypertension-05","hypertension-06","hypertension-07","hypertension-08","hypertension-09","hypertension-10","hypertension-11","hypertension-12","hypertension-13","hypertension-14","hypertension-15","diabetes-01","diabetes-02","diabetes-03","diabetes-04","diabetes-05","diabetes-06","diabetes-07","diabetes-08","diabetes-09","diabetes-10","diabetes-11","diabetes-12","diabetes-13","diabetes-14","diabetes-15","lipids-01","lipids-02","lipids-03","lipids-04","lipids-05","lipids-06","lipids-07","lipids-08","lipids-09","lipids-10","diet-move-01","diet-move-02","diet-move-03","diet-move-04","diet-move-05","diet-move-06","diet-move-07","diet-move-08","diet-move-09","diet-move-10","diet-move-11","medication-01","medication-02","medication-03","medication-04","medication-05","medication-06","medication-07","medication-08","medication-09","medication-10","medication-11","visit-01","visit-02","visit-03","visit-04","visit-05","visit-06","visit-07","visit-08","visit-09","visit-10","visit-11","visit-12","visit-13","visit-14"];
+CDC.flatLessons=["hypertension-01","hypertension-02","hypertension-03","hypertension-04","hypertension-05","hypertension-06","hypertension-07","hypertension-08","hypertension-09","hypertension-10","hypertension-11","hypertension-12","hypertension-13","hypertension-14","hypertension-15","diabetes-01","diabetes-02","diabetes-03","diabetes-04","diabetes-05","diabetes-06","diabetes-07","diabetes-08","diabetes-09","diabetes-10","diabetes-11","diabetes-12","diabetes-13","diabetes-14","diabetes-15","diabetes-16","diabetes-17","diabetes-18","lipids-01","lipids-02","lipids-03","lipids-04","lipids-05","lipids-06","lipids-07","lipids-08","lipids-09","lipids-10","diet-move-01","diet-move-02","diet-move-03","diet-move-04","diet-move-05","diet-move-06","diet-move-07","diet-move-08","diet-move-09","diet-move-10","diet-move-11","medication-01","medication-02","medication-03","medication-04","medication-05","medication-06","medication-07","medication-08","medication-09","medication-10","medication-11","visit-01","visit-02","visit-03","visit-04","visit-05","visit-06","visit-07","visit-08","visit-09","visit-10","visit-11","visit-12","visit-13","visit-14"];
