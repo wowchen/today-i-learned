@@ -50,6 +50,11 @@ const TERMS=[
   ['tia','TIA','短暂性脑缺血发作,俗称小中风:症状几分钟到几小时完全恢复,却是大中风的前哨,当天就要就诊。'],
   ['thrombolysis','溶栓','用药物溶解血栓,脑梗静脉溶栓黄金时间窗为发病 4.5 小时内,越早越好。'],
   ['stent','支架植入','球囊撑开狭窄血管后放入金属网管保持开通,是心梗救治的关键手段,黄金时间 90 分钟。'],
+  ['metabolic-syndrome','代谢综合征','腹型肥胖+胰岛素抵抗为土壤,血压血糖血脂多项异常并存,需作为整体管理的状态。'],
+  ['insulin-resistance','胰岛素抵抗','胰岛素降糖效率下降,身体代偿性多分泌,是三高共同的土壤。'],
+  ['gastroparesis','胃轻瘫','胃排空延迟:早饱恶心腹胀,血糖谱忽高忽低难解释,是血糖难控的隐性原因。'],
+  ['cgm','CGM','持续葡萄糖监测:14天一贴自动连测,把散点变曲线,TIR>70%是常用目标。'],
+  ['polypharmacy','多重用药','同时服用5种以上药物,相互作用与重复用药风险上升,需定期清点药单。'],
   ['thrombectomy','取栓','导管进入血管把大血栓直接取出,大血管堵塞脑梗经评估可延至发病 24 小时内。'],
   ['referral','转诊','社区医生根据病情把你推荐到上级医院对应科室的过程。']
 ].map(t=>({id:t[0],cn:t[1],def:t[2]}));
@@ -122,7 +127,7 @@ let kwN=kwLinked;
 /* ---------- 注入 index.html ---------- */
 const idxPath=path.join(ROOT,'index.html');
 let html=fs.readFileSync(idxPath,'utf8');
-const inject='<!-- content:start -->\n<script src="content/modules.js?v=20260905"></script>\n<script src="content/lessons.js?v=20260905"></script>\n<script src="content/terms.js?v=20260905"></script>\n<script src="content/notices.js?v=20260905"></script>\n<!-- content:end -->';
+const inject='<!-- content:start -->\n<script src="content/modules.js?v=20260906"></script>\n<script src="content/lessons.js?v=20260906"></script>\n<script src="content/terms.js?v=20260906"></script>\n<script src="content/notices.js?v=20260906"></script>\n<!-- content:end -->';
 html=html.replace(/<!-- content:start -->[\s\S]*?<!-- content:end -->/, inject);
 fs.writeFileSync(idxPath,html);
 
