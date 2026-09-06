@@ -1,6 +1,6 @@
 # 健身与运动学习站 · 项目说明(给 AI 与人类协作者)
 
-用大白话**中文**讲透健身与运动的科普通识站：入门通识 + 身体认知 + 力量训练 + 有氧耐力 + 柔韧拉伸 + 核心稳定 + 高强度间歇 + 体态与功能 + 运动营养 + 恢复与睡眠 + 减脂与塑形 + 增肌与力量 + 运动心理 + 运动项目。
+用大白话**中文**讲透健身与运动的科普通识站：入门通识 + 身体认知 + 力量训练 + 有氧耐力 + 柔韧拉伸 + 核心稳定 + 高强度间歇 + 体态与功能 + 运动营养 + 恢复与睡眠 + 损伤与防护 + 特殊人群 + 减脂与塑形 + 增肌与力量 + 运动心理 + 运动项目。
 纯静态、零依赖、零构建：浏览器直接打开 `index.html` 即可运行(`file://` 可用)，GitHub Pages 托管。
 
 ## 目录结构
@@ -12,12 +12,12 @@ assets/js/                 SPA 引擎(从 guitar-singing 克隆，命名空间 G
   registry.js  progress.js  sync.js  ui.js
   views-home.js  views-lesson.js  views-tools.js  engine.js
 content/
-  modules.js               14 模块元信息 + 学习路线(89 课，自动生成)
-  terms.js                 全站术语库(92 条，自动生成)
+  modules.js               16 模块元信息 + 学习路线(101 课，自动生成)
+  terms.js                 全站术语库(115 条，自动生成)
   <模块目录>/NN-slug.js     各模块课程(自动生成)
 tools/
   build.js                 单一数据源生成器(MODULES + TERMS + 加载 _src)
-  _src/                    14 个模块的课程源数据(L.<moduleId> = [...])
+  _src/                    16 个模块的课程源数据(L.<moduleId> = [...])
 _demos/                    建站前的三选一视觉风格 demo(野·Wild 已选用，可留作参考)
 ```
 
