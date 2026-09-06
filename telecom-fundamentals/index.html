@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>通信通识 · 传输光网络</title>
+<meta name="description" content="大白话讲透通信与光传输(科普通识)：通信基础、传输介质、光器件与光模块、PDH 与 SDH、波分与 OTN、保护与组网、接入网 PON、传输网运维、机房与动环、光缆防护与未来。10 模块 66 课，五段式含"想一想"，重直觉与工程实战、不堆公式不故弄玄虚，含 dBm 换算/光链路预算/速率等级速查/纤芯配色四个互动工具。浅色光纤蓝青+深色深海蓝双主题(光纤+光脉冲动效)、纯静态离线。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('tcm.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    通信通识 <small>· Fiber</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="TCM.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 TCM.path 生成) -->
+<script src="content/basics/01-what.js"></script>
+<script src="content/basics/02-analog-digital.js"></script>
+<script src="content/basics/03-bandwidth.js"></script>
+<script src="content/basics/04-protocol.js"></script>
+<script src="content/basics/05-layering.js"></script>
+<script src="content/basics/06-packet.js"></script>
+<script src="content/basics/07-latency.js"></script>
+<script src="content/media/01-twisted.js"></script>
+<script src="content/media/02-coax.js"></script>
+<script src="content/media/03-fiber.js"></script>
+<script src="content/media/04-single-mode.js"></script>
+<script src="content/media/05-cable.js"></script>
+<script src="content/optics/01-three-elements.js"></script>
+<script src="content/optics/02-laser.js"></script>
+<script src="content/optics/03-photodiode.js"></script>
+<script src="content/optics/04-module.js"></script>
+<script src="content/optics/05-window.js"></script>
+<script src="content/optics/06-dbm.js"></script>
+<script src="content/optics/07-sfp.js"></script>
+<script src="content/sdh/01-e1.js"></script>
+<script src="content/sdh/02-pdh.js"></script>
+<script src="content/sdh/03-sdh.js"></script>
+<script src="content/sdh/04-stm.js"></script>
+<script src="content/sdh/05-overhead.js"></script>
+<script src="content/sdh/06-sync.js"></script>
+<script src="content/sdh/07-limit.js"></script>
+<script src="content/otn/01-wdm.js"></script>
+<script src="content/otn/02-cwdm-dwdm.js"></script>
+<script src="content/otn/03-otn.js"></script>
+<script src="content/otn/04-fec.js"></script>
+<script src="content/otn/05-coherent.js"></script>
+<script src="content/otn/06-roadm.js"></script>
+<script src="content/otn/07-dispersion.js"></script>
+<script src="content/otn/08-edfa.js"></script>
+<script src="content/protect/01-why.js"></script>
+<script src="content/protect/02-topology.js"></script>
+<script src="content/protect/03-1plus1.js"></script>
+<script src="content/protect/04-ring-switch.js"></script>
+<script src="content/protect/05-drill.js"></script>
+<script src="content/protect/06-cotrench.js"></script>
+<script src="content/protect/07-locate.js"></script>
+<script src="content/pon/01-evolution.js"></script>
+<script src="content/pon/02-pon.js"></script>
+<script src="content/pon/03-epon-gpon.js"></script>
+<script src="content/pon/04-splitter.js"></script>
+<script src="content/pon/05-ftth.js"></script>
+<script src="content/pon/06-dedicated.js"></script>
+<script src="content/ops/01-nms.js"></script>
+<script src="content/ops/02-alarm.js"></script>
+<script src="content/ops/03-performance.js"></script>
+<script src="content/ops/04-cutover.js"></script>
+<script src="content/ops/05-outage.js"></script>
+<script src="content/ops/06-patrol.js"></script>
+<script src="content/ops/07-spare.js"></script>
+<script src="content/dcr/01-room.js"></script>
+<script src="content/dcr/02-power.js"></script>
+<script src="content/dcr/03-battery.js"></script>
+<script src="content/dcr/04-hvac.js"></script>
+<script src="content/dcr/05-grounding.js"></script>
+<script src="content/dcr/06-monitor.js"></script>
+<script src="content/future/01-threat.js"></script>
+<script src="content/future/02-prevention.js"></script>
+<script src="content/future/03-otdr.js"></script>
+<script src="content/future/04-monitor.js"></script>
+<script src="content/future/05-quantum.js"></script>
+<script src="content/future/06-alloptical.js"></script>
+
+</body>
+</html>
