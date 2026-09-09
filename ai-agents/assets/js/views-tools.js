@@ -59,10 +59,70 @@ AGT.views.calc = function() {
   html += '<div id="pd-result" class="calc-result"></div>';
   html += '</div>';
 
+  // 5. 失败模式自诊器
+  html += '<div class="calc-card">';
+  html += '<h3><span class="g">✚</span>失败模式自诊器</h3>';
+  html += '<p class="lab-desc">智能体出问题了？先对症状。选一个你观察到的现象，看它属于哪种失败模式、根因通常在哪、药方是什么。</p>';
+  html += '<div class="calc-inputs">';
+  html += '<label>观察到的症状 <select id="fd-sel" onchange="AGT.diagnose()">';
+  for (var k = 0; k < FAILURES.length; k++) html += '<option value="' + k + '"' + (k === 0 ? ' selected' : '') + '>' + FAILURES[k].symptom + '</option>';
+  html += '</select></label>';
+  html += '</div>';
+  html += '<div id="fd-result" class="calc-result"></div>';
+  html += '</div>';
+
   html += '<p class="calc-note">说明：token 用量为教学估算（中文约 1 字 ≈ 1~2 token，按模型不同有差异），实际以所用模型账单为准；流水线质量结论为经验规律，具体任务需用评测集验证。</p>';
   html += '</div>';
   AGT.render(html);
-  AGT.loopReset(); AGT.checkPrompt(); AGT.calcCtx(); AGT.showPipe();
+  AGT.loopReset(); AGT.checkPrompt(); AGT.calcCtx(); AGT.showPipe(); AGT.diagnose();
+};
+
+/* ---- 5. 失败模式自诊器 ---- */
+var FAILURES = [
+  { symptom: '答非所问，做着做着跑偏了', mode: '跑偏（目标漂移）',
+    causes: ['系统提示过长，核心指令被稀释', '历史对话太长，最初的目标被"挤"出了注意力', '中途多条指令互相冲突'],
+    remedy: '把目标与硬约束写进系统提示并定期重申；长任务定期蒸馏历史；一次只下达一条主线指令。',
+    links: [['失败模式图鉴', '#/l/reliability/02-failure-modes'], ['压缩与摘要', '#/l/context/03-compression']] },
+  { symptom: '一本正经地编造事实或引用', mode: '幻觉',
+    causes: ['没有检索支撑，全靠模型记忆硬答', '被要求"附来源"但没有真来源可查，于是编了一个', '温度过高，输出发散'],
+    remedy: '知识问题接 RAG，先检索再作答；强制引用可回溯的来源并抽验；事实型任务调低温度。',
+    links: [['检索注入 RAG', '#/l/context/04-rag'], ['输出的风险', '#/l/security/05-output-risk']] },
+  { symptom: '重复执行同一个失败动作', mode: '死循环',
+    causes: ['没有设步数上限或停止条件', '失败后不换思路，硬着头皮重试', '工具持续报错但错误信息没被模型看到'],
+    remedy: '设最大步数与预算上限；记录已尝试过的动作；工具报错原文透传给模型，失败时提示"换一种方法"。',
+    links: [['失败模式图鉴', '#/l/reliability/02-failure-modes'], ['多工具编排', '#/l/tools/06-multi-tool']] },
+  { symptom: '张口就说"我无法完成这个任务"', mode: '提前放弃',
+    causes: ['任务描述吓人但实际可行（它被自己的脑补劝退）', '工具描述写得太含糊，它没意识到自己有武器可用', '提示词允许它轻易放弃'],
+    remedy: '把大任务拆成小步骤逐个下达；重写工具描述让能力一目了然；提示词明确"先尝试工具再下结论"。',
+    links: [['失败模式图鉴', '#/l/reliability/02-failure-modes'], ['工具设计原则', '#/l/tools/04-tool-design']] },
+  { symptom: '工具调用频繁报错', mode: '工具误用',
+    causes: ['参数格式或类型不符合预期', '工具描述模糊，模型在猜用法', '权限缺失，调用被系统拒绝'],
+    remedy: '重写工具描述（适用场景+参数含义+返回格式）；执行前校验参数并把报错原文回传；检查权限配置是否最小够用。',
+    links: [['工具设计原则', '#/l/tools/04-tool-design'], ['Function Calling', '#/l/tools/02-function-calling']] },
+  { symptom: '前面的要求后面全忘了', mode: '上下文过载',
+    causes: ['窗口被历史塞满，开头指令被截断', '长任务没有做压缩，中间产物堆积', '关键信息埋在长文深处，注意力稀释'],
+    remedy: '历史蒸馏成纪要；关键指令前置并适时重申；稳定信息外置为长期记忆，按需检索注入。',
+    links: [['Token 与上下文窗口', '#/l/context/01-token-window'], ['分层记忆与遗忘', '#/l/context/07-memory-layers']] }
+];
+AGT.diagnose = function() {
+  var sel = document.getElementById('fd-sel');
+  if (!sel) return;
+  var f = FAILURES[parseInt(sel.value)];
+  var causeHtml = '';
+  for (var i = 0; i < f.causes.length; i++) causeHtml += '<li>' + f.causes[i] + '</li>';
+  var linkHtml = '';
+  for (var j = 0; j < f.links.length; j++) {
+    if (j > 0) linkHtml += ' · ';
+    linkHtml += '<a href="' + f.links[j][1] + '" style="color:var(--acc);text-decoration:underline">' + f.links[j][0] + '</a>';
+  }
+  document.getElementById('fd-result').innerHTML =
+    '<table class="cr-table">' +
+    '<tr><td class="cr-name">失败模式</td><td class="cr-val cr-bad">' + f.mode + '</td></tr>' +
+    '<tr><td class="cr-name">常见根因</td><td class="cr-val" style="font-weight:400"><ul style="margin:0;padding-left:18px">' + causeHtml + '</ul></td></tr>' +
+    '<tr><td class="cr-name">药方</td><td class="cr-val cr-good" style="font-weight:400">' + f.remedy + '</td></tr>' +
+    '<tr><td class="cr-name">相关课程</td><td class="cr-val" style="font-weight:400">' + linkHtml + '</td></tr>' +
+    '</table>' +
+    '<p class="calc-note">诊断是启发式的：同一症状可能对应多种根因，按顺序排查（先上下文、再工具、再提示词），并用轨迹日志验证猜测。</p>';
 };
 
 /* ---- 1. 智能体循环模拟器 ---- */

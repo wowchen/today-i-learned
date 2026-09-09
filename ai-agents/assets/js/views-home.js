@@ -18,7 +18,7 @@ AGT.views.home = function() {
   html += '<p class="gh-kicker">AI 智能体通识 · 大白话讲透</p>';
   html += '<h1 class="gh-title">会干活<em>的 AI</em></h1>';
   html += '<p class="gh-latin">Perceive · Think · Act</p>';
-  html += '<p class="gh-lede">从智能体的感知—思考—行动循环，到提示词、上下文、工具调用，再到工作流编排、多智能体协作、评测护栏与安全边界，把"智能体怎么干活"拆成 60 节能讲清的微课。<b>懂循环，就懂了智能体的骨架。</b></p>';
+  html += '<p class="gh-lede">从智能体的感知—思考—行动循环，到提示词、规划分解、上下文、工具调用，再到工作流编排、多智能体协作、评测护栏与安全边界，把"智能体怎么干活"拆成 78 节能讲清的微课。<b>懂循环，就懂了智能体的骨架。</b></p>';
   if (nextLesson && AGT.lessons[nextLesson]) {
     var nl = AGT.lessons[nextLesson];
     html += '<a class="gh-cta" href="#/l/' + nextLesson + '">' +
@@ -29,7 +29,7 @@ AGT.views.home = function() {
   html += metaCell(AGT.modules.length, '模块');
   html += metaCell(readCount + ' / ' + total, '已学 / 微课');
   html += metaCell(percent + '%', '进度');
-  html += metaCell('4', '互动工具');
+  html += metaCell('5', '互动工具');
   html += '</div>';
   html += '</header>';
 
@@ -53,8 +53,8 @@ AGT.views.home = function() {
   html += '<a class="gh-mod" href="#/calc" style="background:linear-gradient(120deg,var(--acc-soft),transparent)">';
   html += '<div class="row"><span class="no">★</span><h3>互动工具箱</h3></div>';
   html += '<div class="en">Toolbox</div>';
-  html += '<p>智能体循环模拟器、提示词体检、上下文预算计算器、流水线设计器。</p>';
-  html += '<div class="prog">4 件 · 边学边玩</div>';
+  html += '<p>循环模拟器、提示词体检、上下文预算、流水线设计器、失败模式自诊器。</p>';
+  html += '<div class="prog">5 件 · 边学边玩</div>';
   html += '</a>';
   html += '</div>';
 
@@ -65,6 +65,7 @@ AGT.views.home = function() {
   html += toolCell('✎', '提示词体检', 'prompt check');
   html += toolCell('▤', '上下文预算计算器', 'context budget');
   html += toolCell('⑂', '流水线设计器', 'pipeline designer');
+  html += toolCell('✚', '失败模式自诊器', 'failure doctor');
   html += '</div>';
 
   // ===== About =====

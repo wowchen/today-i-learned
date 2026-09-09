@@ -18,13 +18,17 @@ const qc = (q, options, answer, explain, source) => ({ type: 'choice', q: q, opt
 const MODULES = [
   ['basics','智能体大白话','是什么、和聊天机器人差在哪、感知思考行动循环','入门','Agent Basics'],
   ['prompting','提示词工程','角色、结构化、few-shot、思维链——提示词的基本功','基础','Prompt Engineering'],
+  ['planning','规划与分解','ReAct、计划执行、任务拆分——想清楚再动手','核心','Planning & Decomposition'],
   ['context','上下文工程','窗口、token、压缩、检索与记忆——最贵的地产','核心','Context Engineering'],
-  ['tools','工具调用','function calling、MCP、沙箱——给模型装上','核心','Tool Use'],
+  ['adapting','定制化三板斧','提示词、RAG、微调——让模型更懂你的业务','核心','Adaptation'],
+  ['tools','工具调用','function calling、MCP、结构化输出——给模型装上','核心','Tool Use'],
+  ['multimodal','多模态','看图、听声、读文件——给智能体配齐感官','核心','Multimodal'],
   ['workflow','工作流编排','固定流程、循环反馈、人工在环、检查点','核心','Workflow Orchestration'],
   ['multiagent','多智能体协作','角色分工、交接、监督者、争论与成本陷阱','核心','Multi-Agent Systems'],
-  ['reliability','可靠性与评测','失败模式、评测集、轨迹调试、护栏','实战','Reliability & Eval'],
-  ['security','安全与边界','提示词注入、最小权限、确认门、安全清单','实战','Safety & Security'],
-  ['practice','研究工作流实战','深度研究、AI 日报、文档流水线、成本账','实战','Field Notes'],
+  ['coding','编码智能体','最成熟的岗位：测试驱动循环与仓库守则','实战','Coding Agents'],
+  ['reliability','可靠性与评测','失败模式、评测集、模型评审、护栏','实战','Reliability & Eval'],
+  ['security','安全与边界','提示词注入、最小权限、计算机操作、安全清单','实战','Safety & Security'],
+  ['practice','研究工作流实战','深度研究、AI 日报、文档流水线、研究复盘、数据分析','实战','Field Notes'],
   ['future','趋势与未来','行业版图、A2A、长任务、具身与智能体经济','进阶','Trends & Future']
 ];
 
@@ -43,6 +47,10 @@ const TERMS = [
   ['system-prompt','系统提示','System Prompt','设定模型全局行为的高优先级指令。','员工手册。','prompting'],
   ['temperature','温度','Temperature','控制输出随机性的参数，越高越发散。','创造力旋钮。','prompting'],
 
+  ['react','ReAct','ReAct','Reason+Act 交替循环的智能体模式：想一步做一步看一眼。','边想边干的行为模式。','planning'],
+  ['plan-and-execute','计划与执行','Plan-and-Execute','先一次性拆解完整计划，再按计划执行并按需修补。','先画路线图再出发。','planning'],
+  ['task-decomposition','任务分解','Task Decomposition','把大目标拆成有序、可验证、粒度合适的子任务。','拆活儿的手艺。','planning'],
+
   ['token','Token','Token','模型处理文本的最小单位，一个汉字约 1~2 个 token。','文字的积木块。','context'],
   ['context-window','上下文窗口','Context Window','模型一次能"看到"的文本总量上限。','办公桌的大小。','context'],
   ['context-engineering','上下文工程','Context Engineering','决定往窗口里放什么、不放什么、什么时候清的学问。','桌面整理术。','context'],
@@ -53,6 +61,14 @@ const TERMS = [
   ['knowledge-cutoff','知识截止','Knowledge Cutoff','模型训练数据的时间下限，之后的事它不知道。','教科书的印刷日期。','context'],
   ['memory','记忆','Memory','智能体跨轮次保留和使用信息的能力。','智能体的笔记本。','context'],
   ['token-budget','Token 预算','Token Budget','为一次运行规划的资源上限与分配方案。','出差的差旅预算。','context'],
+  ['episodic-memory','情景记忆','Episodic Memory','记住具体发生过的事件与交互片段的长期记忆。','日记本。','context'],
+  ['prompt-caching','提示词缓存','Prompt Caching','复用重复前缀的计算结果，大幅降低重复请求成本。','常用材料先复印好。','context'],
+  ['batch-processing','批处理','Batch Processing','非实时任务批量离线处理，以延迟换价格。','拼单更便宜。','context'],
+  ['distillation','蒸馏','Distillation','用大模型的输出训练小模型，保能力、降成本。','名师带出高徒。','context'],
+
+  ['fine-tuning','微调','Fine-tuning','用自己的数据继续训练模型以改变其行为。','给模型报培训班。','adapting'],
+  ['sft','SFT','Supervised Fine-Tuning','用输入-输出对做监督训练的微调方式。','照着标准答案练。','adapting'],
+  ['lora','LoRA','Low-Rank Adaptation','冻结原模型、只训练少量外挂适配参数的高效微调。','只换西装不合体改造。','adapting'],
 
   ['tool-use','工具调用','Tool Use','模型通过调用外部程序（API/函数）来实际做事。','给大脑装上手。','tools'],
   ['function-calling','函数调用','Function Calling','模型输出结构化参数、由程序执行函数的机制。','模型填单子，程序干活。','tools'],
@@ -61,6 +77,9 @@ const TERMS = [
   ['json','JSON','JSON','结构化数据格式，机器读写的通用语言。','填表格的标准格式。','tools'],
   ['sandbox','沙箱','Sandbox','隔离的执行环境，智能体出事不伤主系统。','试驾场地。','tools'],
   ['idempotency','幂等性','Idempotency','同一操作执行多次结果不变，是安全重试的基础。','按多少次电梯都只来一趟。','tools'],
+  ['structured-output','结构化输出','Structured Output','约束模型按预定 schema 生成机器可解析的输出。','按表格填答案。','tools'],
+  ['json-mode','JSON Mode','JSON Mode','从生成机制上强制模型输出合法 JSON 的约束模式。','只能填表不能散文。','tools'],
+  ['schema','Schema','Schema','描述数据结构、字段与类型的约定。','表格的表头定义。','tools'],
 
   ['workflow','工作流','Workflow','预先定义好的固定步骤序列，自由度低但可控。','钢轨道。','workflow'],
   ['dag','有向无环图','DAG','任务依赖关系的图：前一步输出是后一步输入，不绕圈。','施工流程图。','workflow'],
@@ -70,12 +89,19 @@ const TERMS = [
   ['orchestration','编排','Orchestration','协调多个步骤或智能体的顺序与数据流转。','片场导演。','workflow'],
   ['agent-framework','智能体框架','Agent Framework','帮你搭智能体的脚手架库。','乐高积木包。','workflow'],
 
+  ['vlm','视觉语言模型','Vision Language Model','能同时理解图像与文本的多模态模型。','会看图的模型。','multimodal'],
+  ['ocr','OCR','Optical Character Recognition','把图片里的文字识别成可编辑文本。','图片文字的搬运工。','multimodal'],
+  ['asr','语音识别','Automatic Speech Recognition','把语音转成文字的技术。','语音的听写员。','multimodal'],
+
   ['multi-agent-system','多智能体系统','Multi-Agent System','多个智能体分工协作完成同一任务。','一个项目组。','multiagent'],
   ['role-agent','角色智能体','Role Agent','只承担单一职责的智能体，如专职审稿员。','专职岗位。','multiagent'],
   ['handoff','交接','Handoff','一个智能体把工作连同上下文交给下一个。','交接班。','multiagent'],
   ['supervisor','监督者','Supervisor','负责分派任务、汇总结果的调度型智能体。','项目经理。','multiagent'],
   ['red-teaming','红队','Red Teaming','专门负责挑错与攻击的对抗角色。','请人来砸场子。','multiagent'],
   ['context-isolation','上下文隔离','Context Isolation','让每个智能体只看必要信息，防止互相污染。','各看各的卷子。','multiagent'],
+
+  ['coding-agent','编码智能体','Coding Agent','在代码仓库中自主读码、改码、跑测试、提 PR 的智能体。','AI 程序员同事。','coding'],
+  ['test-driven','测试驱动','Test-Driven','先写测试再实现，用测试结果驱动迭代循环。','先立靶子再射箭。','coding'],
 
   ['eval','评测','Evaluation','用固定题集检验智能体输出质量的手段。','模拟考。','reliability'],
   ['regression','回归','Regression','改动之后原来正确的输出变错了。','修好东墙塌西墙。','reliability'],
@@ -84,6 +110,7 @@ const TERMS = [
   ['self-reflection','自我反思','Self-reflection','智能体检查并修正自己输出的机制。','交卷前自查。','reliability'],
   ['graceful-degradation','优雅降级','Graceful Degradation','出错时退回保守方案而不是直接崩掉。','自动挡的 L 挡。','reliability'],
   ['flaky','不稳定输出','Flakiness','同样的输入，结果时好时坏。','手气问题。','reliability'],
+  ['llm-as-judge','模型评审','LLM-as-Judge','用一个模型按评分标准给另一个模型的输出打分。','请专家阅卷。','reliability'],
 
   ['prompt-injection','提示词注入','Prompt Injection','用恶意指令劫持模型行为，让它偏离本职。','往说明书里夹私货。','security'],
   ['indirect-injection','间接注入','Indirect Injection','藏在智能体读取的网页、文件里的恶意指令。','毒饵。','security'],
@@ -91,6 +118,7 @@ const TERMS = [
   ['data-exfiltration','数据外泄','Data Exfiltration','敏感信息被智能体有意或无意地送出去。','嘴不严的员工。','security'],
   ['confirmation-gate','确认门','Confirmation Gate','高危操作前必须由人确认才能执行的关卡。','大额转账要验指纹。','security'],
   ['jailbreak','越狱','Jailbreak','绕过模型安全限制的攻击手法。','撬锁。','security'],
+  ['computer-use','计算机操作','Computer Use','智能体模拟人操作图形界面（点击/输入/浏览）的能力。','数字世界的替身司机。','security'],
 
   ['deep-research','深度研究','Deep Research','多轮检索、综合、写作的研究型智能体任务。','会查资料的助理研究员。','practice'],
   ['model-selection','模型选型','Model Selection','按能力、成本、速度三角挑选合适的模型。','按活选人。','practice'],
