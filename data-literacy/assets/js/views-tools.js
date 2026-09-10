@@ -155,7 +155,7 @@ DAT.calcSample = function() {
   el.innerHTML = '<table class="cr-table">' +
     '<tr><td class="cr-name">置信水平</td><td class="cr-val">' + (z === 1.645 ? '90%' : (z === 1.96 ? '95%' : '99%')) + '（z = ' + z + '）</td></tr>' +
     '<tr><td class="cr-name">允许误差</td><td class="cr-val">±' + e + '%</td></tr>' +
-    '<tr><td class="cr-name">理论样本量</td><td class="cr-val cr-warn">' + AGT_NOOP(n0) + '</td></tr>' +
+    '<tr><td class="cr-name">理论样本量</td><td class="cr-val cr-warn">' + Math.ceil(n0).toLocaleString() + ' 份</td></tr>' +
     adjLine +
     '<tr><td class="cr-name">至少需要</td><td class="cr-val cr-good">' + nf.toLocaleString() + ' 份有效样本 —— ' + verdict + '</td></tr>' +
     '</table>' +
