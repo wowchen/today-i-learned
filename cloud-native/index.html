@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>云计算与云原生通识 · 上云方法论</title>
+<meta name="description" content="大白话讲透云计算与云原生(科普通识)：云计算大白话、计算与虚拟化、存储与备份、云网络、容器技术、容器编排 K8s、微服务与治理、DevOps 与流水线、可观测性、高可用与容灾、云安全与合规、上云实战与选型。12 模块 84 课，五段式含"想一想"，重工程直觉与实战判断、不堆术语不吹概念，含可用性停机换算/容器资源单位换算/副本容量估算/云成本估算四个互动工具。浅色云白科技蓝+深空亮蓝双主题(节点+容器+数据流动效)、纯静态离线。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('ccn.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    云计算与云原生 <small>· Cloud</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="CCN.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<!-- Lessons (由 CCN.path 生成) -->
+<script src="content/cloud-basics/01-what.js"></script>
+<script src="content/cloud-basics/02-service-models.js"></script>
+<script src="content/cloud-basics/03-deploy-models.js"></script>
+<script src="content/cloud-basics/04-virtualization.js"></script>
+<script src="content/cloud-basics/05-resource-pool.js"></script>
+<script src="content/cloud-basics/06-region-az.js"></script>
+<script src="content/cloud-basics/07-cost-logic.js"></script>
+<script src="content/compute/01-vm.js"></script>
+<script src="content/compute/02-hypervisor.js"></script>
+<script src="content/compute/03-spec.js"></script>
+<script src="content/compute/04-vcpu.js"></script>
+<script src="content/compute/05-image-snapshot.js"></script>
+<script src="content/compute/06-autoscaling.js"></script>
+<script src="content/compute/07-serverless.js"></script>
+<script src="content/storage/01-three-kinds.js"></script>
+<script src="content/storage/02-block.js"></script>
+<script src="content/storage/03-file.js"></script>
+<script src="content/storage/04-object.js"></script>
+<script src="content/storage/05-tiering.js"></script>
+<script src="content/storage/06-snapshot-backup.js"></script>
+<script src="content/storage/07-consistency.js"></script>
+<script src="content/cloudnet/01-vpc.js"></script>
+<script src="content/cloudnet/02-subnet.js"></script>
+<script src="content/cloudnet/03-security-group.js"></script>
+<script src="content/cloudnet/04-slb.js"></script>
+<script src="content/cloudnet/05-nat-eip.js"></script>
+<script src="content/cloudnet/06-direct-connect.js"></script>
+<script src="content/cloudnet/07-cdn-dns.js"></script>
+<script src="content/container/01-why.js"></script>
+<script src="content/container/02-isolation.js"></script>
+<script src="content/container/03-image-layer.js"></script>
+<script src="content/container/04-dockerfile.js"></script>
+<script src="content/container/05-registry.js"></script>
+<script src="content/container/06-runtime.js"></script>
+<script src="content/container/07-container-vs-vm.js"></script>
+<script src="content/k8s/01-why.js"></script>
+<script src="content/k8s/02-architecture.js"></script>
+<script src="content/k8s/03-pod.js"></script>
+<script src="content/k8s/04-deployment.js"></script>
+<script src="content/k8s/05-service.js"></script>
+<script src="content/k8s/06-config-secret.js"></script>
+<script src="content/k8s/07-pv-pvc.js"></script>
+<script src="content/k8s/08-probe-hpa.js"></script>
+<script src="content/microservice/01-monolith.js"></script>
+<script src="content/microservice/02-split.js"></script>
+<script src="content/microservice/03-discovery.js"></script>
+<script src="content/microservice/04-gateway.js"></script>
+<script src="content/microservice/05-config.js"></script>
+<script src="content/microservice/06-resilience.js"></script>
+<script src="content/microservice/07-trace-tx.js"></script>
+<script src="content/devops/01-culture.js"></script>
+<script src="content/devops/02-git.js"></script>
+<script src="content/devops/03-ci.js"></script>
+<script src="content/devops/04-artifact.js"></script>
+<script src="content/devops/05-cd-strategy.js"></script>
+<script src="content/devops/06-iac.js"></script>
+<script src="content/devops/07-gitops.js"></script>
+<script src="content/observability/01-three-pillars.js"></script>
+<script src="content/observability/02-metrics.js"></script>
+<script src="content/observability/03-logs.js"></script>
+<script src="content/observability/04-alert.js"></script>
+<script src="content/observability/05-slo.js"></script>
+<script src="content/observability/06-postmortem.js"></script>
+<script src="content/reliability/01-nines.js"></script>
+<script src="content/reliability/02-spof.js"></script>
+<script src="content/reliability/03-multi-az.js"></script>
+<script src="content/reliability/04-capacity.js"></script>
+<script src="content/reliability/05-chaos.js"></script>
+<script src="content/reliability/06-degrade.js"></script>
+<script src="content/reliability/07-drill.js"></script>
+<script src="content/cloudsec/01-shared.js"></script>
+<script src="content/cloudsec/02-iam.js"></script>
+<script src="content/cloudsec/03-network-isolation.js"></script>
+<script src="content/cloudsec/04-key-credential.js"></script>
+<script src="content/cloudsec/05-image-supply.js"></script>
+<script src="content/cloudsec/06-mlps.js"></script>
+<script src="content/cloudsec/07-cases.js"></script>
+<script src="content/practice/01-assess.js"></script>
+<script src="content/practice/02-migration-6r.js"></script>
+<script src="content/practice/03-cloud-native-road.js"></script>
+<script src="content/practice/04-finops.js"></script>
+<script src="content/practice/05-xinchuang.js"></script>
+<script src="content/practice/06-hybrid-multi.js"></script>
+<script src="content/practice/07-ai-compute.js"></script>
+
+</body>
+</html>
