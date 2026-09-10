@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m" data-page-node-id="EEUpPui8isZaNbyUWV70pC">
+<head data-page-node-id="SviC6FIdXOUOcmfrlD9OTe">
+<meta charset="UTF-8" data-page-node-id="JgkhL3ueHPEmg8EmyEb5GS">
+<meta name="viewport" content="width=device-width,initial-scale=1" data-page-node-id="6XcxabKQfXa5jVFzK4WEvI">
+<title>机器学习入门</title>
+<meta name="description" content="大白话讲透机器学习(科普通识,不推公式)：从规则到学习、建模全流程、回归与分类、无监督与聚类、评估与调优、特征与数据准备、神经网络、大模型时代、推荐系统、时间序列、实战避坑。12 模块 80 课 90 术语，五段式含"想一想"，重直觉与判断、不做算法应试，含回归拟合器/混淆矩阵/K 均值/过拟合四个互动工具。浅色翠玉绿+深色墨绿夜双主题(模型学习动效)、纯静态离线。" data-page-node-id="A1jtGmcUAh4FuonHoHRvrb">
+<link rel="stylesheet" href="assets/css/main.css" data-page-node-id="FheR4BnUeqXFeiVuj2dACU">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('ml.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body data-page-node-id="RJNRATOL2Yp8s4Wu6dhw8A">
+<div class="top-bar" data-page-node-id="beDLrENSPEBpHwfXJYYCda">
+  <h1 data-page-node-id="T2FVxxJh4TQu4UtmwM7hh7">
+    <span class="b-mark" data-page-node-id="oMWjAQOnzVD5UPHB4Vz8QJ"></span>
+    机器学习入门 <small data-page-node-id="jvDrvkezk5qmucHH5XABQK">· ML</small>
+  </h1>
+  <nav class="nav" data-page-node-id="BUnLdIkx47xNPhWlXa9Aqc">
+    <a class="nav-link active" href="#/" data-page-node-id="FDAb5atjozapM0fG8rdHGg">课时</a>
+    <a class="nav-link" href="#/terms" data-page-node-id="4bawGDvKT7jloIEFyuYxbF">速查</a>
+    <a class="nav-link" href="#/calc" data-page-node-id="E2REp0SgTLzZMPHHxEA0l7">工具</a>
+    <a class="nav-link" href="#/book" data-page-node-id="t9UuUUBKBO7DQFDDESwYBm">收藏</a>
+    <a class="nav-link" href="#/search" data-page-node-id="JwJZEHBZejxeKXDKaIsNeh">搜索</a>
+    <a class="nav-link" href="#/settings" data-page-node-id="BYkyzNYq7Z8lbd3G5ni2ey">设置</a>
+    <button class="theme-btn" onclick="ML.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色" data-page-node-id="6B1LmYYHkj4ecQcPkNvDCE">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="PgqWyTZPXgagaAmIyiZKbk"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" data-page-node-id="wf7nqjpPo6C0Tyc0CbrD4p"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="CbfZLclvBQx5FHFgH5uPNq"><circle cx="12" cy="12" r="4" data-page-node-id="cBZcNobXgnDSQhS8lSFAR7"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" data-page-node-id="sEhgZb4A1XUDG4CGs8SpkF"/></svg>
+    </button>
+    <a class="nav-cta" href="../" data-page-node-id="1vhLHvb9KF5An7e24fiymn">总站</a>
+  </nav>
+</div>
+<main id="app" data-page-node-id="0Dit9WizD897VMC60EYPZy"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/intro/01-what-is.js"></script>
+<script src="content/intro/02-three-kinds.js"></script>
+<script src="content/intro/03-supervised-detail.js"></script>
+<script src="content/intro/04-when-not.js"></script>
+<script src="content/intro/05-ml-vs-rule.js"></script>
+<script src="content/intro/06-myths.js"></script>
+<script src="content/intro/07-map.js"></script>
+<script src="content/workflow/01-define.js"></script>
+<script src="content/workflow/02-data-split.js"></script>
+<script src="content/workflow/03-baseline.js"></script>
+<script src="content/workflow/04-iterate.js"></script>
+<script src="content/workflow/05-accept.js"></script>
+<script src="content/workflow/06-launch.js"></script>
+<script src="content/regression/01-what-is.js"></script>
+<script src="content/regression/02-linear.js"></script>
+<script src="content/regression/03-loss.js"></script>
+<script src="content/regression/04-gradient.js"></script>
+<script src="content/regression/05-overfit.js"></script>
+<script src="content/regression/06-regular.js"></script>
+<script src="content/regression/07-logistic.js"></script>
+<script src="content/classification/01-what-is.js"></script>
+<script src="content/classification/02-tree.js"></script>
+<script src="content/classification/03-knn.js"></script>
+<script src="content/classification/04-bayes.js"></script>
+<script src="content/classification/05-svm.js"></script>
+<script src="content/classification/06-ensemble.js"></script>
+<script src="content/classification/07-choose.js"></script>
+<script src="content/clustering/01-what-is.js"></script>
+<script src="content/clustering/02-kmeans.js"></script>
+<script src="content/clustering/03-how-many.js"></script>
+<script src="content/clustering/04-hierarchical.js"></script>
+<script src="content/clustering/05-pca.js"></script>
+<script src="content/clustering/06-anomaly.js"></script>
+<script src="content/evaluation/01-accuracy-trap.js"></script>
+<script src="content/evaluation/02-confusion.js"></script>
+<script src="content/evaluation/03-precision-recall.js"></script>
+<script src="content/evaluation/04-roc-auc.js"></script>
+<script src="content/evaluation/05-cross-val.js"></script>
+<script src="content/evaluation/06-hyperparam.js"></script>
+<script src="content/evaluation/07-imbalance.js"></script>
+<script src="content/features/01-what-is.js"></script>
+<script src="content/features/02-missing.js"></script>
+<script src="content/features/03-encoding.js"></script>
+<script src="content/features/04-scaling.js"></script>
+<script src="content/features/05-selection.js"></script>
+<script src="content/features/06-leakage.js"></script>
+<script src="content/features/07-checklist.js"></script>
+<script src="content/neural/01-neuron.js"></script>
+<script src="content/neural/02-layers.js"></script>
+<script src="content/neural/03-backprop.js"></script>
+<script src="content/neural/04-cnn.js"></script>
+<script src="content/neural/05-rnn.js"></script>
+<script src="content/neural/06-transformer.js"></script>
+<script src="content/neural/07-training.js"></script>
+<script src="content/llm/01-pretrain-finetune.js"></script>
+<script src="content/llm/02-prompt.js"></script>
+<script src="content/llm/03-rag.js"></script>
+<script src="content/llm/04-hallucination.js"></script>
+<script src="content/llm/05-eval.js"></script>
+<script src="content/llm/06-cost.js"></script>
+<script src="content/recsys/01-what-is.js"></script>
+<script src="content/recsys/02-collaborative.js"></script>
+<script src="content/recsys/03-content.js"></script>
+<script src="content/recsys/04-cold-start.js"></script>
+<script src="content/recsys/05-recall-rank.js"></script>
+<script src="content/recsys/06-eval.js"></script>
+<script src="content/timeseries/01-what-is.js"></script>
+<script src="content/timeseries/02-trend-season.js"></script>
+<script src="content/timeseries/03-smooth.js"></script>
+<script src="content/timeseries/04-arima.js"></script>
+<script src="content/timeseries/05-validate.js"></script>
+<script src="content/timeseries/06-ml-ts.js"></script>
+<script src="content/practice/01-case.js"></script>
+<script src="content/practice/02-mistakes.js"></script>
+<script src="content/practice/03-explainable.js"></script>
+<script src="content/practice/04-biz.js"></script>
+<script src="content/practice/05-bias.js"></script>
+<script src="content/practice/06-team.js"></script>
+<script src="content/practice/07-learn.js"></script>
+<script src="content/practice/08-summary.js"></script>
+<!--LESSONS-->
+</body>
+</html>
