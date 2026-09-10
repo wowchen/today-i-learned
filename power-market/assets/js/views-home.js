@@ -18,7 +18,7 @@ EMT.views.home = function() {
   html += '<p class="gh-kicker">电力市场与能源交易 · 大白话讲透</p>';
   html += '<h1 class="gh-title">算清<em>每一度电</em>的价格</h1>';
   html += '<p class="gh-latin">Power &middot; Price &middot; Trade</p>';
-  html += '<p class="gh-lede">从电为什么不能像普通商品一样买卖、中国电改二十年怎么走到今天，到一度电的价格由哪几笔钱构成、中长期与现货怎么衔接怎么结算，再到储能与需求响应靠什么挣钱、新能源入市之后收益为什么变了、绿电绿证与碳市场怎么对上账——把电力市场这套规则拆成 93 节能听懂的微课。<b>价格会波动，机制逻辑不会变；这里给的是机制，不是行情。</b></p>';
+  html += '<p class="gh-lede">从电为什么不能像普通商品一样买卖、中国电改二十年怎么走到今天，到一度电的价格由哪几笔钱构成、中长期与现货怎么衔接怎么结算，再到储能与需求响应靠什么挣钱、新能源入市之后收益为什么变了、绿电绿证与碳市场怎么对上账——把电力市场这套规则拆成 100 节能听懂的微课。<b>价格会波动，机制逻辑不会变；这里给的是机制，不是行情。</b></p>';
   if (nextLesson && EMT.lessons[nextLesson]) {
     var nl = EMT.lessons[nextLesson];
     html += '<a class="gh-cta" href="#/l/' + nextLesson + '">' +

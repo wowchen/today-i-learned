@@ -33,7 +33,8 @@ const MODULES = [
   ['green','绿电交易与绿证','绿电交易、绿证核发与交易、消纳量核算、国际互认','核心','Green Power'],
   ['carbon','碳市场与碳交易','全国碳市场、配额分配、MRV、CCER、碳价传导与扩围','核心','Carbon Market'],
   ['finance','电力金融与风险管理','差价合约、电力期货、套期保值、价格与信用风险','实战','Power Finance'],
-  ['practice','交易实务与能力建设','交易员做什么、报量报价、复盘、考核指标、合规红线','实战','Trading Practice']
+  ['practice','交易实务与能力建设','交易员做什么、报量报价、复盘、考核指标、合规红线','实战','Trading Practice'],
+  ['interprovincial','省间交易与跨区送电','省间中长期与省间现货、跨区通道与输电费、省间壁垒与跨省消纳','核心','Inter-Provincial Trading']
 ];
 
 /* ============ 术语 ============ [id, name, en, def, analogy, module] ============ */
@@ -201,7 +202,23 @@ const TERMS = [
   ['position','持仓','Position','市场主体持有的合同电量与现货头寸的合计状态。','手里握着多少货。','practice'],
   ['market-power','市场力','Market Power','某主体通过控制供给或需求影响市场价格的能力，是监管重点。','一个人能左右全场价格。','practice'],
   ['market-compliance','市场合规','Market Compliance','遵守交易规则、信息披露与反操纵要求的底线要求。','牌桌上不能出老千。','practice'],
-  ['settlement-risk','结算风险','Settlement Risk','从成交到资金交割之间可能出现的对方不付款或延迟付款风险。','成交了不等于收到钱。','practice']
+  ['settlement-risk','结算风险','Settlement Risk','从成交到资金交割之间可能出现的对方不付款或延迟付款风险。','成交了不等于收到钱。','practice'],
+
+  /* --- interprovincial --- */
+  ['interprovincial-trading','省间交易','Inter-Provincial Trading','不同省份之间买卖电力的交易，把资源富余省的电送到负荷中心省。','跨省串门买电。','interprovincial'],
+  ['interprovincial-spot','省间现货','Inter-Provincial Spot Market','在省间层面开展的日前与实时现货交易，价格反映跨区供需与通道充裕度。','跨省的当日时价。','interprovincial'],
+  ['power-corridor','跨区输电通道','Inter-Regional Power Corridor','把电从一个区域送到另一个区域的特高压交直流输电通道，容量有限。','跨省的电力高速。','interprovincial'],
+  ['uhv-dc','特高压直流','UHVDC','远距离、大容量、点对点送电的直流输电技术，是跨区送电的主力。','电力版的高铁专线。','interprovincial'],
+  ['atc','可用输电能力','Available Transfer Capability','通道在满足安全约束前提下还能用于交易输送的容量，是省间交易的物理天花板。','这条路还能挤进去多少车。','interprovincial'],
+  ['west-east-power','西电东送','West-East Power Transmission','把西部水电、煤电与风光送到东部负荷中心的长期国家战略。','西边的电往东边搬。','interprovincial'],
+  ['sending-price','送端电价','Sending-End Price','在送出省一侧形成的上网或交易价格。','产地出货价。','interprovincial'],
+  ['receiving-price','受端电价','Receiving-End Price','在受电省一侧落地的价格，等于送端价格加输电费用与网损分摊。','到货价。','interprovincial'],
+  ['interprovincial-transmission-fee','省间输电费','Inter-Provincial Transmission Fee','使用跨省跨区通道需要支付的输电服务费用。','跨省的过路费。','interprovincial'],
+  ['interprovincial-barrier','省间壁垒','Inter-Provincial Barrier','地方为保本地电量、电价或税收而限制外来电进入的做法，是统一市场的主要障碍。','各自护着自家的小院。','interprovincial'],
+  ['tie-line','省间联络线','Tie Line','两个省级电网之间的连接线路，其潮流决定省间交换功率。','两个省之间那根接线。','interprovincial'],
+  ['cross-provincial-green','跨省绿电交易','Cross-Provincial Green Power Trading','绿电跨省交易，卖方在送电省、买方在受电省，环境属性随电量一并转移。','异地的绿电也能买。','interprovincial'],
+  ['prioritized-generation','优先发电','Prioritized Generation','保障性收购的发电量（水电、核电、部分新能源等），通常不参与市场化竞争。','有免排队资格的电。','interprovincial'],
+  ['provincial-balance','省内电力平衡','Provincial Power Balance','以省为单位开展的电量与电力平衡，是"省为实体"的技术基础。','各自盘点自家够不够用。','interprovincial']
 ];
 
 /* ============ 加载课程内容 ============ */
