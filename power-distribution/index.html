@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>配电网与配电自动化学习站 · Power Distribution &amp; Distribution Automation</title>
+<meta name="description" content="大白话讲透配电网与配电自动化:配电网分级与电压等级、辐射与环式接线、开闭所与环网柜、供电半径与线损、负荷预测与网格化规划、容载比、配电设备(配变/柱上开关/负荷开关/电缆/箱变)、配电终端(FTU/DTU/TTU/故障指示器)、配网通信(光纤专网/无线公网与专网/中压载波/安全接入)、配电自动化三种模式、馈线自动化与故障定位隔离恢复、遥控与实用化、供电可靠性指标(SAIDI/SAIFI/CAIDI)、状态检修与带电作业、分布式电源与有源配网、配网新技术(融合终端/拓扑识别/数字孪生/AI)、增量配电与配网市场、标准与合规、一线实战。13模块84课100术语,含负荷预测/线损测算/自动化覆盖率/故障处置推演/分布式光伏接入五个互动工具。纯静态离线,涉标准与政策内容以现行有效文件为准。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('pdn.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--acc)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5h14"/><rect x="4.6" y="2.6" width="3" height="3.8" rx=".6"/><rect x="10.4" y="2.6" width="3" height="3.8" rx=".6"/><path d="M3.2 8.3v5.2h11.6V8.3"/><path d="M9 13.5v2.2"/></svg>
+    配电网与配电自动化 <small>· Power Distribution and Automation</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="PDN.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+<div class="notice-bar"><b>内容基线 2026-09</b> · 涉配电网技术标准、供电监管要求与政策之处均以现行有效文件为准,并会随标准与政策更新而变化 · 本站为通识科普,不构成工程设计、施工或合规依据,具体工程须以正式设计文件、现行标准与现场实际为准</div>
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-dn.js"></script>
+<script src="content/guide/03-why-da.js"></script>
+<script src="content/guide/04-how-to-learn.js"></script>
+<script src="content/basic/01-three-layers.js"></script>
+<script src="content/basic/02-voltage-levels.js"></script>
+<script src="content/basic/03-radial-ring.js"></script>
+<script src="content/basic/04-stations.js"></script>
+<script src="content/basic/05-supply-radius.js"></script>
+<script src="content/basic/06-line-loss-basic.js"></script>
+<script src="content/basic/07-reliability-basic.js"></script>
+<script src="content/basic/08-n1.js"></script>
+<script src="content/load/01-load-forecast.js"></script>
+<script src="content/load/02-spatial-load.js"></script>
+<script src="content/load/03-simultaneity.js"></script>
+<script src="content/load/04-grid-planning.js"></script>
+<script src="content/load/05-capacity-ratio.js"></script>
+<script src="content/load/06-planning-process.js"></script>
+<script src="content/equip/01-transformer.js"></script>
+<script src="content/equip/02-switchgear.js"></script>
+<script src="content/equip/03-breaker-fuse.js"></script>
+<script src="content/equip/04-ring-main.js"></script>
+<script src="content/equip/05-overhead-cable.js"></script>
+<script src="content/equip/06-box-substation.js"></script>
+<script src="content/equip/07-arrester-ct.js"></script>
+<script src="content/terminal/01-what-terminal.js"></script>
+<script src="content/terminal/02-ftu.js"></script>
+<script src="content/terminal/03-dtu.js"></script>
+<script src="content/terminal/04-ttu.js"></script>
+<script src="content/terminal/05-fault-indicator.js"></script>
+<script src="content/terminal/06-smart-meter.js"></script>
+<script src="content/terminal/07-fusion.js"></script>
+<script src="content/comm/01-comm-need.js"></script>
+<script src="content/comm/02-optical.js"></script>
+<script src="content/comm/03-wireless.js"></script>
+<script src="content/comm/04-plc.js"></script>
+<script src="content/comm/05-choosing.js"></script>
+<script src="content/comm/06-security.js"></script>
+<script src="content/auto/01-what-is-da.js"></script>
+<script src="content/auto/02-three-modes.js"></script>
+<script src="content/auto/03-master.js"></script>
+<script src="content/auto/04-fa.js"></script>
+<script src="content/auto/05-flisr.js"></script>
+<script src="content/auto/06-scada-tele.js"></script>
+<script src="content/auto/07-graph-model.js"></script>
+<script src="content/auto/08-practical.js"></script>
+<script src="content/reliability/01-saidi-saifi.js"></script>
+<script src="content/reliability/02-outage-stats.js"></script>
+<script src="content/reliability/03-maintenance.js"></script>
+<script src="content/reliability/04-loss-management.js"></script>
+<script src="content/reliability/05-repair.js"></script>
+<script src="content/reliability/06-station-area-mgmt.js"></script>
+<script src="content/dg/01-dg-basics.js"></script>
+<script src="content/dg/02-pv-connection.js"></script>
+<script src="content/dg/03-reverse-power.js"></script>
+<script src="content/dg/04-hosting-capacity.js"></script>
+<script src="content/dg/05-islanding-microgrid.js"></script>
+<script src="content/dg/06-flexible-resource.js"></script>
+<script src="content/dg/07-source-grid-load.js"></script>
+<script src="content/newtech/01-fusion-terminal.js"></script>
+<script src="content/newtech/02-topology.js"></script>
+<script src="content/newtech/03-digital-twin.js"></script>
+<script src="content/newtech/04-uav-robot.js"></script>
+<script src="content/newtech/05-ai-dn.js"></script>
+<script src="content/newtech/06-new-distribution.js"></script>
+<script src="content/market/01-incremental.js"></script>
+<script src="content/market/02-investment.js"></script>
+<script src="content/market/03-service.js"></script>
+<script src="content/market/04-distributed-trading.js"></script>
+<script src="content/market/05-vpp-dn.js"></script>
+<script src="content/market/06-dso.js"></script>
+<script src="content/policy/01-planning-std.js"></script>
+<script src="content/policy/02-da-std.js"></script>
+<script src="content/policy/03-dg-std.js"></script>
+<script src="content/policy/04-regulation.js"></script>
+<script src="content/policy/05-safety.js"></script>
+<script src="content/policy/06-compliance.js"></script>
+<script src="content/practice/01-project-flow.js"></script>
+<script src="content/practice/02-da-retrofit.js"></script>
+<script src="content/practice/03-equipment-selection.js"></script>
+<script src="content/practice/04-fault-case.js"></script>
+<script src="content/practice/05-data-governance.js"></script>
+<script src="content/practice/06-grid-ops.js"></script>
+<script src="content/practice/07-acceptance.js"></script>
+
+</body>
+</html>
