@@ -193,13 +193,27 @@ MODULES.forEach(m => {
   });
 });
 
-/* 注入 index.html */
+/* 注入 index.html(幂等:<!--LESSONS--> 标记常驻,重复 build 不损耗) */
 const idxPath = path.join(ROOT, 'index.html');
 let idx = fs.readFileSync(idxPath, 'utf8');
-if (idx.indexOf('<!--LESSONS-->') !== -1) {
-  idx = idx.replace('<!--LESSONS-->', scriptTags.join('\n'));
-} else {
-  idx = idx.replace(/<!-- Lessons[\s\S]*?<\/body>/, '<!-- Lessons (由 AGT.path 生成) -->\n' + scriptTags.join('\n') + '\n\n</body>');
+if (idx.indexOf('<!--LESSONS-->') === -1) {
+  if (/<!-- Lessons[\s\S]*?<\/body>/.test(idx)) {
+    idx = idx.replace(/<!-- Lessons[\s\S]*?<\/body>/, '<!--LESSONS-->\n\n</body>');
+  } else if (/<script src="content\/terms\.js"><\/script>/.test(idx)) {
+    /* 兜底:historical 形态(无标记但有课时标签) —— 在 terms.js 后补标记 */
+    idx = idx.replace('<script src="content/terms.js"></script>',
+      '<script src="content/terms.js"></script>\n<!--LESSONS-->');
+  } else {
+    console.error('注入失败: index.html 既无 <!--LESSONS--> 标记也无可识别的旧结构。');
+    process.exit(1);
+  }
+}
+idx = idx.replace(/<script src="content\/(?!modules\.js|terms\.js)[^"]*"><\/script>\s*/g, '');
+idx = idx.replace('<!--LESSONS-->', scriptTags.join('\n') + '\n<!--LESSONS-->');
+const injected = (idx.match(/<script src="content\//g) || []).length - 2;
+if (injected !== scriptTags.length) {
+  console.error('注入校验失败: index.html 课时标签 ' + injected + ' 个 != 应注入 ' + scriptTags.length + ' 个。');
+  process.exit(1);
 }
 fs.writeFileSync(idxPath, idx);
 
