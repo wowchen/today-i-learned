@@ -47,7 +47,7 @@
 ## 本地预览
 
 ```bash
-cd 20260622-today-i-learned
+cd today-i-learned
 python3 -m http.server 8000
 # 浏览器打开 http://localhost:8000/
 ```
@@ -56,34 +56,41 @@ python3 -m http.server 8000
 
 ```
 .
-├── index.html                      # 引导页(17 张卡片 Bento 布局)
-├── english-made-simple/            # 子站
-├── power-grid-fundamentals/        # 子站
-├── info-system-project-manager/    # 子站
-├── fifteenth-five-year-plan/       # 子站
-├── music-learning/                 # 子站
-├── system-architecture-designer/   # 子站
-├── system-analyst/                 # 子站
-├── system-planning-manager/        # 子站
-├── network-planning-designer/      # 子站
-├── personal-finance/               # 子站
-├── chinese-history/                # 子站
-├── world-history/                  # 子站
-├── energy-beidou/                  # 子站
-├── artificial-intelligence/        # 子站
-├── healthcare-business-it/         # 子站
-├── information-security/           # 子站
-├── economics/                      # 子站
-├── psychology/                     # 子站
-├── mathematics/                    # 子站
-├── geography/                      # 子站
-└── astronomy/                      # 子站
-├── ai-power/                        # 子站
-├── guitar-singing/                  # 子站
-├── literature/                      # 子站
-├── fitness-sports/                  # 子站
-├── tang-song-poetry/                # 子站
-├── world-art-history/               # 子站
+├── index.html                      # 引导页(34 张卡片 Bento 布局)
+├── english-made-simple/              # 子站 1
+├── power-grid-fundamentals/          # 子站 2
+├── info-system-project-manager/      # 子站 3
+├── fifteenth-five-year-plan/         # 子站 4
+├── music-learning/                   # 子站 5
+├── system-architecture-designer/     # 子站 6
+├── system-analyst/                   # 子站 7
+├── system-planning-manager/          # 子站 8
+├── network-planning-designer/        # 子站 9
+├── personal-finance/                 # 子站 10
+├── chinese-history/                  # 子站 11
+├── world-history/                    # 子站 12
+├── energy-beidou/                    # 子站 13
+├── artificial-intelligence/          # 子站 14
+├── healthcare-business-it/           # 子站 15
+├── information-security/             # 子站 16
+├── economics/                        # 子站 17
+├── psychology/                       # 子站 18
+├── mathematics/                      # 子站 19
+├── geography/                        # 子站 20
+├── chinese-geography/                # 子站 21
+├── nutrition-health/                 # 子站 22
+├── astronomy/                        # 子站 23
+├── ai-power/                         # 子站 24
+├── guitar-singing/                   # 子站 25
+├── literature/                       # 子站 26
+├── fitness-sports/                   # 子站 27
+├── tang-song-poetry/                 # 子站 28
+├── world-art-history/                # 子站 29
+├── chronic-care/                     # 子站 30
+├── telecom-fundamentals/             # 子站 31
+├── ai-agents/                        # 子站 32
+├── cloud-native/                     # 子站 33
+└── data-literacy/                    # 子站 34
 ```
 
 各子站使用相对路径,可独立运行,也可整体部署。
