@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>企业财税与内控审计通识 · 财务 · 税务 · 审计</title>
+<meta name="description" content="大白话讲透企业财税与内控审计(科普通识,内容基线2026年9月):三张报表怎么读、关键财务比率、中国税制全景(18 个税种分类/中央地方共享/增值税13%9%6%与小规模3%征收率/企业所得税25%与小微高新优惠/个税综合与分类)、发票与征管实务(专票普票/数电发票/发票总额度/进项抵扣/三流一致/虚开红线)、纳税申报与税务风险(纳税义务时点/申报周期/汇算清缴/税收优惠/纳税信用/金税四期)、内部控制基础(COSO 五要素/内控基本规范/不相容岗位分离/授权审批/业务闭环)、舞弊识别与防范、审计基础与流程(三方关系/合理保证/重要性/审计风险/函证监盘/五种审计意见)、审计准备与整改、项目制业务的财税(价税分离/收入确认五步法/成本归集/付款条件/质保金)。11 模块 75 课 119 术语,五段式含想一想,每处税率与政策均标注文号与适用期;含增值税与所得税税负测算/价税分离换算/项目毛利与回款推演/内控与合规自检四个互动工具。浅色商务藏青+深色墨金双主题(账本+印章动效)、纯静态离线。本站为通识科普,不构成税务、审计、法律或投资意见,涉及具体业务请以现行法规与主管税务机关口径为准。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('fin.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    企业财税与内控审计通识 <small>· Tax &amp; Audit</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="FIN.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">时效与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 9 月</b>。税率、优惠政策与申报期限会调整，一律以现行法律法规（《增值税法》《企业所得税法》《个人所得税法》《发票管理办法》等）及财政部、税务总局最新公告与主管税务机关口径为准。<b>本站不构成税务、审计、法律或投资意见，不提供任何税收筹划方案或规避路径。</b>涉及具体业务请咨询具备资质的专业人士。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/statements/01-why-reports.js"></script>
+<script src="content/statements/02-balance-sheet.js"></script>
+<script src="content/statements/03-income-statement.js"></script>
+<script src="content/statements/04-cash-flow.js"></script>
+<script src="content/statements/05-linkage.js"></script>
+<script src="content/statements/06-profit-vs-cash.js"></script>
+<script src="content/statements/07-notes.js"></script>
+<script src="content/ratios/01-why-ratios.js"></script>
+<script src="content/ratios/02-solvency.js"></script>
+<script src="content/ratios/03-efficiency.js"></script>
+<script src="content/ratios/04-profitability.js"></script>
+<script src="content/ratios/05-dupont.js"></script>
+<script src="content/ratios/06-ratio-traps.js"></script>
+<script src="content/tax-system/01-tax-categories.js"></script>
+<script src="content/tax-system/02-central-local.js"></script>
+<script src="content/tax-system/03-vat-basics.js"></script>
+<script src="content/tax-system/04-vat-rate.js"></script>
+<script src="content/tax-system/05-cit-basics.js"></script>
+<script src="content/tax-system/06-iit-basics.js"></script>
+<script src="content/tax-system/07-other-taxes.js"></script>
+<script src="content/tax-system/08-tax-legislation.js"></script>
+<script src="content/invoices/01-what-is-invoice.js"></script>
+<script src="content/invoices/02-special-vs-general.js"></script>
+<script src="content/invoices/03-e-invoice.js"></script>
+<script src="content/invoices/04-invoice-quota.js"></script>
+<script src="content/invoices/05-input-deduction.js"></script>
+<script src="content/invoices/06-three-flows.js"></script>
+<script src="content/invoices/07-redline.js"></script>
+<script src="content/tax-compliance/01-obligation-timing.js"></script>
+<script src="content/tax-compliance/02-filing-calendar.js"></script>
+<script src="content/tax-compliance/03-vat-filing.js"></script>
+<script src="content/tax-compliance/04-cit-settlement.js"></script>
+<script src="content/tax-compliance/05-incentives.js"></script>
+<script src="content/tax-compliance/06-credit-rating.js"></script>
+<script src="content/tax-compliance/07-smart-tax.js"></script>
+<script src="content/internal-control/01-what-is.js"></script>
+<script src="content/internal-control/02-coso-norm.js"></script>
+<script src="content/internal-control/03-objectives.js"></script>
+<script src="content/internal-control/04-segregation.js"></script>
+<script src="content/internal-control/05-authorization.js"></script>
+<script src="content/internal-control/06-business-loop.js"></script>
+<script src="content/internal-control/07-balance.js"></script>
+<script src="content/fraud/01-triangle.js"></script>
+<script src="content/fraud/02-revenue-fraud.js"></script>
+<script src="content/fraud/03-fund-loop.js"></script>
+<script src="content/fraud/04-related-party.js"></script>
+<script src="content/fraud/05-red-flags.js"></script>
+<script src="content/fraud/06-tip-hotline.js"></script>
+<script src="content/audit-basics/01-what-is.js"></script>
+<script src="content/audit-basics/02-types.js"></script>
+<script src="content/audit-basics/03-three-party.js"></script>
+<script src="content/audit-basics/04-reasonable-assurance.js"></script>
+<script src="content/audit-basics/05-materiality.js"></script>
+<script src="content/audit-basics/06-risk-model.js"></script>
+<script src="content/audit-basics/07-skepticism.js"></script>
+<script src="content/audit-process/01-flow.js"></script>
+<script src="content/audit-process/02-risk-assessment.js"></script>
+<script src="content/audit-process/03-substantive.js"></script>
+<script src="content/audit-process/04-confirmation.js"></script>
+<script src="content/audit-process/05-count.js"></script>
+<script src="content/audit-process/06-adjustment.js"></script>
+<script src="content/audit-process/07-opinion.js"></script>
+<script src="content/audit-ready/01-checklist.js"></script>
+<script src="content/audit-ready/02-cutoff.js"></script>
+<script src="content/audit-ready/03-related-party.js"></script>
+<script src="content/audit-ready/04-tax-inspection.js"></script>
+<script src="content/audit-ready/05-rectification.js"></script>
+<script src="content/audit-ready/06-warning.js"></script>
+<script src="content/project-finance/01-lifecycle.js"></script>
+<script src="content/project-finance/02-price-tax.js"></script>
+<script src="content/project-finance/03-revenue-confirm.js"></script>
+<script src="content/project-finance/04-cost-margin.js"></script>
+<script src="content/project-finance/05-payment-cash.js"></script>
+<script src="content/project-finance/06-retention-advance.js"></script>
+<script src="content/project-finance/07-settlement.js"></script>
+<!--LESSONS-->
+</body>
+</html>
