@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m" data-page-node-id="EEUpPui8isZaNbyUWV70pC">
+<head data-page-node-id="SviC6FIdXOUOcmfrlD9OTe">
+<meta charset="UTF-8" data-page-node-id="JgkhL3ueHPEmg8EmyEb5GS">
+<meta name="viewport" content="width=device-width,initial-scale=1" data-page-node-id="6XcxabKQfXa5jVFzK4WEvI">
+<title>数据分析通识 · 数据素养</title>
+<meta name="description" content="大白话讲透数据分析与数据素养(科普通识)：大白话统计、图表的选择、相关与因果、指标体系、数据思维、分析叙事、经典陷阱、营销实战。8 模块 49 课 51 术语，五段式含"想一想"，重直觉与实战、不堆公式不故弄玄虚，含图表选择器/指标口径体检/样本量计算器/统计陷阱演示器四个互动工具。浅色琥珀金+深色深咖夜双主题(数据生长动效)、纯静态离线。" data-page-node-id="A1jtGmcUAh4FuonHoHRvrb">
+<link rel="stylesheet" href="assets/css/main.css" data-page-node-id="FheR4BnUeqXFeiVuj2dACU">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('dat.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body data-page-node-id="RJNRATOL2Yp8s4Wu6dhw8A">
+<div class="top-bar" data-page-node-id="beDLrENSPEBpHwfXJYYCda">
+  <h1 data-page-node-id="T2FVxxJh4TQu4UtmwM7hh7">
+    <span class="b-mark" data-page-node-id="oMWjAQOnzVD5UPHB4Vz8QJ"></span>
+    数据分析通识 <small data-page-node-id="jvDrvkezk5qmucHH5XABQK">· Data</small>
+  </h1>
+  <nav class="nav" data-page-node-id="BUnLdIkx47xNPhWlXa9Aqc">
+    <a class="nav-link active" href="#/" data-page-node-id="FDAb5atjozapM0fG8rdHGg">课时</a>
+    <a class="nav-link" href="#/terms" data-page-node-id="4bawGDvKT7jloIEFyuYxbF">速查</a>
+    <a class="nav-link" href="#/calc" data-page-node-id="E2REp0SgTLzZMPHHxEA0l7">工具</a>
+    <a class="nav-link" href="#/book" data-page-node-id="t9UuUUBKBO7DQFDDESwYBm">收藏</a>
+    <a class="nav-link" href="#/search" data-page-node-id="JwJZEHBZejxeKXDKaIsNeh">搜索</a>
+    <a class="nav-link" href="#/settings" data-page-node-id="BYkyzNYq7Z8lbd3G5ni2ey">设置</a>
+    <button class="theme-btn" onclick="DAT.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色" data-page-node-id="6B1LmYYHkj4ecQcPkNvDCE">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="PgqWyTZPXgagaAmIyiZKbk"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" data-page-node-id="wf7nqjpPo6C0Tyc0CbrD4p"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="CbfZLclvBQx5FHFgH5uPNq"><circle cx="12" cy="12" r="4" data-page-node-id="cBZcNobXgnDSQhS8lSFAR7"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" data-page-node-id="sEhgZb4A1XUDG4CGs8SpkF"/></svg>
+    </button>
+    <a class="nav-cta" href="../" data-page-node-id="1vhLHvb9KF5An7e24fiymn">总站</a>
+  </nav>
+</div>
+<main id="app" data-page-node-id="0Dit9WizD897VMC60EYPZy"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+
+<script src="content/basics/01-what-is-agent.js"></script>
+<script src="content/basics/02-chatbot-vs-agent.js"></script>
+<script src="content/basics/03-autonomy-spectrum.js"></script>
+<script src="content/basics/04-anatomy.js"></script>
+<script src="content/basics/05-when-to-use.js"></script>
+<script src="content/basics/06-agent-family.js"></script>
+<script src="content/prompting/01-prompt-nature.js"></script>
+<script src="content/prompting/02-role-setting.js"></script>
+<script src="content/prompting/03-structured-prompt.js"></script>
+<script src="content/prompting/04-few-shot.js"></script>
+<script src="content/prompting/05-chain-of-thought.js"></script>
+<script src="content/prompting/06-iteration.js"></script>
+<script src="content/context/01-token-window.js"></script>
+<script src="content/context/02-scarce-resource.js"></script>
+<script src="content/context/03-compression.js"></script>
+<script src="content/context/04-rag.js"></script>
+<script src="content/context/05-memory.js"></script>
+<script src="content/context/06-checklist.js"></script>
+<script src="content/tools/01-giving-hands.js"></script>
+<script src="content/tools/02-function-calling.js"></script>
+<script src="content/tools/03-mcp.js"></script>
+<script src="content/tools/04-tool-design.js"></script>
+<script src="content/tools/05-sandbox.js"></script>
+<script src="content/tools/06-multi-tool.js"></script>
+<script src="content/workflow/01-workflow-vs-agent.js"></script>
+<script src="content/workflow/02-dag.js"></script>
+<script src="content/workflow/03-loops.js"></script>
+<script src="content/workflow/04-human-in-loop.js"></script>
+<script src="content/workflow/05-checkpoint.js"></script>
+<script src="content/workflow/06-framework-choice.js"></script>
+<script src="content/multiagent/01-why-multi.js"></script>
+<script src="content/multiagent/02-role-design.js"></script>
+<script src="content/multiagent/03-handoff.js"></script>
+<script src="content/multiagent/04-supervisor.js"></script>
+<script src="content/multiagent/05-debate.js"></script>
+<script src="content/multiagent/06-cost-trap.js"></script>
+<script src="content/reliability/01-why-unreliable.js"></script>
+<script src="content/reliability/02-failure-modes.js"></script>
+<script src="content/reliability/03-eval-set.js"></script>
+<script src="content/reliability/04-trace.js"></script>
+<script src="content/reliability/05-guardrails.js"></script>
+<script src="content/reliability/06-demo-to-prod.js"></script>
+<script src="content/security/01-prompt-injection.js"></script>
+<script src="content/security/02-least-privilege.js"></script>
+<script src="content/security/03-data-privacy.js"></script>
+<script src="content/security/04-misuse.js"></script>
+<script src="content/security/05-output-risk.js"></script>
+<script src="content/security/06-checklist.js"></script>
+<script src="content/practice/01-case-research.js"></script>
+<script src="content/practice/02-case-daily.js"></script>
+<script src="content/practice/03-case-docs.js"></script>
+<script src="content/practice/04-model-selection.js"></script>
+<script src="content/practice/05-cost-accounting.js"></script>
+<script src="content/practice/06-boundary.js"></script>
+<script src="content/future/01-landscape.js"></script>
+<script src="content/future/02-a2a.js"></script>
+<script src="content/future/03-long-task.js"></script>
+<script src="content/future/04-embodied.js"></script>
+<script src="content/future/05-agent-economy.js"></script>
+<script src="content/future/06-stay-sober.js"></script>
+
+</body>
+</html>
