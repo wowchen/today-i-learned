@@ -24,14 +24,14 @@ index.html                 SPA 外壳(顶栏 + 合规声明条 + #app + 引擎/�
 assets/css/main.css        全部样式(能源绿/青绿双主题 + .notice-bar + .gh-* + 工具 .calc-*)
 assets/js/                 引擎:registry/progress/sync/ui/engine/views-lesson(克隆 AIP 改 NPS)
                            + views-home(源网荷储闭环) + views-tools(5 工具)
-content/                   modules.js(16 模块 + NPS.path + en)、terms.js(111 条)、<module>/<NN-slug>.js  ← 自动生成
+content/                   modules.js(16 模块 + NPS.path + en)、terms.js(120 条)、<module>/<NN-slug>.js  ← 自动生成
 tools/build.js             单一数据源(MODULES/TERMS)+ 从 _src 加载课程 + 校验 + 生成 + 注入
 tools/_src/<module>.js     各模块课时块(module.exports = [...])
 ```
 
-## 16 模块(100 课 / 111 术语)
+## 16 模块(106 课 / 120 术语)
 
-guide 导览(4) · basics 概念基础(6) · sources 电源侧变化(6) · grid 电网侧变革(6) · stability 稳定与安全(6) · storebasic 储能总论(7) · storetech 储能技术路线(8) · storesys 储能系统集成(8) · storeapp 储能应用场景(7) · storeops 储能运维与安全(6) · market 电力市场与商业模式(8) · vpp 虚拟电厂与需求响应(6) · digital 数字化与智能化(6) · hydrogen 氢能与长时储能(5) · policy 政策与标准(6) · future 挑战与展望(5)
+guide 导览(4) · basics 概念基础(6) · sources 电源侧变化(6) · grid 电网侧变革(6) · stability 稳定与安全(6) · storebasic 储能总论(7) · storetech 储能技术路线(8) · storesys 储能系统集成(8) · storeapp 储能应用场景(7) · storeops 储能运维与安全(6) · market 电力市场与商业模式(8) · vpp 虚拟电厂与需求响应(6) · digital 数字化与智能化(6) · hydrogen 氢能与长时储能(8) · policy 政策与标准(6) · future 挑战与展望(8)
 
 ## 5 个互动工具(views-tools.js)
 

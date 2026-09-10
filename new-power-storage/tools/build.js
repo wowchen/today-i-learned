@@ -164,6 +164,11 @@ const TERMS = [
   ['hydrogen-blending','掺氢燃烧','Hydrogen Blending','在天然气或煤电机组燃料中掺入一定比例氢气燃烧,降低碳排放。','燃气里兑点氢。','hydrogen'],
   ['fuel-cell','燃料电池','Fuel Cell','把氢的化学能直接转成电能的装置,效率高、无燃烧,排放主要是水。','用氢发电。','hydrogen'],
   ['long-duration','长时储能','Long-Duration Storage','通常指持续放电 4 小时以上、用于跨天或跨季节调节的储能技术路线。','能放一整天的储能。','hydrogen'],
+  ['gaseous-storage','高压气态储氢','Gaseous Hydrogen Storage','用高压容器储存氢气,常见 20、35、70 兆帕等级,技术最成熟、成本最低。','把氢压进钢瓶。','hydrogen'],
+  ['lohc','液体有机储氢','LOHC','用有机液体作为氢的载体,常温常压储存与运输,到目的地再释放氢气。','把氢装进液体里。','hydrogen'],
+  ['green-ammonia','绿氨','Green Ammonia','用绿氢与氮合成的氨,既是化工原料与航运燃料,也是便于储运的氢载体。','一物三用的氢载体。','hydrogen'],
+  ['hydrogen-metallurgy','氢冶金','Hydrogen Metallurgy','用氢替代焦炭作为还原剂炼铁,从源头消除炼铁环节的碳排放。','用氢炼铁不冒烟。','hydrogen'],
+  ['hydrogen-embrittlement','氢脆','Hydrogen Embrittlement','氢渗入金属晶格后使材料变脆、易开裂的现象,是储氢设备的选材约束。','金属被氢泡脆了。','hydrogen'],
 
   // 政策与标准
   ['new-storage-policy','新型储能政策','New Energy Storage Policy','国家与地方关于新型储能规划、电价、补贴与市场准入的政策体系,以关于加快推动新型储能发展的指导意见等文件为框架。','储能的政策底座。','policy'],
@@ -179,6 +184,10 @@ const TERMS = [
   ['ecosystem','产业生态','Industry Ecosystem','从材料、电芯、集成到运营与回收的完整产业链及其协作网络。','一条链上的所有玩家。','future'],
   ['zero-carbon','零碳电力','Zero-carbon Electricity','发电环节基本不产生碳排放的电力供给结构,是碳中和的核心图景。','不冒烟的电力。','future'],
   ['standardization','标准体系','Standards System','覆盖规划、设计、并网、运行、安全与回收的标准集合,决定产业能否规模化。','量产的前提条件。','future'],
+  ['build-before-break','先立后破','Build Before Break','能源转型原则:先建立起替代能力与灵活性资源,再退出化石能源。','先立好支柱再拆墙。','future'],
+  ['lock-in','路径锁定','Path Lock-in','早期投资与技术选择形成惯性,抬高后续转型调整成本的现象。','一步走错难回头。','future'],
+  ['capacity-market','容量市场','Capacity Market','通过竞价确定容量价格的机制,与行政核定的容量电价相区分。','竞价买备用能力。','future'],
+  ['interconnection','并网排队','Interconnection Queue','大量项目等待并网审批形成的堵塞,是新能源与储能落地的常见瓶颈。','并网要排长队。','future'],
 ];
 
 /* ============ 从 _src 加载课程 ============
