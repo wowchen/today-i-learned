@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-fs="m">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="zh-CN" data-fs="m" data-page-node-id="EEUpPui8isZaNbyUWV70pC">
+<head data-page-node-id="SviC6FIdXOUOcmfrlD9OTe">
+<meta charset="UTF-8" data-page-node-id="JgkhL3ueHPEmg8EmyEb5GS">
+<meta name="viewport" content="width=device-width,initial-scale=1" data-page-node-id="6XcxabKQfXa5jVFzK4WEvI">
 <title>AI 智能体 · Agent 与工作流</title>
-<meta name="description" content="大白话讲透 AI 智能体与工作流(科普通识)：智能体基础、提示词工程、规划与分解、上下文工程、定制化三板斧、工具调用、多模态、工作流编排、多智能体协作、编码智能体、可靠性与评测、安全与边界、研究工作流实战、趋势与未来。14 模块 78 课 81 术语，五段式含"想一想"，重直觉与实战、不神化不贩卖焦虑，含智能体循环模拟器/提示词体检/上下文预算计算器/流水线设计器/失败模式自诊器五个互动工具。浅色紫罗兰+深色紫夜双主题(智能体循环动效)、纯静态离线。">
-<link rel="stylesheet" href="assets/css/main.css">
+<meta name="description" content="大白话讲透 AI 智能体与工作流(科普通识)：智能体基础、提示词工程、规划与分解、上下文工程、定制化三板斧、工具调用、多模态、工作流编排、多智能体协作、编码智能体、可靠性与评测、安全与边界、研究工作流实战、趋势与未来。14 模块 78 课 81 术语，五段式含"想一想"，重直觉与实战、不神化不贩卖焦虑，含智能体循环模拟器/提示词体检/上下文预算计算器/流水线设计器/失败模式自诊器五个互动工具。浅色紫罗兰+深色紫夜双主题(智能体循环动效)、纯静态离线。" data-page-node-id="A1jtGmcUAh4FuonHoHRvrb">
+<link rel="stylesheet" href="assets/css/main.css" data-page-node-id="FheR4BnUeqXFeiVuj2dACU">
 <script>
   // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
   (function(){
@@ -19,27 +19,27 @@
   })();
 </script>
 </head>
-<body>
-<div class="top-bar">
-  <h1>
-    <span class="b-mark"></span>
-    AI 智能体 <small>· Agent</small>
+<body data-page-node-id="RJNRATOL2Yp8s4Wu6dhw8A">
+<div class="top-bar" data-page-node-id="beDLrENSPEBpHwfXJYYCda">
+  <h1 data-page-node-id="T2FVxxJh4TQu4UtmwM7hh7">
+    <span class="b-mark" data-page-node-id="oMWjAQOnzVD5UPHB4Vz8QJ"></span>
+    AI 智能体 <small data-page-node-id="jvDrvkezk5qmucHH5XABQK">· Agent</small>
   </h1>
-  <nav class="nav">
-    <a class="nav-link active" href="#/">课时</a>
-    <a class="nav-link" href="#/terms">速查</a>
-    <a class="nav-link" href="#/calc">工具</a>
-    <a class="nav-link" href="#/book">收藏</a>
-    <a class="nav-link" href="#/search">搜索</a>
-    <a class="nav-link" href="#/settings">设置</a>
-    <button class="theme-btn" onclick="AGT.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
-      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  <nav class="nav" data-page-node-id="BUnLdIkx47xNPhWlXa9Aqc">
+    <a class="nav-link active" href="#/" data-page-node-id="FDAb5atjozapM0fG8rdHGg">课时</a>
+    <a class="nav-link" href="#/terms" data-page-node-id="4bawGDvKT7jloIEFyuYxbF">速查</a>
+    <a class="nav-link" href="#/calc" data-page-node-id="E2REp0SgTLzZMPHHxEA0l7">工具</a>
+    <a class="nav-link" href="#/book" data-page-node-id="t9UuUUBKBO7DQFDDESwYBm">收藏</a>
+    <a class="nav-link" href="#/search" data-page-node-id="JwJZEHBZejxeKXDKaIsNeh">搜索</a>
+    <a class="nav-link" href="#/settings" data-page-node-id="BYkyzNYq7Z8lbd3G5ni2ey">设置</a>
+    <button class="theme-btn" onclick="AGT.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色" data-page-node-id="6B1LmYYHkj4ecQcPkNvDCE">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="PgqWyTZPXgagaAmIyiZKbk"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" data-page-node-id="wf7nqjpPo6C0Tyc0CbrD4p"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="CbfZLclvBQx5FHFgH5uPNq"><circle cx="12" cy="12" r="4" data-page-node-id="cBZcNobXgnDSQhS8lSFAR7"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" data-page-node-id="sEhgZb4A1XUDG4CGs8SpkF"/></svg>
     </button>
-    <a class="nav-cta" href="../">总站</a>
+    <a class="nav-cta" href="../" data-page-node-id="1vhLHvb9KF5An7e24fiymn">总站</a>
   </nav>
 </div>
-<main id="app"></main>
+<main id="app" data-page-node-id="0Dit9WizD897VMC60EYPZy"></main>
 
 <!-- Engine -->
 <script src="assets/js/registry.js"></script>
