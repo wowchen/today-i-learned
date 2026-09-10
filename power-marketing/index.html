@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>电力营销与客户服务 · 电价 · 抄核收 · 业扩报装 · 客户服务</title>
+<meta name="description" content="大白话讲透电力营销与客户服务(科普通识,内容基线 2026 年 9 月):营销业务全景(电力营销是什么/营销在电网中的位置/业扩抄核收计量用电检查服务五大业务/客户分类/营销组织架构/营销与调度运检的关系)、电价与电费(目录销售电价/代理购电/居民阶梯电价/工商业电价/两部制与基本电费按容量或需量计收/峰谷分时与尖峰电价/功率因数调整电费/电价构成与交叉补贴/电费清单怎么读)、抄表核算收费(抄表方式与例日/远程抄表/电费核算出账/缴费渠道/欠费催收与停限电/电费差错退补/电费回收率)、电能计量(计量装置构成/互感器与计量倍率/高供高计与高供低计/计量差错与差错电量追补/智能电表/计量装置轮换)、业扩报装(报装接电全流程/受理与现场勘查/供电方案答复/受电工程设计审查/中间检查与竣工检验/装表接电/接电时限与获得电力/变更用电)、客户服务与供电质量(95598 与营业厅/线上服务/服务规范/投诉举报处理/抢修服务/客户满意度/重要客户/电压质量/停限电通知)、需求侧管理与能效(需求侧管理/价格型与激励型需求响应/能效服务/电能替代/综合能源服务/负荷聚合商)、市场下的营销变革(售电公司与代理购电/绿电绿证/分布式光伏服务/市场化结算/合同能源管理/能源托管)、营销数字化(营销业务系统/网上国网/客户画像/智能客服/流程自动化/台区管理与低压透明化/数字化营业厅)、用电检查与稽查(用电检查/违约用电与窃电/营销稽查/电价执行稽查/客户侧安全/供用电合同)、政策与合规(电力法与供电营业规则/供电监管/服务规范/营商环境/客户信息保护/服务红线)、一线实战(客户经理日常/报装案例/投诉处置/营业厅实务/常见差错与能力地图)。13 模块 88 课 102 术语,五段式含想一想;含电费清单测算器/功率因数调整电费测算器/业扩报装方案测算器/需求响应收益测算器/客户电费风险评分器五个互动工具。浅色青柠森绿+深色墨绿亮青柠双主题、纯静态离线。本站为通识科普,涉电价与政策之处以现行有效文件为准,不构成业务办理或合规依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('emk.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    电力营销与客户服务 <small>· Power Marketing and Customer Service</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="EMK.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">政策与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 9 月</b>。电价政策、收费标准、办电时限、服务规范与监管要求调整频繁，一律以国家发展改革委、国家能源局及各省主管部门现行发布的价格文件、办法与规则为准。<b>本站不构成业务办理、收费、合规或法律依据，也不提供任何规避监管的做法。</b>涉及具体客户与业务事项，请以供电企业的正式答复、供用电合同约定与现行有效文件为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-marketing.js"></script>
+<script src="content/guide/03-why-it-matters.js"></script>
+<script src="content/guide/04-how-to-learn.js"></script>
+<script src="content/basic/01-position.js"></script>
+<script src="content/basic/02-system.js"></script>
+<script src="content/basic/03-classification.js"></script>
+<script src="content/basic/04-organization.js"></script>
+<script src="content/basic/05-relation.js"></script>
+<script src="content/basic/06-indicators.js"></script>
+<script src="content/basic/07-history.js"></script>
+<script src="content/price/01-overview.js"></script>
+<script src="content/price/02-catalog.js"></script>
+<script src="content/price/03-tiered.js"></script>
+<script src="content/price/04-commercial.js"></script>
+<script src="content/price/05-two-part.js"></script>
+<script src="content/price/06-tou.js"></script>
+<script src="content/price/07-pf.js"></script>
+<script src="content/price/08-bill.js"></script>
+<script src="content/billing/01-reading.js"></script>
+<script src="content/billing/02-remote.js"></script>
+<script src="content/billing/03-issuing.js"></script>
+<script src="content/billing/04-payment.js"></script>
+<script src="content/billing/05-arrears.js"></script>
+<script src="content/billing/06-error.js"></script>
+<script src="content/metering/01-device.js"></script>
+<script src="content/metering/02-transformer.js"></script>
+<script src="content/metering/03-mode.js"></script>
+<script src="content/metering/04-smart.js"></script>
+<script src="content/metering/05-error.js"></script>
+<script src="content/metering/06-rotation.js"></script>
+<script src="content/metering/07-manage.js"></script>
+<script src="content/business/01-flow.js"></script>
+<script src="content/business/02-apply.js"></script>
+<script src="content/business/03-scheme.js"></script>
+<script src="content/business/04-design.js"></script>
+<script src="content/business/05-inspect.js"></script>
+<script src="content/business/06-energize.js"></script>
+<script src="content/business/07-timeline.js"></script>
+<script src="content/business/08-change.js"></script>
+<script src="content/service/01-channels.js"></script>
+<script src="content/service/02-hotline.js"></script>
+<script src="content/service/03-standard.js"></script>
+<script src="content/service/04-complaint.js"></script>
+<script src="content/service/05-repair.js"></script>
+<script src="content/service/06-quality.js"></script>
+<script src="content/service/07-notice.js"></script>
+<script src="content/service/08-satisfaction.js"></script>
+<script src="content/dsm/01-dsm.js"></script>
+<script src="content/dsm/02-dr.js"></script>
+<script src="content/dsm/03-dr-type.js"></script>
+<script src="content/dsm/04-efficiency.js"></script>
+<script src="content/dsm/05-substitution.js"></script>
+<script src="content/dsm/06-integrated.js"></script>
+<script src="content/dsm/07-aggregator.js"></script>
+<script src="content/market/01-retail.js"></script>
+<script src="content/market/02-agent.js"></script>
+<script src="content/market/03-green.js"></script>
+<script src="content/market/04-pv.js"></script>
+<script src="content/market/05-settlement.js"></script>
+<script src="content/market/06-emc.js"></script>
+<script src="content/market/07-role.js"></script>
+<script src="content/digital/01-system.js"></script>
+<script src="content/digital/02-online.js"></script>
+<script src="content/digital/03-profile.js"></script>
+<script src="content/digital/04-ai.js"></script>
+<script src="content/digital/05-rpa.js"></script>
+<script src="content/digital/06-area.js"></script>
+<script src="content/digital/07-hall.js"></script>
+<script src="content/check/01-inspection.js"></script>
+<script src="content/check/02-default.js"></script>
+<script src="content/check/03-theft.js"></script>
+<script src="content/check/04-audit.js"></script>
+<script src="content/check/05-tariff-check.js"></script>
+<script src="content/check/06-contract.js"></script>
+<script src="content/policy/01-law.js"></script>
+<script src="content/policy/02-rules.js"></script>
+<script src="content/policy/03-supervision.js"></script>
+<script src="content/policy/04-environment.js"></script>
+<script src="content/policy/05-info.js"></script>
+<script src="content/policy/06-redline.js"></script>
+<script src="content/practice/01-daily.js"></script>
+<script src="content/practice/02-case-connection.js"></script>
+<script src="content/practice/03-case-complaint.js"></script>
+<script src="content/practice/04-hall.js"></script>
+<script src="content/practice/05-error.js"></script>
+<script src="content/practice/06-visit.js"></script>
+<script src="content/practice/07-map.js"></script>
+<!--LESSONS-->
+</body>
+</html>
