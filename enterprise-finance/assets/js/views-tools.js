@@ -1,4 +1,4 @@
-/* 工具视图:四件财税互动工具(税负测算 / 价税分离换算 / 项目毛利与回款推演 / 内控与合规自检)
+/* 工具视图:五件财税互动工具(税负测算 / 价税分离换算 / 项目毛利与回款推演 / 内控与合规自检)
    + 模块页 / 术语 / 收藏 / 搜索 / 设置。
    ⚠️ 全部为本地简化测算,结果仅作理解框架之用,不构成税务或审计意见。 */
 window.FIN = window.FIN || {};
@@ -13,10 +13,10 @@ FIN._w = function(n, d) { return (Math.round(n * Math.pow(10, d)) / Math.pow(10,
 FIN.views.calc = function() {
   var html = '<div class="tools-page">';
   html += '<h2>互动工具箱</h2>';
-  html += '<p class="calc-intro">财税这件事，光看会不算不算懂。这四个小工具把课里的框架变成可拨动的数字：<b>税率一改，结果立刻不一样</b>。全部在本地浏览器运行，不上传任何数据。</p>';
+  html += '<p class="calc-intro">财税这件事，光看会不算不算懂。这五个小工具把课里的框架变成可拨动的数字：<b>税率一改，结果立刻不一样</b>。全部在本地浏览器运行，不上传任何数据。</p>';
   html += '<div class="disclaimer" style="margin-top:0">';
   html += '<h4>使用前必读</h4>';
-  html += '<p>四件工具均为<b>简化教学测算</b>：未考虑纳税调整、视同销售、进项转出、跨期分摊、地方税种差异与税收协定的复杂情形，也<b>未包含任何筹划安排</b>。结果只用于理解"税怎么来、利润怎么变"，<b>不得作为申报、报价、合同或审计的依据</b>。实际业务请以现行法规与主管税务机关口径为准。</p>';
+  html += '<p>五件工具均为<b>简化教学测算</b>：未考虑纳税调整、视同销售、进项转出、跨期分摊、地方税种差异与税收协定的复杂情形，也<b>未包含任何筹划安排</b>。结果只用于理解"税怎么来、利润怎么变"，<b>不得作为申报、报价、合同或审计的依据</b>。实际业务请以现行法规与主管税务机关口径为准。</p>';
   html += '</div>';
 
   // 1. 税负测算器
@@ -80,10 +80,24 @@ FIN.views.calc = function() {
   html += '<div id="ic-result" class="calc-result"></div>';
   html += '</div>';
 
-  html += '<p class="calc-note">说明：四件工具均为本地教学测算，不考虑纳税调整、进项转出、地方税种差异等复杂情形，也不含任何筹划安排，结果不作为申报或决策依据。自检清单为启发式检查，不构成内控评价结论。</p>';
+  // 5. 本量利与经营杠杆
+  html += '<div class="calc-card">';
+  html += '<h3><span class="g">◎</span>本量利与经营杠杆计算器</h3>';
+  html += '<p class="lab-desc">要卖多少才不亏？收入下滑 10% 利润会掉多少？填入成本与价格结构，一次算出<b>保本点、安全边际与经营杠杆系数</b>。</p>';
+  html += '<div class="calc-inputs">';
+  html += '<label>固定成本(万元) <input type="number" id="cv-fc" step="1" value="120" min="0" oninput="FIN.calcCvp()"></label>';
+  html += '<label>单价(元) <input type="number" id="cv-p" step="1" value="100" min="0" oninput="FIN.calcCvp()"></label>';
+  html += '<label>单位变动成本(元) <input type="number" id="cv-vc" step="1" value="60" min="0" oninput="FIN.calcCvp()"></label>';
+  html += '<label>预计销量(件) <input type="number" id="cv-q" step="100" value="40000" min="0" oninput="FIN.calcCvp()"></label>';
+  html += '<label>目标利润(万元，选填) <input type="number" id="cv-tp" step="1" value="60" min="0" oninput="FIN.calcCvp()"></label>';
+  html += '</div>';
+  html += '<div id="cv-result" class="calc-result"></div>';
+  html += '</div>';
+
+  html += '<p class="calc-note">说明：五件工具均为本地教学测算，不考虑纳税调整、进项转出、地方税种差异等复杂情形，也不含任何筹划安排，结果不作为申报或决策依据。自检清单为启发式检查，不构成内控评价结论。</p>';
   html += '</div>';
   FIN.render(html);
-  FIN.calcTax(); FIN.calcPriceTax(); FIN.calcProject(); FIN.renderControlList();
+  FIN.calcTax(); FIN.calcPriceTax(); FIN.calcProject(); FIN.renderControlList(); FIN.calcCvp();
 };
 
 /* ---- 1. 税负测算器 ---- */
@@ -231,6 +245,61 @@ FIN.calcProject = function() {
 
   el.innerHTML = warnSum + '<table class="cr-table">' + rows + '</table>' + pay +
     '<p class="calc-note">垫资采用"成本均匀投入 × 工期 × 0.5 × (1−预付款比例)"的粗算口径，<b>只用于判断量级与决策取舍</b>，未考虑税款的垫付（开票即可能产生纳税义务）、进度款实际到位延迟、成本超支与汇率等情形。<b>做项目决策时，含资金成本的真实毛利才是真实毛利。</b></p>';
+};
+
+/* ---- 5. 本量利与经营杠杆 ---- */
+FIN.calcCvp = function() {
+  var el = document.getElementById('cv-result');
+  if (!el) return;
+  var fc = FIN._num('cv-fc'), p = FIN._num('cv-p'), vc = FIN._num('cv-vc');
+  var q = FIN._num('cv-q'), tp = FIN._num('cv-tp');
+  if (fc === null || p === null || vc === null || q === null || fc < 0 || p <= 0 || vc < 0 || q < 0) {
+    el.innerHTML = '<div class="calc-warn">请填写有效数值（单价需大于 0，其余非负）。目标利润可留空或填 0。</div>'; return;
+  }
+  var ucm = p - vc;               /* 单位边际贡献(元) */
+  if (ucm <= 0) {
+    el.innerHTML = '<div class="calc-warn">单位变动成本已不低于单价（单位边际贡献为 ' + FIN._fix(ucm, 2) + ' 元）：<b>这种结构下卖得越多亏得越多</b>，不存在保本点。必须先提价或压低单位变动成本。</div>'; return;
+  }
+  var fcY = fc * 10000;
+  var cmr = ucm / p * 100;                        /* 边际贡献率 % */
+  var beQ = Math.ceil(fcY / ucm);                 /* 盈亏平衡销量(件) */
+  var beRevW = beQ * p / 10000;                   /* 盈亏平衡收入(万元) */
+  var contribY = ucm * q;                         /* 当前边际贡献(元) */
+  var profitW = (contribY - fcY) / 10000;         /* 当前利润(万元) */
+  var smr = q > 0 ? (q - beQ) / q * 100 : 0;      /* 安全边际率 % */
+  var dol = profitW > 0 ? contribY / (contribY - fcY) : null;
+
+  var rows = '';
+  rows += tr('单位边际贡献', FIN._fix(ucm, 2) + ' 元', ucm > 0 ? 'cr-good' : 'cr-bad', '单价 − 单位变动成本');
+  rows += tr('边际贡献率', FIN._fix(cmr, 2) + '%', '', '单位边际贡献 ÷ 单价，用来算保本收入');
+  rows += tr('盈亏平衡销量', beQ.toLocaleString('zh-CN') + ' 件', 'cr-warn', '固定成本 ÷ 单位边际贡献（向上取整）');
+  rows += tr('盈亏平衡收入', FIN._w(beRevW, 2) + ' 万元', 'cr-warn', '保本线：低于它做多少都亏');
+  rows += tr('预计边际贡献', FIN._w(contribY / 10000, 2) + ' 万元', '', '单位边际贡献 × 预计销量');
+  rows += tr('预计利润', FIN._w(profitW, 2) + ' 万元', profitW >= 0 ? 'cr-good' : 'cr-bad', '边际贡献 − 固定成本');
+  if (q > 0) {
+    rows += tr('安全边际率', FIN._fix(smr, 2) + '%', smr >= 25 ? 'cr-good' : (smr >= 10 ? 'cr-warn' : 'cr-bad'),
+      smr < 0 ? '低于保本线，当前结构是亏损的' : '销量比保本点高出的比例，越高越抗风险');
+  }
+  if (dol === null) {
+    rows += tr('经营杠杆系数', '不适用', 'cr-bad', '当前利润非正，杠杆无从计算；先让利润转正');
+  } else {
+    var dolCls = dol >= 3 ? 'cr-bad' : (dol >= 1.8 ? 'cr-warn' : 'cr-good');
+    rows += tr('经营杠杆系数', FIN._fix(dol, 2), dolCls, '边际贡献 ÷ 利润；收入降 10% 时利润约降 ' + FIN._fix(dol * 10, 1) + '%');
+  }
+  if (tp !== null && tp > 0) {
+    var tQ = Math.ceil((fcY + tp * 10000) / ucm);
+    rows += tr('达成目标利润所需销量', tQ.toLocaleString('zh-CN') + ' 件', '', '（固定成本 + 目标利润）÷ 单位边际贡献；比保本点还多卖 ' + (tQ - beQ).toLocaleString('zh-CN') + ' 件');
+  }
+
+  var advice;
+  if (smr < 0) advice = '当前处于亏损区：销量低于保本点，必须提价、降单位变动成本或压固定成本。';
+  else if (smr < 10) advice = '贴着保本线运行：几乎没有缓冲，一次订单流失或成本上涨就可能转为亏损。';
+  else if (smr < 25) advice = '缓冲一般：有安全边际，但对价格与销量波动仍较敏感，建议盯住单位边际贡献。';
+  else advice = '缓冲充足：抗风险能力较好，但也要警惕高杠杆（固定成本占比大）带来的反向放大。';
+
+  el.innerHTML = '<table class="cr-table">' + rows + '</table>' +
+    '<p style="margin:12px 0 0;font-size:.92rem"><b>结论：</b>' + advice + '</p>' +
+    '<p class="calc-note">三个旋钮决定保本点：<b>降固定成本</b>（保本点直接下移）、<b>提单价</b>（提高单位边际贡献）、<b>降单位变动成本</b>（压采购与外包）。<b>经营杠杆系数</b>说明利润对收入的放大倍数——系数越大，好年份赚得越猛、差年份跌得越狠。本模型假设单价与单位变动成本不随销量变化，且不考虑税费与产能上限，仅用于理解结构关系。</p>';
 };
 
 /* ---- 4. 内控与合规自检 ---- */

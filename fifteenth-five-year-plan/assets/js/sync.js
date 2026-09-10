@@ -22,7 +22,7 @@
   function apiUrl() {
     // cfg.repo 形如 "owner/grid-progress"
     return 'https://api.github.com/repos/' + cfg.repo + '/contents/' +
-      (cfg.path || 'progress.json') + '?ref=' + (cfg.branch || 'main');
+      (cfg.path || 'progress/fyp.json') + '?ref=' + (cfg.branch || 'main');
   }
   function headers() {
     return {
@@ -98,7 +98,7 @@
       cfg.token = (c.token || '').trim();
       cfg.repo = (c.repo || '').trim();
       cfg.branch = (c.branch || 'main').trim();
-      cfg.path = (c.path || 'progress.json').trim();
+      cfg.path = (c.path || 'progress/fyp.json').trim();
       saveCfg();
     },
     clearToken: function () { cfg.token = ''; saveCfg(); setStatus('仅本机'); },

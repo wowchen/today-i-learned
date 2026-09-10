@@ -191,8 +191,8 @@
       '<p class="sync-msg" id="syMsg">' + MUS.esc(MUS.sync.statusText) + '</p></div>' +
 
       '<div class="card set-group"><h3>手动备份</h3>' +
-      '<p class="d">自动同步之外的备用通道:导出/导入 progress.json。导入采用智能合并,不会覆盖丢数据。</p>' +
-      '<div class="set-row"><button class="btn" id="expBtn">导出 progress.json</button>' +
+      '<p class="d">自动同步之外的备用通道:导出/导入 mus-progress.json。导入采用智能合并,不会覆盖丢数据。</p>' +
+      '<div class="set-row"><button class="btn" id="expBtn">导出 mus-progress.json</button>' +
       '<label class="btn ghost" style="cursor:pointer">导入<input type="file" id="impFile" accept=".json" style="display:none"></label></div></div>'
     );
 
@@ -237,7 +237,7 @@
       var blob = new Blob([P().exportJson()], { type: 'application/json' });
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'progress.json';
+      a.download = 'mus-progress.json';
       a.click();
       URL.revokeObjectURL(a.href);
     });
@@ -246,7 +246,7 @@
       if (!f) return;
       var fr = new FileReader();
       fr.onload = function () {
-        alert(P().importJson(fr.result) ? '导入成功,已与本机数据合并。' : '导入失败:不是有效的 progress.json。');
+        alert(P().importJson(fr.result) ? '导入成功,已与本机数据合并。' : '导入失败:不是有效的 mus-progress.json。');
       };
       fr.readAsText(f);
     });

@@ -21,6 +21,7 @@ const qc = (q, options, answer, explain, source) => ({ type: 'choice', q: q, opt
 const MODULES = [
   ['statements','三张报表怎么读','资产负债表、利润表、现金流量表——报表是公司的体检报告','入门','Financial Statements'],
   ['ratios','关键财务比率','偿债、营运、盈利、杜邦——用几个数字看透一家公司','基础','Financial Ratios'],
+  ['analysis','财务分析与经营决策','经营分析框架、成本性态、本量利、敏感性与杠杆、投资决策、定价取舍','实战','Business Analysis'],
   ['tax-system','中国税制全景','18 个税种怎么分类、增值税怎么转、所得税怎么算','核心','China Tax System'],
   ['invoices','发票与征管实务','专票普票、数电发票、进项抵扣、三流一致、虚开红线','核心','Invoices & Administration'],
   ['tax-compliance','纳税申报与税务风险','纳税义务时点、申报周期、税收优惠、纳税信用、金税四期','核心','Tax Filing & Risk'],
@@ -29,6 +30,7 @@ const MODULES = [
   ['audit-basics','审计基础','审计是干什么的、三方关系、合理保证、重要性、审计风险','核心','Audit Basics'],
   ['audit-process','审计流程与意见','计划、风险评估、函证监盘、调整、五种审计意见怎么读','核心','Audit Process'],
   ['audit-ready','审计准备与整改','资料清单、截止性测试、关联方披露、稽查应对、整改闭环','实战','Audit Readiness'],
+  ['contract','合同与商务条款','合同类型与税目、价款与发票条款、付款结算、验收与风险转移、违约变更、档案','实战','Contract Terms'],
   ['project-finance','项目制业务的财税','价税分离、收入确认、成本归集、付款条件、回款现金流','实战','Project Finance']
 ];
 
@@ -56,6 +58,27 @@ const TERMS = [
   ['roe','净资产收益率','ROE','净利润除以净资产，衡量股东投的钱一年生出多少。','自有本金的一年回报率。','ratios'],
   ['dupont','杜邦分析','DuPont Analysis','把 ROE 拆成净利率 × 周转率 × 权益乘数，看清高回报靠什么驱动。','一拆三，看钱是赚来的还是借来的。','ratios'],
   ['cash-to-revenue','收现比','Cash-to-Revenue Ratio','销售收到的现金除以营业收入，长期小于 1 说明收入质量存疑。','赚的是一百块还是一百块白条。','ratios'],
+
+  /* --- analysis --- */
+  ['operating-analysis','经营分析','Operating Analysis','用财务数据回答经营问题的过程：发生了什么、差在哪、为什么、怎么办。','把报表翻译成经营动作。','analysis'],
+  ['cost-behavior','成本性态','Cost Behavior','成本随业务量变化的规律，决定企业抗风险的方式。','成本怎么跟着产量走。','analysis'],
+  ['fixed-cost','固定成本','Fixed Cost','业务量变化时总额基本不变的成本，如房租、折旧、管理人员薪酬。','不开工也得付的那部分。','analysis'],
+  ['variable-cost','变动成本','Variable Cost','随业务量同向变化的成本，如材料、计件人工、按量结算的外包。','多做一件就多花一份。','analysis'],
+  ['contribution-margin','边际贡献','Contribution Margin','收入减去变动成本，用来先覆盖固定成本、再看剩下多少是利润。','先填固定成本的坑，再算赚。','analysis'],
+  ['break-even-point','盈亏平衡点','Break-even Point','收入刚好等于总成本时的销量或收入，也就是保本线。','不赚不亏的那条线。','analysis'],
+  ['cvp-analysis','本量利分析','CVP Analysis','研究成本、业务量与利润三者关系的经典模型。','三个旋钮怎么拧才不亏。','analysis'],
+  ['sensitivity-analysis','敏感性分析','Sensitivity Analysis','逐个变动关键假设，看结果对哪个变量最敏感。','哪个假设一碰就崩。','analysis'],
+  ['operating-leverage','经营杠杆','Operating Leverage','固定成本占比越高，利润对收入变化越敏感，涨跌被放大。','收入动一点，利润动很多。','analysis'],
+  ['payback-period','投资回收期','Payback Period','收回初始投资所需的时间，直观但不考虑资金时间价值。','几年回本。','analysis'],
+  ['npv','净现值','Net Present Value','未来各期现金流折现后减去初始投资的净额，大于零值得投。','把未来的钱折成今天的钱再比。','analysis'],
+  ['irr','内部收益率','Internal Rate of Return','使净现值刚好为零的折现率，高于要求回报率即值得投。','项目自己的回报率。','analysis'],
+  ['discount-rate','折现率','Discount Rate','把未来现金流折算成现值的比率，反映资金成本与风险。','未来的钱打几折。','analysis'],
+  ['target-cost','目标成本','Target Cost','先定市场可接受的价格，再倒推允许的成本上限。','倒着算成本。','analysis'],
+  ['pricing-decision','定价决策','Pricing Decision','结合边际贡献、产能与资金占用判断某个价格该不该接。','这单接不接。','analysis'],
+  ['pyramid-principle','金字塔原理','Pyramid Principle','结论先行、论据分层递进的表达结构，分析报告的基本骨架。','先报答案再讲理由。','analysis'],
+  ['benchmark','基准','Benchmark','用来对照的外部参照：行业均值、竞品水平、标杆实践。','及格线在哪。','analysis'],
+  ['baseline','基线','Baseline','对比发生前的原始水平，一切提升都相对它而言。','起点成绩。','analysis'],
+  ['uncertainty','不确定性','Uncertainty','预测与真实值之间的差距，分析里必须诚实交代的部分。','天气预报的降水概率。','analysis'],
 
   /* --- tax-system --- */
   ['tax-category','税种分类','Tax Categories','按征税对象分征收类、所得类、财产行为类，按归属分中央、地方、共享。','同一批税按两种刀法各切一遍。','tax-system'],
@@ -163,6 +186,20 @@ const TERMS = [
   ['going-concern-doubt','持续经营重大不确定性','Material Uncertainty over Going Concern','可能导致对持续经营能力产生重大疑虑的事项，需在报表与审计报告中披露。','明年还开不开得下去有疑问。','audit-ready'],
   ['financial-warning-signal','财务预警信号','Financial Warning Signal','现金流持续为负、债务集中到期、老客户回款变慢等提前暴露风险的迹象。','出事前的征兆。','audit-ready'],
   ['audit-committee','审计委员会','Audit Committee','董事会下设机构，负责监督财务报告与审计工作、对接内外部审计。','治理层里盯着账的那群。','audit-ready'],
+
+  /* --- contract --- */
+  ['contract-type','合同类型','Contract Type','合同的法律与业务属性，直接决定适用税目、税率与发票类型。','一纸合同定税目。','contract'],
+  ['taxable-item','应税项目','Taxable Item','税法口径下这笔交易属于哪一类，是适用税率的前提。','这笔业务算哪一类。','contract'],
+  ['price-clause','价款条款','Price Clause','约定合同金额口径（含税/不含税）、税率与税率变动处理的条款。','钱和税到底怎么算。','contract'],
+  ['tax-inclusive-pricing','含税定价','Tax-Inclusive Pricing','以含税总价成交，税率变动时总价不变、税额随税率变化。','总价锁死，税自己扛。','contract'],
+  ['invoice-clause','发票条款','Invoice Clause','约定发票类型、税率、开票时点与票款对应关系的条款。','这张票怎么开。','contract'],
+  ['payment-node','付款节点','Payment Milestone','合同约定的付款触发点与比例，直接决定现金流节奏。','什么时候能拿到钱。','contract'],
+  ['progress-payment','进度款','Progress Payment','按施工或交付进度分期支付的款项，是执行期回款的主力。','干一段结一段。','contract'],
+  ['acceptance-certificate','验收单','Acceptance Certificate','确认交付物合格并完成交付的书面凭据，同时触发多个关键时点。','一张纸触发三件事。','contract'],
+  ['risk-transfer','风险转移','Transfer of Risk','标的毁损灭失风险由供方转给需方的时点，通常与交付验收挂钩。','东西坏了算谁的。','contract'],
+  ['breach-liability','违约责任','Breach Liability','违约方应承担的赔偿或补救义务，重点看比例、上限与扣除方式。','违约要赔多少。','contract'],
+  ['variation-order','变更单','Variation Order','对超范围工作书面确认范围、金额与工期影响的凭据。','口头答应等于白干。','contract'],
+  ['contract-ledger','合同台账','Contract Ledger','汇总合同金额、履约、开票与回款状态的登记表，是财税管理的基础工具。','一张表管住四类风险。','contract'],
 
   /* --- project-finance --- */
   ['project-lifecycle','项目全周期','Project Lifecycle','投标、合同、执行、验收、结算、回款、质保的完整链条，每段都有财税动作。','一件事从接单到收尾。','project-finance'],

@@ -18,7 +18,7 @@ FIN.views.home = function() {
   html += '<p class="gh-kicker">企业财税与内控审计通识 · 大白话讲透</p>';
   html += '<h1 class="gh-title">看懂<em>账</em>，算清<em>税</em></h1>';
   html += '<p class="gh-latin">Read &middot; Compute &middot; Control</p>';
-  html += '<p class="gh-lede">从三张报表怎么读、几个比率看透一家公司，到中国 18 个税种怎么分类、增值税与企业所得税怎么算、发票怎么开怎么抵，再到内控、舞弊、审计与项目上的钱——把企业财税与内控审计拆成 75 节能讲清的微课。<b>税率会变，判断框架不会变；这里给的是框架，不是速查表。</b></p>';
+  html += '<p class="gh-lede">从三张报表怎么读、几个比率与经营分析看透一家公司，到中国 18 个税种怎么分类、增值税与企业所得税怎么算、发票怎么开怎么抵，再到内控、舞弊、审计、合同条款与项目上的钱——把企业财税与内控审计拆成 89 节能讲清的微课。<b>税率会变，判断框架不会变；这里给的是框架，不是速查表。</b></p>';
   if (nextLesson && FIN.lessons[nextLesson]) {
     var nl = FIN.lessons[nextLesson];
     html += '<a class="gh-cta" href="#/l/' + nextLesson + '">' +
@@ -29,7 +29,7 @@ FIN.views.home = function() {
   html += metaCell(FIN.modules.length, '模块');
   html += metaCell(readCount + ' / ' + total, '已学 / 微课');
   html += metaCell(percent + '%', '进度');
-  html += metaCell('4', '互动工具');
+  html += metaCell('5', '互动工具');
   html += '</div>';
   html += '</header>';
 
@@ -61,8 +61,8 @@ FIN.views.home = function() {
   html += '<a class="gh-mod" href="#/calc" style="background:linear-gradient(120deg,var(--acc-soft),transparent)">';
   html += '<div class="row"><span class="no">★</span><h3>互动工具箱</h3></div>';
   html += '<div class="en">Toolbox</div>';
-  html += '<p>税负测算、价税分离换算、项目毛利与回款推演、内控与合规自检。</p>';
-  html += '<div class="prog">4 件 · 边学边算</div>';
+  html += '<p>税负测算、价税分离换算、项目毛利与回款推演、内控与合规自检、本量利与经营杠杆。</p>';
+  html += '<div class="prog">5 件 · 边学边算</div>';
   html += '</a>';
   html += '</div>';
 
@@ -73,6 +73,7 @@ FIN.views.home = function() {
   html += toolCell('÷', '价税分离换算', 'price / tax');
   html += toolCell('¥', '项目毛利与回款推演', 'project cash');
   html += toolCell('✓', '内控与合规自检', 'control check');
+  html += toolCell('◎', '本量利与经营杠杆', 'cvp / leverage');
   html += '</div>';
 
   // ===== About =====
@@ -83,10 +84,12 @@ FIN.views.home = function() {
   html += '<p>读完会知道：</p>';
   html += '<ul>' +
           '<li>三张报表怎么互相印证，为什么"利润不等于现金"；</li>' +
+          '<li>怎么从数字走到经营动作：成本性态、保本点、经营杠杆、投资决策怎么算；</li>' +
           '<li>中国 18 个税种怎么分类、谁归中央谁归地方、增值税的抵扣链怎么转；</li>' +
           '<li>专票普票差在哪、数电发票为什么不能作废、三流一致为什么最容易被查；</li>' +
           '<li>纳税义务发生时间、申报周期、汇算清缴、税收优惠各自的口径与期限；</li>' +
           '<li>内控怎么设才不流于形式，舞弊有哪些信号，审计到底在查什么、五种意见怎么读；</li>' +
+          '<li>合同里价款、发票、付款、验收四类条款怎么写才不吃亏；</li>' +
           '<li>项目制业务的钱怎么算：价税分离、收入确认、成本归集、垫资与回款。</li>' +
           '</ul>';
   html += '<p style="color:var(--note);font-size:.88rem;margin-top:18px">说明：本站为通识科普，重框架与判断，不追求条文体例的穷尽。案例数字均为教学演示；凡涉及税率与政策之处，正文均标注依据文号与适用期，并请以现行有效规定为准。</p>';
@@ -158,7 +161,7 @@ function ledgerSealSVG() {
 
   // 装饰字符
   svg += '<text x="26" y="30" style="fill:var(--acc);font-size:12;font-family:serif;opacity:.5">&#8721;</text>';
-  svg += '<text x="26" y="186" style="fill:var(--acc2);font-size:9;font-family:monospace;opacity:.45">n=75</text>';
+  svg += '<text x="26" y="186" style="fill:var(--acc2);font-size:9;font-family:monospace;opacity:.45">n=89</text>';
 
   svg += '</svg>';
   return svg;
