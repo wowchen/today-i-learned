@@ -7,6 +7,12 @@
 
   var CFG_KEY = 'pgf.sync.v1';
   var cfg = loadCfg();
+  /* 迁移:早期版本默认路径为裸 progress.json(落在仓库根),
+     现统一为 progress/pgf.json,避免多站同步到同一仓库时互相覆盖。 */
+  function migrateLegacyPath() {
+    if (cfg.path === 'progress.json') { cfg.path = 'progress/pgf.json'; saveCfg(); }
+  }
+  migrateLegacyPath();
   var pushTimer = null;
   var busy = false;
   var lastSha = null;
