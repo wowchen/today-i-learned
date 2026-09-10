@@ -19,6 +19,7 @@ const MODULES = [
   ['cloud-basics','云计算大白话','云在卖什么、三种服务模式、为什么能省钱','入门','Cloud Basics'],
   ['compute','计算与虚拟化','虚拟机、实例规格、弹性伸缩与 Serverless','基础','Compute & Virtualization'],
   ['storage','存储与备份','块/文件/对象三兄弟、分级、快照与容灾','基础','Storage & Backup'],
+  ['database','数据库与数据工程','SQL、事务与索引、NoSQL、读写分离与分库分表、数仓湖仓','基础','Database & Data Engineering'],
   ['cloudnet','云网络','VPC、子网、安全组、负载均衡、专线、CDN','核心','Cloud Network'],
   ['container','容器技术','隔离原理、镜像分层、Dockerfile 与运行时','核心','Containers'],
   ['k8s','容器编排 K8s','集群架构、Pod、Service、探针与自动扩缩','核心','Kubernetes'],
@@ -27,6 +28,7 @@ const MODULES = [
   ['observability','可观测性','指标日志链路、告警降噪、SLO 与复盘','实用','Observability'],
   ['reliability','高可用与容灾','几个 9、多活、容量、混沌工程、演练','进阶','High Availability'],
   ['cloudsec','云安全与合规','责任共担、IAM、密钥、供应链、等保','实用','Cloud Security'],
+  ['ai-platform','云上 AI 平台','GPU 资源池、训练与推理服务化、模型与数据管理','进阶','AI Platform'],
   ['practice','上云实战与选型','迁移 6R、FinOps、信创多云、算电协同','实战','Cloud Practice']
 ];
 
@@ -134,7 +136,33 @@ const TERMS = [
   ['hybrid-cloud','混合云与多云','Hybrid & Multi-Cloud','本地机房与云、多家云并用，避免被单一厂商锁定。','不把存款放一家银行。','practice'],
   ['xinchuang','信创与国产化','Xinchuang','国产芯片、操作系统与云平台的适配替换。','换国产供应链。','practice'],
   ['cloud-native','云原生','Cloud Native','为云环境设计的做法：容器、微服务、声明式、可观测。','为高速公路造的车。','practice'],
-  ['compute-power','算电协同','Compute-Power Coordination','算力布局与电力供给协同优化，如东数西算。','电厂与数据中心搭伙。','practice']
+  ['compute-power','算电协同','Compute-Power Coordination','算力布局与电力供给协同优化，如东数西算。','电厂与数据中心搭伙。','practice'],
+
+  ['relational-db','关系型数据库','Relational Database','用表、行、列组织数据并用 SQL 查询，靠事务保证一致。','电子表格的严肃版。','database'],
+  ['acid','事务 ACID','ACID','原子、一致、隔离、持久四条约定，让一组操作要么全成要么全回滚。','转账要么都成、要么都不成。','database'],
+  ['index','索引','Index','加速查询的数据结构，代价是占空间并让写入变慢。','书的目录。','database'],
+  ['nosql','NoSQL','NoSQL','键值、文档、宽表、图等非关系型数据库的总称，为扩展与灵活结构而生。','不做表格的分类柜。','database'],
+  ['cache-db','缓存数据库','Cache','把热点数据放内存，用速度换一致性风险。','手边的小本子。','database'],
+  ['replication','主从复制','Replication','主库负责写、从库负责读，兼顾读扩展与故障切换。','一写多读的抄本。','database'],
+  ['sharding','分库分表','Sharding','数据量超单库能力时按规则拆到多个库表，代价是跨片查询与事务。','把一本书拆成几册。','database'],
+  ['data-warehouse','数据仓库','Data Warehouse','面向分析的集中存储，分层建模，与业务库分离。','图书馆的档案室。','database'],
+  ['lakehouse','数据湖仓','Lakehouse','对象存储的便宜容量加上表格式与事务能力。','仓库加上了编目。','database'],
+  ['etl','ETL/ELT','ETL / ELT','抽取、转换、加载，把数据从源头搬到分析层。','搬运加加工。','database'],
+  ['oltp-olap','OLTP 与 OLAP','OLTP / OLAP','交易型与分析型负载，一个要高频小事务、一个要大批量扫描。','收银台与报表室。','database'],
+  ['data-quality','数据质量','Data Quality','完整性、准确性、及时性与口径统一，是报表可信的前提。','报表吵架的根源。','database'],
+
+  ['ai-platform','AI 平台','AI Platform','把算力调度、环境、任务编排与模型发布标准化的平台。','AI 研发的流水线和调度室。','ai-platform'],
+  ['gpu-pool','GPU 资源池','GPU Pool','把加速卡汇成共享池，按队列、配额与优先级分配。','把零散车位收进停车场统一调度。','ai-platform'],
+  ['gpu-partition','GPU 切分','GPU Partitioning','按显存或计算份额把一张卡切给多个任务使用。','一张大桌拼给几组人用。','ai-platform'],
+  ['training-job','训练任务','Training Job','平台上可编排、可恢复、可追溯的训练作业。','车间里的一张工单。','ai-platform'],
+  ['checkpoint','断点续训','Checkpoint','定期保存权重与优化器状态，中断后从最近一次继续。','长跑的补给点。','ai-platform'],
+  ['inference','推理服务化','Model Serving','把模型变成稳定的接口，按在线或批量形态部署。','把菜谱变成随时能点单的食堂。','ai-platform'],
+  ['vector-db','向量数据库','Vector Database','存向量并做相似度检索，是 RAG 知识库的底座。','按含义找东西的索引。','ai-platform'],
+  ['model-registry','模型仓库','Model Registry','登记模型版本与其来源数据、参数与指标，支持追溯与回滚。','模型的档案室。','ai-platform'],
+  ['data-lineage','数据血缘','Data Lineage','记录数据从哪来、经过什么加工、被谁消费。','食材到菜品的溯源链。','ai-platform'],
+  ['gpu-utilization','算力利用率','GPU Utilization','加速卡实际产出与理论产能之比，是 AI 成本的第一变量。','设备的实际开工率。','ai-platform'],
+  ['batch-inference','批处理推理','Batch Inference','离线批量跑数据，追求吞吐与单位成本而非延迟。','夜间集中出餐。','ai-platform'],
+  ['model-eval','模型评测','Model Evaluation','用固定测试集回归验证效果，判断新版本是进步还是退步。','定期体检。','ai-platform']
 ];
 
 /* ============ 加载课程内容 ============ */

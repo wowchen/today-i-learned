@@ -18,7 +18,7 @@ CCN.views.home = function() {
   html += '<p class="gh-kicker">云原生通识 · 大白话讲透</p>';
   html += '<h1 class="gh-title">一朵<em>云</em></h1>';
   html += '<p class="gh-latin">Compute · Storage · Network</p>';
-  html += '<p class="gh-lede">从"云到底在卖什么"、虚拟化与容器，到 K8s 编排、微服务治理、CI/CD 流水线与可观测性，再到高可用、云安全与上云选型——把一套云原生体系拆成 84 节能讲清的微课。<b>搞懂这套骨架，就搞懂了现代系统是怎么跑起来的。</b></p>';
+  html += '<p class="gh-lede">从"云到底在卖什么"、虚拟化与容器，到 K8s 编排、微服务治理、数据库与数据工程、流水线与可观测性，再到高可用、云安全、云上 AI 平台与上云选型——把一套云原生体系拆成 98 节能讲清的微课。<b>搞懂这套骨架，就搞懂了现代系统是怎么跑起来的。</b></p>';
   if (nextLesson && CCN.lessons[nextLesson]) {
     var nl = CCN.lessons[nextLesson];
     html += '<a class="gh-cta" href="#/l/' + nextLesson + '">' +
@@ -76,8 +76,10 @@ CCN.views.home = function() {
   html += '<ul>' +
           '<li>云到底在卖什么，IaaS/PaaS/SaaS 怎么选，为什么"上云不一定省钱"；</li>' +
           '<li>虚拟机与容器差在哪，镜像、K8s 的 Pod/Service/探针各自解决什么问题；</li>' +
+          '<li>数据库怎么选型、慢查询怎么治、什么时候才该分库分表、数仓与湖仓解决什么；</li>' +
           '<li>VPC、安全组、负载均衡、专线怎么搭出一张既通又安全的网；</li>' +
-          '<li>流水线、灰度发布、可观测性、几个 9、云安全责任共担——一线落地时真正要过的关。</li>' +
+          '<li>流水线、灰度发布、可观测性、几个 9、云安全责任共担——一线落地时真正要过的关；</li>' +
+          '<li>GPU 资源池、断点续训、推理服务化与模型管理——AI 时代的算力怎么花得值。</li>' +
           '</ul>';
   html += '<p style="color:var(--note);font-size:.88rem;margin-top:18px">说明：本站为云计算与云原生科普通识，重工程直觉与实战判断，不替代厂商文档与产品手册。具体规格、价格与合规要求请以实际产品与现行规定为准。</p>';
   html += '</div></div>';
