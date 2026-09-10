@@ -172,16 +172,34 @@ const J = o => JSON.stringify(o);
 
 /* modules.js */
 const mods = MODULES.map((m, i) => ({ id: m[0], order: i, title: m[1], desc: m[2], lessons: (L[m[0]] || []).length, tag: m[3], en: m[4] }));
-let s = '/* 模块元数据 + 学习路径(机器学习入门)(自动生成,勿手改) */\n';
-s += 'window.ML = window.ML || {};\n';
-s += 'ML.modules = ' + J(mods) + ';\n';
-s += 'ML.path = ' + J(path_) + ';\n';
-s += 'ML.totalLessons = ML.path.length;\n';
-w(C('modules.js'), s);
+let modText = '/* 模块元数据 + 学习路径(机器学习入门)(自动生成,勿手改) */\n';
+modText += 'window.ML = window.ML || {};\n';
+modText += 'ML.modules = ' + J(mods) + ';\n';
+modText += 'ML.path = ' + J(path_) + ';\n';
+modText += 'ML.totalLessons = ML.path.length;\n';
 
 /* terms.js */
 const termObjs = TERMS.map(t => ({ id: t[0], name: t[1], en: t[2], def: t[3], analogy: t[4] || '', module: t[5] || '' }));
-w(C('terms.js'), '/* 术语表(机器学习入门)(自动生成) {id,name,en,def,analogy,module} */\nwindow.ML = window.ML || {};\nML.terms = ' + J(termObjs) + ';\n');
+const termText = '/* 术语表(机器学习入门)(自动生成) {id,name,en,def,analogy,module} */\nwindow.ML = window.ML || {};\nML.terms = ' + J(termObjs) + ';\n';
+
+/* ---------- 命名空间自检(防克隆本站后 sed 替换遗漏:曾因残留他站命名空间导致整站崩溃) ---------- */
+const NS = 'ML';
+const SIBLINGS = ['AGT', 'TCM', 'CCN', 'FIN', 'PRS', 'AIP', 'AIX', 'DAT', 'WHS', 'GTR', 'LIT', 'TSP',
+  'FIT', 'MUS', 'MATH', 'ECON', 'PSY', 'GEO', 'CG', 'CHS', 'EBD', 'EMS', 'FYP', 'PGF', 'PFIN',
+  'SAD', 'SAN', 'SPM', 'NPD', 'HIT', 'ISL', 'ISPM', 'CDC', 'NH', 'AST', 'WAH'];
+const genAll = modText + termText;
+if (genAll.indexOf(NS + '.') === -1) {
+  console.error('命名空间自检失败: 生成物未使用本站命名空间 ' + NS + '。');
+  process.exit(1);
+}
+const foreign = SIBLINGS.filter(x => genAll.indexOf(x + '.') !== -1);
+if (foreign.length) {
+  console.error('命名空间自检失败: 生成物含他站命名空间 ' + foreign.join(', ') + ' —— 克隆后替换不完整。');
+  process.exit(1);
+}
+
+w(C('modules.js'), modText);
+w(C('terms.js'), termText);
 
 /* 课时文件 */
 const scriptTags = [];
