@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>电力市场与能源交易 · 电改 · 现货 · 绿电 · 碳市场</title>
+<meta name="description" content="大白话讲透电力市场与能源交易(科普通识,内容基线2026年9月):电力市场入门(电为什么特殊/市场主体/交易时序)、中国电改历程(2002年5号文厂网分开/2015年9号文管住中间放开两头/现货试点/工商业全部入市/全国统一电力市场)、电价体系与形成机制(上网电价/输配电价准许收入与成本监审/目录电价与代理购电/峰谷分时与尖峰/容量电价与两部制/交叉补贴)、中长期交易(年度月度/双边协商集中竞价挂牌/价差/偏差考核/合同转让/与现货衔接)、现货市场(日前日内实时/出清与边际电价/节点电价LMP/阻塞与网损/报量报价/结算/限价与负电价/价格信号)、辅助服务市场(调频调峰备用无功黑启动/两个细则/费用分摊/调频里程与新型储能)、售电侧与零售市场(售电公司盈利模式/零售套餐/大用户与代理购电/偏差管理/风险清单/增值服务与综合能源)、需求响应与虚拟电厂(削峰填谷/价格型与激励型/负荷聚合商)、储能的市场机会(独立储能与共享储能/峰谷套利/容量租赁与容量补偿/调频收益/LCOS经济性)、新能源入市(消纳责任权重/机制电价/鸭子曲线与负电价/绿电直连与源网荷储/新能源配储)、绿电交易与绿证(环境属性/绿证核发与全覆盖/消纳量核算与三重计量/RE100与国际互认)、碳市场与碳交易(总量控制与交易/配额分配与基准线法/MRV/CCER/碳价传导/扩围/与绿电绿证衔接)、电力金融与风险管理(差价合约CfD/电力期货与衍生品/套期保值/敞口管理/信用风险与保证金)、交易实务与能力建设(交易员职责/报量报价要点/策略与纪律/复盘与交易日志/考核指标/合规红线)。14 模块 93 课 137 术语,五段式含想一想;含供需出清模拟器/峰谷电费测算/现货结算演练/储能套利测算/绿电碳减排测算五个互动工具。浅色电蓝+深色电光青金双主题、纯静态离线。本站为通识科普,不构成投资、交易、报价或法律意见。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('emt.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    电力市场与能源交易 <small>· Power Market</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="EMT.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">时效与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 9 月</b>。电价机制、市场规则、辅助服务标准、补贴与考核政策调整频繁，一律以国家发展改革委、国家能源局及各省主管部门现行发布的规则、办法、交易细则与价格文件为准。<b>本站不构成投资、交易、报价或法律意见，不提供任何交易策略、套利方案或规避路径。</b>涉及实际交易、结算与合规事项，请以电力交易机构、监管机构的正式文件及具备资质的专业意见为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/basics/01-why-market.js"></script>
+<script src="content/basics/02-nature.js"></script>
+<script src="content/basics/03-what-market.js"></script>
+<script src="content/basics/04-players.js"></script>
+<script src="content/basics/05-structure.js"></script>
+<script src="content/basics/06-sequence.js"></script>
+<script src="content/basics/07-china-special.js"></script>
+<script src="content/reform/01-before.js"></script>
+<script src="content/reform/02-2002.js"></script>
+<script src="content/reform/03-2015.js"></script>
+<script src="content/reform/04-pilot.js"></script>
+<script src="content/reform/05-2021.js"></script>
+<script src="content/reform/06-unified.js"></script>
+<script src="content/pricing/01-anatomy.js"></script>
+<script src="content/pricing/02-ongrid.js"></script>
+<script src="content/pricing/03-transmission.js"></script>
+<script src="content/pricing/04-catalog.js"></script>
+<script src="content/pricing/05-tou.js"></script>
+<script src="content/pricing/06-capacity.js"></script>
+<script src="content/pricing/07-crosssubsidy.js"></script>
+<script src="content/wholesale/01-what.js"></script>
+<script src="content/wholesale/02-annual-monthly.js"></script>
+<script src="content/wholesale/03-mechanisms.js"></script>
+<script src="content/wholesale/04-price.js"></script>
+<script src="content/wholesale/05-deviation.js"></script>
+<script src="content/wholesale/06-transfer.js"></script>
+<script src="content/wholesale/07-link.js"></script>
+<script src="content/spot/01-what.js"></script>
+<script src="content/spot/02-clear.js"></script>
+<script src="content/spot/03-lmp.js"></script>
+<script src="content/spot/04-congestion.js"></script>
+<script src="content/spot/05-bidding.js"></script>
+<script src="content/spot/06-settlement.js"></script>
+<script src="content/spot/07-pricecap.js"></script>
+<script src="content/spot/08-signal.js"></script>
+<script src="content/ancillary/01-what.js"></script>
+<script src="content/ancillary/02-types.js"></script>
+<script src="content/ancillary/03-rules.js"></script>
+<script src="content/ancillary/04-market.js"></script>
+<script src="content/ancillary/05-mileage.js"></script>
+<script src="content/ancillary/06-trend.js"></script>
+<script src="content/retail/01-open.js"></script>
+<script src="content/retail/02-model.js"></script>
+<script src="content/retail/03-package.js"></script>
+<script src="content/retail/04-big-user.js"></script>
+<script src="content/retail/05-deviation.js"></script>
+<script src="content/retail/06-risk.js"></script>
+<script src="content/retail/07-value.js"></script>
+<script src="content/demand/01-what.js"></script>
+<script src="content/demand/02-types.js"></script>
+<script src="content/demand/03-price.js"></script>
+<script src="content/demand/04-vpp.js"></script>
+<script src="content/demand/05-aggregator.js"></script>
+<script src="content/demand/06-value.js"></script>
+<script src="content/storage/01-role.js"></script>
+<script src="content/storage/02-business.js"></script>
+<script src="content/storage/03-arbitrage.js"></script>
+<script src="content/storage/04-capacity.js"></script>
+<script src="content/storage/05-frequency.js"></script>
+<script src="content/storage/06-economics.js"></script>
+<script src="content/newenergy/01-context.js"></script>
+<script src="content/newenergy/02-quota.js"></script>
+<script src="content/newenergy/03-mechanism.js"></script>
+<script src="content/newenergy/04-duck.js"></script>
+<script src="content/newenergy/05-direct.js"></script>
+<script src="content/newenergy/06-storage.js"></script>
+<script src="content/newenergy/07-trend.js"></script>
+<script src="content/green/01-what.js"></script>
+<script src="content/green/02-trade.js"></script>
+<script src="content/green/03-cert.js"></script>
+<script src="content/green/04-account.js"></script>
+<script src="content/green/05-international.js"></script>
+<script src="content/green/06-value.js"></script>
+<script src="content/carbon/01-what.js"></script>
+<script src="content/carbon/02-quota.js"></script>
+<script src="content/carbon/03-mrv.js"></script>
+<script src="content/carbon/04-ccer.js"></script>
+<script src="content/carbon/05-price.js"></script>
+<script src="content/carbon/06-expand.js"></script>
+<script src="content/carbon/07-link.js"></script>
+<script src="content/finance/01-why.js"></script>
+<script src="content/finance/02-cfd.js"></script>
+<script src="content/finance/03-futures.js"></script>
+<script src="content/finance/04-price-risk.js"></script>
+<script src="content/finance/05-credit.js"></script>
+<script src="content/finance/06-outlook.js"></script>
+<script src="content/practice/01-trader.js"></script>
+<script src="content/practice/02-process.js"></script>
+<script src="content/practice/03-bidding.js"></script>
+<script src="content/practice/04-strategy.js"></script>
+<script src="content/practice/05-review.js"></script>
+<script src="content/practice/06-kpi.js"></script>
+<script src="content/practice/07-compliance.js"></script>
+<!--LESSONS-->
+</body>
+</html>
