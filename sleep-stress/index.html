@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>睡眠与压力管理站 · Sleep &amp; Stress</title>
+<meta name="description" content="大白话讲透睡眠与压力管理:睡眠周期、生物钟、失眠、打鼾与呼吸暂停、CBT-I、压力生理、应对方法、焦虑抑郁边界、咖啡因酒精蓝光。8 模块 72 课,每课 5 分钟,五段式含想一想,含作息评估/压力自评/咖啡因代谢/睡眠日记/4-7-8 呼吸引导五个互动工具。纯静态离线,不替代诊疗。">
+<link rel="stylesheet" href="assets/css/main.css?v=20260910">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%235A5FC7'/><path d='M15.5 3.5a8.5 8.5 0 1 0 5 15.5A9.5 9.5 0 0 1 15.5 3.5z' fill='white'/></svg>">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <div class="logo" id="logoIc"></div>
+    <a class="brand" onclick="SLP.nav('#/home')">睡眠与压力站<small>SLEEP &amp; STRESS · 睡好觉，扛住事</small></a>
+    <nav class="topnav">
+      <a data-route="#/home">🏠<span>课程</span></a>
+      <a data-route="#/notices">🔔<span>通知</span></a>
+      <a data-route="#/tools">🛠<span>工具</span></a>
+      <a data-route="#/settings">⚙️<span>设置</span></a>
+    </nav>
+    <button class="theme-btn" onclick="SLP.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">🌙</button>
+  </div>
+</div>
+
+<main id="view"></main>
+
+<!-- content:start -->
+<script src="content/modules.js?v=20260910"></script>
+<script src="content/lessons.js?v=20260910"></script>
+<script src="content/terms.js?v=20260910"></script>
+<script src="content/notices.js?v=20260910"></script>
+<!-- content:end -->
+
+<script src="assets/js/registry.js?v=20260910"></script>
+<script src="assets/js/progress.js?v=20260910"></script>
+<script src="assets/js/sync.js?v=20260910"></script>
+<script src="assets/js/ui.js?v=20260910"></script>
+<script src="assets/js/views.js?v=20260910"></script>
+<script src="assets/js/views-tools.js?v=20260910"></script>
+<script src="assets/js/engine.js?v=20260910"></script>
+<script>
+  SLP.initTheme();   /* 先确定主题,再设置按钮图标 */
+  document.getElementById('logoIc').innerHTML = SLP.icons.logo;
+  document.querySelector('.theme-btn').textContent = document.documentElement.getAttribute('data-theme')==='dark' ? '☀️' : '🌙';
+  SLP.boot();
+</script>
+</body>
+</html>
