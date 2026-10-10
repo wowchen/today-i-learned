@@ -29,8 +29,10 @@ const MODULES = [
   ['terminal','传感器与智能终端','物理量、台区融合终端、微环境、局放、结构监测、安防、选型','核心','Sensors and Terminals'],
   ['edge','边缘计算与网关','为什么在现场算、网关形态、协议转换、边缘推理、断点续传、远程运维','进阶','Edge Computing'],
   ['platform','设备接入与物联网平台','平台职责、物模型、设备影子、接入鉴权、规则引擎、OTA、数据开放','进阶','Platform'],
+  ['dataq','感知数据治理与数据质量','数据为什么不可信、时标与口径、缺失跳变与坏数据、清洗边界、质量指标、主数据','进阶','Data Quality'],
   ['security','感知层安全','最脆弱的一环、安全接入区、纵向加密、卡侧风险、等保与防护','进阶','Security'],
   ['scenes','典型场景实战','用采、配自、充电桩、光伏、动环、微环境、光缆防外破、统一接入','应用','Scenarios'],
+  ['ops','感知层运维与缺陷处置','运维修什么、台账与资产、巡视、故障定界派单、现场处置、备品、变更、指标','应用','Operations'],
   ['delivery','项目建设与运营','选型、造价、联调、验收、运营指标、风险、趋势','应用','Delivery'],
 ];
 
@@ -137,6 +139,35 @@ const TERMS = [
   ['dynamic-environment','动环监测','Dynamic Environment Monitoring','对机房动力设备与运行环境进行的集中监测与告警。','机房的体温和心跳。','scenes'],
   ['cable-anti-breaking','光缆防外破','Optical Cable Anti-breaking','通过监测与巡查手段防止外力施工等造成光缆中断。','别把线挖断了。','scenes'],
   ['unified-platform','统一接入平台','Unified Access Platform','把不同专业、不同协议的终端统一接入与管理的平台,避免重复建设。','别再各建各的。','scenes'],
+
+  // 数据治理与数据质量
+  ['data-quality','数据质量','Data Quality','数据在完整性、准确性、及时性与一致性等方面满足使用要求的程度。','数据到底能不能信。','dataq'],
+  ['point-measurement','点位与量测','Point and Measurement','一个可独立采集的量测点及其数值,是感知数据的最小单位。','数据的原子。','dataq'],
+  ['time-stamp-alignment','时标与对齐','Timestamp and Alignment','为每条数据打上时间标记,并把不同来源的数据按时间轴对齐的处理。','先把表对准。','dataq'],
+  ['missing-data','数据缺失','Missing Data','应上报而未上报、或上报为空值的数据,是最常见的数据质量问题。','该有的没有。','dataq'],
+  ['data-jump','数据跳变','Data Jump','相邻采样值出现不合常理的突变,往往由通信误码或设备异常引起。','数字突然抽风。','dataq'],
+  ['bad-data','坏数据','Bad Data','明显偏离真实运行状态、不能直接参与计算与判断的数据。','看着像真的,其实是假的。','dataq'],
+  ['caliber-unification','口径统一','Caliber Unification','对同一指标在不同系统中的统计范围、时点与算法作出统一约定。','同一个词说的是同一件事。','dataq'],
+  ['data-cleaning','数据清洗','Data Cleaning','对缺失、异常与重复数据进行识别、修正或标记的处理过程。','把脏数据挑出去。','dataq'],
+  ['quality-indicator','数据质量指标','Data Quality Indicator','用完整性、准确率、及时率等可量化指标衡量数据质量的方式。','好不好用数字说话。','dataq'],
+  ['master-data','主数据','Master Data','描述设备、台区、客户等核心对象的基础数据,是全站数据对齐的基准。','大家共用的那本名册。','dataq'],
+  ['data-asset','数据资产','Data Asset','能够被识别、管理并持续产生价值的数据资源。','数据也是家当。','dataq'],
+
+  // 感知层安全(补)
+  ['terminal-admission','终端准入','Terminal Admission','对申请接入的终端进行身份核验并决定是否放行的控制过程。','不是接上就能进。','security'],
+  ['data-egress','数据出域','Data Egress','数据从生产控制区或本专业系统向外传递时受到的范围与方式约束。','数据能走到哪儿去。','security'],
+
+  // 运维与缺陷处置
+  ['sensing-ops','感知层运维','Sensing O&M','对现场终端、通信与接入链路进行的日常监视、巡视、消缺与优化工作。','建完之后谁管。','ops'],
+  ['asset-ledger','台账','Asset Ledger','记录设备与终端型号、位置、归属与状态的基础档案。','现场到底装了什么。','ops'],
+  ['patrol-inspection','巡视','Patrol Inspection','按周期对现场设备进行的目视与检测检查。','定期去现场看一眼。','ops'],
+  ['fault-dispatch','派单','Fault Dispatch','把监测发现的异常按责任边界分配给相应班组处理的过程。','这事该谁去。','ops'],
+  ['onsite-handling','现场处置','On-site Handling','到现场对故障终端进行排查、修复或更换的作业。','上门把问题解决掉。','ops'],
+  ['spare-parts','备品备件','Spare Parts','为缩短故障恢复时间而储备的易损件与整机。','手里得有货。','ops'],
+  ['change-management','变更管理','Change Management','对现场设备、配置与参数的任何改动进行审批、记录与同步的过程。','改了要留痕。','ops'],
+  ['ops-kpi','运维指标','Operations KPI','衡量运维工作成效的量化指标,如在线率、消缺及时率与重复故障率。','干得好不好用数说话。','ops'],
+  ['outsourcing','外委运维','Outsourced O&M','把部分运维工作委托给外部单位承担的方式,需明确责任与考核。','请人帮忙也得管。','ops'],
+  ['work-order-loop','工单闭环','Work Order Closed Loop','从异常发现、派单、处置、复核到归档的完整处理链路。','每一单都要有个结果。','ops'],
 
   // 交付
   ['scheme-design','方案设计','Scheme Design','从业务需求出发确定感知对象、终端选型、通信方式与平台对接的整体方案。','先想清楚怎么搭。','delivery'],

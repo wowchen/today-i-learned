@@ -29,7 +29,7 @@ IOT.views.home = function() {
   html += metaCell(IOT.modules.length, '模块');
   html += metaCell(readCount + ' / ' + total, '已学 / 微课');
   html += metaCell(percent + '%', '进度');
-  html += metaCell('5', '互动工具');
+  html += metaCell('7', '互动工具');
   html += '</div>';
   html += '</header>';
 
@@ -60,8 +60,8 @@ IOT.views.home = function() {
   html += '<a class="gh-mod" href="#/calc" style="background:linear-gradient(120deg,var(--acc-soft),transparent)">';
   html += '<div class="row"><span class="no">★</span><h3>互动工具箱</h3></div>';
   html += '<div class="en">Toolbox</div>';
-  html += '<p>物联网卡流量池测算、链路可用率测算、通信方式选型、边缘数据量与带宽测算、感知层造价估算。</p>';
-  html += '<div class="prog">5 件 · 边读边算</div>';
+  html += '<p>物联网卡流量池测算、链路可用率测算、通信方式选型、边缘数据量与带宽测算、终端功耗与电池寿命测算、点位与采集频度规划、感知层造价估算。</p>';
+  html += '<div class="prog">7 件 · 边读边算</div>';
   html += '</a>';
   html += '</div>';
 
@@ -72,6 +72,8 @@ IOT.views.home = function() {
   html += toolCell('≈', '链路可用率测算器', 'end-to-end availability');
   html += toolCell('▣', '通信方式选型器', 'network selection');
   html += toolCell('⊗', '边缘数据量与带宽测算器', 'edge traffic and bandwidth');
+  html += toolCell('⌁', '终端功耗与电池寿命测算器', 'battery life budget');
+  html += toolCell('⊹', '点位与采集频度规划器', 'points and polling rate');
   html += toolCell('◎', '感知层造价估算器', 'sensing rollout cost');
   html += '</div>';
 
@@ -90,6 +92,8 @@ IOT.views.home = function() {
           '<li>边缘网关做协议转换与本地算力的边界在哪;</li>' +
           '<li>设备怎么接入平台,物模型与设备影子是什么;</li>' +
           '<li>感知层为什么是最脆弱的一环,安全接入区与纵向加密怎么守;</li>' +
+          '<li>电池供电的终端为什么能撑好几年,功耗该从哪里省;</li>' +
+          '<li>一条上行通道能带多少点位、采集频度与点位规模怎么互相制约;</li>' +
           '<li>用采、配自、充电桩、光伏、动环这些典型场景怎么落地,项目怎么建、怎么运营。</li>' +
           '</ul>';
   html += '<p style="color:var(--note);font-size:.88rem;margin-top:18px">说明:本站为通识科普,重架构逻辑与选型判断,不替代任何设计文件、标准规范与工程方案。涉通信制式、频段与标准之处写的是机制与口径,具体执行以现行有效文件为准;涉及设备与数据之处,强调安全接入、最小必要与合规使用。<b>内容基线 2026 年 9 月。</b></p>';

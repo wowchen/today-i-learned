@@ -32,6 +32,8 @@ const MODULES = [
   ['newenergy','新能源与有源调度','出力特性、功率预测、消纳与弃电、调峰调频、源网荷储、新型调度问题','进阶','Renewable Dispatch'],
   ['distribution','配网调度','配调职责、配网自动化、故障处置、分布式电源、配网保护、市县一体化','进阶','Distribution Dispatch'],
   ['security','二次安防与网络安全','为什么要防、安全分区、横向隔离与纵向认证、防护体系、等保、态势感知、现场纪律','进阶','Secondary Security'],
+  ['digital','智能变电站与数字化二次系统','为什么要数字化、三层两网、合并单元与智能终端、间隔层、过程层网络、SV 与 GOOSE、IEC 61850','进阶','Digital Substation'],
+  ['fieldwork','保护与稳控的现场工作','现场管什么、定值单管理、二次图纸、投运试验、周期检验、缺陷分级、通道测试、录波分析、安全措施票','应用','Fieldwork'],
   ['delivery','调度业务与实战','新站接入、调度验收、值班交接、事故复盘、数字化、能力地图、趋势','应用','Dispatch Practice'],
 ];
 
@@ -156,6 +158,47 @@ const TERMS = [
   ['power-monitoring-security','电力监控系统安全防护','Power Monitoring System Security Protection','针对电力监控系统提出的安全分区、网络专用、横向隔离、纵向认证等总体要求。','生产系统的安全总规矩。','security'],
   ['classified-protection-secondary','二次系统等级保护','Classified Protection of Secondary System','按信息系统等级保护要求对二次系统开展的分级保护工作。','按重要程度配保安。','security'],
   ['cyber-situational-awareness','网络安全态势感知','Cyber Situational Awareness','对网络安全状态进行持续监测、分析与预警的能力。','早点知道有没有人摸进来。','security'],
+
+  // 二次系统总论(补)
+  ['secondary-cable','二次电缆与光缆','Secondary Cable and Optical Fiber','连接二次设备的电缆与光缆,数字化变电站中大量以光缆替代传统电缆。','连线的方式也在换代。','secondary'],
+  ['ct-pt-secondary-risk','互感器二次开短路','CT/PT Secondary Open and Short Circuit','电流互感器二次开路会产生高电压,电压互感器二次短路会造成过电流,均为严重风险。','两个绝不能犯的错。','secondary'],
+
+  // 调度通信与时钟(补)
+  ['dual-channel','双通道','Dual Channel','为同一业务配置两条相互独立的传输通道,一条故障时由另一条承载。','两条路留一条。','comm'],
+  ['comm-maintenance','通信检修','Communication Maintenance','对通信设备与通道进行计划性检修或方式变更的管理工作。','动通信之前要先说好。','comm'],
+
+  // 新能源与有源调度(补)
+  ['storage-dispatch','储能调度','Storage Dispatch','把储能作为可充可放的可调资源纳入调度计划与实时调节。','能存也能放的调节手段。','newenergy'],
+  ['forecast-deviation','预测偏差','Forecast Deviation','实际出力或负荷与预测值之间的差值,是备用与调峰安排的重要依据。','猜得准不准。','newenergy'],
+
+  // 配网调度(补)
+  ['distribution-communication','配网通信','Distribution Communication','支撑配网自动化与配调业务的通信方式与通道组织。','配网也要有自己的网。','distribution'],
+  ['low-voltage-transparency','低压透明化','Low-Voltage Transparency','把低压台区与用户侧的运行状态纳入可观可测范围的建设方向。','把最后一截也点亮。','distribution'],
+
+  // 智能变电站与数字化二次系统
+  ['digital-substation','智能变电站','Smart Substation','采用电子式互感器、智能终端与网络化通信,实现信息数字化与共享的变电站。','变电站的信息化版本。','digital'],
+  ['three-layers-two-networks','三层两网','Three Layers and Two Networks','智能变电站按站控层、间隔层、过程层三层划分,并设站控层网络与过程层网络两张网。','分成三层、拉两张网。','digital'],
+  ['process-level','过程层','Process Level','直接面向一次设备,完成电气量采集与开关量执行的一层。','最靠近高压的那一层。','digital'],
+  ['bay-level','间隔层','Bay Level','按间隔配置保护、测控等装置,承担本间隔的保护与控制功能。','一个间隔一套人马。','digital'],
+  ['station-level','站控层','Station Level','承担全站监视、控制、信息交互与远传功能的一层。','站里的大管家。','digital'],
+  ['merging-unit','合并单元','Merging Unit','把多路互感器信号合并为数字量并按规定格式输出的装置。','把几路信号并成一路数。','digital'],
+  ['intelligent-terminal','智能终端','Intelligent Terminal','就地采集开关量并接受网络命令执行跳合闸等操作的装置。','现场那只听话的手。','digital'],
+  ['sampled-value','采样值','Sampled Value','以数字报文形式在过程层网络上传输的电流电压瞬时采样数据。','把波形变成报文。','digital'],
+  ['goose','GOOSE','Generic Object Oriented Substation Event','面向通用对象的变电站事件,用于快速传递跳闸、闭锁等开关量信息。','快得能用来跳闸的报文。','digital'],
+  ['iec61850','IEC 61850','IEC 61850','面向变电站自动化系统的通信与信息模型标准,规定了数据建模与通信服务。','大家统一说同一种话。','digital'],
+  ['sv-goose-network','过程层网络','Process Bus','承载采样值与 GOOSE 报文的网络,是数字化站的关键基础设施。','数字化站的主血管。','digital'],
+
+  // 保护与稳控的现场工作
+  ['fieldwork-scope','二次现场工作','Secondary Fieldwork','围绕保护、自动化与通信装置开展的安装、调试、检验、消缺与投运等工作。','图纸之外的那些活。','fieldwork'],
+  ['setting-sheet','定值单','Setting Sheet','经计算与审批后下达的、规定保护装置各项定值的正式文件。','定值的正式身份。','fieldwork'],
+  ['secondary-drawing','二次图纸','Secondary Drawing','描述二次回路、屏柜布置与端子连接的图纸,是现场工作的依据。','现场照着它干活。','fieldwork'],
+  ['commissioning','投运试验','Commissioning Test','新装置或改造完成后,在投运前进行的整组试验与传动检查。','上岗之前的考试。','fieldwork'],
+  ['periodic-test','周期检验','Periodic Test','按周期对运行中的保护与自动装置进行的检验工作。','定期体检。','fieldwork'],
+  ['defect-classification','缺陷分级','Defect Classification','按对安全运行的影响程度把缺陷划分为紧急、重要与一般等级。','先修哪个有个说法。','fieldwork'],
+  ['channel-test','通道测试','Channel Test','对保护通道与通信链路进行的测试,验证信号能否正确可靠传输。','先确认路是通的。','fieldwork'],
+  ['waveform-analysis','录波分析','Waveform Analysis','根据故障录波数据还原故障过程、判断保护动作行为是否正确的分析工作。','事后复盘看的就是它。','fieldwork'],
+  ['device-version','装置版本管理','Device Version Management','对保护与自动装置的硬件版本、软件版本与逻辑版本进行登记与统一管理。','版本乱了会出大问题。','fieldwork'],
+  ['safety-measure-ticket','二次安全措施票','Secondary Safety Measure Ticket','在二次回路上工作时,对需要退出、短接或隔离的措施作出的书面规定。','动二次线之前的护身符。','fieldwork'],
 
   // 调度业务与实战
   ['station-commissioning','新站接入','New Station Commissioning','新建厂站从提出接入申请、调试到纳入调度管理的完整过程。','新兵入队要走完流程。','delivery'],

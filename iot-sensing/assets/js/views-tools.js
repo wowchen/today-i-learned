@@ -13,10 +13,10 @@ IOT._w = function(n, d) { return (Math.round(n * Math.pow(10, d)) / Math.pow(10,
 IOT.views.calc = function() {
   var html = '<div class="tools-page">';
   html += '<h2>互动工具箱</h2>';
-  html += '<p class="calc-intro">感知层的问题,光看架构图不算懂。这五个小工具把课里的口径变成可拨动的数字:<b>卡费怎么省(流量池划不划算)、链路短板在哪(端到端可用率被谁拉低)、该选哪种通信(采集/控制/视频分别对应什么承载、边缘能省多少带宽(聚合与变化上报压缩了多少)、一个感知层项目大概什么造价构成(终端/通信/施工/平台各占多少)。</b>全部在本地浏览器实时运算。</p>';
+  html += '<p class="calc-intro">感知层的问题,光看架构图不算懂。这七个小工具把课里的口径变成可拨动的数字:<b>卡费怎么省(流量池划不划算)、链路短板在哪(端到端可用率被谁拉低)、该选哪种通信(采集/控制/视频分别对应什么承载)、边缘能省多少带宽(聚合与变化上报压缩了多少)、终端靠电池能撑多久(休眠与上报怎么耗电)、一条上行能带多少点位(采集频度与带宽怎么互相制约)、一个感知层项目大概什么造价构成(终端/通信/施工/平台各占多少)。</b>全部在本地浏览器实时运算。</p>';
   html += '<div class="disclaimer" style="margin-top:0">';
   html += '<h4>使用前必读</h4>';
-  html += '<p>五件工具均为<b>极度简化的教学测算</b>:参数为便于理解的示例值,不体现真实的网络配置、厂商报价、频段许可与频谱政策、现场条件、终端功耗与协议差异、平台架构与运维组织等细节。<b>不作为工程设计、采购、招标或合规依据。</b>实际项目须以现场勘查、厂商方案、现行有效标准与企业技术规定为准。</p>';
+  html += '<p>七件工具均为<b>极度简化的教学测算</b>:参数为便于理解的示例值,不体现真实的网络配置、厂商报价、频段许可与频谱政策、现场条件、终端功耗与协议差异、平台架构与运维组织等细节。<b>不作为工程设计、采购、招标或合规依据。</b>实际项目须以现场勘查、厂商方案、现行有效标准与企业技术规定为准。</p>';
   html += '</div>';
 
   // 1. 物联网卡流量池测算器
@@ -91,10 +91,44 @@ IOT.views.calc = function() {
   html += '<div id="ct-result" class="calc-result"></div>';
   html += '</div>';
 
-  html += '<p class="calc-note">说明:五件工具均为教学用简化建模,参数取行业常见量级概数,单价与比率为示例值。<b>实际项目必须依据现场勘查、厂商方案、现行有效标准与企业技术规定单独核算</b>,本工具结果不作为工程设计、采购、招标或合规依据。</p>';
+  // 6. 终端功耗与电池寿命测算器
+  html += '<div class="calc-card">';
+  html += '<h3><span class="g">⌁</span>终端功耗与电池寿命测算器</h3>';
+  html += '<p class="lab-desc">野外点位没有市电,全靠电池撑着。终端多数时间在睡,每隔一阵醒一次上报。填入电池容量、休眠电流与上报动作,看<b>日均耗电多少、这块电池能撑几年、想达到目标寿命每天最多能花多少电</b>。</p>';
+  html += '<div class="calc-inputs">';
+  html += '<label>电池容量(mAh)<input type="number" id="pb-cap" step="500" value="8000" min="0" oninput="IOT.calcPowerBudget()"></label>';
+  html += '<label>可用电量比例(%)<input type="number" id="pb-use" step="5" value="80" min="1" max="100" oninput="IOT.calcPowerBudget()"></label>';
+  html += '<label>休眠电流(µA)<input type="number" id="pb-sleep" step="5" value="20" min="0" oninput="IOT.calcPowerBudget()"></label>';
+  html += '<label>上报次数(次/天)<input type="number" id="pb-times" step="1" value="24" min="0" oninput="IOT.calcPowerBudget()"></label>';
+  html += '<label>单次上报持续时长(s)<input type="number" id="pb-dur" step="1" value="15" min="0" oninput="IOT.calcPowerBudget()"></label>';
+  html += '<label>上报期间平均电流(mA)<input type="number" id="pb-active" step="5" value="80" min="0" oninput="IOT.calcPowerBudget()"></label>';
+  html += '<label>目标寿命(年)<input type="number" id="pb-target" step="1" value="5" min="0.1" oninput="IOT.calcPowerBudget()"></label>';
+  html += '</div>';
+  html += '<div id="pb-result" class="calc-result"></div>';
+  html += '</div>';
+
+  // 7. 点位与采集频度规划器
+  html += '<div class="calc-card">';
+  html += '<h3><span class="g">⊹</span>点位与采集频度规划器</h3>';
+  html += '<p class="lab-desc">一条上行能带多少点位、能采多快,是同一件事的两面。填入上行带宽与采集参数,看<b>平均与峰值速率、带宽占用率、这条通道还塞得下多少点,以及给定带宽下最快能采到多少秒一次</b>。</p>';
+  html += '<div class="calc-inputs">';
+  html += '<label>单站点上行可用带宽(kbps)<input type="number" id="pp-bw" step="50" value="1000" min="0" oninput="IOT.calcPointPlanning()"></label>';
+  html += '<label>站点数(个)<input type="number" id="pp-sites" step="1" value="20" min="1" oninput="IOT.calcPointPlanning()"></label>';
+  html += '<label>单站点点位数(个)<input type="number" id="pp-points" step="10" value="200" min="0" oninput="IOT.calcPointPlanning()"></label>';
+  html += '<label>单次采集报文(KB)<input type="number" id="pp-kb" step="0.1" value="0.5" min="0" oninput="IOT.calcPointPlanning()"></label>';
+  html += '<label>采集间隔(s/次)<input type="number" id="pp-int" step="5" value="60" min="0.1" oninput="IOT.calcPointPlanning()"></label>';
+  html += '<label>协议开销系数(倍)<input type="number" id="pp-ovh" step="0.1" value="1.3" min="1" oninput="IOT.calcPointPlanning()"></label>';
+  html += '<label>突发系数(倍)<input type="number" id="pp-burst" step="0.5" value="2.5" min="1" oninput="IOT.calcPointPlanning()"></label>';
+  html += '<label>健康占用上限(%)<input type="number" id="pp-limit" step="5" value="70" min="1" max="100" oninput="IOT.calcPointPlanning()"></label>';
+  html += '</div>';
+  html += '<div id="pp-result" class="calc-result"></div>';
+  html += '</div>';
+
+  html += '<p class="calc-note">说明:七件工具均为教学用简化建模,参数取行业常见量级概数,单价与比率为示例值。<b>实际项目必须依据现场勘查、厂商方案、现行有效标准与企业技术规定单独核算</b>,本工具结果不作为工程设计、采购、招标或合规依据。</p>';
   html += '</div>';
   IOT.render(html);
   IOT.calcTraffic(); IOT.calcAvailability(); IOT.calcCommChoice(); IOT.calcEdge(); IOT.calcCost();
+  IOT.calcPowerBudget(); IOT.calcPointPlanning();
 };
 
 function tr(name, val, cls, note) {
@@ -388,6 +422,137 @@ IOT.calcCost = function() {
     out += warn('年运维系数偏高(' + IOT._fix(om, 1) + ' %),长期运维支出会快速累积,选型时应把可维护性与生命周期成本一并考虑。');
   }
   out += '<p class="calc-note">造价构成里,<b>终端加通信模块通常是主体,而施工安装随点位分散度与现场条件变化最大</b>——同样数量的点,集中安装和野外分散安装,施工费可能差出数倍;平台费用是一次性分摊,点位越多,单点摊得越薄。别只看初始投资:<b>运维系数按年计,多年累计很可能超过初始投资本身</b>,所以「便宜的设备」和「便宜的总成本」常常不是一回事。以上为教学口径,不构成报价、预算或招标依据,实际以厂商报价与项目概算为准。</p>';
+  el.innerHTML = out;
+};
+
+/* ---- 6. 终端功耗与电池寿命 ---- */
+IOT.calcPowerBudget = function() {
+  var el = document.getElementById('pb-result');
+  if (!el) return;
+  var cap = IOT._num('pb-cap'), use = IOT._num('pb-use'), sleepUa = IOT._num('pb-sleep');
+  var times = IOT._num('pb-times'), dur = IOT._num('pb-dur'), active = IOT._num('pb-active'), target = IOT._num('pb-target');
+  if (cap === null || use === null || sleepUa === null || times === null || dur === null || active === null || target === null) {
+    el.innerHTML = warn('请把电池容量、可用比例、休眠电流、上报次数、持续时长、上报电流与目标寿命填写完整。'); return;
+  }
+  if (cap <= 0) { el.innerHTML = warn('电池容量须大于 0。'); return; }
+  if (use <= 0 || use > 100) { el.innerHTML = warn('可用电量比例须在 0 ~ 100 % 之间。'); return; }
+  if (sleepUa < 0 || times < 0 || dur < 0 || active < 0) {
+    el.innerHTML = warn('休眠电流、上报次数、持续时长与上报电流不能为负。'); return;
+  }
+  if (target <= 0) { el.innerHTML = warn('目标寿命须大于 0 年。'); return; }
+
+  var sleepMa = sleepUa / 1000;                 // 休眠电流(mA)
+  var workH = times * dur / 3600;               // 每日工作时长(h)
+  if (workH > 24) workH = 24;
+  var idleH = 24 - workH;                       // 每日休眠时长(h)
+  var workMah = times * dur / 3600 * active;    // 每日工作耗电(mAh)
+  var idleMah = idleH * sleepMa;                // 每日休眠耗电(mAh)
+  var dayMah = workMah + idleMah;               // 日均耗电(mAh/天)
+  var usable = cap * use / 100;                 // 可用电量(mAh)
+  var days = dayMah > 0 ? usable / dayMah : Infinity;   // 寿命(天)
+  var years = days / 365;                       // 寿命(年)
+  var workPct = dayMah > 0 ? workMah / dayMah * 100 : 0;
+  // 目标寿命对应的允许日耗电(mAh/天)
+  var allowDay = target > 0 ? usable / (target * 365) : Infinity;
+  var allowWorkH = 0;
+  if (active > 0) {
+    // 在休眠耗电不变的前提下,允许用于"上报"的日耗电
+    allowWorkH = (allowDay - idleMah) / active;
+  }
+  var allowTimes = dur > 0 ? allowWorkH * 3600 / dur : 0;   // 折算允许上报次数(次/天)
+
+  function yr(v) { return v === Infinity ? '∞' : IOT._fix(v, 2); }
+  var lifeCls = years >= 5 ? 'cr-good' : (years >= 3 ? '' : 'cr-bad');
+  var meet = years >= target;
+
+  var out = '<table class="cr-table">';
+  out += tr('每日工作时长', IOT._fix(workH, 2) + ' h', '', IOT._w(times, 0) + ' 次 × ' + IOT._fix(dur, 0) + ' s ÷ 3600');
+  out += tr('每日休眠时长', IOT._fix(idleH, 2) + ' h', '', '24 h − 工作时长');
+  out += tr('每日工作耗电', IOT._w(workMah, 3) + ' mAh', '', IOT._fix(workH, 2) + ' h × ' + IOT._fix(active, 0) + ' mA,占 ' + IOT._fix(workPct, 1) + ' %');
+  out += tr('每日休眠耗电', IOT._w(idleMah, 3) + ' mAh', '', IOT._fix(idleH, 2) + ' h × ' + IOT._fix(sleepMa, 4) + ' mA,占 ' + IOT._fix(100 - workPct, 1) + ' %');
+  out += tr('日均耗电', IOT._w(dayMah, 3) + ' mAh/天', '', '工作耗电 + 休眠耗电');
+  out += tr('可用电量', IOT._w(usable, 2) + ' mAh', '', IOT._w(cap, 0) + ' mAh × ' + IOT._fix(use, 0) + ' %');
+  out += tr('预计寿命', (days === Infinity ? '∞' : IOT._w(days, 0) + ' 天') , lifeCls, '约 ' + yr(years) + ' 年');
+  out += tr('目标寿命', IOT._fix(target, 1) + ' 年', '', meet ? '当前功耗可以达标' : '当前功耗达不到');
+  out += tr('目标下允许日耗电', (allowDay === Infinity || allowDay < 0 ? '—' : IOT._w(allowDay, 3) + ' mAh/天'), '', '可用电量 ÷ (' + IOT._fix(target, 1) + ' 年 × 365)');
+  out += tr('目标下允许上报次数', (allowTimes > 0 ? IOT._w(allowTimes, 0) + ' 次/天' : '0 次/天'), meet ? 'cr-good' : 'cr-bad', '休眠耗电不变时,上报能耗的余量折算');
+  out += '</table>';
+
+  if (!meet && dayMah > 0) {
+    out += warn('预计寿命 ' + yr(years) + ' 年,低于目标 ' + IOT._fix(target, 1) + ' 年。要达标,日均耗电需降到 ' + IOT._w(allowDay, 3) + ' mAh/天以内,也就是比现在少 ' + IOT._fix((1 - allowDay / dayMah) * 100, 1) + ' %。');
+  }
+  if (workPct > 60) {
+    out += warn('耗电主要花在「醒着」的时候(' + IOT._fix(workPct, 1) + ' %)。想省电的着力点是<b>缩短单次上报时长、降低上报期间的平均电流</b>(减发射功率、少握手、短报文),而不是一味调大上报间隔。');
+  } else if (idleMah > 0 && idleMah >= workMah) {
+    out += warn('日均耗电里休眠占了 ' + IOT._fix(100 - workPct, 1) + ' %,说明<b>「睡得不深」才是大头</b>。休眠电流从几百 µA 降到几十 µA,比延长上报间隔见效快得多。');
+  }
+  out += '<p class="calc-note">电池寿命本质上是<b>「平均电流 × 时间 = 电量」</b>这一条账:<b>寿命(年) ≈ 可用电量 ÷ 日均耗电 ÷ 365</b>。由于终端绝大多数时间在休眠,平均电流通常远小于工作电流——一个上报时 80 mA 的终端,平均下来可能只有零点几毫安。<b>因此降功耗有两条路:把「醒着」的时间压短(减少次数、缩短时长、降低发射功率),和把「睡着」的电流压低(选低功耗模组、关掉不必要的外设与指示灯)</b>。凡是自称「电池能用五年」的方案,都值得按这张账验一遍。以上为教学口径,未计入电池自放电、低温容量衰减、老化与电池一致性,实际选型须以厂商功耗实测数据与现场温度条件为准。</p>';
+  el.innerHTML = out;
+};
+
+/* ---- 7. 点位与采集频度规划 ---- */
+IOT.calcPointPlanning = function() {
+  var el = document.getElementById('pp-result');
+  if (!el) return;
+  var bw = IOT._num('pp-bw'), sites = IOT._num('pp-sites'), points = IOT._num('pp-points');
+  var kb = IOT._num('pp-kb'), intv = IOT._num('pp-int'), ovh = IOT._num('pp-ovh');
+  var burst = IOT._num('pp-burst'), limit = IOT._num('pp-limit');
+  if (bw === null || sites === null || points === null || kb === null || intv === null || ovh === null || burst === null || limit === null) {
+    el.innerHTML = warn('请把八项参数填写完整。'); return;
+  }
+  if (sites <= 0) { el.innerHTML = warn('站点数须大于 0。'); return; }
+  if (bw <= 0) { el.innerHTML = warn('上行可用带宽须大于 0。'); return; }
+  if (points < 0 || kb < 0) { el.innerHTML = warn('点位数与单次采集报文不能为负。'); return; }
+  if (intv <= 0) { el.innerHTML = warn('采集间隔须大于 0 秒。'); return; }
+  if (ovh < 1 || burst < 1) { el.innerHTML = warn('协议开销系数与突发系数须不小于 1。'); return; }
+  if (limit <= 0 || limit > 100) { el.innerHTML = warn('健康占用上限须在 0 ~ 100 % 之间。'); return; }
+
+  var perSec = 1 / intv;                                    // 单点每秒采集次数
+  var ptAvg = kb * 8 * ovh * perSec;                        // 单点平均速率(kbps)
+  var siteAvg = ptAvg * points;                             // 单站点平均速率(kbps)
+  var sitePeak = siteAvg * burst;                           // 单站点峰值速率(kbps)
+  var allAvg = siteAvg * sites;                             // 全网平均上行(kbps)
+  var usage = sitePeak / bw * 100;                          // 带宽占用率(%)
+  var budget = bw * limit / 100;                            // 健康预算(kbps)
+  var maxPoints = ptAvg * burst > 0 ? Math.floor(budget / (ptAvg * burst)) : Infinity;
+  var headPoints = (maxPoints === Infinity) ? Infinity : (maxPoints - points);
+  var secPerDay = 86400 / intv;                             // 单点每日采集次数
+  var daySite = kb * points * secPerDay / 1024;             // 单站点日数据量(MB)
+  var monthAll = daySite * sites * 30 / 1024;               // 全网月数据量(GB)
+  // 给定带宽下最快采集间隔(s):令 sitePeak = budget → intv = kb*8*ovh*points*burst/budget
+  var fastest = budget > 0 ? (kb * 8 * ovh * points * burst) / budget : Infinity;
+  // 带宽需要多少才健康
+  var needBw = sitePeak / (limit / 100);
+
+  function fmtRate(v) { return (v < 1 ? IOT._fix(v, 4) : IOT._w(v, 2)) + ' kbps'; }
+
+  var uCls = usage > 100 ? 'cr-bad' : (usage > limit ? 'cr-bad' : (usage > limit * 0.8 ? '' : 'cr-good'));
+  var out = '<table class="cr-table">';
+  out += tr('单点平均速率', fmtRate(ptAvg), '', IOT._fix(kb, 2) + ' KB × 8 × ' + IOT._fix(ovh, 2) + ' ÷ ' + IOT._fix(intv, 0) + ' s');
+  out += tr('单点采集频度', IOT._fix(perSec, 4) + ' 次/秒', '', '约 ' + IOT._w(secPerDay, 0) + ' 次/天');
+  out += tr('单站点平均速率', fmtRate(siteAvg), '', '单点速率 × ' + IOT._w(points, 0) + ' 点');
+  out += tr('单站点峰值速率', fmtRate(sitePeak), '', '平均速率 × 突发系数 ' + IOT._fix(burst, 1));
+  out += tr('上行可用带宽', fmtRate(bw), '', '该站点通道的可用上行能力');
+  out += tr('带宽占用率', IOT._fix(usage, 1) + ' %', uCls, '峰值速率 ÷ 可用带宽');
+  out += tr('健康占用预算', fmtRate(budget), '', '可用带宽 × ' + IOT._fix(limit, 0) + ' %,留出拥塞与重传余量');
+  out += tr('本通道可承载点位上限', (maxPoints === Infinity ? '∞' : IOT._w(maxPoints, 0)) + ' 个', '', '预算 ÷ 单点峰值速率');
+  out += tr('点位余量', (headPoints === Infinity ? '∞' : (headPoints >= 0 ? '' : '超 ' ) + IOT._w(Math.abs(headPoints), 0) + ' 个'), headPoints >= 0 ? 'cr-good' : 'cr-bad', headPoints >= 0 ? '当前规模在健康预算之内' : '已超出健康预算,需降频或扩带宽');
+  out += tr('该带宽下最快采集间隔', (fastest === Infinity ? '—' : IOT._fix(fastest, 1) + ' s'), '', '占用恰好压到健康预算时的间隔,再快就超限');
+  out += tr('达到健康占用所需带宽', fmtRate(needBw), '', '当前峰值 ÷ ' + IOT._fix(limit, 0) + ' %');
+  out += tr('全网平均上行合计', fmtRate(allAvg), '', IOT._w(sites, 0) + ' 个站点 × 单站点平均速率');
+  out += tr('单站点日数据量', IOT._w(daySite, 2) + ' MB', '', IOT._w(points, 0) + ' 点 × ' + IOT._w(secPerDay, 0) + ' 次 × ' + IOT._fix(kb, 2) + ' KB');
+  out += tr('全网月数据量', IOT._w(monthAll, 2) + ' GB', '', IOT._w(sites, 0) + ' 站点 × 单站点日数据量 × 30 天');
+  out += '</table>';
+
+  if (usage > 100) {
+    out += warn('峰值速率已超过上行可用带宽(' + IOT._fix(usage, 1) + ' %)。这意味着<b>数据根本传不出去</b>——要么排队堆积、要么丢包重传,实际表现是数据延迟、掉点。必须降频、减少点位、压缩报文或扩带宽。');
+  } else if (usage > limit) {
+    out += warn('带宽占用率 ' + IOT._fix(usage, 1) + ' % 已超过健康上限 ' + IOT._fix(limit, 0) + ' %。虽然没到满载,但一旦出现重传、组播或临时上报,就会瞬时打满。建议把点位降到 ' + IOT._w(Math.max(0, headPoints === Infinity ? points : points - Math.abs(headPoints)), 0) + ' 个以内,或把带宽提到 ' + fmtRate(needBw) + '。');
+  }
+  if (fastest !== Infinity && intv < fastest) {
+    out += warn('当前采集间隔 ' + IOT._fix(intv, 1) + ' s 快于该带宽下的可行下限 ' + IOT._fix(fastest, 1) + ' s。想让更高的采集频度跑得动,得从三处找空间:<b>压缩单条报文(减字段、二进制编码)、把部分聚合下沉到边缘(多条并一条),或升级上行通道</b>。');
+  }
+  out += '<p class="calc-note">点位与频度是同一枚硬币的两面:<b>带宽不变时,点位数翻倍等于采集速度减半</b>。所以规划时不要分别问「能带多少点」和「能采多快」,而要问「<b>在这个带宽下,点位数 × 频度的乘积能到多大</b>」——这个乘积(即总速率)才是真正的约束。工程上留 30% 左右余量(即占用率控制在 70% 上下)是有道理的:真实网络要承担重传、协议握手、管理报文与突发并发,把带宽用到 100% 的方案一定会出事。压缩率的来源见「边缘数据量与带宽测算器」。以上为教学口径,峰值速率不等于实际采样瞬发速率,实际设计还须结合协议并发特性与现场信道质量核算。</p>';
   el.innerHTML = out;
 };
 

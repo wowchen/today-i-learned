@@ -29,7 +29,7 @@ DSP.views.home = function() {
   html += metaCell(DSP.modules.length, '模块');
   html += metaCell(readCount + ' / ' + total, '已学 / 微课');
   html += metaCell(percent + '%', '进度');
-  html += metaCell('5', '互动工具');
+  html += metaCell('7', '互动工具');
   html += '</div>';
   html += '</header>';
 
@@ -60,8 +60,8 @@ DSP.views.home = function() {
   html += '<a class="gh-mod" href="#/calc" style="background:linear-gradient(120deg,var(--acc-soft),transparent)">';
   html += '<div class="row"><span class="no">★</span><h3>互动工具箱</h3></div>';
   html += '<div class="en">Toolbox</div>';
-  html += '<p>频率偏差与功率缺额估算、AGC 调频备用测算、继电保护定值校核、故障切除时间与稳定裕度估算、低频减载轮次配置。</p>';
-  html += '<div class="prog">5 件 · 边读边算</div>';
+  html += '<p>频率偏差与功率缺额估算、AGC 调频备用测算、继电保护定值校核、保护上下级配合校核、故障切除时间与稳定裕度估算、低频减载轮次配置、新能源消纳与弃电测算。</p>';
+  html += '<div class="prog">7 件 · 边读边算</div>';
   html += '</a>';
   html += '</div>';
 
@@ -71,8 +71,10 @@ DSP.views.home = function() {
   html += toolCell('∿', '频率偏差与功率缺额估算器', 'frequency deviation');
   html += toolCell('↻', 'AGC 调频备用测算器', 'AGC reserve requirement');
   html += toolCell('⊻', '继电保护定值校核器', 'relay setting check');
+  html += toolCell('⇋', '保护上下级配合校核器', 'protection coordination');
   html += toolCell('⌛', '故障切除时间与稳定裕度估算器', 'clearing time and margin');
   html += toolCell('⊞', '低频减载轮次配置器', 'UFLS stage planning');
+  html += toolCell('☀', '新能源消纳与弃电测算器', 'renewable curtailment');
   html += '</div>';
 
   // ===== About =====
@@ -86,11 +88,13 @@ DSP.views.home = function() {
           '<li>有功决定频率、无功决定电压,三道防线分别防的是什么;</li>' +
           '<li>一次与二次怎么分工,二次回路、直流电源、互感器各起什么作用;</li>' +
           '<li>过流、距离、差动、零序、母线保护各自适合什么场景,定值由谁按什么依据定;</li>' +
+          '<li>上下级保护为什么要同时守住电流、时间、灵敏三条配合线,越级跳闸是怎么发生的;</li>' +
           '<li>稳控系统为什么要在几十毫秒内切机切负荷,低频减载为什么是最后一道闸;</li>' +
           '<li>SCADA 与 EMS 怎么把厂站状态搬上调度台,四遥、状态估计与潮流计算各解决什么问题;</li>' +
           '<li>调度通信、保护通道与全网对时为什么是二次系统能工作的前提;</li>' +
           '<li>调度计划、实时调度、操作票、事故处理这些日常业务怎么运转;</li>' +
           '<li>新能源高占比与电力电子化给调度带来哪些新麻烦;</li>' +
+          '<li>消纳空间由哪几块凑成、弃电率与利用率怎么算、想提利用率该往哪儿补。</li>' +
           '<li>二次系统为什么要做安全分区、横向隔离与纵向认证,项目从接入到投运要走哪些流程。</li>' +
           '</ul>';
   html += '<p style="color:var(--note);font-size:.88rem;margin-top:18px">说明:本站为通识科普,重机制逻辑与判断口径,不替代任何规程、设计文件与工程方案。涉调度规程、保护整定、稳控策略与安全防护之处写的是机制与思路,具体执行以现行有效文件、调度机构正式文件与现场实际为准。<b>内容基线 2026 年 9 月。</b></p>';

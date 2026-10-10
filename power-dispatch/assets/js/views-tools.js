@@ -13,10 +13,10 @@ DSP._w = function(n, d) { return (Math.round(n * Math.pow(10, d)) / Math.pow(10,
 DSP.views.calc = function() {
   var html = '<div class="tools-page">';
   html += '<h2>互动工具箱</h2>';
-  html += '<p class="calc-intro">二次系统的道理,光看框图不算懂。这五个小工具把课里的口径变成可拨动的数字:<b>一个功率缺额会把频率拉到多少(要不要动低频减载)、调频备用到底要留多少(在线可调容量够不够)、过流保护的定值怎么和灵敏度打架(配合关系长什么样)、故障切除时间还剩多少稳定裕度(裕度不足往哪优化)、低频减载六轮怎么切才既够用又不过切。</b>全部在本地浏览器实时运算。</p>';
+  html += '<p class="calc-intro">二次系统的道理,光看框图不算懂。这七个小工具把课里的口径变成可拨动的数字:<b>一个功率缺额会把频率拉到多少(要不要动低频减载)、调频备用到底要留多少(在线可调容量够不够)、过流保护的定值怎么和灵敏度打架(配合关系长什么样)、上下级保护为什么会有越级跳闸(电流与时间两条配合线谁不满足)、故障切除时间还剩多少稳定裕度(裕度不足往哪优化)、低频减载六轮怎么切才既够用又不过切、新能源大发时有多少电发不出来(消纳空间被什么卡住)。</b>全部在本地浏览器实时运算。</p>';
   html += '<div class="disclaimer" style="margin-top:0">';
   html += '<h4>使用前必读</h4>';
-  html += '<p>五件工具均为<b>极度简化的教学测算</b>:参数为便于理解的示例值,不体现真实的电网结构、机组特性、负荷模型、稳定计算结果、保护配置与整定原则、现场运行方式与调度机构要求。<b>不作为工程设计、定值整定、采购、招标或合规依据。</b>实际工作须以调度机构正式文件、现行有效标准、经批准的定值单与现场实际为准。</p>';
+  html += '<p>七件工具均为<b>极度简化的教学测算</b>:参数为便于理解的示例值,不体现真实的电网结构、机组特性、负荷模型、稳定计算结果、保护配置与整定原则、现场运行方式与调度机构要求。<b>不作为工程设计、定值整定、采购、招标或合规依据。</b>实际工作须以调度机构正式文件、现行有效标准、经批准的定值单与现场实际为准。</p>';
   html += '</div>';
 
   // 1. 频率偏差与功率缺额估算器
@@ -93,10 +93,46 @@ DSP.views.calc = function() {
   html += '<div id="ul-result" class="calc-result"></div>';
   html += '</div>';
 
-  html += '<p class="calc-note">说明:五件工具均为教学用简化建模,参数取行业常见量级概数,用于演示<b>机制与配合关系</b>。<b>实际工作必须依据调度机构正式文件、经批准的定值单、稳定计算结果、现行有效标准与现场实际运行方式办理</b>,本工具结果不作为工程设计、定值整定、招标或合规依据。</p>';
+  // 6. 保护上下级配合校核器
+  html += '<div class="calc-card">';
+  html += '<h3><span class="g">⇋</span>保护上下级配合校核器</h3>';
+  html += '<p class="lab-desc">保护要「有选择地动」:该下级动的时候上级不能抢,该上级动的时候下级不能赖。填上下级的电流定值与动作时间,看<b>电流配合系数与时间级差各差多少,是哪一条配合线没满足,以及上级至少要调到多少才配得上</b>。</p>';
+  html += '<div class="calc-inputs">';
+  html += '<label>下级保护一次定值(A)<input type="number" id="co-lo" step="10" value="400" min="0" oninput="DSP.calcCoordination()"></label>';
+  html += '<label>上级保护一次定值(A)<input type="number" id="co-hi" step="10" value="500" min="0" oninput="DSP.calcCoordination()"></label>';
+  html += '<label>电流配合系数要求(倍)<input type="number" id="co-k" step="0.05" value="1.1" min="1" oninput="DSP.calcCoordination()"></label>';
+  html += '<label>下级保护动作时间(s)<input type="number" id="co-tlo" step="0.1" value="0.3" min="0" oninput="DSP.calcCoordination()"></label>';
+  html += '<label>上级保护动作时间(s)<input type="number" id="co-thi" step="0.1" value="0.9" min="0" oninput="DSP.calcCoordination()"></label>';
+  html += '<label>时间级差要求(s)<input type="number" id="co-dt" step="0.1" value="0.3" min="0" oninput="DSP.calcCoordination()"></label>';
+  html += '<label>上级保护范围末端最小短路电流(A)<input type="number" id="co-ik" step="50" value="900" min="0" oninput="DSP.calcCoordination()"></label>';
+  html += '<label>远后备灵敏系数要求<input type="number" id="co-ks" step="0.1" value="1.2" min="0" oninput="DSP.calcCoordination()"></label>';
+  html += '</div>';
+  html += '<div id="co-result" class="calc-result"></div>';
+  html += '</div>';
+
+  // 7. 新能源消纳与弃电测算器
+  html += '<div class="calc-card">';
+  html += '<h3><span class="g">☀</span>新能源消纳与弃电测算器</h3>';
+  html += '<p class="lab-desc">风光发出来的电,电网得「接得住」才行。填入装机、负荷低谷与调峰能力,看<b>可消纳空间由哪几块凑成、理论发电量里有多少发不出来、弃电率多少,以及要把利用率提到目标还需补多少空间</b>。</p>';
+  html += '<div class="calc-inputs">';
+  html += '<label>新能源装机容量(MW)<input type="number" id="cu-cap" step="100" value="8000" min="0" oninput="DSP.calcCurtailment()"></label>';
+  html += '<label>日等效利用小时(h)<input type="number" id="cu-h" step="0.5" value="5" min="0" oninput="DSP.calcCurtailment()"></label>';
+  html += '<label>系统日最大负荷(MW)<input type="number" id="cu-max" step="500" value="20000" min="0" oninput="DSP.calcCurtailment()"></label>';
+  html += '<label>系统日最小负荷(MW)<input type="number" id="cu-min" step="500" value="10000" min="0" oninput="DSP.calcCurtailment()"></label>';
+  html += '<label>常规机组最小技术出力率(%)<input type="number" id="cu-tech" step="5" value="55" min="0" max="100" oninput="DSP.calcCurtailment()"></label>';
+  html += '<label>外送通道能力(MW)<input type="number" id="cu-out" step="100" value="1000" min="0" oninput="DSP.calcCurtailment()"></label>';
+  html += '<label>储能功率(MW)<input type="number" id="cu-sto" step="100" value="500" min="0" oninput="DSP.calcCurtailment()"></label>';
+  html += '<label>大发时段时长(h)<input type="number" id="cu-win" step="1" value="6" min="0.1" oninput="DSP.calcCurtailment()"></label>';
+  html += '<label>目标利用率(%)<input type="number" id="cu-target" step="1" value="95" min="0" max="100" oninput="DSP.calcCurtailment()"></label>';
+  html += '</div>';
+  html += '<div id="cu-result" class="calc-result"></div>';
+  html += '</div>';
+
+  html += '<p class="calc-note">说明:七件工具均为教学用简化建模,参数取行业常见量级概数,用于演示<b>机制与配合关系</b>。<b>实际工作必须依据调度机构正式文件、经批准的定值单、稳定计算结果、现行有效标准与现场实际运行方式办理</b>,本工具结果不作为工程设计、定值整定、招标或合规依据。</p>';
   html += '</div>';
   DSP.render(html);
   DSP.calcFreqDeficit(); DSP.calcAgcReserve(); DSP.calcRelaySetting(); DSP.calcClearTime(); DSP.calcUfls();
+  DSP.calcCoordination(); DSP.calcCurtailment();
 };
 
 function tr(name, val, cls, note) {
@@ -378,6 +414,130 @@ DSP.calcUfls = function() {
   }
   out += '<p class="calc-note">低频减载的设计思路可以概括成一句话:<b>把负荷切成若干块,频率掉到哪儿就切到哪儿</b>。轮次要够多、间隔要够匀,是为了让切除量跟着缺额逐级匹配——缺额小就少切,缺额大才多切,避免一上来就大范围停电。真实配置还要考虑负荷的频率特性、各轮覆盖的负荷分布、与稳控系统的协调、以及装置动作的时延,<b>具体轮次与比例以现行规程与经批准的系统方案为准</b>。</p>';
   el.innerHTML = out + out2;
+};
+
+/* ---- 6. 保护上下级配合校核 ---- */
+DSP.calcCoordination = function() {
+  var el = document.getElementById('co-result');
+  if (!el) return;
+  var lo = DSP._num('co-lo'), hi = DSP._num('co-hi'), kreq = DSP._num('co-k');
+  var tlo = DSP._num('co-tlo'), thi = DSP._num('co-thi'), dtreq = DSP._num('co-dt');
+  var ik = DSP._num('co-ik'), ksreq = DSP._num('co-ks');
+  if (lo === null || hi === null || kreq === null || tlo === null || thi === null || dtreq === null || ik === null || ksreq === null) {
+    el.innerHTML = warn('请把上下级定值、两个配合要求、两级动作时间与灵敏系数要求填写完整。'); return;
+  }
+  if (lo <= 0 || hi <= 0) { el.innerHTML = warn('上下级保护的一次定值须大于 0。'); return; }
+  if (tlo < 0 || thi < 0 || dtreq < 0 || ik < 0 || ksreq < 0 || kreq < 0) {
+    el.innerHTML = warn('动作时间、级差要求、短路电流与系数要求不能为负。'); return;
+  }
+
+  var kact = hi / lo;                            // 实际电流配合系数
+  var dtact = thi - tlo;                         // 实际时间级差(s)
+  var ksen = hi > 0 ? ik / hi : 0;               // 远后备灵敏系数(以末端短路电流对上级定值)
+  var kOk = kact >= kreq;
+  var tOk = dtact >= dtreq;
+  var sOk = ksen >= ksreq;
+  var allOk = kOk && tOk && sOk;
+
+  var hiMinByK = lo * kreq;                      // 上级定值下限(电流配合)
+  var hiMinByS = ksreq > 0 ? ik / ksreq : 0;     // 上级定值上限(灵敏系数)
+  var thiMin = tlo + dtreq;                      // 上级时间下限
+  var kMargin = kact - kreq;
+  var tMargin = dtact - dtreq;
+
+  var out = '<table class="cr-table">';
+  out += tr('下级保护一次定值', DSP._w(lo, 1) + ' A', '', '靠近负荷侧、应先动的这一级');
+  out += tr('上级保护一次定值', DSP._w(hi, 1) + ' A', '', '靠近电源侧、应后动的这一级');
+  out += tr('实际电流配合系数', DSP._fix(kact, 3), kOk ? 'cr-good' : 'cr-bad', '上级 ÷ 下级 = ' + DSP._w(hi, 1) + ' ÷ ' + DSP._w(lo, 1));
+  out += tr('电流配合系数要求', DSP._fix(kreq, 2), '', kOk ? '满足,上级定值足够大' : '不满足,上级定值偏小,可能越级跳闸');
+  out += tr('电流配合余量', (kMargin >= 0 ? '+' : '−') + DSP._fix(Math.abs(kMargin), 3), kOk ? 'cr-good' : 'cr-bad', '实际系数 − 要求系数');
+  out += tr('下级动作时间', DSP._fix(tlo, 2) + ' s', '', '该级完成切除所需时间');
+  out += tr('上级动作时间', DSP._fix(thi, 2) + ' s', '', '该级完成切除所需时间');
+  out += tr('实际时间级差', DSP._fix(dtact, 2) + ' s', tOk ? 'cr-good' : 'cr-bad', '上级时间 − 下级时间');
+  out += tr('时间级差要求', DSP._fix(dtreq, 2) + ' s', '', tOk ? '满足,上级后动有保障' : '不满足,两级可能同时动作');
+  out += tr('远后备灵敏系数', DSP._fix(ksen, 2), sOk ? 'cr-good' : 'cr-bad', '末端最小短路电流 ÷ 上级定值 = ' + DSP._w(ik, 0) + ' ÷ ' + DSP._w(hi, 1));
+  out += tr('灵敏系数要求', DSP._fix(ksreq, 2), '', sOk ? '满足' : '不满足,上级对本级末端故障反应不足');
+  out += tr('上级定值建议区间', DSP._w(hiMinByK, 1) + ' ~ ' + DSP._w(hiMinByS, 1) + ' A',
+    (hiMinByK <= hiMinByS && hi >= hiMinByK && hi <= hiMinByS) ? 'cr-good' : 'cr-bad',
+    DSP._w(hiMinByK, 1) + ' A 保配合、' + DSP._w(hiMinByS, 1) + ' A 保灵敏,当前 ' + DSP._w(hi, 1) + ' A');
+  out += tr('上级时间下限', DSP._fix(thiMin, 2) + ' s', thi >= thiMin ? 'cr-good' : 'cr-bad', '下级时间 + 级差要求 = ' + DSP._fix(tlo, 2) + ' + ' + DSP._fix(dtreq, 2));
+  out += tr('配合结论', allOk ? '选择性满足' : '选择性不满足', allOk ? 'cr-good' : 'cr-bad', '电流、时间、灵敏三项须同时成立');
+  out += '</table>';
+
+  if (hiMinByK > hiMinByS) {
+    out += warn('这里出现了配合上的<b>死结</b>:保配合需要上级定值不小于 ' + DSP._w(hiMinByK, 1) + ' A,保灵敏又要求它不大于 ' + DSP._w(hiMinByS, 1) + ' A,而前者已大于后者。这说明<b>仅靠过流保护两级配合已经无法同时满足选择性</b>,通常要靠增加其他原理的保护(距离、差动)或改变保护配置来化解。');
+  } else {
+    if (!kOk) out += warn('电流配合不满足:上级定值 ' + DSP._w(hi, 1) + ' A 相对下级 ' + DSP._w(lo, 1) + ' A 偏小(实际系数 ' + DSP._fix(kact, 3) + ' < 要求 ' + DSP._fix(kreq, 2) + ')。下级保护范围末端故障时,上级可能先动,<b>这就是越级跳闸</b>——停电范围被不必要地扩大。上级定值至少应提到 ' + DSP._w(hiMinByK, 1) + ' A。');
+    if (!tOk) out += warn('时间级差不足:两级只差 ' + DSP._fix(dtact, 2) + ' s,小于要求 ' + DSP._fix(dtreq, 2) + ' s。级差要同时容得下上级保护的测量与动作误差、以及断路器的动作时间,过小时两级可能抢动。上级时间至少应退到 ' + DSP._fix(thiMin, 2) + ' s。');
+    if (!sOk) out += warn('远后备灵敏度不足:上级保护对下级末端故障的灵敏系数只有 ' + DSP._fix(ksen, 2) + ',低于要求 ' + DSP._fix(ksreq, 2) + '。此时若下级保护拒动,上级也未必能正确切除,失去后备作用。');
+  }
+  out += '<p class="calc-note">上下级配合要同时守住三条线,缺一条就出问题:<b>一是电流线</b>——上级定值要明显大于下级,否则下级范围里的故障会引发越级;<b>二是时间线</b>——上级要慢一个级差,给下级先动的机会;<b>三是灵敏线</b>——上级定值又不能太大,否则对下级末端故障反应不足,起不到后后备作用。<b>电流线要「大」、灵敏线要「小」,两者一夹,可用的定值区间就出来了</b>;区间为空,说明这级保护光靠过流原理撑不住。真实的配合计算还要考虑运行方式变化、互感器误差、互感器接线方式与二次接线系数等因素,<b>必须由专业人员按现场参数计算、经审批后以定值单形式下达</b>。本工具仅用于理解配合关系。</p>';
+  el.innerHTML = out;
+};
+
+/* ---- 7. 新能源消纳与弃电 ---- */
+DSP.calcCurtailment = function() {
+  var el = document.getElementById('cu-result');
+  if (!el) return;
+  var cap = DSP._num('cu-cap'), eh = DSP._num('cu-h'), mx = DSP._num('cu-max'), mn = DSP._num('cu-min');
+  var tech = DSP._num('cu-tech'), outCap = DSP._num('cu-out'), sto = DSP._num('cu-sto');
+  var win = DSP._num('cu-win'), target = DSP._num('cu-target');
+  if (cap === null || eh === null || mx === null || mn === null || tech === null || outCap === null || sto === null || win === null || target === null) {
+    el.innerHTML = warn('请把装机、利用小时、最大与最小负荷、技术出力率、外送、储能、大发时长与目标利用率填写完整。'); return;
+  }
+  if (cap < 0 || eh < 0 || mx < 0 || mn < 0 || outCap < 0 || sto < 0) {
+    el.innerHTML = warn('装机、利用小时、负荷、外送与储能不能为负。'); return;
+  }
+  if (win <= 0) { el.innerHTML = warn('大发时段时长须大于 0。'); return; }
+  if (tech < 0 || tech > 100) { el.innerHTML = warn('常规机组最小技术出力率须在 0 ~ 100 % 之间。'); return; }
+  if (target < 0 || target > 100) { el.innerHTML = warn('目标利用率须在 0 ~ 100 % 之间。'); return; }
+
+  var techOut = mn * tech / 100;                       // 常规机组最小技术出力(MW)
+  var loadRoom = Math.max(0, mn - techOut);            // 负荷侧消纳空间(MW)
+  var room = loadRoom + outCap + sto;                  // 可消纳功率合计(MW)
+  var avail = cap * eh * 0.1;                          // 理论日发电量(万kWh),1 MWh = 0.1 万kWh
+  var roomE = room * win * 0.1;                        // 可消纳电量(万kWh)
+  var curtE = Math.max(0, avail - roomE);              // 弃电电量(万kWh)
+  var curtPct = avail > 0 ? curtE / avail * 100 : 0;
+  var usePct = 100 - curtPct;
+  var needE = avail * target / 100;                    // 目标利用率下所需消纳电量(万kWh)
+  var gapE = Math.max(0, needE - roomE);               // 需要增加的可消纳电量(万kWh)
+  var gapP = win > 0 ? gapE / win / 0.1 : 0;           // 折算需要增加的可消纳功率(MW)
+  var pene = mx > 0 ? cap / mx * 100 : 0;              // 装机占最大负荷比例(渗透率)
+  var roomShare = room > 0 ? [loadRoom / room * 100, outCap / room * 100, sto / room * 100] : [0, 0, 0];
+
+  var useCls = usePct >= target ? 'cr-good' : (usePct >= target - 5 ? '' : 'cr-bad');
+
+  var out = '<table class="cr-table">';
+  out += tr('新能源装机容量', DSP._w(cap, 0) + ' MW', '', '风光合计');
+  out += tr('装机占最大负荷比例', DSP._fix(pene, 1) + ' %', pene > 60 ? 'cr-bad' : '', DSP._w(cap, 0) + ' MW ÷ ' + DSP._w(mx, 0) + ' MW,用于看渗透水平');
+  out += tr('理论日发电量', DSP._w(avail, 1) + ' 万kWh', '', DSP._w(cap, 0) + ' MW × ' + DSP._fix(eh, 1) + ' h ÷ 10');
+  out += tr('负荷侧消纳空间', DSP._w(loadRoom, 0) + ' MW', '', '日最小负荷 − 常规最小技术出力(' + DSP._w(mn, 0) + ' × ' + DSP._fix(tech, 0) + ' % = ' + DSP._w(techOut, 0) + ' MW),占 ' + DSP._fix(roomShare[0], 1) + ' %');
+  out += tr('外送通道空间', DSP._w(outCap, 0) + ' MW', '', '富余电力送出去的能力,占 ' + DSP._fix(roomShare[1], 1) + ' %');
+  out += tr('储能充电空间', DSP._w(sto, 0) + ' MW', '', '把大发时段的电存起来,占 ' + DSP._fix(roomShare[2], 1) + ' %');
+  out += tr('可消纳功率合计', DSP._w(room, 0) + ' MW', '', '三块相加,大发时段能同时接纳的最大新能源功率');
+  out += tr('可消纳电量', DSP._w(roomE, 1) + ' 万kWh', '', DSP._w(room, 0) + ' MW × ' + DSP._fix(win, 1) + ' h ÷ 10');
+  out += tr('弃电电量', DSP._w(curtE, 1) + ' 万kWh', curtE > 0 ? 'cr-bad' : 'cr-good', curtE > 0 ? '理论发电量 − 可消纳电量' : '可消纳空间足以全额接纳');
+  out += tr('弃电率', DSP._fix(curtPct, 2) + ' %', curtPct > 5 ? 'cr-bad' : (curtPct > 0 ? '' : 'cr-good'), '弃电电量 ÷ 理论发电量');
+  out += tr('实际利用率', DSP._fix(usePct, 2) + ' %', useCls, '100 % − 弃电率');
+  out += tr('目标利用率', DSP._fix(target, 1) + ' %', '', usePct >= target ? '已达到目标' : '未达到目标');
+  out += tr('达到目标还需增加空间', (gapP > 0 ? DSP._w(gapP, 0) + ' MW' : '0 MW'), gapP > 0 ? 'cr-bad' : 'cr-good', gapP > 0 ? '需补的可消纳功率(含对应电量 ' + DSP._w(gapE, 1) + ' 万kWh)' : '现有空间已足够');
+  out += '</table>';
+
+  if (curtE > 0 && gapP > 0) {
+    out += warn('当前弃电率 ' + DSP._fix(curtPct, 2) + ' %,离目标利用率 ' + DSP._fix(target, 1) + ' % 还差 ' + DSP._w(gapP, 0) + ' MW 的可消纳空间。这 ' + DSP._w(gapP, 0) + ' MW 可以从三处补:<b>压常规机组最小技术出力(深调改造)、扩外送通道、增配储能</b>——三者对应的时间与成本差别很大,深调最快但受机组能力限制,外送最有效但受通道与送端制约,储能最灵活但成本最高。');
+  }
+  if (pene > 60) {
+    out += warn('新能源装机已达最大负荷的 ' + DSP._fix(pene, 1) + ' %。渗透率高到这个程度,「发电装得下」和「电网接得住」就不再是一回事——<b>消纳的瓶颈从电源侧转到了系统调节能力与通道上</b>。');
+  }
+  if (loadRoom <= 0) {
+    out += warn('负荷侧消纳空间已被压到零:常规机组即便压到最小技术出力,也刚好顶满日最小负荷。这说明<b>系统在低谷时段几乎没有给新能源留位置</b>,再多装机也只能弃掉,必须先解决调峰能力。');
+  }
+  if (curtE === 0) {
+    out += '<p class="calc-note">当前参数下可消纳空间足以全额接纳理论发电量,所以没有弃电。但这并不代表系统就宽裕——<b>弃电与否取决于「大发时段的功率平衡」,而不仅仅是「全年电量够不够」</b>。只要在大发那几个小时里,新能源出力峰值超过「负荷 − 常规最小出力 + 外送 + 储能可充」,电就发不出去。因此提高消纳率的着力点,始终是压低谷、扩通道、加储能这三件事。</p>';
+  }
+  out += '<p class="calc-note">这个工具演示的是「<b>电量对电量</b>」的简化账:<b>理论发电量 = 装机 × 等效利用小时;可消纳电量 = 可消纳功率 × 大发时长</b>,两者的差就是弃电。真实的新能源消纳要按时段做电力平衡(逐小时的负荷、风光出力、机组开机、外送曲线、储能充放),还要叠加电网安全约束(断面稳定极限、电压支撑、调频需求),<b>不是全年电量能对上就没问题</b>。这里的「日最小负荷」代表大发时段的最低负荷水平,是最保守的口径。实际测算须以电力电量平衡计算与调度机构结论为准。</p>';
+  el.innerHTML = out;
 };
 
 /* ===== 模块页 ===== */
