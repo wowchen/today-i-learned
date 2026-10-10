@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>电力调度与二次系统 · 五级调度 · 继电保护 · 安全稳定控制 · 调度自动化 · 二次安防</title>
+<meta name="description" content="大白话讲透电力调度与二次系统(科普通识,内容基线 2026 年 9 月):调度体系与职责(五级调度/机构与职责边界/调度管辖范围/调度规程与规则体系/并网调度协议/控制区与联络线/调度员的一天)、电力系统运行基础(系统构成/有功平衡与频率/无功平衡与电压/三道防线/稳定类型/运行工况与方式/安全约束与 N-1)、二次系统总论(一次与二次分工/二次系统组成/二次回路/直流电源与 UPS/互感器/二次设计与标准化)、继电保护(保护是什么/保护四性/过流保护/距离保护/差动保护/零序与母线保护/定值整定/保护校验与故障录波/自动重合闸)、安全稳定控制(为什么稳控/系统组成/切机与切负荷/低频低压减载/稳控策略表/装置联调/次同步振荡)、调度自动化(SCADA 与 EMS/调度主站/RTU 与测控装置/四遥/状态估计/潮流计算与安全分析/AGC 与 AVC/调度数据网)、调度通信与时钟(调度通信要求/传输手段/保护通道/调度电话/时间同步/通信网管)、调度运行(调度计划/发电计划/机组组合与备用/实时调度/操作票与倒闸操作/检修管理与停电计划/事故处理/并网管理)、新能源与有源调度(出力特性/功率预测/消纳与弃风弃光/调峰调频与辅助服务/源网荷储与虚拟电厂/电力电子化下的新问题)、配网调度(职责/配网自动化配合/故障处置/分布式电源调度/配网保护与整定/市县一体化)、二次安防与网络安全(为什么要防/安全分区与网络专用/横向隔离与纵向认证/电力监控系统安全防护体系/二次系统等级保护/态势感知/现场作业纪律)、调度业务与实战(新站接入/调度验收与资料移交/值班与交接班/事故案例复盘/调度数字化与智能化/岗位能力地图/从调度到调控云)。13 模块 87 课 102 术语,五段式含想一想;含频率偏差与功率缺额估算器/AGC 调频备用测算器/继电保护定值校核器/故障切除时间与稳定裕度估算器/低频减载轮次配置器五个互动工具。浅色冷白电光紫+深色深紫夜空亮紫双主题、首页调度层次图与潮流脉冲动效、纯静态离线。本站为通识科普,涉规程、标准与政策之处以现行有效文件为准,不构成工程设计、定值整定、招标、施工或合规依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('dsp.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    电力调度与二次系统 <small>· Power Dispatching and Secondary Systems</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="DSP.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 9 月</b>。涉及调度规程、继电保护配置与定值、安全稳定控制策略、自动化与通信技术规范、二次安防要求及相关政策的表述，一律以现行有效的国家标准、行业标准、企业技术规定与主管部门文件为准，并会随技术演进与政策调整而变化。<b>本站不构成工程设计、定值整定、设备采购、招标、施工或合规依据。</b>具体项目请以现场实际、调度机构正式文件、现行有效标准与企业技术规定为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-dispatch.js"></script>
+<script src="content/guide/03-why-secondary.js"></script>
+<script src="content/guide/04-how-to-learn.js"></script>
+<script src="content/system/01-five-levels.js"></script>
+<script src="content/system/02-org-and-duties.js"></script>
+<script src="content/system/03-jurisdiction.js"></script>
+<script src="content/system/04-regulations.js"></script>
+<script src="content/system/05-agreement.js"></script>
+<script src="content/system/06-control-area.js"></script>
+<script src="content/system/07-daily-life.js"></script>
+<script src="content/grid/01-system-composition.js"></script>
+<script src="content/grid/02-active-frequency.js"></script>
+<script src="content/grid/03-reactive-voltage.js"></script>
+<script src="content/grid/04-three-defense-lines.js"></script>
+<script src="content/grid/05-stability-types.js"></script>
+<script src="content/grid/06-operating-condition.js"></script>
+<script src="content/grid/07-security-constraints.js"></script>
+<script src="content/secondary/01-primary-vs-secondary.js"></script>
+<script src="content/secondary/02-system-composition.js"></script>
+<script src="content/secondary/03-secondary-circuit.js"></script>
+<script src="content/secondary/04-dc-supply.js"></script>
+<script src="content/secondary/05-instrument-transformer.js"></script>
+<script src="content/secondary/06-secondary-design.js"></script>
+<script src="content/relay/01-what-is-protection.js"></script>
+<script src="content/relay/02-four-requirements.js"></script>
+<script src="content/relay/03-overcurrent.js"></script>
+<script src="content/relay/04-distance.js"></script>
+<script src="content/relay/05-differential.js"></script>
+<script src="content/relay/06-zero-sequence-busbar.js"></script>
+<script src="content/relay/07-setting.js"></script>
+<script src="content/relay/08-verification-recorder.js"></script>
+<script src="content/stability/01-why-stability-control.js"></script>
+<script src="content/stability/02-system-composition.js"></script>
+<script src="content/stability/03-generator-tripping.js"></script>
+<script src="content/stability/04-ufls-uvls.js"></script>
+<script src="content/stability/05-strategy-table.js"></script>
+<script src="content/stability/06-device-and-test.js"></script>
+<script src="content/stability/07-oscillation.js"></script>
+<script src="content/automation/01-scada-ems.js"></script>
+<script src="content/automation/02-master-station.js"></script>
+<script src="content/automation/03-rtu-measurement.js"></script>
+<script src="content/automation/04-four-remote.js"></script>
+<script src="content/automation/05-state-estimation.js"></script>
+<script src="content/automation/06-power-flow.js"></script>
+<script src="content/automation/07-agc-avc.js"></script>
+<script src="content/automation/08-data-network.js"></script>
+<script src="content/comm/01-dispatch-comm-requirement.js"></script>
+<script src="content/comm/02-transmission-media.js"></script>
+<script src="content/comm/03-pilot-channel.js"></script>
+<script src="content/comm/04-dispatch-telephone.js"></script>
+<script src="content/comm/05-time-sync.js"></script>
+<script src="content/comm/06-network-management.js"></script>
+<script src="content/operation/01-plan-overview.js"></script>
+<script src="content/operation/02-generation-schedule.js"></script>
+<script src="content/operation/03-unit-commitment-reserve.js"></script>
+<script src="content/operation/04-real-time-dispatch.js"></script>
+<script src="content/operation/05-operation-ticket.js"></script>
+<script src="content/operation/06-maintenance.js"></script>
+<script src="content/operation/07-accident-handling.js"></script>
+<script src="content/operation/08-grid-connection-ops.js"></script>
+<script src="content/newenergy/01-output-characteristics.js"></script>
+<script src="content/newenergy/02-power-forecast.js"></script>
+<script src="content/newenergy/03-curtailment-consumption.js"></script>
+<script src="content/newenergy/04-peak-regulation.js"></script>
+<script src="content/newenergy/05-source-grid-load.js"></script>
+<script src="content/newenergy/06-new-type-dispatch.js"></script>
+<script src="content/distribution/01-distribution-dispatch-duty.js"></script>
+<script src="content/distribution/02-distribution-automation.js"></script>
+<script src="content/distribution/03-fault-handling.js"></script>
+<script src="content/distribution/04-distributed-pv.js"></script>
+<script src="content/distribution/05-distribution-protection.js"></script>
+<script src="content/distribution/06-city-county.js"></script>
+<script src="content/security/01-why-secondary-security.js"></script>
+<script src="content/security/02-security-zone.js"></script>
+<script src="content/security/03-horizontal-isolation.js"></script>
+<script src="content/security/04-power-monitoring-protection.js"></script>
+<script src="content/security/05-secondary-classified-protection.js"></script>
+<script src="content/security/06-situational-awareness.js"></script>
+<script src="content/security/07-field-security.js"></script>
+<script src="content/delivery/01-station-access.js"></script>
+<script src="content/delivery/02-dispatch-acceptance.js"></script>
+<script src="content/delivery/03-shift-handover.js"></script>
+<script src="content/delivery/04-case-review.js"></script>
+<script src="content/delivery/05-digitalization.js"></script>
+<script src="content/delivery/06-capability.js"></script>
+<script src="content/delivery/07-trends.js"></script>
+<!--LESSONS-->
+</body>
+</html>
