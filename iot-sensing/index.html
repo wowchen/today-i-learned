@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>电力物联网与感知层 · 物联网卡 · 通信选型 · 传感器 · 边缘计算 · 平台</title>
+<meta name="description" content="大白话讲透电力物联网与感知层(科普通识,内容基线 2026 年 9 月):电力物联网全景(端边网云四层架构/从自动化到物联网的来路/泛在电力物联网与新型电力系统/集中式与分布式接入架构/标准体系与产业格局/谁在建设谁在运营/感知层价值怎么算)、通信模组与物联网卡(模组构成/物联网卡形态与制式/eSIM/IMSI 与写号/APN 与 VPDN/机卡绑定/流量池与套餐计费/卡生命周期)、物联网卡全链路监测(为什么要做全链路监测/链路怎么分段/状态数据怎么采/分钟级故障定界/沉默卡与漫游卡与卡盗用识别/监测平台功能与指标/与网管工单客服怎么打通)、公网与电力专网(公网适用场景/230MHz 与 1.8GHz 电力无线专网/5G 与网络切片/NB-IoT 与 LoRa/通信选型决策/覆盖与容量估算/网络隔离与安全承载)、载波与本地通信(HPLC 高速载波/为什么用电力线通信/台区拓扑识别/双模通信/载波常见问题/集中器到电表的最后一公里)、传感器与智能终端(电力场景物理量清单/台区智能融合终端/微环境监测/局部放电监测/结构与位移监测/安防感知/传感器选型与安装)、边缘计算与网关(为什么在现场算/边缘网关形态与功能/协议转换/边缘侧智能与轻量推理/断点续传与本地缓存/边缘节点远程运维)、设备接入与物联网平台(平台职责/物模型/设备影子/接入方式与鉴权/规则引擎/OTA 远程升级/数据存储与开放接口/平台上的 AI)、感知层安全(为什么最脆弱/安全接入区与逻辑隔离/纵向加密与认证装置/卡侧风险/等级保护与电力监控系统安全防护/现场作业安全与设备准入)、典型场景实战(用电信息采集/配电自动化与台区/充电桩接入与有序充电/分布式光伏监测/机房与基站动环监测/设备微环境监测/光缆防外破监测/多场景共平台统一接入)、项目建设与运营(选型/造价构成/实施与联调/验收与移交/运维与运营指标/项目风险/从感知到智能的趋势)。12 模块 80 课 87 术语,五段式含想一想;含物联网卡流量池测算器/链路可用率测算器/通信方式选型器/边缘数据量与带宽测算器/感知层造价估算器五个互动工具。浅色冷白青灰石青蓝+深色深靛青亮石青双主题、首页端边网云四层结构与上下行数据脉冲动效、纯静态离线。本站为通识科普,涉通信制式、频段、标准与政策之处以现行有效标准与文件为准,不构成工程设计、采购、招标或合规依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('iot.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    电力物联网与感知层 <small>· Power IoT and Sensing Layer</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="IOT.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 9 月</b>。涉及通信制式、频段划分、接入规范、标准体系与相关政策的表述，一律以现行有效的国家标准、行业标准、企业技术规定与主管部门文件为准，并会随技术演进与政策调整而变化。<b>本站不构成工程设计、设备采购、招标、施工或合规依据。</b>具体项目请以现场勘查结论、厂商正式方案、现行有效标准与企业技术规定为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-power-iot.js"></script>
+<script src="content/guide/03-why-own-sensing.js"></script>
+<script src="content/guide/04-how-to-learn.js"></script>
+<script src="content/basics/01-four-layers.js"></script>
+<script src="content/basics/02-evolution.js"></script>
+<script src="content/basics/03-ubiquitous.js"></script>
+<script src="content/basics/04-arch-patterns.js"></script>
+<script src="content/basics/05-standards.js"></script>
+<script src="content/basics/06-roles.js"></script>
+<script src="content/basics/07-value.js"></script>
+<script src="content/card/01-module.js"></script>
+<script src="content/card/02-card-types.js"></script>
+<script src="content/card/03-numbering.js"></script>
+<script src="content/card/04-apn-vpdn.js"></script>
+<script src="content/card/05-binding.js"></script>
+<script src="content/card/06-traffic-pool.js"></script>
+<script src="content/card/07-lifecycle.js"></script>
+<script src="content/monitor/01-why-monitor.js"></script>
+<script src="content/monitor/02-chain.js"></script>
+<script src="content/monitor/03-collect.js"></script>
+<script src="content/monitor/04-localization.js"></script>
+<script src="content/monitor/05-anomaly.js"></script>
+<script src="content/monitor/06-platform.js"></script>
+<script src="content/monitor/07-integration.js"></script>
+<script src="content/network/01-public.js"></script>
+<script src="content/network/02-private.js"></script>
+<script src="content/network/03-5g.js"></script>
+<script src="content/network/04-lpwan.js"></script>
+<script src="content/network/05-compare.js"></script>
+<script src="content/network/06-coverage.js"></script>
+<script src="content/network/07-isolation.js"></script>
+<script src="content/plc/01-what-is-hplc.js"></script>
+<script src="content/plc/02-why-plc.js"></script>
+<script src="content/plc/03-topology.js"></script>
+<script src="content/plc/04-dual-mode.js"></script>
+<script src="content/plc/05-problems.js"></script>
+<script src="content/plc/06-last-mile.js"></script>
+<script src="content/terminal/01-what-to-sense.js"></script>
+<script src="content/terminal/02-ttu.js"></script>
+<script src="content/terminal/03-micro-env.js"></script>
+<script src="content/terminal/04-partial-discharge.js"></script>
+<script src="content/terminal/05-structure.js"></script>
+<script src="content/terminal/06-security-device.js"></script>
+<script src="content/terminal/07-selection.js"></script>
+<script src="content/edge/01-why-edge.js"></script>
+<script src="content/edge/02-gateway.js"></script>
+<script src="content/edge/03-protocol-conversion.js"></script>
+<script src="content/edge/04-edge-ai.js"></script>
+<script src="content/edge/05-reliability.js"></script>
+<script src="content/edge/06-ops.js"></script>
+<script src="content/platform/01-what-platform.js"></script>
+<script src="content/platform/02-things-model.js"></script>
+<script src="content/platform/03-shadow.js"></script>
+<script src="content/platform/04-access.js"></script>
+<script src="content/platform/05-rule.js"></script>
+<script src="content/platform/06-ota.js"></script>
+<script src="content/platform/07-data.js"></script>
+<script src="content/platform/08-platform-ai.js"></script>
+<script src="content/security/01-why-weakest.js"></script>
+<script src="content/security/02-access-zone.js"></script>
+<script src="content/security/03-encryption.js"></script>
+<script src="content/security/04-card-risk.js"></script>
+<script src="content/security/05-compliance.js"></script>
+<script src="content/security/06-field-practice.js"></script>
+<script src="content/scenes/01-collection.js"></script>
+<script src="content/scenes/02-distribution.js"></script>
+<script src="content/scenes/03-charging.js"></script>
+<script src="content/scenes/04-pv.js"></script>
+<script src="content/scenes/05-room.js"></script>
+<script src="content/scenes/06-micro-env.js"></script>
+<script src="content/scenes/07-cable.js"></script>
+<script src="content/scenes/08-unified.js"></script>
+<script src="content/delivery/01-selection.js"></script>
+<script src="content/delivery/02-cost.js"></script>
+<script src="content/delivery/03-implement.js"></script>
+<script src="content/delivery/04-accept.js"></script>
+<script src="content/delivery/05-ops.js"></script>
+<script src="content/delivery/06-risk.js"></script>
+<script src="content/delivery/07-trend.js"></script>
+<!--LESSONS-->
+</body>
+</html>
