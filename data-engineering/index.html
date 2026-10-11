@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数据工程与数据治理 · 数据建模 · 数仓湖仓 · 数据管道 · 数据质量 · 元数据血缘 · 数据安全 · 数据治理</title>
+<meta name="description" content="大白话讲透数据工程与数据治理(科普通识,内容基线 2026 年 10 月):数据工程通识(数据生命周期/数据技术栈全景/OLTP 与 OLAP 之别/批处理与流处理/数据仓库与数据湖/湖仓一体/数据中台)、数据建模(为什么建模/范式建模/维度建模/事实表与维度表/星型与雪花/宽表/建模实战)、存储与格式(存储选型/列式存储/数据文件格式/分区与分桶/对象存储/冷热分层/压缩与索引)、数据采集与集成(数据源盘点/ETL 与 ELT/CDC 变更数据捕获/批量采集/实时采集/数据同步/采集的坑)、数据管道与调度(什么是管道/DAG 有向无环图/调度机制/编排工具/幂等设计/增量与全量/回刷与补数/管道可观测性)、数据质量(为什么重视质量/六个维度/校验规则/数据剖析/异常检测/根因定位/质量评分/质量 SLA)、元数据管理(什么是元数据/技术元数据/业务元数据/数据目录/数据地图/打标与标签/目录运营)、数据血缘(什么是血缘/表级与字段级/血缘采集/影响分析/血缘可视化/血缘的坑)、数据标准与主数据(数据标准/数据元/代码字典/主数据/参考数据/主数据管理 MDM/标准落地)、数据安全与合规(为什么讲安全/分级分类/访问控制/脱敏与加密/隐私计算/数据出境/审计与溯源)、数据治理体系(什么是治理/组织架构/角色职责/DAMA 与 DCMM/成熟度评估/治理落地/治理中的冲突)、数据服务与分析(数据服务化/指标体系/指标平台/自助分析/数据 API/看板与报表/数据产品)、面向 AI 的数据工程(为什么 AI 需要数据工程/非结构化数据/向量与嵌入/向量数据库/特征平台/数据标注/数据飞轮/训练数据治理)、项目与实战(数据平台建设/团队与分工/质量治理案例/主数据治理案例/治理落地案例/数据债/角色地图)。15 模块 104 课 111 术语,五段式含想一想;含数据量估算器/数据质量评分器/血缘影响分析器/数据分级分类判定器/主数据匹配与去重测算器/指标口径差异校核器/数据成本与价值测算器七个互动工具。浅色冷白灰紫深靛蓝+深色深靛青黑亮靛蓝双主题、首页数据流水线六站台与数据流脉冲动效、纯静态离线。本站为通识科普,涉数据标准、法规与制度之处以现行有效文件为准,不构成平台选型、合规审计、投资测算或审计依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('deg.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    数据工程与数据治理 <small>· Data Engineering and Data Governance</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="DEG.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 10 月</b>。涉及数据标准、平台能力、安全合规、行业规范与监管要求的表述，一律以现行有效的国家标准(GB)、行业标准、法规文件与本单位数据管理制度为准，并会随技术演进与制度调整而变化。<b>本站不构成平台选型、合规审计、投资测算或法律依据。</b>具体项目请以真实数据探查结论、现行有效标准与企业制度为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-data-engineering.js"></script>
+<script src="content/guide/03-de-vs-analysis.js"></script>
+<script src="content/guide/04-how-to-learn.js"></script>
+<script src="content/landscape/01-data-lifecycle.js"></script>
+<script src="content/landscape/02-data-stack.js"></script>
+<script src="content/landscape/03-olap-oltp.js"></script>
+<script src="content/landscape/04-batch-stream.js"></script>
+<script src="content/landscape/05-warehouse-lake.js"></script>
+<script src="content/landscape/06-lakehouse.js"></script>
+<script src="content/landscape/07-middle-platform.js"></script>
+<script src="content/modeling/01-why-modeling.js"></script>
+<script src="content/modeling/02-normalization.js"></script>
+<script src="content/modeling/03-dimensional.js"></script>
+<script src="content/modeling/04-fact-dimension.js"></script>
+<script src="content/modeling/05-star-snowflake.js"></script>
+<script src="content/modeling/06-wide-table.js"></script>
+<script src="content/modeling/07-modeling-practice.js"></script>
+<script src="content/storage/01-storage-choice.js"></script>
+<script src="content/storage/02-columnar.js"></script>
+<script src="content/storage/03-data-format.js"></script>
+<script src="content/storage/04-partition.js"></script>
+<script src="content/storage/05-object-storage.js"></script>
+<script src="content/storage/06-tiering.js"></script>
+<script src="content/storage/07-compression-index.js"></script>
+<script src="content/ingestion/01-data-source.js"></script>
+<script src="content/ingestion/02-etl-elt.js"></script>
+<script src="content/ingestion/03-cdc.js"></script>
+<script src="content/ingestion/04-batch-ingestion.js"></script>
+<script src="content/ingestion/05-realtime-ingestion.js"></script>
+<script src="content/ingestion/06-data-sync.js"></script>
+<script src="content/ingestion/07-ingestion-pitfalls.js"></script>
+<script src="content/pipeline/01-what-is-pipeline.js"></script>
+<script src="content/pipeline/02-dag.js"></script>
+<script src="content/pipeline/03-scheduling.js"></script>
+<script src="content/pipeline/04-orchestration.js"></script>
+<script src="content/pipeline/05-idempotent.js"></script>
+<script src="content/pipeline/06-incremental-full.js"></script>
+<script src="content/pipeline/07-backfill.js"></script>
+<script src="content/pipeline/08-observability.js"></script>
+<script src="content/quality/01-why-quality.js"></script>
+<script src="content/quality/02-dimensions.js"></script>
+<script src="content/quality/03-validation.js"></script>
+<script src="content/quality/04-profiling.js"></script>
+<script src="content/quality/05-anomaly.js"></script>
+<script src="content/quality/06-root-cause.js"></script>
+<script src="content/quality/07-quality-score.js"></script>
+<script src="content/quality/08-quality-sla.js"></script>
+<script src="content/metadata/01-what-is-metadata.js"></script>
+<script src="content/metadata/02-technical.js"></script>
+<script src="content/metadata/03-business.js"></script>
+<script src="content/metadata/04-catalog.js"></script>
+<script src="content/metadata/05-data-map.js"></script>
+<script src="content/metadata/06-tagging.js"></script>
+<script src="content/metadata/07-catalog-ops.js"></script>
+<script src="content/lineage/01-what-is-lineage.js"></script>
+<script src="content/lineage/02-table-vs-column.js"></script>
+<script src="content/lineage/03-collection.js"></script>
+<script src="content/lineage/04-impact-analysis.js"></script>
+<script src="content/lineage/05-visualization.js"></script>
+<script src="content/lineage/06-lineage-pitfalls.js"></script>
+<script src="content/standard/01-data-standard.js"></script>
+<script src="content/standard/02-data-element.js"></script>
+<script src="content/standard/03-code-dictionary.js"></script>
+<script src="content/standard/04-master-data.js"></script>
+<script src="content/standard/05-reference-data.js"></script>
+<script src="content/standard/06-mdm.js"></script>
+<script src="content/standard/07-standard-landing.js"></script>
+<script src="content/security/01-why-security.js"></script>
+<script src="content/security/02-classification.js"></script>
+<script src="content/security/03-access-control.js"></script>
+<script src="content/security/04-masking-encryption.js"></script>
+<script src="content/security/05-privacy-computing.js"></script>
+<script src="content/security/06-cross-border.js"></script>
+<script src="content/security/07-audit.js"></script>
+<script src="content/governance/01-what-is-governance.js"></script>
+<script src="content/governance/02-org.js"></script>
+<script src="content/governance/03-roles.js"></script>
+<script src="content/governance/04-dama-dcmm.js"></script>
+<script src="content/governance/05-maturity.js"></script>
+<script src="content/governance/06-landing.js"></script>
+<script src="content/governance/07-conflict.js"></script>
+<script src="content/analytics/01-data-service.js"></script>
+<script src="content/analytics/02-metric-system.js"></script>
+<script src="content/analytics/03-metric-platform.js"></script>
+<script src="content/analytics/04-self-service.js"></script>
+<script src="content/analytics/05-data-api.js"></script>
+<script src="content/analytics/06-dashboard.js"></script>
+<script src="content/analytics/07-data-product.js"></script>
+<script src="content/aidata/01-why-ai-data.js"></script>
+<script src="content/aidata/02-unstructured.js"></script>
+<script src="content/aidata/03-embedding.js"></script>
+<script src="content/aidata/04-vector-db.js"></script>
+<script src="content/aidata/05-feature-store.js"></script>
+<script src="content/aidata/06-labeling.js"></script>
+<script src="content/aidata/07-flywheel.js"></script>
+<script src="content/aidata/08-training-data-gov.js"></script>
+<script src="content/practice/01-platform-build.js"></script>
+<script src="content/practice/02-team.js"></script>
+<script src="content/practice/03-quality-case.js"></script>
+<script src="content/practice/04-mdm-case.js"></script>
+<script src="content/practice/05-governance-case.js"></script>
+<script src="content/practice/06-data-debt.js"></script>
+<script src="content/practice/07-role-map.js"></script>
+<!--LESSONS-->
+</body>
+</html>
