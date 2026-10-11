@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>输变电一次设备通识 · 变压器 · 断路器 · 隔离开关 · 互感器 · 避雷器 · 母线</title>
+<meta name="description" content="大白话讲透输变电一次设备(科普通识,内容基线 2026 年 10 月):一次设备总论(一次与二次怎么分工/额定电压与额定电流/额定容量与铭牌/绝缘水平/短路电流与动热稳定/选型原则)、变压器(为什么要变压/油浸与干式/铁芯与绕组/套管/分接开关与调压/冷却方式/空载与负载损耗/负载率)、断路器与 GIS(断路器作用/灭弧原理/SF6 与真空/开断能力/操动机构/AIS 与 GIS 与 HGIS/GIS 结构/重合闸)、隔离开关与开合设备(为什么不能带负荷拉/接地开关/负荷开关/熔断器/组合电器/防误闭锁与五防)、互感器与测量(为什么要互感器/电流互感器/电压互感器/电容式电压互感器/变比与准确级/极性/二次负荷)、避雷器与过电压(过电压分类/避雷器怎么保护/金属氧化物避雷器/雷电过电压/操作过电压/接地与绝缘配合)、绝缘子与金具(绝缘子两项任务/瓷与复合/爬电比距/污闪/金具/运维与试验)、输电线路与导线电缆(线路类型/架空线路/导线/弧垂与张力/杆塔/电力电缆/载流量/电晕与电磁环境)、母线与成套设备(母线/开关柜/环网柜/铠装式金属封闭开关设备/间隔/电缆终端)、电气布置与主接线(电气主接线/单母线/双母线/桥式接线/一个半断路器接线/线路-变压器组/平面布置与间隔)、状态评价与试验(为什么做试验/交接试验/预防性试验/绝缘电阻与介质损耗/局部放电/油中溶解气体分析/在线监测/状态评价)、全寿命周期管理(为什么讲全寿命/LCC 全寿命周期成本/资产管理/故障率与可用率/技术改造/退役报废/备品备件/拥有总成本)、智能运检与数字化(智能运检/状态监测/巡检机器人与无人机/感知终端/数字孪生/边缘计算/智能变电站与 IEC 61850)、典型故障与事故(为什么会坏/短路故障/接地故障/雷击/过热与受潮/套管故障/机构故障)。15 模块 103 课 126 术语,五段式含想一想;含变压器负载率与损耗测算器/短路电流与开断能力校核器/避雷器与绝缘配合校核器/绝缘子片数与爬距校核器/载流量与截面选型器/导线弧垂与张力测算器/设备全寿命成本(LCC)测算器七个互动工具。浅色暖白纸深铜褐+深色深褐黑亮铜双主题、首页变电站一次接线单线图与电流脉冲动效、纯静态离线。本站为通识科普,涉设备参数、试验规程、技术标准与反措要求之处以现行有效标准与文件为准,不构成工程设计、设备选型、招标或运维作业依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('peq.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    输变电一次设备通识 <small>· Primary Equipment</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="PEQ.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 10 月</b>。涉及设备参数、绝缘配合、短路校核、试验规程、技术标准与反措要求的表述，一律以现行有效的国家标准、行业标准、企业技术规定与主管部门文件为准，并会随技术演进与标准修订而变化。<b>本站不构成工程设计、设备选型、投标报价、施工或运维作业依据。</b>具体工程请以设计文件、现行有效标准与企业规程为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-primary.js"></script>
+<script src="content/guide/03-primary-vs-secondary.js"></script>
+<script src="content/guide/04-learning-path.js"></script>
+<script src="content/basics/01-why-equipment.js"></script>
+<script src="content/basics/02-classification.js"></script>
+<script src="content/basics/03-rated-voltage-current.js"></script>
+<script src="content/basics/04-rated-capacity-nameplate.js"></script>
+<script src="content/basics/05-insulation-level.js"></script>
+<script src="content/basics/06-short-circuit-stability.js"></script>
+<script src="content/basics/07-selection-principle.js"></script>
+<script src="content/transformer/01-why-transform.js"></script>
+<script src="content/transformer/02-oil-vs-dry.js"></script>
+<script src="content/transformer/03-core-winding.js"></script>
+<script src="content/transformer/04-bushing.js"></script>
+<script src="content/transformer/05-tap-changer.js"></script>
+<script src="content/transformer/06-cooling.js"></script>
+<script src="content/transformer/07-losses.js"></script>
+<script src="content/transformer/08-load-rate.js"></script>
+<script src="content/breaker/01-what-breaker.js"></script>
+<script src="content/breaker/02-arc-extinguishing.js"></script>
+<script src="content/breaker/03-sf6-vacuum.js"></script>
+<script src="content/breaker/04-breaking-capacity.js"></script>
+<script src="content/breaker/05-operating-mechanism.js"></script>
+<script src="content/breaker/06-ais-gis-hgis.js"></script>
+<script src="content/breaker/07-gis-structure.js"></script>
+<script src="content/breaker/08-reclosing.js"></script>
+<script src="content/switch/01-why-no-load.js"></script>
+<script src="content/switch/02-earthing-switch.js"></script>
+<script src="content/switch/03-load-switch.js"></script>
+<script src="content/switch/04-fuse.js"></script>
+<script src="content/switch/05-combination.js"></script>
+<script src="content/switch/06-interlock.js"></script>
+<script src="content/ctpt/01-why-ctpt.js"></script>
+<script src="content/ctpt/02-ct.js"></script>
+<script src="content/ctpt/03-pt.js"></script>
+<script src="content/ctpt/04-cvt.js"></script>
+<script src="content/ctpt/05-ratio-class.js"></script>
+<script src="content/ctpt/06-polarity.js"></script>
+<script src="content/ctpt/07-burden-esit.js"></script>
+<script src="content/arrester/01-overvoltage.js"></script>
+<script src="content/arrester/02-how-arrester-protects.js"></script>
+<script src="content/arrester/03-moa.js"></script>
+<script src="content/arrester/04-lightning.js"></script>
+<script src="content/arrester/05-switching.js"></script>
+<script src="content/arrester/06-grounding-coordination.js"></script>
+<script src="content/insulator/01-two-jobs.js"></script>
+<script src="content/insulator/02-ceramic-composite.js"></script>
+<script src="content/insulator/03-creepage.js"></script>
+<script src="content/insulator/04-pollution-flashover.js"></script>
+<script src="content/insulator/05-fittings.js"></script>
+<script src="content/insulator/06-om-test.js"></script>
+<script src="content/line/01-line-types.js"></script>
+<script src="content/line/02-overhead.js"></script>
+<script src="content/line/03-conductor.js"></script>
+<script src="content/line/04-sag-tension.js"></script>
+<script src="content/line/05-tower.js"></script>
+<script src="content/line/06-cable.js"></script>
+<script src="content/line/07-ampacity.js"></script>
+<script src="content/line/08-corona-emc.js"></script>
+<script src="content/busbar/01-what-busbar.js"></script>
+<script src="content/busbar/02-switchgear.js"></script>
+<script src="content/busbar/03-rmu.js"></script>
+<script src="content/busbar/04-metal-clad.js"></script>
+<script src="content/busbar/05-bay.js"></script>
+<script src="content/busbar/06-cable-termination.js"></script>
+<script src="content/layout/01-main-connection.js"></script>
+<script src="content/layout/02-single-busbar.js"></script>
+<script src="content/layout/03-double-busbar.js"></script>
+<script src="content/layout/04-bridge.js"></script>
+<script src="content/layout/05-one-half.js"></script>
+<script src="content/layout/06-unit-and-station.js"></script>
+<script src="content/layout/07-layout-plan.js"></script>
+<script src="content/test/01-why-test.js"></script>
+<script src="content/test/02-handover-test.js"></script>
+<script src="content/test/03-preventive-test.js"></script>
+<script src="content/test/04-ir-dielectric.js"></script>
+<script src="content/test/05-pd.js"></script>
+<script src="content/test/06-dga.js"></script>
+<script src="content/test/07-monitoring.js"></script>
+<script src="content/test/08-state-eval.js"></script>
+<script src="content/lifecycle/01-why-lifecycle.js"></script>
+<script src="content/lifecycle/02-lcc.js"></script>
+<script src="content/lifecycle/03-asset-management.js"></script>
+<script src="content/lifecycle/04-reliability.js"></script>
+<script src="content/lifecycle/05-technical-transformation.js"></script>
+<script src="content/lifecycle/06-decommissioning.js"></script>
+<script src="content/lifecycle/07-spare-parts.js"></script>
+<script src="content/lifecycle/08-tco.js"></script>
+<script src="content/smart/01-what-smart-om.js"></script>
+<script src="content/smart/02-condition-monitoring.js"></script>
+<script src="content/smart/03-robot-uav.js"></script>
+<script src="content/smart/04-sensing-terminal.js"></script>
+<script src="content/smart/05-digital-twin.js"></script>
+<script src="content/smart/06-edge-computing.js"></script>
+<script src="content/smart/07-smart-substation.js"></script>
+<script src="content/fault/01-why-fail.js"></script>
+<script src="content/fault/02-short-circuit.js"></script>
+<script src="content/fault/03-ground-fault.js"></script>
+<script src="content/fault/04-lightning.js"></script>
+<script src="content/fault/05-overheat-moisture.js"></script>
+<script src="content/fault/06-bushing-fault.js"></script>
+<script src="content/fault/07-mechanism-accident.js"></script>
+<!--LESSONS-->
+</body>
+</html>
