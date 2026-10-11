@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 应用工程 · 从 Demo 到生产 · RAG · 评测 · 灰度 · Token 成本 · ROI</title>
+<meta name="description" content="大白话讲透 AI 应用工程——从 Demo 到生产(科普通识,内容基线 2026 年 10 月):导览(怎么用这个站/AI 应用工程是什么/模型能力与应用工程怎么分工/学习路线)、从 Demo 到生产的鸿沟(为什么演示能跑通上线就翻车/快乐路径与真实输入的差距/分布漂移/长尾输入/典型失败模式/幻觉与非确定性/护栏与输出约束)、场景筛选与需求定义(哪些活值得做/任务分解/工作单元与边界/验收标准/容错度与人在回路/适配度评估:这活该不该给 AI/变革管理)、Harness 编排层(Harness 是什么/编排/提示词与提示词模板/工具调用与函数调用/智能体循环/工作流图与状态机/输出校验与结构化/重试降级与熔断)、上下文与知识供给(上下文窗口与预算/为什么要 RAG/切块/向量化与检索/重排/落地依据与引用溯源/短期与长期记忆)、评测体系(为什么必须先有评测/评测集怎么设计/黄金集与专家标注/离线与在线评测/模型裁判与评分标准/准确率召回率与阈值取舍/回归测试/评测驱动开发)、可观测性与线上监控(可观测性是什么/链路追踪与跨度/Token 计量与账目/漂移监控/质量抽检/告警/事故分级与响应)、灰度、A/B 与发布(发布策略全景/影子模式/灰度放量/A/B 测试与分流/统计显著性/回滚与发布门禁)、成本与 Token 经济(Token 成本从哪来/输入与输出的计价差异/缓存/模型分层/批处理/单任务成本与单位经济/预算上限与成本治理)、价值度量与结果定价(价值指标怎么选/北极星指标/席位用量与结果三种定价/基线与反事实/价值实现周期/从采纳率到价值兑现/别被虚荣指标骗了)、数据飞轮与冷启动(数据飞轮是什么/冷启动/反馈闭环/人工反馈的价值与成本/合成数据/数据标注与口径统一)、人机协同与组织适配(增强而非替代/人机分工怎么划/岗位重塑/审核负荷/自动化偏见/技能迁移与能力地图/采纳率与变革曲线)、安全与合规(知你的智能体 KYA/提示词注入/数据泄露与个人信息/越狱与对抗输入/智能体权限最小化/审计留痕与可追溯/合规审查与责任界定)、ROI 论证与汇报(ROI 到底怎么算/总拥有成本/回收期与净现值/收益量化/从试点到规模化/怎么向干系人汇报)、实战案例与失败复盘(概念验证与试点/案例库怎么攒/事后复盘怎么做/常见反模式/失败案例拆解/规模化推广的坑/能力建设路线图)。15 模块 101 课 115 术语,五段式含想一想;含 Token 成本与调用量测算器/RAG 检索质量与上下文预算测算器/评测集与指标设计器/灰度分流与效果显著性估算器/AI 项目 ROI 测算器/人工替代与效率增益测算器/失败模式自诊器七个互动工具。浅色冷白微蓝墨蓝+深色深青黑电光青柠双主题、首页从 Demo 到生产流水线主图与流动脉冲动效、纯静态离线。本站为通识科普,涉模型能力、平台功能、计费口径与合规要求之处以所用平台官方文档与现行有效文件为准,不构成工程方案、采购决策、投资测算或合规依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('aipe.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    AI 应用工程 <small>· AI Application Engineering</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="AIPE.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 10 月</b>。涉及模型能力、平台功能、计费方式、评测方法与合规要求的表述，一律以所用平台的官方文档、企业技术规范、现行有效的国家标准与主管部门文件为准，并会随技术演进与监管要求而变化。<b>本站不构成工程方案、采购决策、投资测算或合规依据。</b>具体项目请以设计文档、商务报价、企业制度与法务意见为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-ai-engineering.js"></script>
+<script src="content/guide/03-model-vs-application.js"></script>
+<script src="content/guide/04-learning-path.js"></script>
+<script src="content/gap/01-why-demo-fails.js"></script>
+<script src="content/gap/02-happy-path.js"></script>
+<script src="content/gap/03-distribution-shift.js"></script>
+<script src="content/gap/04-long-tail.js"></script>
+<script src="content/gap/05-failure-modes.js"></script>
+<script src="content/gap/06-hallucination-nondeterminism.js"></script>
+<script src="content/gap/07-guardrails.js"></script>
+<script src="content/scoping/01-screening.js"></script>
+<script src="content/scoping/02-task-decomposition.js"></script>
+<script src="content/scoping/03-unit-of-work.js"></script>
+<script src="content/scoping/04-acceptance-criteria.js"></script>
+<script src="content/scoping/05-tolerance-hitl.js"></script>
+<script src="content/scoping/06-ai-fit.js"></script>
+<script src="content/scoping/07-change-management.js"></script>
+<script src="content/harness/01-what-is-harness.js"></script>
+<script src="content/harness/02-orchestration.js"></script>
+<script src="content/harness/03-prompt-and-template.js"></script>
+<script src="content/harness/04-tool-calling.js"></script>
+<script src="content/harness/05-agent-loop.js"></script>
+<script src="content/harness/06-workflow-graph.js"></script>
+<script src="content/harness/07-output-validation.js"></script>
+<script src="content/harness/08-retry-fallback.js"></script>
+<script src="content/context/01-context-window.js"></script>
+<script src="content/context/02-why-rag.js"></script>
+<script src="content/context/03-chunking.js"></script>
+<script src="content/context/04-embedding-retrieval.js"></script>
+<script src="content/context/05-rerank.js"></script>
+<script src="content/context/06-grounding-citation.js"></script>
+<script src="content/context/07-memory.js"></script>
+<script src="content/eval/01-why-eval.js"></script>
+<script src="content/eval/02-eval-set-design.js"></script>
+<script src="content/eval/03-golden-set.js"></script>
+<script src="content/eval/04-offline-online.js"></script>
+<script src="content/eval/05-llm-as-judge.js"></script>
+<script src="content/eval/06-precision-recall.js"></script>
+<script src="content/eval/07-regression.js"></script>
+<script src="content/eval/08-eval-driven-dev.js"></script>
+<script src="content/observability/01-what-observability.js"></script>
+<script src="content/observability/02-tracing.js"></script>
+<script src="content/observability/03-token-accounting.js"></script>
+<script src="content/observability/04-drift-monitoring.js"></script>
+<script src="content/observability/05-quality-sampling.js"></script>
+<script src="content/observability/06-alerting.js"></script>
+<script src="content/observability/07-incident-triage.js"></script>
+<script src="content/rollout/01-release-strategy.js"></script>
+<script src="content/rollout/02-shadow-mode.js"></script>
+<script src="content/rollout/03-canary.js"></script>
+<script src="content/rollout/04-ab-test.js"></script>
+<script src="content/rollout/05-significance.js"></script>
+<script src="content/rollout/06-rollback-gate.js"></script>
+<script src="content/cost/01-token-economics.js"></script>
+<script src="content/cost/02-input-output.js"></script>
+<script src="content/cost/03-caching.js"></script>
+<script src="content/cost/04-model-tiering.js"></script>
+<script src="content/cost/05-batch-offline.js"></script>
+<script src="content/cost/06-cost-per-task.js"></script>
+<script src="content/cost/07-budget-control.js"></script>
+<script src="content/value/01-value-metric.js"></script>
+<script src="content/value/02-north-star.js"></script>
+<script src="content/value/03-pricing-models.js"></script>
+<script src="content/value/04-baseline-counterfactual.js"></script>
+<script src="content/value/05-time-to-value.js"></script>
+<script src="content/value/06-adoption-to-value.js"></script>
+<script src="content/value/07-avoiding-vanity.js"></script>
+<script src="content/flywheel/01-what-flywheel.js"></script>
+<script src="content/flywheel/02-cold-start.js"></script>
+<script src="content/flywheel/03-feedback-loop.js"></script>
+<script src="content/flywheel/04-human-feedback.js"></script>
+<script src="content/flywheel/05-synthetic-data.js"></script>
+<script src="content/flywheel/06-labeling-quality.js"></script>
+<script src="content/org/01-augment-not-replace.js"></script>
+<script src="content/org/02-human-ai-split.js"></script>
+<script src="content/org/03-role-redesign.js"></script>
+<script src="content/org/04-review-workload.js"></script>
+<script src="content/org/05-automation-bias.js"></script>
+<script src="content/org/06-skill-shift.js"></script>
+<script src="content/org/07-adoption-curve.js"></script>
+<script src="content/security/01-kya.js"></script>
+<script src="content/security/02-prompt-injection.js"></script>
+<script src="content/security/03-data-leakage.js"></script>
+<script src="content/security/04-jailbreak.js"></script>
+<script src="content/security/05-agent-permission.js"></script>
+<script src="content/security/06-audit-trail.js"></script>
+<script src="content/security/07-compliance.js"></script>
+<script src="content/roi/01-roi-basics.js"></script>
+<script src="content/roi/02-tco.js"></script>
+<script src="content/roi/03-payback-npv.js"></script>
+<script src="content/roi/04-benefit-quantification.js"></script>
+<script src="content/roi/05-pilot-to-scale.js"></script>
+<script src="content/roi/06-reporting.js"></script>
+<script src="content/practice/01-poc-to-pilot.js"></script>
+<script src="content/practice/02-case-library.js"></script>
+<script src="content/practice/03-postmortem.js"></script>
+<script src="content/practice/04-antipatterns.js"></script>
+<script src="content/practice/05-failure-stories.js"></script>
+<script src="content/practice/06-scale-up.js"></script>
+<script src="content/practice/07-roadmap.js"></script>
+<!--LESSONS-->
+</body>
+</html>
