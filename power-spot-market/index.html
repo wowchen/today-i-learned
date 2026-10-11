@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>电力现货与交易实务 · 出清与定价 · 报价策略 · 结算与偏差 · 辅助服务 · 容量机制</title>
+<meta name="description" content="大白话讲透电力现货与交易实务(科普通识,内容基线 2026 年 10 月):导览(怎么用这个站/现货交易是什么/和电力市场通识有什么不同/学习路线)、现货市场基础(为什么有现货/与中长期的关系/市场体系/供需平衡与物理约束/边际成本与优先次序/节点电价与分区电价/价格上下限)、出清与定价(机组组合/经济调度/边际机组定价/安全约束出清/阻塞与再调度/日前出清/不平衡资金)、报价与策略(报价三要素/成本与机会成本/分段报价/报价限额/市场力/风险偏好/报价复盘)、结算与偏差(结算流程/双结算/偏差来源/偏差考核/正负偏差/与中长期衔接/不平衡电量/看懂结算单)、交易实务(交易员的一天/中长期签约/现货申报/日前与日内/曲线交易/交易纪律/交易系统)、售电公司运营(怎么赚钱/购售电匹配/客户结构与套餐/偏差管理/代购电/风险对冲/退出与清算)、风险与对冲(价格风险/电量风险/差价合约/金融输电权/期权与对冲/保证金与违约/风控体系)、辅助服务市场(辅助服务是什么/调频与 AGC/调峰/备用/无功/黑启动/定价与费用分摊)、容量机制(为什么需要/缺失资金/容量电价与补偿/容量市场/稀缺定价/机制比较)、绿电与现货(绿电怎么参与/环境属性/绿证与现货/新能源入市/报价下限与负电价/弃风弃光)、预测与数据(负荷预测/功率预测/价格预测/气象数据/预测误差/数据质量/预测系统/情景分析)、监管与合规(市场监管/信息披露/市场力认定与抑制/违规与处理/合规体系/争议处理/信用管理)、案例复盘(广东/山西/山东/甘肃与浙江/负电价与极端价格/试运行/复盘方法)、实战与成长(交易员能力/每日复盘/指标看板/团队配置/模拟交易/职业路径/常见错误)。15 模块 100 课 110 术语,五段式含想一想;含购电成本与现货占比测算器/报价中标与收益测算器/偏差考核测算器/辅助服务收益测算器/容量需求与缺失资金测算器/价格预测与敞口成本测算器/交易敞口与风险测算器七个互动工具。浅色冷白灰红绛红+深色深褐黑亮桃红双主题、首页报价阶梯与出清价相交图与沿阶梯脉冲动效、纯静态离线。本站为通识科普,涉市场规则、出清机制、报价限额、结算口径与考核标准之处以现行市场规则、结算办法与交易中心公告为准,不构成交易、报价、投资、结算或法律依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('spot.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    电力现货与交易实务 <small>· Electricity Spot Market and Trading</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="SPOT.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 10 月</b>。涉及市场规则、出清机制、报价限额、结算口径、考核标准与价格水平的表述，一律以现行有效的市场规则、结算办法、交易中心公告与主管部门文件为准，并会随市场建设与政策调整而变化。<b>本站不构成交易决策、报价、投资测算、结算或法律依据。</b>具体工作请以现行市场规则、交易中心细则与企业实际台账为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-spot.js"></script>
+<script src="content/guide/03-spot-vs-general.js"></script>
+<script src="content/guide/04-learning-path.js"></script>
+<script src="content/spotbasics/01-why-spot.js"></script>
+<script src="content/spotbasics/02-spot-and-forward.js"></script>
+<script src="content/spotbasics/03-market-map.js"></script>
+<script src="content/spotbasics/04-balance-and-limits.js"></script>
+<script src="content/spotbasics/05-cost-and-merit.js"></script>
+<script src="content/spotbasics/06-nodal-zonal.js"></script>
+<script src="content/spotbasics/07-price-cap.js"></script>
+<script src="content/clearing/01-unit-commitment.js"></script>
+<script src="content/clearing/02-economic-dispatch.js"></script>
+<script src="content/clearing/03-marginal-pricing.js"></script>
+<script src="content/clearing/04-security-constrained.js"></script>
+<script src="content/clearing/05-congestion-redispatch.js"></script>
+<script src="content/clearing/06-day-ahead-run.js"></script>
+<script src="content/clearing/07-uplift.js"></script>
+<script src="content/bidding/01-bid-three.js"></script>
+<script src="content/bidding/02-cost-oppcost.js"></script>
+<script src="content/bidding/03-segmented-bid.js"></script>
+<script src="content/bidding/04-bid-limits.js"></script>
+<script src="content/bidding/05-market-power.js"></script>
+<script src="content/bidding/06-risk-appetite.js"></script>
+<script src="content/bidding/07-bid-review.js"></script>
+<script src="content/settlement/01-settlement-process.js"></script>
+<script src="content/settlement/02-two-settlement.js"></script>
+<script src="content/settlement/03-where-deviation-comes.js"></script>
+<script src="content/settlement/04-deviation-penalty.js"></script>
+<script src="content/settlement/05-forward-spot-linking.js"></script>
+<script src="content/settlement/06-imbalance-allocation.js"></script>
+<script src="content/settlement/07-read-settlement-statement.js"></script>
+<script src="content/trading/01-trader-day.js"></script>
+<script src="content/trading/02-forward-contracting.js"></script>
+<script src="content/trading/03-spot-declaration.js"></script>
+<script src="content/trading/04-day-ahead-intraday.js"></script>
+<script src="content/trading/05-curve-trading.js"></script>
+<script src="content/trading/06-trading-discipline.js"></script>
+<script src="content/trading/07-trading-system.js"></script>
+<script src="content/retailer/01-how-retailer-earns.js"></script>
+<script src="content/retailer/02-purchase-sale-match.js"></script>
+<script src="content/retailer/03-customer-mix-and-package.js"></script>
+<script src="content/retailer/04-deviation-management.js"></script>
+<script src="content/retailer/05-proxy-purchase.js"></script>
+<script src="content/retailer/06-hedging-for-retailer.js"></script>
+<script src="content/retailer/07-exit-and-clearing.js"></script>
+<script src="content/risk/01-price-risk.js"></script>
+<script src="content/risk/02-volume-risk.js"></script>
+<script src="content/risk/03-contract-for-difference.js"></script>
+<script src="content/risk/04-financial-transmission-right.js"></script>
+<script src="content/risk/05-options-and-hedging.js"></script>
+<script src="content/risk/06-margin-and-default.js"></script>
+<script src="content/risk/07-risk-control-and-stress-test.js"></script>
+<script src="content/ancillary/01-what-is-ancillary.js"></script>
+<script src="content/ancillary/02-frequency-regulation-agc.js"></script>
+<script src="content/ancillary/03-peak-shaving.js"></script>
+<script src="content/ancillary/04-reserve.js"></script>
+<script src="content/ancillary/05-reactive-power-voltage.js"></script>
+<script src="content/ancillary/06-black-start.js"></script>
+<script src="content/ancillary/07-ancillary-pricing-allocation.js"></script>
+<script src="content/capacity/01-why-capacity.js"></script>
+<script src="content/capacity/02-missing-money.js"></script>
+<script src="content/capacity/03-capacity-price-compensation.js"></script>
+<script src="content/capacity/04-capacity-market.js"></script>
+<script src="content/capacity/05-scarcity-pricing.js"></script>
+<script src="content/capacity/06-mechanism-comparison.js"></script>
+<script src="content/green/01-green-in-spot.js"></script>
+<script src="content/green/02-environmental-attribute.js"></script>
+<script src="content/green/03-certificate-and-spot.js"></script>
+<script src="content/green/04-renewable-entry.js"></script>
+<script src="content/green/05-bid-floor-negative.js"></script>
+<script src="content/green/06-curtailment-cause.js"></script>
+<script src="content/forecast/01-load-forecast.js"></script>
+<script src="content/forecast/02-renewable-forecast.js"></script>
+<script src="content/forecast/03-price-forecast.js"></script>
+<script src="content/forecast/04-weather-data.js"></script>
+<script src="content/forecast/05-forecast-error-cost.js"></script>
+<script src="content/forecast/06-data-quality.js"></script>
+<script src="content/forecast/07-forecast-system-scenario.js"></script>
+<script src="content/regulation/01-market-regulation.js"></script>
+<script src="content/regulation/02-information-disclosure.js"></script>
+<script src="content/regulation/03-market-power-mitigation.js"></script>
+<script src="content/regulation/04-violation.js"></script>
+<script src="content/regulation/05-compliance.js"></script>
+<script src="content/regulation/06-dispute.js"></script>
+<script src="content/regulation/07-credit-management.js"></script>
+<script src="content/case/01-guangdong-spot.js"></script>
+<script src="content/case/02-shanxi-spot.js"></script>
+<script src="content/case/03-shandong-spot.js"></script>
+<script src="content/case/04-gansu-zhejiang.js"></script>
+<script src="content/case/05-negative-price.js"></script>
+<script src="content/case/06-pilot-run.js"></script>
+<script src="content/case/07-case-review.js"></script>
+<script src="content/practice/01-trader-model.js"></script>
+<script src="content/practice/02-daily-review.js"></script>
+<script src="content/practice/03-kpi-dashboard.js"></script>
+<script src="content/practice/04-team-setup.js"></script>
+<script src="content/practice/05-simulation.js"></script>
+<script src="content/practice/06-career-path.js"></script>
+<script src="content/practice/07-common-mistakes.js"></script>
+<!--LESSONS-->
+</body>
+</html>

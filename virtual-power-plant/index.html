@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>虚拟电厂 · 可调节资源 · 需求响应 · 辅助服务 · 聚合交易 · 商业模式</title>
+<meta name="description" content="大白话讲透虚拟电厂(科普通识,内容基线 2026 年 10 月):导览(怎么用这个站/虚拟电厂是什么/和微电网与需求响应有什么不同/学习路线)、虚拟电厂基础(定义/为什么需要/与微电网的区别/与需求响应的区别/与储能电站的区别/负荷型与电源型与储能型/发展历程)、可调节资源(可中断负荷/空调负荷/电动汽车/储能/分布式光伏/柴发与自备电厂/资源盘点/资源画像)、平台与架构(主站/聚合平台/边缘终端/通信协议/量测体系/控制链路/信息安全)、聚合与调节能力(可调容量评估/基线负荷/调节能力测算/响应速度/持续时间/可调次数/聚合算法/不确定性),需求响应(邀约型/实时型/价格型/补贴机制/响应考核/基线核定/收益分配)、参与辅助服务(调频/调峰/备用/一次调频/无功/结算/准入条件)、参与现货市场(参与路径/报量报价/聚合报价/结算/偏差处理/风险/试点情况)、交易与商业模式(谁付费/收益来源/分成模式/聚合商模式/业主模式/合同设计/盈利测算/可持续性)、标准与规范(国家标准/接口规范/聚合商准入/资源接入规范/数据规范/互操作)、电动汽车与充电(V1G/V2G/V2H/有序充电/光储充/充电桩聚合/车网互动)、工商业与园区(园区级聚合/工商业负荷/中央空调/空压机/生产线可中断/合同能源管理/收益)、居民与社区(居民负荷/智能家居/家庭储能/社区聚合/参与路径/收益)、国内外实践(美国/欧洲/澳洲/日本/国内试点/差异比较/经验借鉴)、项目实战(落地步骤/资源签约/平台选型/收益测算案例/运行管理/常见问题/能力地图)。15 模块 104 课 113 术语,五段式含想一想;含可调容量聚合测算器/需求响应收益测算器/基线负荷与核减测算器/聚合商分成测算器/参与辅助服务收益测算器/车网互动收益测算器/虚拟电厂项目投资测算器七个互动工具。浅色冷白紫灰深紫罗兰+深色深紫黑浅紫双主题、首页资源聚合图与沿连线脉冲动效、纯静态离线。本站为通识科普,涉聚合商准入、需求响应补偿与市场参与规则之处以现行国家标准、主管部门文件与市场规则为准,不构成项目决策、投资测算、报价或结算依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('vpp.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    虚拟电厂 <small>· Virtual Power Plant</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="VPP.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 10 月</b>。涉及聚合商准入、资源接入规范、需求响应补偿、辅助服务与市场参与规则的表述，一律以现行有效的国家标准、主管部门文件、市场规则与结算办法为准，并会随试点推进与政策调整而变化。<b>本站不构成项目决策、投资测算、报价、结算或法律依据。</b>具体项目请以现行规则、交易中心细则与真实运行数据为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-vpp-does.js"></script>
+<script src="content/guide/03-vpp-vs-power-system.js"></script>
+<script src="content/guide/04-learning-path.js"></script>
+<script src="content/basics/01-what-is-vpp.js"></script>
+<script src="content/basics/02-why-vpp.js"></script>
+<script src="content/basics/03-vpp-history.js"></script>
+<script src="content/basics/04-vpp-vs-microgrid.js"></script>
+<script src="content/basics/05-vpp-vs-dr.js"></script>
+<script src="content/basics/06-vpp-vs-storage.js"></script>
+<script src="content/basics/07-load-and-generation-type.js"></script>
+<script src="content/resources/01-resource-inventory.js"></script>
+<script src="content/resources/02-interruptible-load.js"></script>
+<script src="content/resources/03-air-conditioning.js"></script>
+<script src="content/resources/04-ev-resource.js"></script>
+<script src="content/resources/05-storage-resource.js"></script>
+<script src="content/resources/06-distributed-pv.js"></script>
+<script src="content/resources/07-diesel-resource.js"></script>
+<script src="content/resources/08-self-supply-plant.js"></script>
+<script src="content/platform/01-architecture-layer.js"></script>
+<script src="content/platform/02-main-station.js"></script>
+<script src="content/platform/03-aggregation-platform.js"></script>
+<script src="content/platform/04-edge-terminal.js"></script>
+<script src="content/platform/05-communication-protocol.js"></script>
+<script src="content/platform/06-measurement-system.js"></script>
+<script src="content/platform/07-control-link.js"></script>
+<script src="content/platform/08-security-protection.js"></script>
+<script src="content/aggregation/01-capacity-assessment-intro.js"></script>
+<script src="content/aggregation/02-baseline-load.js"></script>
+<script src="content/aggregation/03-response-speed.js"></script>
+<script src="content/aggregation/04-duration.js"></script>
+<script src="content/aggregation/05-call-frequency.js"></script>
+<script src="content/aggregation/06-aggregation-algorithm.js"></script>
+<script src="content/aggregation/07-uncertainty.js"></script>
+<script src="content/aggregation/08-response-accuracy.js"></script>
+<script src="content/dr/01-invited-dr.js"></script>
+<script src="content/dr/02-realtime-dr.js"></script>
+<script src="content/dr/03-price-based-dr.js"></script>
+<script src="content/dr/04-baseline-method.js"></script>
+<script src="content/dr/05-response-volume.js"></script>
+<script src="content/dr/06-subsidy-mechanism.js"></script>
+<script src="content/dr/07-revenue-sharing.js"></script>
+<script src="content/ancillary/01-ancillary-overview.js"></script>
+<script src="content/ancillary/02-frequency-regulation.js"></script>
+<script src="content/ancillary/03-primary-frequency.js"></script>
+<script src="content/ancillary/04-peak-and-reserve.js"></script>
+<script src="content/ancillary/05-reactive-service.js"></script>
+<script src="content/ancillary/06-performance-score.js"></script>
+<script src="content/ancillary/07-settlement.js"></script>
+<script src="content/spot/01-spot-path.js"></script>
+<script src="content/spot/02-quantity-price-bid.js"></script>
+<script src="content/spot/03-aggregated-bid.js"></script>
+<script src="content/spot/04-spot-settlement.js"></script>
+<script src="content/spot/05-deviation-handling.js"></script>
+<script src="content/spot/06-spot-risk.js"></script>
+<script src="content/spot/07-pilot-situation.js"></script>
+<script src="content/market/01-who-pays.js"></script>
+<script src="content/market/02-revenue-source.js"></script>
+<script src="content/market/03-split-model.js"></script>
+<script src="content/market/04-aggregator-model.js"></script>
+<script src="content/market/05-owner-model.js"></script>
+<script src="content/market/06-contract-design.js"></script>
+<script src="content/market/07-profit-calculation.js"></script>
+<script src="content/market/08-sustainability.js"></script>
+<script src="content/protocol/01-national-standard.js"></script>
+<script src="content/protocol/02-interface-spec.js"></script>
+<script src="content/protocol/03-aggregator-access.js"></script>
+<script src="content/protocol/04-resource-access.js"></script>
+<script src="content/protocol/05-data-spec.js"></script>
+<script src="content/protocol/06-interoperability.js"></script>
+<script src="content/ev/01-charging-load.js"></script>
+<script src="content/ev/02-orderly-charging.js"></script>
+<script src="content/ev/03-v2g.js"></script>
+<script src="content/ev/04-v2h.js"></script>
+<script src="content/ev/05-charging-aggregation.js"></script>
+<script src="content/ev/06-pv-storage-charging.js"></script>
+<script src="content/ev/07-v2x.js"></script>
+<script src="content/industry/01-industrial-load.js"></script>
+<script src="content/industry/02-park-vpp.js"></script>
+<script src="content/industry/03-central-ac.js"></script>
+<script src="content/industry/04-air-compressor.js"></script>
+<script src="content/industry/05-production-line.js"></script>
+<script src="content/industry/06-load-management.js"></script>
+<script src="content/industry/07-industrial-revenue.js"></script>
+<script src="content/residential/01-resident-potential.js"></script>
+<script src="content/residential/02-home-devices.js"></script>
+<script src="content/residential/03-home-storage.js"></script>
+<script src="content/residential/04-community-aggregation.js"></script>
+<script src="content/residential/05-resident-path.js"></script>
+<script src="content/residential/06-resident-revenue.js"></script>
+<script src="content/overseas/01-us-practice.js"></script>
+<script src="content/overseas/02-eu-practice.js"></script>
+<script src="content/overseas/03-australia-practice.js"></script>
+<script src="content/overseas/04-japan-practice.js"></script>
+<script src="content/overseas/05-china-pilot.js"></script>
+<script src="content/overseas/06-comparison.js"></script>
+<script src="content/overseas/07-lesson-learned.js"></script>
+<script src="content/practice/01-rollout-steps.js"></script>
+<script src="content/practice/02-resource-contract.js"></script>
+<script src="content/practice/03-platform-selection.js"></script>
+<script src="content/practice/04-revenue-case.js"></script>
+<script src="content/practice/05-operation-management.js"></script>
+<script src="content/practice/06-common-problem.js"></script>
+<script src="content/practice/07-capability-map.js"></script>
+<!--LESSONS-->
+</body>
+</html>
