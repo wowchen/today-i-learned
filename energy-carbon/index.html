@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>能源政策与碳市场 · 双碳目标 · 电改与电价 · 碳核算 · 碳市场 · 绿证绿电 · CCER · CBAM</title>
+<meta name="description" content="大白话讲透能源政策与碳市场(科普通识,内容基线 2026 年 10 月):导览(怎么用这个站/能源政策与碳市场到底是什么/为什么人人都该懂一点/学习路线)、能源政策基础(能源政策是什么/能源法/能源安全/能源转型/能源结构与非化石能源占比/从能耗双控到碳排放双控/能源规划与五年规划)、电力体制改革(电为什么要改/厂网分开/输配分开与增量配电/电力市场体系/中长期交易/现货市场/辅助服务市场)、电价机制(电价怎么构成/标杆电价/输配电价/两部制电价/峰谷分时电价/容量电价/电价改革往哪走)、可再生能源政策(为什么补贴/上网电价补贴与退坡/平价上网/竞争性配置/消纳保障与弃风弃光/配额制与绿证/下一步)、双碳目标与路径(双碳目标从哪来/1+N 政策体系/碳达峰十大行动/能源结构调整/重点行业达峰/碳汇/CCUS/公正转型)、碳排放核算(为什么先算清楚/温室气体有哪些/核算标准体系/排放因子/组织边界与运营边界/范围一二三/MRV/碳盘查怎么做)、碳市场原理(为什么用市场手段/总量控制与交易/配额从哪来/配额怎么分:基准线法与历史法/碳价怎么形成/碳泄漏/抵消机制)、全国碳市场(建设历程/覆盖行业/纳入门槛/配额分配方案/交易规则/履约清缴与处罚/核查与数据质量/扩容)、地方碳市场试点(试点都在试什么/北京与上海/广东与深圳/湖北与天津/有偿分配与产品创新/试点怎么并入全国)、CCER 与自愿减排(CCER 是什么/方法学/额外性与基准线/项目类型/林业碳汇/审定核查与签发/怎么用与注销)、绿证与绿电(绿电绿在哪/绿电交易/证电合一与分离/消纳责任权重/绿证核发与交易/绿电与碳市场衔接/RE100 与企业采购)、碳资产与碳金融(碳为什么是资产/碳质押/碳回购与远期/碳基金/碳保险/碳资产记账/碳金融风险)、国际规则与碳关税(巴黎协定/NDC/欧盟碳市场/CBAM/对我们的影响/第六条与国际碳市场链接/隐含排放)、碳管理与实务(碳管理岗位/碳盘查报告/碳足迹核算/碳中和认证/碳信息披露/碳管理体系/减排成本与决策)。15 模块 104 课 113 术语,五段式含想一想;含碳排放量测算器/配额缺口与履约成本测算器/碳边境调节 CBAM 测算器/绿电与绿证收益测算器/消纳责任权重达标测算器/碳达峰时间与路径测算器/减排措施成本排序器七个互动工具。浅色冷白微绿墨绿+深色深墨绿黑亮叶绿双主题、首页「碳市场与减排路径」配额—排放缺口折线图与沿曲线脉冲动效、底纹碳分子链锯齿纹、纯静态离线。本站为通识科普,涉法规条文、政策口径、核算标准与碳市场规则之处以现行有效文件为准,不构成投资、交易、报价、审计或法律依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('enc.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    能源政策与碳市场 <small>· Energy Policy and Carbon Market</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="ENC.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 10 月</b>。涉及法律法条、政策口径、电价机制、碳市场交易规则、温室气体核算标准与国际碳规则(如 CBAM)的表述，一律以现行有效的法律、行政法规、部门规章、国家标准(GB)与主管机构发布的现行文件为准，并会随规则更新与市场演进变化。<b>本站不构成投资、交易、报价、审计或法律依据，也不构成任何交易策略建议。</b>具体工作请以企业真实台账、现行核算指南、主管机构规则与真实市场数据为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-energy-policy.js"></script>
+<script src="content/guide/03-why-it-matters.js"></script>
+<script src="content/guide/04-how-to-learn.js"></script>
+<script src="content/basics/01-what-is-policy.js"></script>
+<script src="content/basics/02-energy-law.js"></script>
+<script src="content/basics/03-energy-security.js"></script>
+<script src="content/basics/04-energy-transition.js"></script>
+<script src="content/basics/05-energy-structure.js"></script>
+<script src="content/basics/06-dual-control.js"></script>
+<script src="content/basics/07-energy-planning.js"></script>
+<script src="content/powerreform/01-why-reform.js"></script>
+<script src="content/powerreform/02-separation.js"></script>
+<script src="content/powerreform/03-transmission-distribution.js"></script>
+<script src="content/powerreform/04-market-system.js"></script>
+<script src="content/powerreform/05-medium-long-term.js"></script>
+<script src="content/powerreform/06-spot-market.js"></script>
+<script src="content/powerreform/07-ancillary-service.js"></script>
+<script src="content/pricing/01-price-anatomy.js"></script>
+<script src="content/pricing/02-benchmark-price.js"></script>
+<script src="content/pricing/03-transmission-price.js"></script>
+<script src="content/pricing/04-two-part-tariff.js"></script>
+<script src="content/pricing/05-tou-price.js"></script>
+<script src="content/pricing/06-capacity-price.js"></script>
+<script src="content/pricing/07-price-reform-trend.js"></script>
+<script src="content/renewable/01-why-support.js"></script>
+<script src="content/renewable/02-fit-and-retreat.js"></script>
+<script src="content/renewable/03-grid-parity.js"></script>
+<script src="content/renewable/04-competitive-allocation.js"></script>
+<script src="content/renewable/05-consumption-guarantee.js"></script>
+<script src="content/renewable/06-rps-and-green-cert.js"></script>
+<script src="content/renewable/07-renewable-trend.js"></script>
+<script src="content/dualcarbon/01-dual-carbon-goal.js"></script>
+<script src="content/dualcarbon/02-one-plus-n.js"></script>
+<script src="content/dualcarbon/03-peak-action.js"></script>
+<script src="content/dualcarbon/04-energy-adjust.js"></script>
+<script src="content/dualcarbon/05-industry-peak.js"></script>
+<script src="content/dualcarbon/06-carbon-sink.js"></script>
+<script src="content/dualcarbon/07-ccus.js"></script>
+<script src="content/dualcarbon/08-just-transition.js"></script>
+<script src="content/accounting/01-why-account.js"></script>
+<script src="content/accounting/02-ghg-and-gwp.js"></script>
+<script src="content/accounting/03-standards.js"></script>
+<script src="content/accounting/04-emission-factor.js"></script>
+<script src="content/accounting/05-boundary.js"></script>
+<script src="content/accounting/06-three-scopes.js"></script>
+<script src="content/accounting/07-mrv.js"></script>
+<script src="content/accounting/08-inventory-process.js"></script>
+<script src="content/carbonmarket/01-why-market.js"></script>
+<script src="content/carbonmarket/02-cap-and-trade.js"></script>
+<script src="content/carbonmarket/03-allowance.js"></script>
+<script src="content/carbonmarket/04-allocation-methods.js"></script>
+<script src="content/carbonmarket/05-carbon-price.js"></script>
+<script src="content/carbonmarket/06-leakage.js"></script>
+<script src="content/carbonmarket/07-offset.js"></script>
+<script src="content/nationalets/01-history.js"></script>
+<script src="content/nationalets/02-coverage.js"></script>
+<script src="content/nationalets/03-threshold.js"></script>
+<script src="content/nationalets/04-allocation-plan.js"></script>
+<script src="content/nationalets/05-trading-rules.js"></script>
+<script src="content/nationalets/06-compliance.js"></script>
+<script src="content/nationalets/07-verification.js"></script>
+<script src="content/nationalets/08-expansion.js"></script>
+<script src="content/pilotets/01-pilot-overview.js"></script>
+<script src="content/pilotets/02-beijing-shanghai.js"></script>
+<script src="content/pilotets/03-guangdong-shenzhen.js"></script>
+<script src="content/pilotets/04-hubei-tianjin.js"></script>
+<script src="content/pilotets/05-auction-and-innovation.js"></script>
+<script src="content/pilotets/06-linkage.js"></script>
+<script src="content/ccer/01-what-is-ccer.js"></script>
+<script src="content/ccer/02-methodology.js"></script>
+<script src="content/ccer/03-additionality.js"></script>
+<script src="content/ccer/04-project-types.js"></script>
+<script src="content/ccer/05-forestry.js"></script>
+<script src="content/ccer/06-issuance.js"></script>
+<script src="content/ccer/07-trading-and-use.js"></script>
+<script src="content/greenpower/01-what-is-green-power.js"></script>
+<script src="content/greenpower/02-green-power-trading.js"></script>
+<script src="content/greenpower/03-unified-vs-separate.js"></script>
+<script src="content/greenpower/04-consumption-weight.js"></script>
+<script src="content/greenpower/05-certificate-issuance.js"></script>
+<script src="content/greenpower/06-green-and-carbon.js"></script>
+<script src="content/greenpower/07-re100.js"></script>
+<script src="content/carbonfinance/01-carbon-asset.js"></script>
+<script src="content/carbonfinance/02-carbon-pledge.js"></script>
+<script src="content/carbonfinance/03-carbon-repo-forward.js"></script>
+<script src="content/carbonfinance/04-carbon-fund.js"></script>
+<script src="content/carbonfinance/05-carbon-insurance.js"></script>
+<script src="content/carbonfinance/06-carbon-accounting.js"></script>
+<script src="content/carbonfinance/07-carbon-finance-risk.js"></script>
+<script src="content/international/01-paris-agreement.js"></script>
+<script src="content/international/02-ndc.js"></script>
+<script src="content/international/03-eu-ets.js"></script>
+<script src="content/international/04-cbam.js"></script>
+<script src="content/international/05-cbam-impact.js"></script>
+<script src="content/international/06-article-6.js"></script>
+<script src="content/international/07-embedded-emission.js"></script>
+<script src="content/practice/01-carbon-officer.js"></script>
+<script src="content/practice/02-inventory-report.js"></script>
+<script src="content/practice/03-carbon-footprint.js"></script>
+<script src="content/practice/04-neutral-certification.js"></script>
+<script src="content/practice/05-disclosure.js"></script>
+<script src="content/practice/06-carbon-system.js"></script>
+<script src="content/practice/07-abatement-cost.js"></script>
+<!--LESSONS-->
+</body>
+</html>
