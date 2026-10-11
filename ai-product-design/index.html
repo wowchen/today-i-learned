@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-fs="m">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 产品与交互设计 · 从 Demo 到产品 · 用户研究 · 交互范式 · 提示词 · 原型 · 指标</title>
+<meta name="description" content="大白话讲透 AI 产品与交互设计(科普通识,内容基线 2026 年 10 月):导览(怎么用这个站/AI 产品到底是什么/AI 产品与传统软件有什么不同/学习路线)、AI 产品思维(产品思维:先想清楚给谁解决什么/用户与需求:要的是洞不是钻头/价值主张/模型-应用-交互三层怎么分工/能力边界/产品形态/商业模式)、用户研究与需求洞察(用户研究/用户访谈怎么问才问出真话/情境调查/用户画像怎么画才有用/痛点/机会点/干系人与需求分级)、场景与任务设计(任务分解/人机分工/输入输出设计/容错度决定放多少自主权/降级策略/副驾驶模式/变革管理)、交互范式(范式总览/对话式交互/生成式界面/智能体交互/多模态交互/主动式交互/可控性/渐进式披露与反馈闭环)、提示词与内容设计(提示词是产品资产/AI 人设与语气/系统提示/结构化输出/少样本示例/空状态与引导/微文案)、信任与预期管理(用户为什么不信任 AI/不确定性怎么表达/引用溯源/可解释性/纠错与撤销/人在回路/透明度与预期管理)、原型与快速验证(为什么先搭个假的试试/低保真原型/提示词原型/绿野仙踪法/可用性测试/问题严重度分级/迭代循环)、智能体产品设计(智能体是什么/能力与工具/智能体记忆/多步任务/权限与确认/任务编排与可视化/智能体失败/多智能体与自主性等级)、多模态交互(多模态概览/语音交互/视觉交互/视频理解/实时交互/无障碍/设备与场景)、个性化与记忆(为什么要个性化/偏好模型怎么建/记忆机制/偏好设置/隐私边界与隐私设计/冷启动/个性化度量)、产品指标与体验度量(指标分层/北极星指标/采纳率/留存/任务完成率/体验度量/别被虚荣指标骗了)、伦理、无障碍与包容性(为什么产品经理要讲伦理/偏见与公平/无障碍与包容性设计/包容性语言与措辞/隐私设计/内容安全/责任边界与暗黑模式)、设计与研发协作(设计系统/跨职能协作/需求交付/用 AI 辅助设计/设计评审/设计债/流程治理)、实战案例与复盘(AI 产品地图/助手类案例/内容生成类案例/智能体类案例/失败案例:它们错在哪/复盘方法/能力地图与成长路线)。15 模块 104 课 114 术语,五段式含想一想;含任务适配度评估器/交互漏斗测算器/对话轮次与完成率测算器/人机协作与审核负荷测算器/无障碍对比度检查器/原型测试样本量测算器/价值与定价测算器七个互动工具。浅色冷白微粉洋红紫+深色深紫黑亮粉紫双主题、首页 AI 产品循环五节点环形主图与反馈脉冲动效、纯静态离线。本站为通识科普,涉模型能力、平台功能、设计规范与无障碍标准之处以官方文档与现行有效文件为准,不构成产品决策、投资测算、无障碍认证或合规依据。">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  // 防刷新闪烁:首帧即定主题(本地偏好优先,否则跟随系统)
+  (function(){
+    try{
+      var p = JSON.parse(localStorage.getItem('apd.progress.v1') || '{}');
+      var t = (p.prefs && p.prefs.theme) || null;
+      if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+      if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+      if(p.prefs && p.prefs.fontSize) document.documentElement.setAttribute('data-fs', p.prefs.fontSize);
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="top-bar">
+  <h1>
+    <span class="b-mark"></span>
+    AI 产品与交互设计 <small>· AI Product and Interaction Design</small>
+  </h1>
+  <nav class="nav">
+    <a class="nav-link active" href="#/">课时</a>
+    <a class="nav-link" href="#/terms">速查</a>
+    <a class="nav-link" href="#/calc">工具</a>
+    <a class="nav-link" href="#/book">收藏</a>
+    <a class="nav-link" href="#/search">搜索</a>
+    <a class="nav-link" href="#/settings">设置</a>
+    <button class="theme-btn" onclick="APD.toggleTheme()" aria-label="切换深色/浅色" title="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <a class="nav-cta" href="../">总站</a>
+  </nav>
+</div>
+
+<!-- 时效与合规声明(常驻,可关闭) -->
+<div class="notice-bar" id="noticeBar">
+  <div class="nb-inner">
+    <span class="nb-tag">技术与合规声明</span>
+    <p>本站为通识科普，<b>内容基线 2026 年 10 月</b>。涉及模型能力、平台功能、设计规范、无障碍标准与合规要求的表述，一律以所用平台官方文档、现行 WCAG 标准与现行有效文件为准，并会随技术演进与政策调整而变化。<b>本站不构成产品决策、投资测算、无障碍认证或合规依据。</b>具体产品请以真实用户研究、A/B 实验结论与企业口径为准。</p>
+    <button class="nb-close" onclick="document.getElementById('noticeBar').style.display='none'">知道了</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<!-- Engine -->
+<script src="assets/js/registry.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/sync.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/views-home.js"></script>
+<script src="assets/js/views-lesson.js"></script>
+<script src="assets/js/views-tools.js"></script>
+<script src="assets/js/engine.js"></script>
+
+<!-- Content Metadata -->
+<script src="content/modules.js"></script>
+<script src="content/terms.js"></script>
+<script src="content/guide/01-how-to-use.js"></script>
+<script src="content/guide/02-what-is-ai-product.js"></script>
+<script src="content/guide/03-ai-vs-software.js"></script>
+<script src="content/guide/04-how-to-learn.js"></script>
+<script src="content/product/01-product-thinking.js"></script>
+<script src="content/product/02-user-and-need.js"></script>
+<script src="content/product/03-value-proposition.js"></script>
+<script src="content/product/04-three-layers.js"></script>
+<script src="content/product/05-capability-boundary.js"></script>
+<script src="content/product/06-product-form.js"></script>
+<script src="content/product/07-business-model.js"></script>
+<script src="content/discovery/01-user-research.js"></script>
+<script src="content/discovery/02-interview.js"></script>
+<script src="content/discovery/03-context-inquiry.js"></script>
+<script src="content/discovery/04-persona.js"></script>
+<script src="content/discovery/05-pain-point.js"></script>
+<script src="content/discovery/06-opportunity.js"></script>
+<script src="content/discovery/07-stakeholder.js"></script>
+<script src="content/scenario/01-task-decomposition.js"></script>
+<script src="content/scenario/02-human-ai-division.js"></script>
+<script src="content/scenario/03-io-design.js"></script>
+<script src="content/scenario/04-error-tolerance.js"></script>
+<script src="content/scenario/05-fallback.js"></script>
+<script src="content/scenario/06-copilot-pattern.js"></script>
+<script src="content/scenario/07-change-management.js"></script>
+<script src="content/interaction/01-paradigm-overview.js"></script>
+<script src="content/interaction/02-conversational.js"></script>
+<script src="content/interaction/03-generative-ui.js"></script>
+<script src="content/interaction/04-agentic-ui.js"></script>
+<script src="content/interaction/05-multimodal-interaction.js"></script>
+<script src="content/interaction/06-proactive.js"></script>
+<script src="content/interaction/07-user-control.js"></script>
+<script src="content/interaction/08-progressive-disclosure.js"></script>
+<script src="content/prompt/01-prompt-as-asset.js"></script>
+<script src="content/prompt/02-persona-tone.js"></script>
+<script src="content/prompt/03-system-prompt.js"></script>
+<script src="content/prompt/04-structured-output.js"></script>
+<script src="content/prompt/05-few-shot.js"></script>
+<script src="content/prompt/06-empty-state.js"></script>
+<script src="content/prompt/07-microcopy.js"></script>
+<script src="content/trust/01-why-trust.js"></script>
+<script src="content/trust/02-uncertainty.js"></script>
+<script src="content/trust/03-citation.js"></script>
+<script src="content/trust/04-explainability.js"></script>
+<script src="content/trust/05-undo.js"></script>
+<script src="content/trust/06-human-in-the-loop.js"></script>
+<script src="content/trust/07-transparency.js"></script>
+<script src="content/prototype/01-why-prototype.js"></script>
+<script src="content/prototype/02-low-fi.js"></script>
+<script src="content/prototype/03-prompt-prototype.js"></script>
+<script src="content/prototype/04-wizard-of-oz.js"></script>
+<script src="content/prototype/05-usability-test.js"></script>
+<script src="content/prototype/06-severity.js"></script>
+<script src="content/prototype/07-iteration.js"></script>
+<script src="content/agentic/01-what-is-agent.js"></script>
+<script src="content/agentic/02-capability-and-tools.js"></script>
+<script src="content/agentic/03-memory.js"></script>
+<script src="content/agentic/04-multi-step.js"></script>
+<script src="content/agentic/05-permission.js"></script>
+<script src="content/agentic/06-orchestration.js"></script>
+<script src="content/agentic/07-failure.js"></script>
+<script src="content/agentic/08-multi-agent.js"></script>
+<script src="content/multimodal/01-multimodal-overview.js"></script>
+<script src="content/multimodal/02-voice.js"></script>
+<script src="content/multimodal/03-vision.js"></script>
+<script src="content/multimodal/04-video.js"></script>
+<script src="content/multimodal/05-realtime.js"></script>
+<script src="content/multimodal/06-accessibility.js"></script>
+<script src="content/multimodal/07-device-context.js"></script>
+<script src="content/personalization/01-why-personalize.js"></script>
+<script src="content/personalization/02-preference-model.js"></script>
+<script src="content/personalization/03-memory.js"></script>
+<script src="content/personalization/04-preference-setting.js"></script>
+<script src="content/personalization/05-privacy.js"></script>
+<script src="content/personalization/06-cold-start.js"></script>
+<script src="content/personalization/07-metric.js"></script>
+<script src="content/metrics/01-metric-hierarchy.js"></script>
+<script src="content/metrics/02-north-star.js"></script>
+<script src="content/metrics/03-adoption.js"></script>
+<script src="content/metrics/04-retention.js"></script>
+<script src="content/metrics/05-task-completion.js"></script>
+<script src="content/metrics/06-experience-metric.js"></script>
+<script src="content/metrics/07-vanity.js"></script>
+<script src="content/ethics/01-why-ethics.js"></script>
+<script src="content/ethics/02-bias.js"></script>
+<script src="content/ethics/03-accessibility.js"></script>
+<script src="content/ethics/04-inclusive-language.js"></script>
+<script src="content/ethics/05-privacy-design.js"></script>
+<script src="content/ethics/06-content-safety.js"></script>
+<script src="content/ethics/07-responsibility.js"></script>
+<script src="content/collab/01-design-system.js"></script>
+<script src="content/collab/02-cross-functional.js"></script>
+<script src="content/collab/03-handoff.js"></script>
+<script src="content/collab/04-ai-assisted.js"></script>
+<script src="content/collab/05-review.js"></script>
+<script src="content/collab/06-design-debt.js"></script>
+<script src="content/collab/07-governance.js"></script>
+<script src="content/practice/01-product-map.js"></script>
+<script src="content/practice/02-assistant-case.js"></script>
+<script src="content/practice/03-content-gen-case.js"></script>
+<script src="content/practice/04-agent-case.js"></script>
+<script src="content/practice/05-failure-review.js"></script>
+<script src="content/practice/06-postmortem.js"></script>
+<script src="content/practice/07-capability-map.js"></script>
+<!--LESSONS-->
+</body>
+</html>
